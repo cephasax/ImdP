@@ -2,6 +2,7 @@ package model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,10 +20,17 @@ import org.hibernate.annotations.CascadeType;
 @SequenceGenerator(name = "SEQ_USUARIO", initialValue = 1, allocationSize = 1, sequenceName = "seq_usuario")
 public class Usuario implements Serializable{
 
+	private static final long serialVersionUID = 6952842832271889997L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_USUARIO")
 	private int idUsuario;
 	
+	private String login;
+	private String senha;
+	private String foto;
+	private Date dataCriacao;
+		
 	@ManyToOne
 	@JoinColumn(name = "idPessoa")
 	private Pessoa pessoa;
@@ -34,7 +42,11 @@ public class Usuario implements Serializable{
 	@OneToMany(mappedBy = "usuario")
 	@Cascade({CascadeType.ALL})
 	private ArrayList<Ponto> pontos;
-
+	
+	@OneToMany(mappedBy = "usuario")
+	@Cascade({CascadeType.ALL})
+	private ArrayList<JustificativaFalta> justificasFaltas;
+	
 	public int getIdUsuario() {
 		return idUsuario;
 	}
@@ -66,6 +78,45 @@ public class Usuario implements Serializable{
 	public void setPontos(ArrayList<Ponto> pontos) {
 		this.pontos = pontos;
 	}
-	
+
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
+	public String getFoto() {
+		return foto;
+	}
+
+	public void setFoto(String foto) {
+		this.foto = foto;
+	}
+
+	public Date getDataCriacao() {
+		return dataCriacao;
+	}
+
+	public void setDataCriacao(Date dataCriacao) {
+		this.dataCriacao = dataCriacao;
+	}
+
+	public ArrayList<JustificativaFalta> getJustificasFaltas() {
+		return justificasFaltas;
+	}
+
+	public void setJustificasFaltas(ArrayList<JustificativaFalta> justificasFaltas) {
+		this.justificasFaltas = justificasFaltas;
+	}
 	
 }

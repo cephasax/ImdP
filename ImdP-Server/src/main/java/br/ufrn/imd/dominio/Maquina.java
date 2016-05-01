@@ -15,8 +15,6 @@ import javax.persistence.SequenceGenerator;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
-import model.Unidade;
-
 @Entity
 @SequenceGenerator(name = "SEQ_MAQUINA", initialValue = 1, allocationSize = 1, sequenceName = "seq_maquina")
 public class Maquina implements Serializable{

@@ -16,9 +16,6 @@ import javax.persistence.SequenceGenerator;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
-import model.JustificativaFalta;
-import model.Vinculo;
-
 @Entity
 @SequenceGenerator(name = "SEQ_USUARIO", initialValue = 1, allocationSize = 1, sequenceName = "seq_usuario")
 public class Usuario implements Serializable{

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.*?>
+<?import jfxtras.labs.scene.control.CalendarTextField?>
+
+<AnchorPane prefHeight="550.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+  <!-- TODO Add Nodes -->
+  <children>
+  
+  	<CalendarTextField prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+    <Text fontSmoothingType="LCD" layoutX="57.0" layoutY="227.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome da Máquina:">
+      <font>
+        <Font size="20.0" fx:id="x1" />
+      </font>
+    </Text>
+    <TextField layoutX="230.0" layoutY="208.0" prefWidth="529.0" promptText="" />
+    <ImageView fitHeight="20.259746551513672" fitWidth="104.00002819824107" layoutX="348.0" layoutY="516.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@../../../../../resources/images/pontoAntigo/logosmall-old.png" />
+      </image>
+    </ImageView>
+    <Text fontSmoothingType="LCD" layoutX="14.0" layoutY="29.0" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Cadastramento de Máquina">
+      <font>
+        <Font size="14.0" />
+      </font>
+    </Text>
+    <Button layoutX="688.0" layoutY="285.0" mnemonicParsing="false" text="Cadastrar" />
+    <Button layoutX="613.0" layoutY="285.0" mnemonicParsing="false" text="Cancelar" />
+    <Text font="$x1" fontSmoothingType="LCD" layoutX="205.0" layoutY="265.0" strokeType="OUTSIDE" strokeWidth="0.0" text="IP:" />
+    <TextField layoutX="230.0" layoutY="246.0" prefWidth="57.0" promptText="" />
+    <ComboBox layoutX="230.0" layoutY="173.0" prefHeight="21.0" prefWidth="529.0" visible="true" visibleRowCount="7">
+      <items>
+        <FXCollections fx:factory="observableArrayList">
+          <String fx:value="Item 1" />
+          <String fx:value="Item 2" />
+          <String fx:value="Item 3" />
+        </FXCollections>
+      </items>
+    </ComboBox>
+    <Text font="$x1" fontSmoothingType="LCD" layoutX="148.0" layoutY="192.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Unidade:" />
+    <TextField layoutX="291.0" layoutY="246.0" prefWidth="57.0" promptText="" />
+    <TextField layoutX="352.0" layoutY="246.0" prefWidth="57.0" promptText="" />
+    <TextField layoutX="413.0" layoutY="246.0" prefWidth="57.0" promptText="" />
+    <Text font="$x1" fontSmoothingType="LCD" layoutX="287.0" layoutY="265.0" scaleX="1.0" scaleY="0.9999999999858687" strokeType="OUTSIDE" strokeWidth="0.0" text="." />
+    <Text font="$x1" fontSmoothingType="LCD" layoutX="348.0" layoutY="265.0" scaleX="1.0" scaleY="0.9999999999858687" strokeType="OUTSIDE" strokeWidth="0.0" text="." />
+    <Text font="$x1" fontSmoothingType="LCD" layoutX="409.0" layoutY="265.0" scaleX="1.0" scaleY="0.9999999999858687" strokeType="OUTSIDE" strokeWidth="0.0" text="." />
+  </children>
+</AnchorPane>

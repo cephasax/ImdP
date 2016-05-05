@@ -5,6 +5,8 @@ import java.io.Serializable;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 public class Vinculo implements Serializable {
@@ -19,6 +21,10 @@ public class Vinculo implements Serializable {
 
 	@OneToOne
 	private Setor setor;
+	
+	@ManyToOne
+	@JoinColumn(name = "idUsuario")
+	private Usuario usuario;
 
 	private int cargaHorariaDiaria;
 	private int cargaHorariaSemanal;
@@ -79,6 +85,14 @@ public class Vinculo implements Serializable {
 
 	public void setSituacao(char situacao) {
 		this.situacao = situacao;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 }

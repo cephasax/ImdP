@@ -10,7 +10,7 @@
 <AnchorPane prefHeight="550.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
   <!-- TODO Add Nodes -->
   <children>
-    <Text fontSmoothingType="LCD" layoutX="57.0" layoutY="270.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome da Unidade:">
+    <Text fontSmoothingType="LCD" layoutX="75.0" layoutY="270.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome do Cargo:">
       <font>
         <Font size="20.0" />
       </font>
@@ -21,7 +21,7 @@
         <Image url="@../../../../../resources/images/pontoAntigo/logosmall-old.png" />
       </image>
     </ImageView>
-    <Text fontSmoothingType="LCD" layoutX="14.0" layoutY="29.0" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Edição de Unidades">
+    <Text fontSmoothingType="LCD" layoutX="14.0" layoutY="29.0" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Edição de Cargos">
       <font>
         <Font size="14.0" />
       </font>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="550.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+  <!-- TODO Add Nodes -->
+  <children>
+    <Text fontSmoothingType="LCD" layoutX="82.0" layoutY="270.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome da Setor:">
+      <font>
+        <Font size="20.0" fx:id="x1" />
+      </font>
+    </Text>
+    <TextField layoutX="230.0" layoutY="251.0" prefWidth="529.0" />
+    <ImageView fitHeight="20.259746551513672" fitWidth="104.00002819824107" layoutX="348.0" layoutY="516.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@../../../../../resources/images/pontoAntigo/logosmall-old.png" />
+      </image>
+    </ImageView>
+    <Text fontSmoothingType="LCD" layoutX="14.0" layoutY="29.0" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Cadastramento de Setor">
+      <font>
+        <Font size="14.0" />
+      </font>
+    </Text>
+    <Button layoutX="688.0" layoutY="285.0" mnemonicParsing="false" text="Cadastrar" />
+    <Button layoutX="613.0" layoutY="285.0" mnemonicParsing="false" text="Cancelar" />
+    <ComboBox layoutX="230.0" layoutY="203.0" prefHeight="21.0" prefWidth="529.0" visible="true" visibleRowCount="7">
+      <items>
+        <FXCollections fx:factory="observableArrayList">
+          <String fx:value="Item 1" />
+          <String fx:value="Item 2" />
+          <String fx:value="Item 3" />
+        </FXCollections>
+      </items>
+    </ComboBox>
+    <Text font="$x1" fontSmoothingType="LCD" layoutX="142.0" layoutY="224.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Unidade:" />
+  </children>
+</AnchorPane>

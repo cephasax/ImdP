@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+  <!-- TODO Add Nodes -->
+  <children>
+    <Button layoutX="340.0" layoutY="309.0" mnemonicParsing="false" prefWidth="121.0" text="Logar" />
+    <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="300.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@../../../../../../../../../../../Documents/BTI/2016.1/desktop/Ponto/ponto/images/logo.png" />
+      </image>
+    </ImageView>
+    <TextField layoutX="300.0" layoutY="278.0" prefWidth="200.0" />
+    <Text layoutX="335.0" layoutY="357.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ainda não é cadastrado?" />
+  </children>
+</AnchorPane>

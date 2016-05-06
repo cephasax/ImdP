@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
@@ -31,7 +33,8 @@ public class JustificativaFalta implements Serializable {
 	private Date dataEnvio;
 	private char situacao;
 
-	@OneToOne
+	@ManyToOne
+	@JoinColumn(name = "idUsuario")
 	private Usuario usuario;
 
 	private String observacaoAnalise;
@@ -152,4 +155,6 @@ public class JustificativaFalta implements Serializable {
 		this.comprovante = comprovante;
 	}
 
+	
+	
 }

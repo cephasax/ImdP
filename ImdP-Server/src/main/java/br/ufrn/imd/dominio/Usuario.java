@@ -45,7 +45,7 @@ public class Usuario implements Serializable{
 	
 	@OneToMany(mappedBy = "usuario")
 	@Cascade({CascadeType.ALL})
-	private ArrayList<JustificativaFalta> justificasFaltas;
+	private ArrayList<JustificativaFalta> justificativasFaltas;
 	
 	public int getIdUsuario() {
 		return idUsuario;
@@ -111,12 +111,12 @@ public class Usuario implements Serializable{
 		this.dataCriacao = dataCriacao;
 	}
 
-	public ArrayList<JustificativaFalta> getJustificasFaltas() {
-		return justificasFaltas;
+	public ArrayList<JustificativaFalta> getJustificativassFaltas() {
+		return justificativasFaltas;
 	}
 
-	public void setJustificasFaltas(ArrayList<JustificativaFalta> justificasFaltas) {
-		this.justificasFaltas = justificasFaltas;
+	public void setJustificasFaltas(ArrayList<JustificativaFalta> justificativasFaltas) {
+		this.justificativasFaltas = justificativasFaltas;
 	}
 	
 }

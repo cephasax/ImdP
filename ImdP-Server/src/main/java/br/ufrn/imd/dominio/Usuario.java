@@ -35,6 +35,10 @@ public class Usuario implements Serializable{
 	@JoinColumn(name = "idPessoa")
 	private Pessoa pessoa;
 	
+	@ManyToOne
+	@JoinColumn(name = "idPermissao")
+	private Permissao permissao;
+	
 	@OneToMany(mappedBy = "usuario")
 	@Cascade({CascadeType.ALL})
 	private ArrayList<Vinculo> vinculos;
@@ -118,5 +122,20 @@ public class Usuario implements Serializable{
 	public void setJustificasFaltas(ArrayList<JustificativaFalta> justificativasFaltas) {
 		this.justificativasFaltas = justificativasFaltas;
 	}
-	
+
+	public Permissao getPermissao() {
+		return permissao;
+	}
+
+	public void setPermissao(Permissao permissao) {
+		this.permissao = permissao;
+	}
+
+	public ArrayList<JustificativaFalta> getJustificativasFaltas() {
+		return justificativasFaltas;
+	}
+
+	public void setJustificativasFaltas(ArrayList<JustificativaFalta> justificativasFaltas) {
+		this.justificativasFaltas = justificativasFaltas;
+	}
 }

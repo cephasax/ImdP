@@ -27,7 +27,7 @@
       </font>
     </Text>
     <Button layoutX="635.0" layoutY="398.0" mnemonicParsing="false" text="Cadastrar" />
-    <Button layoutX="560.0" layoutY="398.0" mnemonicParsing="false" text="Cancelar" />
+    <Button layoutX="564.0" layoutY="398.0" mnemonicParsing="false" text="Cancelar" />
     <ComboBox layoutX="172.0" layoutY="225.0" prefHeight="25.0" prefWidth="529.0" visible="true" visibleRowCount="7">
       <items>
         <FXCollections fx:factory="observableArrayList">
@@ -58,7 +58,7 @@
             <Font size="15.0" />
          </font>
       </Text>
-      <TextArea layoutX="173.0" layoutY="310.0" prefHeight="70.0" prefWidth="529.0" />
+      <TextArea layoutX="173.0" layoutY="310.0" prefHeight="79.0" prefWidth="529.0" />
       <ComboBox layoutX="172.0" layoutY="145.0" prefHeight="21.0" prefWidth="529.0" visible="true" visibleRowCount="7">
          <items>
             <FXCollections fx:factory="observableArrayList">

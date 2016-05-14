@@ -14,7 +14,7 @@
   <children>
     <ImageView fitHeight="20.259746551513672" fitWidth="104.00002819824107" layoutX="348.0" layoutY="516.0" pickOnBounds="true" preserveRatio="true">
       <image>
-        <Image url="@../../../../../resources/images/pontoAntigo/logosmall-old.png" />
+        <Image url="@../../../../../../resources/images/pontoAntigo/logosmall-old.png" />
       </image>
     </ImageView>
     <Text fontSmoothingType="LCD" layoutX="14.0" layoutY="29.0" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Listagem de Justificativas de Faltas">
@@ -23,7 +23,7 @@
       </font>
     </Text>
     <Text layoutX="14.0" layoutY="488.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Clique duas vezes na linha para ver detalhes da justificativa" />
-    <Button layoutX="723.0" layoutY="480.0" mnemonicParsing="false" text="Cancelar" />
+    <Button layoutX="665.0" layoutY="480.0" mnemonicParsing="false" text="Cancelar" />
       <TableView layoutX="14.0" layoutY="47.0" prefHeight="425.0" prefWidth="771.0">
          <columns>
             <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="165.0" text="Usuário" />
@@ -34,5 +34,6 @@
             <TableColumn minWidth="9.0" prefWidth="63.0" text="Setor" />
          </columns>
       </TableView>
+      <Button layoutX="735.0" layoutY="480.0" mnemonicParsing="false" text="Excluir" />
   </children>
 </AnchorPane>

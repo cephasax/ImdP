@@ -23,8 +23,8 @@
         <Font size="14.0" />
       </font>
     </Text>
-    <Button layoutX="713.0" layoutY="503.0" mnemonicParsing="false" text="Cadastrar" />
-    <Button layoutX="638.0" layoutY="503.0" mnemonicParsing="false" text="Cancelar" />
+    <Button layoutX="665.0" layoutY="503.0" mnemonicParsing="false" text="Cadastrar análise" />
+    <Button layoutX="594.0" layoutY="503.0" mnemonicParsing="false" text="Cancelar" />
       <Text fontSmoothingType="LCD" layoutX="32.0" layoutY="201.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Descrição:">
          <font>
             <Font size="15.0" />

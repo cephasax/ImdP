@@ -16,9 +16,9 @@
 <AnchorPane prefHeight="550.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
   <!-- TODO Add Nodes -->
   <children>
-    <ImageView fitHeight="20.259746551513672" fitWidth="104.00002819824107" layoutX="348.0" layoutY="516.0" pickOnBounds="true" preserveRatio="true">
+    <ImageView fitHeight="20.259746551513672" fitWidth="104.00002819824107" layoutX="348.0" layoutY="515.0" pickOnBounds="true" preserveRatio="true">
       <image>
-        <Image url="@../../../../../resources/images/pontoAntigo/logosmall-old.png" />
+        <Image url="@../../../../../../resources/images/pontoAntigo/logosmall-old.png" />
       </image>
     </ImageView>
     <Text fontSmoothingType="LCD" layoutX="14.0" layoutY="29.0" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Busca de Justificativas de Faltas">
@@ -37,7 +37,7 @@
       </columns>
     </TableView>
     <Text layoutX="46.0" layoutY="476.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Clique duas vezes na linha para ver detalhes da justificativa" />
-    <Button layoutX="697.0" layoutY="468.0" mnemonicParsing="false" text="Cancelar" />
+    <Button layoutX="638.0" layoutY="468.0" mnemonicParsing="false" text="Cancelar" />
     <Button layoutX="708.0" layoutY="183.0" mnemonicParsing="false" text="Buscar" />
     <Text fontSmoothingType="LCD" layoutX="103.0" layoutY="164.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome do Usuário:">
       <font>
@@ -69,5 +69,6 @@
             <Font size="15.0" fx:id="x12" />
          </font>
       </Text>
+      <Button layoutX="709.0" layoutY="468.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="51.0" text="Excluir" />
   </children>
 </AnchorPane>

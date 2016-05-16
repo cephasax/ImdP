@@ -21,22 +21,22 @@
         <Image url="@../../../../../../resources/images/pontoAntigo/logosmall-old.png" />
       </image>
     </ImageView>
-    <Text fontSmoothingType="LCD" layoutX="14.0" layoutY="29.0" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Busca de Justificativas de Faltas">
+    <Text fontSmoothingType="LCD" layoutX="14.0" layoutY="29.0" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Busca de Pontos">
       <font>
         <Font size="14.0" />
       </font>
     </Text>
     <TableView layoutX="42.0" layoutY="223.0" prefHeight="235.0" prefWidth="717.0">
       <columns>
-        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="165.0" text="Usuário" />
-            <TableColumn prefWidth="124.0" text="Data" />
-        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="89.0" text="Tipo" />
-        <TableColumn maxWidth="5000.0" minWidth="0.0" prefWidth="192.0" text="Descrição" />
-            <TableColumn prefWidth="79.0" text="Unidade" />
-            <TableColumn prefWidth="67.0" text="Setor" />
+            <TableColumn prefWidth="103.0" text="Unidade" />
+            <TableColumn prefWidth="94.0" text="Setor" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="182.0" text="Usuário" />
+            <TableColumn prefWidth="133.0" text="Data do ponto" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="95.0" text="Tipo" />
+        <TableColumn maxWidth="5000.0" minWidth="0.0" prefWidth="109.0" text="Situação" />
       </columns>
     </TableView>
-    <Text layoutX="46.0" layoutY="476.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Clique duas vezes na linha para ver detalhes da justificativa" />
+    <Text layoutX="46.0" layoutY="476.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Clique duas vezes na linha para ver detalhes do ponto" />
     <Button layoutX="638.0" layoutY="468.0" mnemonicParsing="false" text="Cancelar" />
     <Button layoutX="708.0" layoutY="183.0" mnemonicParsing="false" text="Buscar" />
     <Text fontSmoothingType="LCD" layoutX="103.0" layoutY="164.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome do Usuário:">

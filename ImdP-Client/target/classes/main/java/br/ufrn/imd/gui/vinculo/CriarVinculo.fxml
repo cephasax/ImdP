@@ -22,7 +22,7 @@
         <Image url="@../../../../../../resources/images/pontoAntigo/logosmall-old.png" />
       </image>
     </ImageView>
-    <Text fontSmoothingType="LCD" layoutX="14.0" layoutY="29.0" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Cadastramento de Pessoa">
+    <Text fontSmoothingType="LCD" layoutX="14.0" layoutY="29.0" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Cadastramento de Vínculo">
       <font>
         <Font size="14.0" />
       </font>

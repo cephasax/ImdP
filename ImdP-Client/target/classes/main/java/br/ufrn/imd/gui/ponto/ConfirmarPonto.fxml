@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="550.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+  <!-- TODO Add Nodes -->
+  <children>
+    <Text fontSmoothingType="LCD" layoutX="14.0" layoutY="29.0" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Confirmação de Ponto">
+      <font>
+        <Font size="14.0" />
+      </font>
+    </Text>
+    <Button layoutX="332.0" layoutY="317.0" mnemonicParsing="false" text="Cancelar" />
+      <GridPane layoutX="138.0" layoutY="240.0" prefHeight="35.0" prefWidth="530.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="305.0" minWidth="10.0" prefWidth="84.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="545.0" minWidth="10.0" prefWidth="446.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <Label text="Vínculo:" GridPane.halignment="CENTER">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <ComboBox prefHeight="25.0" prefWidth="445.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+         </children>
+      </GridPane>
+    <Button layoutX="403.0" layoutY="317.0" mnemonicParsing="false" text="Autenticar com digital" />
+  </children>
+</AnchorPane>

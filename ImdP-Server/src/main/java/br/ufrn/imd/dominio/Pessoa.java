@@ -41,6 +41,7 @@ public class Pessoa implements Serializable{
 	private String email;
 	private String telefone1;
 	private String telefone2;
+	private String digital;
 		
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "idPessoa")
@@ -173,5 +174,13 @@ public class Pessoa implements Serializable{
 	public void setTelefone2(String telefone2) {
 		this.telefone2 = telefone2;
 	}
-		
+
+	public String getDigital() {
+		return digital;
+	}
+
+	public void setDigital(String digital) {
+		this.digital = digital;
+	}
+	
 }

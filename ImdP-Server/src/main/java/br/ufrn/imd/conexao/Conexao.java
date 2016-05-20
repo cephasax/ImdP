@@ -11,7 +11,7 @@ public class Conexao {
 	
 	private Conexao() {
 		EntityManagerFactory entityManagerFactory = Persistence
-				.createEntityManagerFactory("IMDBio");
+				.createEntityManagerFactory("ConexaoDB");
 		em = entityManagerFactory.createEntityManager();
 	}
 

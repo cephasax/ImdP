@@ -29,17 +29,17 @@ public class GenericDao {
 		em.getTransaction().commit();
 	}
 	
-//	public Object buscarPorId(Class classe , long id){
-//		EntityManager em = getEntityManager();
-//		return em.find(classe, id);
-//	}
+	public Object buscarPorId(Class classe , long id){
+		EntityManager em = getEntityManager();
+		return em.find(classe, id);
+	}
 
-	protected EntityManager getEntityManager(){
+	private EntityManager getEntityManager(){
 		return Conexao.getInstance().getEntityManager();
 	}
 	
 	public void inserirLog(Object log){
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("IMDBio");
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexaoDB");
 		EntityManager em = emf.createEntityManager();
 		try {
 			em.getTransaction().begin();

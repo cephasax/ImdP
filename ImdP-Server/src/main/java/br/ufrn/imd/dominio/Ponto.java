@@ -13,29 +13,34 @@ import javax.persistence.SequenceGenerator;
 
 @Entity
 @SequenceGenerator(name = "SEQ_PONTO", initialValue = 1, allocationSize = 1, sequenceName = "seq_ponto")
-public class Ponto implements Serializable {
+public class Ponto implements Serializable{
 
 	private static final long serialVersionUID = 3995925481211634067L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_PONTO")
 	private int idPonto;
-
+	
 	private Date timeStamp;
 	private char tipo;
 	private char validado;
 	private String observacao;
 	private Date timeStampAlteracao;
 	private int idUsuarioAlteracao;
-
+	
 	@ManyToOne
-	@JoinColumn(name = "idVinculo")
-	private Vinculo vinculo;
-
+	@JoinColumn(name = "idUsuario")
+	private Usuario usuario;
+	
 	@ManyToOne
 	@JoinColumn(name = "idMaquina")
 	private Maquina maquina;
 
+	@ManyToOne
+	@JoinColumn(name = "idPonto")
+	private Ponto ponto;
+
+	
 	public int getIdPonto() {
 		return idPonto;
 	}
@@ -44,12 +49,12 @@ public class Ponto implements Serializable {
 		this.idPonto = idPonto;
 	}
 
-	public Vinculo getVinculo() {
-		return vinculo;
+	public Usuario getUsuario() {
+		return usuario;
 	}
 
-	public void setVinculo(Vinculo vinculo) {
-		this.vinculo = vinculo;
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 	public Maquina getMaquina() {
@@ -108,4 +113,12 @@ public class Ponto implements Serializable {
 		this.idUsuarioAlteracao = idUsuarioAlteracao;
 	}
 
+	public Ponto getPonto() {
+		return ponto;
+	}
+
+	public void setPonto(Ponto ponto) {
+		this.ponto = ponto;
+	}
+	
 }

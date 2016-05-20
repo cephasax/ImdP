@@ -1,47 +1,30 @@
 package br.ufrn.imd.dominio;
 
 import java.io.Serializable;
-import java.util.Collection;
 
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.OneToOne;
 
-@Entity
-@SequenceGenerator(name = "SEQ_VINCULO", initialValue = 1, allocationSize = 1, sequenceName = "seq_vinculo")
 public class Vinculo implements Serializable {
-	private static final long serialVersionUID = 118938217482360981L;
+	private static final long serialVersionUID = -7907512994448843537L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_VINCULO")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_UNIDADE")
 	private int idVinculo;
-	private String descricao;
 
-	@ManyToOne
-	@JoinColumn(name = "idCargo")
+	@OneToOne
 	private Cargo cargo;
 
-	@ManyToOne
-	@JoinColumn(name = "idSetor")
+	@OneToOne
 	private Setor setor;
-
+	
 	@ManyToOne
 	@JoinColumn(name = "idUsuario")
 	private Usuario usuario;
-	
-	@OneToMany
-	private Collection<Ponto> pontos;
-	
-	@ManyToOne
-	private Permissao permissao;
-	
-	@OneToMany
-	private Collection<JustificativaFalta> justificativas;
 
 	private int cargaHorariaDiaria;
 	private int cargaHorariaSemanal;
@@ -54,14 +37,6 @@ public class Vinculo implements Serializable {
 
 	public void setIdVinculo(int idVinculo) {
 		this.idVinculo = idVinculo;
-	}
-
-	public String getDescricao() {
-		return descricao;
-	}
-
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
 	}
 
 	public Cargo getCargo() {

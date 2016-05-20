@@ -19,17 +19,17 @@
         </ImageView>
         <ImageView fitHeight="131.0" fitWidth="174.66666666666666" layoutX="242.0" layoutY="225.0" pickOnBounds="true" preserveRatio="true">
           <image>
-            <Image url="@../../../../../resources/images/128px/security.png" />
+            <Image url="@../../../../../../../../../../../Documents/BTI/2016.1/desktop/apoio/circle-icons/circle-icons/full-color/png/128px/security.png" />
           </image>
         </ImageView>
         <ImageView fitHeight="131.0" fitWidth="174.66666666666666" layoutX="428.0" layoutY="225.0" pickOnBounds="true" preserveRatio="true">
           <image>
-            <Image url="@../../../../../resources/images/128px/interstate.png" />
+            <Image url="@../../../../../../../../../../../Documents/BTI/2016.1/desktop/apoio/circle-icons/circle-icons/full-color/png/128px/interstate.png" />
           </image>
         </ImageView>
         <ImageView fitHeight="131.0" fitWidth="174.66666666666666" layoutX="614.0" layoutY="225.0" pickOnBounds="true" preserveRatio="true">
           <image>
-            <Image url="@../../../../../resources/images/128px/profle.png" />
+            <Image url="@../../../../../../../../../../../Documents/BTI/2016.1/desktop/apoio/circle-icons/circle-icons/full-color/png/128px/profle.png" />
           </image>
         </ImageView>
         <Text layoutX="65.0" layoutY="384.0" scaleX="1.0044819270482048" scaleY="0.9122857820108038" strokeType="OUTSIDE" strokeWidth="0.0" text="Adm. do Sistema" textAlignment="CENTER" underline="false">

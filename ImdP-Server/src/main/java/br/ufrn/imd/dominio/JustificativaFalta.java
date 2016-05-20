@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
 @Entity
@@ -23,21 +24,18 @@ public class JustificativaFalta implements Serializable {
 	private Date dataInicio;
 	private Date dataFim;
 
-	@ManyToOne
-	@JoinColumn(name = "idVinculo")
+	@OneToOne
 	private Vinculo vinculo;
 
-	@ManyToOne
-	@JoinColumn(name = "idTipoJustificativa")
+	@OneToOne
 	private TipoJustificativa tipoJustificativa;
-
-	@ManyToOne
-	@JoinColumn(name = "idUsuario")
-	private Usuario gestor;
-
 	private String descricao;
 	private Date dataEnvio;
 	private char situacao;
+
+	@ManyToOne
+	@JoinColumn(name = "idUsuario")
+	private Usuario usuario;
 
 	private String observacaoAnalise;
 	private Date dataAnalise;
@@ -109,12 +107,12 @@ public class JustificativaFalta implements Serializable {
 		this.situacao = situacao;
 	}
 
-	public Usuario getGestor() {
-		return gestor;
+	public Usuario getUsuario() {
+		return usuario;
 	}
 
-	public void setGestor(Usuario gestor) {
-		this.gestor = gestor;
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 	public String getObservacaoAnalise() {
@@ -157,4 +155,6 @@ public class JustificativaFalta implements Serializable {
 		this.comprovante = comprovante;
 	}
 
+	
+	
 }

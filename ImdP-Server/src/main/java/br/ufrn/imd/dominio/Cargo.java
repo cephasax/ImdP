@@ -20,7 +20,7 @@ public class Cargo implements Serializable {
 	private int idCargo;
 	private String nome;
 
-	@OneToMany(mappedBy = "cargo")
+	@OneToMany
 	private Collection<Vinculo> vinculos;
 
 	public int getIdCargo() {

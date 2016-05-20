@@ -14,15 +14,15 @@ import javax.persistence.SequenceGenerator;
 @SequenceGenerator(name = "SEQ_PERMISSAO", initialValue = 1, allocationSize = 1, sequenceName = "seq_permissao")
 public class Permissao implements Serializable {
 	private static final long serialVersionUID = -6715065336143175013L;
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_PERMISSAO")
 	private int idPermissao;
-
+	
 	private String descricao;
 
-	@OneToMany(mappedBy = "permissao")
-	private Collection<Vinculo> vinculos;
+	@OneToMany
+	private Collection<Usuario> usuarios;
 
 	public int getIdPermissao() {
 		return idPermissao;
@@ -40,12 +40,12 @@ public class Permissao implements Serializable {
 		this.descricao = descricao;
 	}
 
-	public Collection<Vinculo> getVinculos() {
-		return vinculos;
+	public Collection<Usuario> getUsuarios() {
+		return usuarios;
 	}
 
-	public void setVinculos(Collection<Vinculo> vinculos) {
-		this.vinculos = vinculos;
+	public void setUsuarios(Collection<Usuario> usuarios) {
+		this.usuarios = usuarios;
 	}
 
 }

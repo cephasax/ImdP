@@ -34,13 +34,14 @@ public class Vinculo implements Serializable {
 	@JoinColumn(name = "idUsuario")
 	private Usuario usuario;
 	
-	@OneToMany
+	@OneToMany(mappedBy = "vinculo")
 	private Collection<Ponto> pontos;
 	
 	@ManyToOne
+	@JoinColumn(name = "idPermissao")
 	private Permissao permissao;
 	
-	@OneToMany
+	@OneToMany(mappedBy = "vinculo")
 	private Collection<JustificativaFalta> justificativas;
 
 	private int cargaHorariaDiaria;

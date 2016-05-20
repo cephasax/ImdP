@@ -8,7 +8,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="550.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="550.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fx:controller=&quot;br.ufrn.imd.controllers.UnidadeCriarController&quot;">
   <!-- TODO Add Nodes -->
   <children>
     <Text fontSmoothingType="LCD" layoutX="57.0" layoutY="270.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome da Unidade:">
@@ -16,8 +16,8 @@
         <Font size="20.0" />
       </font>
     </Text>
-    <TextField layoutX="230.0" layoutY="251.0" prefWidth="529.0" />
-    <ImageView fitHeight="20.259746551513672" fitWidth="176.0" layoutX="348.0" layoutY="516.0" pickOnBounds="true" preserveRatio="true">
+    <TextField fx:id="tfNomeUnidade" layoutX="230.0" layoutY="251.0" prefWidth="529.0" />
+    <ImageView fx:id="ivLogo" fitHeight="20.259746551513672" fitWidth="176.0" layoutX="348.0" layoutY="516.0" pickOnBounds="true" preserveRatio="true">
       <image>
         <Image url="@../../../../../../resources/images/pontoAntigo/logosmall-old.png" />
       </image>
@@ -27,7 +27,7 @@
         <Font size="14.0" />
       </font>
     </Text>
-    <Button layoutX="692.0" layoutY="285.0" mnemonicParsing="false" text="Cadastrar" />
-    <Button layoutX="617.0" layoutY="285.0" mnemonicParsing="false" text="Cancelar" />
+    <Button fx:id="btnCadastrar" layoutX="692.0" layoutY="285.0" mnemonicParsing="false" text="Cadastrar" />
+    <Button fx:id="btnCancelar" layoutX="617.0" layoutY="285.0" mnemonicParsing="false" text="Cancelar" />
   </children>
 </AnchorPane>

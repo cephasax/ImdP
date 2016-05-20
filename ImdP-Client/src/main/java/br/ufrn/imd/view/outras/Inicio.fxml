@@ -10,17 +10,17 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<fx:root prefHeight="600.0" prefWidth="800.0" type="AnchorPane" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fx:controller=&quot;br.ufrn.imd.controllers.InicioController&quot;">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.ufrn.imd.controllers.InicioController">
   <!-- TODO Add Nodes -->
   <children>
     <Button layoutX="340.0" layoutY="309.0" mnemonicParsing="false" prefWidth="121.0" text="Logar" />
-    <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="300.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true">
-      <image>
-        <Image url="@../../../../../../../../../../../Documents/BTI/2016.1/desktop/Ponto/ponto/images/logo.png" />
-      </image>
-    </ImageView>
     <TextField layoutX="300.0" layoutY="278.0" prefWidth="200.0" />
     <Text layoutX="335.0" layoutY="357.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ainda não é cadastrado?" />
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="300.0" layoutY="113.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../resources/images/pontoAntigo/logo.png" />
+         </image>
+      </ImageView>
       <MenuBar prefHeight="25.0" prefWidth="800.0">
         <menus>
           <Menu mnemonicParsing="false" text="Menu">
@@ -173,4 +173,4 @@
         </menus>
       </MenuBar>
   </children>
-</fx:root>
+</AnchorPane>

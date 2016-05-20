@@ -20,7 +20,7 @@ public class CargoDao extends GenericDao {
 		}
 		return null;
 	}
-	
+
 	public List<Cargo> listAll() {
 		Query a = em.createQuery("from Cargo c");
 		List<Cargo> resultsA = a.getResultList();
@@ -29,5 +29,5 @@ public class CargoDao extends GenericDao {
 		}
 		return resultsA;
 	}
-	
+
 }

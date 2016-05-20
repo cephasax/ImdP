@@ -21,7 +21,7 @@ public class TipoJustificativa implements Serializable {
 	
 	private String nome;
 	
-	@OneToMany(mappedBy="tipojustificativa")
+	@OneToMany(mappedBy="tipoJustificativa")
 	private Collection<JustificativaFalta> justificativas;
 
 	public int getIdTipoJustificativa() {

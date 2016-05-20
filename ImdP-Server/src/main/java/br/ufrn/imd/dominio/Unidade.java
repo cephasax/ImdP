@@ -21,10 +21,10 @@ public class Unidade implements Serializable {
 
 	private String nome;
 
-	@OneToMany(mappedBy = "unidade")
+	@OneToMany
 	private Collection<Setor> setores;
 
-	public int getIdVinculo() {
+	public int geIdUnidade() {
 		return idUnidade;
 	}
 

@@ -1,7 +1,7 @@
 package br.ufrn.imd.dominio;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.Collection;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,12 +12,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
-
 @Entity
 @SequenceGenerator(name = "SEQ_MAQUINA", initialValue = 1, allocationSize = 1, sequenceName = "seq_maquina")
-public class Maquina implements Serializable{
+public class Maquina implements Serializable {
 
 	/**
 	 * 
@@ -27,14 +24,13 @@ public class Maquina implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_MAQUINA")
 	private int idMaquina;
-	
+
 	private String denominacao;
 	private String ip;
-	
+
 	@OneToMany(mappedBy = "maquina")
-	@Cascade({CascadeType.ALL})
-	private ArrayList<Ponto> pontos;
-	
+	private Collection<Ponto> pontos;
+
 	@ManyToOne
 	@JoinColumn(name = "idUnidade")
 	private Unidade unidade;
@@ -63,11 +59,11 @@ public class Maquina implements Serializable{
 		this.idMaquina = idMaquina;
 	}
 
-	public ArrayList<Ponto> getPontos() {
+	public Collection<Ponto> getPontos() {
 		return pontos;
 	}
 
-	public void setPontos(ArrayList<Ponto> pontos) {
+	public void setPontos(Collection<Ponto> pontos) {
 		this.pontos = pontos;
 	}
 
@@ -78,5 +74,5 @@ public class Maquina implements Serializable{
 	public void setUnidade(Unidade unidade) {
 		this.unidade = unidade;
 	}
-	
+
 }

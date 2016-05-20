@@ -1,15 +1,13 @@
 package br.ufrn.imd.dominio;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
@@ -18,69 +16,45 @@ import org.hibernate.annotations.CascadeType;
 
 @Entity
 @SequenceGenerator(name = "SEQ_USUARIO", initialValue = 1, allocationSize = 1, sequenceName = "seq_usuario")
-public class Usuario implements Serializable{
+public class Usuario implements Serializable {
 
 	private static final long serialVersionUID = 6952842832271889997L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_USUARIO")
 	private int idUsuario;
-	
+
+	private String nome;
+	private String sexo;
+	private Date dataNascimento;
+	private String cpf;
+	private String rg;
+	private String orgaoExpedicaoRg;
+	private Date dataExpedicaoRg;
+	private String EstadoRg;
+	private String cnh;
+	private String nomePai;
+	private String nomeMae;
+	private String email;
+	private String telefone1;
+	private String telefone2;
+	private String digital;
+
 	private String login;
 	private String senha;
 	private String foto;
 	private Date dataCriacao;
-		
-	@ManyToOne
-	@JoinColumn(name = "idPessoa")
-	private Pessoa pessoa;
-	
-	@ManyToOne
-	@JoinColumn(name = "idPermissao")
-	private Permissao permissao;
-	
+
 	@OneToMany(mappedBy = "usuario")
-	@Cascade({CascadeType.ALL})
-	private ArrayList<Vinculo> vinculos;
-	
-	@OneToMany(mappedBy = "usuario")
-	@Cascade({CascadeType.ALL})
-	private ArrayList<Ponto> pontos;
-	
-	@OneToMany(mappedBy = "usuario")
-	@Cascade({CascadeType.ALL})
-	private ArrayList<JustificativaFalta> justificativasFaltas;
-	
+	@Cascade({ CascadeType.ALL })
+	private Collection<Vinculo> vinculos;
+
 	public int getIdUsuario() {
 		return idUsuario;
 	}
 
 	public void setIdUsuario(int idUsuario) {
 		this.idUsuario = idUsuario;
-	}
-
-	public Pessoa getPessoa() {
-		return pessoa;
-	}
-
-	public void setPessoa(Pessoa pessoa) {
-		this.pessoa = pessoa;
-	}
-
-	public ArrayList<Vinculo> getVinculos() {
-		return vinculos;
-	}
-
-	public void setVinculos(ArrayList<Vinculo> vinculos) {
-		this.vinculos = vinculos;
-	}
-
-	public ArrayList<Ponto> getPontos() {
-		return pontos;
-	}
-
-	public void setPontos(ArrayList<Ponto> pontos) {
-		this.pontos = pontos;
 	}
 
 	public String getLogin() {
@@ -115,27 +89,132 @@ public class Usuario implements Serializable{
 		this.dataCriacao = dataCriacao;
 	}
 
-	public ArrayList<JustificativaFalta> getJustificativassFaltas() {
-		return justificativasFaltas;
+	public Collection<Vinculo> getVinculos() {
+		return vinculos;
 	}
 
-	public void setJustificasFaltas(ArrayList<JustificativaFalta> justificativasFaltas) {
-		this.justificativasFaltas = justificativasFaltas;
+	public void setVinculos(Collection<Vinculo> vinculos) {
+		this.vinculos = vinculos;
 	}
 
-	public Permissao getPermissao() {
-		return permissao;
+	public String getNome() {
+		return nome;
 	}
 
-	public void setPermissao(Permissao permissao) {
-		this.permissao = permissao;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
-	public ArrayList<JustificativaFalta> getJustificativasFaltas() {
-		return justificativasFaltas;
+	public String getSexo() {
+		return sexo;
 	}
 
-	public void setJustificativasFaltas(ArrayList<JustificativaFalta> justificativasFaltas) {
-		this.justificativasFaltas = justificativasFaltas;
+	public void setSexo(String sexo) {
+		this.sexo = sexo;
 	}
+
+	public Date getDataNascimento() {
+		return dataNascimento;
+	}
+
+	public void setDataNascimento(Date dataNascimento) {
+		this.dataNascimento = dataNascimento;
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+
+	public String getRg() {
+		return rg;
+	}
+
+	public void setRg(String rg) {
+		this.rg = rg;
+	}
+
+	public String getOrgaoExpedicaoRg() {
+		return orgaoExpedicaoRg;
+	}
+
+	public void setOrgaoExpedicaoRg(String orgaoExpedicaoRg) {
+		this.orgaoExpedicaoRg = orgaoExpedicaoRg;
+	}
+
+	public Date getDataExpedicaoRg() {
+		return dataExpedicaoRg;
+	}
+
+	public void setDataExpedicaoRg(Date dataExpedicaoRg) {
+		this.dataExpedicaoRg = dataExpedicaoRg;
+	}
+
+	public String getEstadoRg() {
+		return EstadoRg;
+	}
+
+	public void setEstadoRg(String estadoRg) {
+		EstadoRg = estadoRg;
+	}
+
+	public String getCnh() {
+		return cnh;
+	}
+
+	public void setCnh(String cnh) {
+		this.cnh = cnh;
+	}
+
+	public String getNomePai() {
+		return nomePai;
+	}
+
+	public void setNomePai(String nomePai) {
+		this.nomePai = nomePai;
+	}
+
+	public String getNomeMae() {
+		return nomeMae;
+	}
+
+	public void setNomeMae(String nomeMae) {
+		this.nomeMae = nomeMae;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getTelefone1() {
+		return telefone1;
+	}
+
+	public void setTelefone1(String telefone1) {
+		this.telefone1 = telefone1;
+	}
+
+	public String getTelefone2() {
+		return telefone2;
+	}
+
+	public void setTelefone2(String telefone2) {
+		this.telefone2 = telefone2;
+	}
+
+	public String getDigital() {
+		return digital;
+	}
+
+	public void setDigital(String digital) {
+		this.digital = digital;
+	}
+
 }

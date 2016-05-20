@@ -1,18 +1,38 @@
 package br.ufrn.imd.controllers;
 
-import br.ufrn.imd.main.ImdAuth;
-import javafx.application.Preloader;
-import javafx.stage.Stage;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class InicioController extends Preloader {
-	
+import br.ufrn.imd.main.ImdAuth;
+import javafx.fxml.Initializable;
+
+public class InicioController implements Initializable{
+
 	private ImdAuth imdAuth;
 	
-	public void start(Stage primaryStage) throws Exception {
+	/**
+     * O construtor é chamado antes do método inicialize().
+     */
 		
-	}
-	
-	public void setImdAuth(ImdAuth imdAuth) {
+    public InicioController() {
+    }
+
+    /**
+     * Inicializa a classe controller. Este método é chamado automaticamente
+     *  após o arquivo fxml ter sido carregado.
+     */
+    private void initialize() {
+    }
+    
+    public void setMainApp(ImdAuth imdAuth) {
         this.imdAuth = imdAuth;
     }
+
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
+	
 }

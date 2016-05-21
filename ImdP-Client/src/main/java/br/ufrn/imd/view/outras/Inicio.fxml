@@ -13,10 +13,10 @@
 <AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.ufrn.imd.controllers.InicioController">
   <!-- TODO Add Nodes -->
   <children>
-    <Button layoutX="340.0" layoutY="309.0" mnemonicParsing="false" prefWidth="121.0" text="Logar" />
-    <TextField layoutX="300.0" layoutY="278.0" prefWidth="200.0" />
-    <Text layoutX="335.0" layoutY="357.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ainda não é cadastrado?" />
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="300.0" layoutY="113.0" pickOnBounds="true" preserveRatio="true">
+    <Button fx:id="btnLogar" layoutX="340.0" layoutY="309.0" mnemonicParsing="false" prefWidth="121.0" text="Logar" />
+    <TextField fx:id="txtLogin" layoutX="300.0" layoutY="278.0" prefWidth="200.0" />
+    <Text fx:id="labelAindaNaoECadastrado" layoutX="335.0" layoutY="357.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ainda não é cadastrado?" />
+      <ImageView fx:id="imgPonto" fitHeight="150.0" fitWidth="200.0" layoutX="300.0" layoutY="113.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../../../resources/images/pontoAntigo/logo.png" />
          </image>

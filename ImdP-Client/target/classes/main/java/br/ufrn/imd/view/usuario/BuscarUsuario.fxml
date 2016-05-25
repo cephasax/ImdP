@@ -28,14 +28,16 @@
     </Text>
     <TableView layoutX="42.0" layoutY="223.0" prefHeight="235.0" prefWidth="717.0">
       <columns>
-        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="420.0" text="Login" />
-            <TableColumn prefWidth="296.0" text="Data de criação" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="246.0" text="Nome" />
+            <TableColumn prefWidth="146.0" text="CPF" />
+            <TableColumn prefWidth="108.0" text="Telefone" />
+            <TableColumn prefWidth="216.0" text="Email" />
       </columns>
     </TableView>
     <Text layoutX="46.0" layoutY="476.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Clique duas vezes na linha para ver detalhes do usuário" />
     <Button layoutX="637.0" layoutY="468.0" mnemonicParsing="false" text="Cancelar" />
     <Button layoutX="708.0" layoutY="183.0" mnemonicParsing="false" text="Buscar" />
-    <Text fontSmoothingType="LCD" layoutX="103.0" layoutY="164.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Login do Usuário:">
+    <Text fontSmoothingType="LCD" layoutX="180.0" layoutY="164.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome:">
       <font>
         <Font size="15.0" fx:id="x1" />
       </font>

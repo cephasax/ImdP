@@ -1,16 +1,26 @@
 package br.ufrn.imd.main;
 
-import br.ufrn.imd.dao.MesTrabalhoDao;
-import br.ufrn.imd.dominio.MesTrabalho;
+import javax.persistence.Query;
 
-public class MainP {
+import br.ufrn.imd.conexao.Conexao;
+import br.ufrn.imd.dominio.Vinculo;
 
+public class MainP{
+	static Conexao conex = Conexao.getInstance();
+	
 	public static void main(String[] args) {
-		MesTrabalho mt = new MesTrabalho(1, 2016, 25);		
+		String sql = " Select v FROM Vinculo v";
+		StringBuilder where = new StringBuilder();
+		where.append(" WHERE 1 = 1 ");
 		
-		MesTrabalhoDao mtDAO = new MesTrabalhoDao();
-		mtDAO.inserir(mt);
-		System.out.println("ss");
+		
+		StringBuilder sqlFinal = new StringBuilder();
+		sqlFinal.append(sql);
+		sqlFinal.append(where.toString());	
+		Query query = conex.getEntityManager().createQuery(sqlFinal.toString());
+		
+		Object obj = query.getSingleResult();
+		Vinculo vinc = (Vinculo)obj;
+		System.out.println(vinc.getSetor().getUnidade().getNome());
 	}
-
 }

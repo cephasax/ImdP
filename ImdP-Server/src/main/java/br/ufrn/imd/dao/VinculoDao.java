@@ -65,19 +65,20 @@ public class VinculoDao extends GenericDao {
 		
 		if (idVinculo > 0) {
 			where.append(" and v.idVinculo = :idVinculo");
-		}
-		
-		StringBuilder sqlFinal = new StringBuilder();
-		sqlFinal.append(sql);
-		sqlFinal.append(where.toString());	
-		Query query = getEntityManager().createQuery(sqlFinal.toString());
-		
-		//DEFINICAO DOS PARAMETROS DA CONSULTA
-		if (idVinculo > 0) {
+			
+			StringBuilder sqlFinal = new StringBuilder();
+			sqlFinal.append(sql);
+			sqlFinal.append(where.toString());	
+			Query query = getEntityManager().createQuery(sqlFinal.toString());
+			
+			//DEFINICAO DOS PARAMETROS DA CONSULTA
 			query.setParameter("idVinculo", idVinculo);
+
+			//EXECUCAO E RETORNO
+			return (Vinculo)query.getSingleResult();
 		}
-		
-		//EXECUCAO E RETORNO
-		return (Vinculo)query.getSingleResult();
+		else{
+			return null;
+		}
 	}
 }

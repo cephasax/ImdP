@@ -1,74 +1,85 @@
 package br.ufrn.imd.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import br.ufrn.imd.dominio.Usuario;
 
 public class UsuarioDao extends GenericDao {
 
-	EntityManager em = getEntityManager();
-
-	public Usuario findByUnidade(int idUnidade) {
-		Query a = em.createQuery("from Usuario u where u.unidade.idUnidade = " + idUnidade);
-		List<Usuario> resultsA = a.getResultList();
-		for (Usuario elemento : resultsA) {
-			System.out.println("Usuario: " + elemento.getLogin());
-			return elemento;
+	@SuppressWarnings("unchecked")
+	public ArrayList<Usuario> buscarUsuarioFiltro(String nomeUsuario,
+						int idUnidade, int idSetor) {
+		
+		//CONSTRUCAO DA CONSULTA SQL
+		String sql = " Select u FROM Usuario u"
+				+ " JOIN u.vinculo vinculo"
+				+ " JOIN vinculo.setor setor"
+				+ "	JOIN setor.unidade unidade";
+		StringBuilder where = new StringBuilder();
+		where.append(" WHERE 1 = 1 ");
+		
+		if (idUnidade > 0) {
+			where.append(" and unidade.idUnidade = :idUnidade");
 		}
-		return null;
+		if (idSetor > 0) {
+			where.append(" and setor.idSetor = :idSetor");
+		}
+		if (!nomeUsuario.equals("")){
+			where.append(" and lower(u.nome) like lower(:nomeUsuario) ");
+		}
+		StringBuilder sqlFinal = new StringBuilder();
+		sqlFinal.append(sql);
+		sqlFinal.append(where.toString());	
+		Query query = getEntityManager().createQuery(sqlFinal.toString());
+		
+		//DEFINICAO DOS PARAMETROS DA CONSULTA
+		if (idUnidade > 0) {
+			query.setParameter("idUnidade", idUnidade);
+		}
+		if (idSetor > 0) {
+			query.setParameter("idSetor", idSetor);
+		}
+		if (!nomeUsuario.equals("")){
+			query.setParameter("nomeUsuario", "%"+nomeUsuario+"%");
+		}
+		
+		//EXECUCAO E RETORNO
+		return (ArrayList<Usuario>)query.getResultList();
 	}
 
-	public Usuario findByUnidadeSetor(int idUnidade, int idSetor) {
-		Query a = em.createQuery(
-				"from Usuario u where u.unidade.idUnidade = " + idUnidade + "and u.setor.idsetor = " + idSetor);
-		List<Usuario> resultsA = a.getResultList();
-		for (Usuario elemento : resultsA) {
-			System.out.println("Usuario: " + elemento.getLogin());
-			return elemento;
-		}
-		return null;
+	public ArrayList<Usuario> listar() {
+		Query a = getEntityManager().createQuery("Select u from Usuario u");
+		List<Usuario> results = new ArrayList<Usuario>();
+		results = a.getResultList();
+		return (ArrayList<Usuario>) results;
 	}
-
-	public Usuario findBySetor(int idSetor) {
-		Query a = em.createQuery("from Usuario u where u.setor.idsetor = " + idSetor);
-		List<Usuario> resultsA = a.getResultList();
-		for (Usuario elemento : resultsA) {
-			System.out.println("Usuario: " + elemento.getLogin());
-			return elemento;
+	
+	public Usuario buscarPorId(int idUsuario) {
+		
+		//CONSTRUCAO DA CONSULTA SQL
+		String sql = " Select u FROM Usuario u";
+		StringBuilder where = new StringBuilder();
+		where.append(" WHERE 1 = 1 ");
+		
+		if (idUsuario > 0) {
+			where.append(" and u.idUsuario = :idUsuario");
+		
+			StringBuilder sqlFinal = new StringBuilder();
+			sqlFinal.append(sql);
+			sqlFinal.append(where.toString());	
+			Query query = getEntityManager().createQuery(sqlFinal.toString());
+			
+			//DEFINICAO DOS PARAMETROS DA CONSULTA
+			query.setParameter("idUsuario", idUsuario);
+			
+			//EXECUCAO E RETORNO
+			return (Usuario)query.getSingleResult();
 		}
-		return null;
-	}
-
-	public Usuario findByUnidadeSetorNome(int idUnidade, int idSetor, String nome) {
-		Query a = em.createQuery("from Usuario u where u.unidade.idUnidade = " + idUnidade + " and u.setor.idsetor = "
-				+ idSetor + " and u.pessoa.nome = " + nome);
-		List<Usuario> resultsA = a.getResultList();
-		for (Usuario elemento : resultsA) {
-			System.out.println("Usuario: " + elemento.getLogin());
-			return elemento;
+		else{
+			return null;
 		}
-		return null;
-	}
-
-	public Usuario findByNome(String nome) {
-		Query a = em.createQuery("from Usuario u where u.pessoa.nome = " + nome);
-		List<Usuario> resultsA = a.getResultList();
-		for (Usuario elemento : resultsA) {
-			System.out.println("Usuario: " + elemento.getLogin());
-			return elemento;
-		}
-		return null;
-	}
-
-	public List<Usuario> listAll() {
-		Query a = em.createQuery("from Usuario u");
-		List<Usuario> resultsA = a.getResultList();
-		for (Usuario elemento : resultsA) {
-			System.out.println("Usuario: " + elemento.getLogin());
-		}
-		return resultsA;
 	}
 }

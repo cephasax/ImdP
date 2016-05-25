@@ -55,20 +55,22 @@ public class MaquinaDao extends GenericDao {
 		
 		if (idMaquina > 0) {
 			where.append(" and m.idMaquina = :idMaquina");
-		}
 		
-		StringBuilder sqlFinal = new StringBuilder();
-		sqlFinal.append(sql);
-		sqlFinal.append(where.toString());
-		Query query = getEntityManager().createQuery(sqlFinal.toString());
-		
-		if (idMaquina > 0) {
+			StringBuilder sqlFinal = new StringBuilder();
+			sqlFinal.append(sql);
+			sqlFinal.append(where.toString());
+			Query query = getEntityManager().createQuery(sqlFinal.toString());
+			
+			//DEFINICAO DOS PARAMETROS DA CONSULTA
 			query.setParameter("idMaquina", idMaquina);
+			
+			//EXECUCAO E RETORNO
+			Maquina result = (Maquina)query.getSingleResult();
+			return result;
 		}
-		
-		Maquina result = new Maquina();
-		result = (Maquina)query.getSingleResult();
-		return result;
+		else{
+			return null;
+		}
 	}
 	
 }

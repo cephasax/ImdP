@@ -59,19 +59,20 @@ public class SetorDao extends GenericDao {
 		
 		if (idSetor > 0) {
 			where.append(" and s.idSetor = :idSetor");
-		}
 		
-		StringBuilder sqlFinal = new StringBuilder();
-		sqlFinal.append(sql);
-		sqlFinal.append(where.toString());	
-		Query query = getEntityManager().createQuery(sqlFinal.toString());
-		
-		//DEFINICAO DOS PARAMETROS DA CONSULTA
-		if (idSetor > 0) {
+			StringBuilder sqlFinal = new StringBuilder();
+			sqlFinal.append(sql);
+			sqlFinal.append(where.toString());	
+			Query query = getEntityManager().createQuery(sqlFinal.toString());
+			
+			//DEFINICAO DOS PARAMETROS DA CONSULTA
 			query.setParameter("idSetor", idSetor);
+			
+			//EXECUCAO E RETORNO
+			return (Setor)query.getSingleResult();
 		}
-		
-		//EXECUCAO E RETORNO
-		return (Setor)query.getSingleResult();
+		else{
+			return null;
+		}
 	}
 }

@@ -52,19 +52,20 @@ public class UnidadeDao extends GenericDao {
 		
 		if (idUnidade > 0) {
 			where.append(" and u.idUnidade = :idUnidade");
+		
+			StringBuilder sqlFinal = new StringBuilder();
+			sqlFinal.append(sql);
+			sqlFinal.append(where.toString());	
+			Query query = getEntityManager().createQuery(sqlFinal.toString());
+			
+			//DEFINICAO DOS PARAMETROS DA CONSULTA
+				query.setParameter("idUnidade", idUnidade);
+			
+			//EXECUCAO E RETORNO
+			return (Unidade)query.getSingleResult();
 		}
-		
-		StringBuilder sqlFinal = new StringBuilder();
-		sqlFinal.append(sql);
-		sqlFinal.append(where.toString());	
-		Query query = getEntityManager().createQuery(sqlFinal.toString());
-		
-		//DEFINICAO DOS PARAMETROS DA CONSULTA
-		if (idUnidade > 0) {
-			query.setParameter("idUnidade", idUnidade);
+		else{
+			return null;
 		}
-		
-		//EXECUCAO E RETORNO
-		return (Unidade)query.getSingleResult();
 	}
 }

@@ -57,19 +57,20 @@ public class MesTrabalhoDao extends GenericDao {
 		
 		if (idMesTrabalho > 0) {
 			where.append(" and v.idMesTrabalho = :idMesTrabalho");
+		
+			StringBuilder sqlFinal = new StringBuilder();
+			sqlFinal.append(sql);
+			sqlFinal.append(where.toString());	
+			Query query = getEntityManager().createQuery(sqlFinal.toString());
+			
+			//DEFINICAO DOS PARAMETROS DA CONSULTA
+			query.setParameter("idMesTrabalho", idMesTrabalho);		
+			
+			//EXECUCAO E RETORNO
+			return (MesTrabalho)query.getSingleResult();
 		}
-		
-		StringBuilder sqlFinal = new StringBuilder();
-		sqlFinal.append(sql);
-		sqlFinal.append(where.toString());	
-		Query query = getEntityManager().createQuery(sqlFinal.toString());
-		
-		//DEFINICAO DOS PARAMETROS DA CONSULTA
-		if (idMesTrabalho > 0) {
-			query.setParameter("idMesTrabalho", idMesTrabalho);
-		}		
-		
-		//EXECUCAO E RETORNO
-		return (MesTrabalho)query.getSingleResult();
+		else{
+			return null;
+		}
 	}
 }

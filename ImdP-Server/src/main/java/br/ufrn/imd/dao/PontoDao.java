@@ -69,20 +69,21 @@ public class PontoDao extends GenericDao {
 		
 		if (idPonto > 0) {
 			where.append(" and p.idPonto = :idPonto");
-		}
-		
-		StringBuilder sqlFinal = new StringBuilder();
-		sqlFinal.append(sql);
-		sqlFinal.append(where.toString());	
-		Query query = getEntityManager().createQuery(sqlFinal.toString());
-		
-		//DEFINICAO DOS PARAMETROS DA CONSULTA
-		if (idPonto > 0) {
+			
+			StringBuilder sqlFinal = new StringBuilder();
+			sqlFinal.append(sql);
+			sqlFinal.append(where.toString());	
+			Query query = getEntityManager().createQuery(sqlFinal.toString());
+			
+			//DEFINICAO DOS PARAMETROS DA CONSULTA
 			query.setParameter("idPonto", idPonto);
+					
+			//EXECUCAO E RETORNO
+			return (Ponto)query.getSingleResult();
 		}
-				
-		//EXECUCAO E RETORNO
-		return (Ponto)query.getSingleResult();
+		else{
+			return null;
+		}
 	}
 
 	@SuppressWarnings("unchecked")
@@ -100,20 +101,21 @@ public class PontoDao extends GenericDao {
 		
 		if (idUsuario > 0) {
 			where.append(" and p.vinculo.usuario.idUsuario = :idUsuario");
+		
+			StringBuilder sqlFinal = new StringBuilder();
+			sqlFinal.append(sql);
+			sqlFinal.append(where.toString());	
+			Query query = getEntityManager().createQuery(sqlFinal.toString());
+			
+			//DEFINICAO DOS PARAMETROS DA CONSULTA
+				query.setParameter("idUsuario", idUsuario);
+			
+			//EXECUCAO E RETORNO
+			return (ArrayList<Ponto>)query.getResultList();
 		}
-		
-		StringBuilder sqlFinal = new StringBuilder();
-		sqlFinal.append(sql);
-		sqlFinal.append(where.toString());	
-		Query query = getEntityManager().createQuery(sqlFinal.toString());
-		
-		//DEFINICAO DOS PARAMETROS DA CONSULTA
-		if (idUsuario > 0) {
-			query.setParameter("idUsuario", idUsuario);
+		else{
+			return null;
 		}
-		
-		//EXECUCAO E RETORNO
-		return (ArrayList<Ponto>)query.getResultList();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -131,19 +133,21 @@ public class PontoDao extends GenericDao {
 		
 		if (idVinculo > 0) {
 			where.append(" and p.vinculo.idVinculo = :idVinculo");
-		}
 		
-		StringBuilder sqlFinal = new StringBuilder();
-		sqlFinal.append(sql);
-		sqlFinal.append(where.toString());	
-		Query query = getEntityManager().createQuery(sqlFinal.toString());
-		
-		//DEFINICAO DOS PARAMETROS DA CONSULTA
-		if (idVinculo > 0) {
+			StringBuilder sqlFinal = new StringBuilder();
+			sqlFinal.append(sql);
+			sqlFinal.append(where.toString());	
+			Query query = getEntityManager().createQuery(sqlFinal.toString());
+			
+			//DEFINICAO DOS PARAMETROS DA CONSULTA
+			
 			query.setParameter("idVinculo", idVinculo);
+			
+			//EXECUCAO E RETORNO
+			return (ArrayList<Ponto>)query.getResultList();
 		}
-		
-		//EXECUCAO E RETORNO
-		return (ArrayList<Ponto>)query.getResultList();
+		else{
+			return null;
+		}
 	}
 }

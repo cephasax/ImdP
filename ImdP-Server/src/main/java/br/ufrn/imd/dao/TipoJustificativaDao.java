@@ -51,19 +51,20 @@ public class TipoJustificativaDao extends GenericDao {
 		
 		if (idTipoJustificativa > 0) {
 			where.append(" and tj.idTipoJustificativa = :idTipoJustificativa");
-		}
-		
-		StringBuilder sqlFinal = new StringBuilder();
-		sqlFinal.append(sql);
-		sqlFinal.append(where.toString());	
-		Query query = getEntityManager().createQuery(sqlFinal.toString());
-		
-		//DEFINICAO DOS PARAMETROS DA CONSULTA
-		if (idTipoJustificativa > 0) {
+			
+			StringBuilder sqlFinal = new StringBuilder();
+			sqlFinal.append(sql);
+			sqlFinal.append(where.toString());	
+			Query query = getEntityManager().createQuery(sqlFinal.toString());
+			
+			//DEFINICAO DOS PARAMETROS DA CONSULTA
 			query.setParameter("idTipoJustificativa", idTipoJustificativa);
+
+			//EXECUCAO E RETORNO
+			return (TipoJustificativa)query.getSingleResult();
 		}
-		
-		//EXECUCAO E RETORNO
-		return (TipoJustificativa)query.getSingleResult();
+		else{
+			return null;
+		}		
 	}
 }

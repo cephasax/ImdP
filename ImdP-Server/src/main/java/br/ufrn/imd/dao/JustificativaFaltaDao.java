@@ -68,19 +68,20 @@ public class JustificativaFaltaDao extends GenericDao {
 		
 		if (idJustificativa > 0) {
 			where.append(" and j.idJustificativa = :idJustificativa");
-		}
-		
-		StringBuilder sqlFinal = new StringBuilder();
-		sqlFinal.append(sql);
-		sqlFinal.append(where.toString());	
-		Query query = getEntityManager().createQuery(sqlFinal.toString());
-		
-		//DEFINICAO DOS PARAMETROS DA CONSULTA
-		if (idJustificativa > 0) {
+			
+			StringBuilder sqlFinal = new StringBuilder();
+			sqlFinal.append(sql);
+			sqlFinal.append(where.toString());	
+			Query query = getEntityManager().createQuery(sqlFinal.toString());
+			
+			//DEFINICAO DOS PARAMETROS DA CONSULTA
 			query.setParameter("idJustificativa", idJustificativa);
+			
+			//EXECUCAO E RETORNO
+			return (JustificativaFalta)query.getSingleResult();
 		}
-				
-		//EXECUCAO E RETORNO
-		return (JustificativaFalta)query.getSingleResult();
+		else{
+			return null;
+		}
 	}
 }

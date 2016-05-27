@@ -1,73 +1,87 @@
 package br.ufrn.imd.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import br.ufrn.imd.dominio.JustificativaFalta;
 
 public class JustificativaFaltaDao extends GenericDao {
-	EntityManager em = getEntityManager();
-
-	public JustificativaFalta findByUnidade(int idUnidade) {
-		Query a = em.createQuery("from JustificativaFalta j where j.unidade.idUnidade = " + idUnidade);
-		List<JustificativaFalta> resultsA = a.getResultList();
-		for (JustificativaFalta elemento : resultsA) {
-			System.out.println("JustificativaFalta: " + elemento.getIdJustificativaFalta());
-			return elemento;
+	
+	@SuppressWarnings("unchecked")
+	public ArrayList<JustificativaFalta> buscarJustificativaFiltro(
+			String nomeUsuario, int idUnidade, int idSetor) {
+		
+		//CONSTRUCAO DA CONSULTA SQL
+		String sql = " Select j FROM JustificativaFalta j"
+				+ " JOIN j.vinculo vinculo"
+				+ " JOIN vinculo.usuario usuario"
+				+ " JOIN vinculo.setor setor"
+				+ "	JOIN setor.unidade unidade";
+		StringBuilder where = new StringBuilder();
+		where.append(" WHERE 1 = 1 ");
+		
+		if (idUnidade > 0) {
+			where.append(" and unidade.idUnidade = :idUnidade");
 		}
-		return null;
+		if (idSetor > 0) {
+			where.append(" and setor.idSetor = :idSetor");
+		}
+		if (!nomeUsuario.equals("")){
+			where.append(" and lower(vinculo.usuario.nome) like lower(:nome) ");
+		}
+		StringBuilder sqlFinal = new StringBuilder();
+		sqlFinal.append(sql);
+		sqlFinal.append(where.toString());	
+		Query query = getEntityManager().createQuery(sqlFinal.toString());
+		
+		//DEFINICAO DOS PARAMETROS DA CONSULTA
+		if (idUnidade > 0) {
+			query.setParameter("idUnidade", idUnidade);
+		}
+		if (idSetor > 0) {
+			query.setParameter("idSetor", idSetor);
+		}
+		if (!nomeUsuario.equals("")){
+			query.setParameter("nome", "%"+nomeUsuario+"%");
+		}
+		
+		//EXECUCAO E RETORNO
+		return (ArrayList<JustificativaFalta>)query.getResultList();
 	}
-
-	public JustificativaFalta findByUnidadeSetor(int idUnidade, int idSetor) {
-		Query a = em.createQuery(
-				"from JustificativaFalta j where j.unidade.idUnidade = " + idUnidade + "and j.setor.idsetor = " + idSetor);
-		List<JustificativaFalta> resultsA = a.getResultList();
-		for (JustificativaFalta elemento : resultsA) {
-			System.out.println("JustificativaFalta: " + elemento.getIdJustificativaFalta());
-			return elemento;
-		}
-		return null;
+	
+	@SuppressWarnings("unchecked")
+	public ArrayList<JustificativaFalta> listar() {
+		Query a = getEntityManager().createQuery("Select j from JustificativaFalta j");
+		List<JustificativaFalta> results = new ArrayList<JustificativaFalta>();
+		results = a.getResultList();
+		return (ArrayList<JustificativaFalta>) results;
 	}
-
-	public JustificativaFalta findBySetor(int idSetor) {
-		Query a = em.createQuery("from JustificativaFalta j where j.setor.idsetor = " + idSetor);
-		List<JustificativaFalta> resultsA = a.getResultList();
-		for (JustificativaFalta elemento : resultsA) {
-			System.out.println("JustificativaFalta: " + elemento.getIdJustificativaFalta());
-			return elemento;
+	
+	public JustificativaFalta buscarPorId(int idJustificativa) {
+		
+		//CONSTRUCAO DA CONSULTA SQL
+		String sql = " Select j FROM JustificativaFalta j";
+		StringBuilder where = new StringBuilder();
+		where.append(" WHERE 1 = 1 ");
+		
+		if (idJustificativa > 0) {
+			where.append(" and j.idJustificativa = :idJustificativa");
+			
+			StringBuilder sqlFinal = new StringBuilder();
+			sqlFinal.append(sql);
+			sqlFinal.append(where.toString());	
+			Query query = getEntityManager().createQuery(sqlFinal.toString());
+			
+			//DEFINICAO DOS PARAMETROS DA CONSULTA
+			query.setParameter("idJustificativa", idJustificativa);
+			
+			//EXECUCAO E RETORNO
+			return (JustificativaFalta)query.getSingleResult();
 		}
-		return null;
-	}
-
-	public JustificativaFalta findByUnidadeSetorNome(int idUnidade, int idSetor, String nome) {
-		Query a = em.createQuery("from JustificativaFalta j where j.unidade.idUnidade = " + idUnidade + " and j.setor.idsetor = "
-				+ idSetor + " and j.nome = " + nome);
-		List<JustificativaFalta> resultsA = a.getResultList();
-		for (JustificativaFalta elemento : resultsA) {
-			System.out.println("JustificativaFalta: " + elemento.getIdJustificativaFalta());
-			return elemento;
+		else{
+			return null;
 		}
-		return null;
-	}
-
-	public JustificativaFalta findByNome(String nome) {
-		Query a = em.createQuery("from JustificativaFalta j where j.nome = " + nome);
-		List<JustificativaFalta> resultsA = a.getResultList();
-		for (JustificativaFalta elemento : resultsA) {
-			System.out.println("JustificativaFalta: " + elemento.getIdJustificativaFalta());
-			return elemento;
-		}
-		return null;
-	}
-
-	public List<JustificativaFalta> listAll() {
-		Query a = em.createQuery("from JustificativaFalta j");
-		List<JustificativaFalta> resultsA = a.getResultList();
-		for (JustificativaFalta elemento : resultsA) {
-			System.out.println("JustificativaFalta: " + elemento.getIdJustificativaFalta());
-		}
-		return resultsA;
 	}
 }

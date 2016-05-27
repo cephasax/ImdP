@@ -21,7 +21,7 @@
         <Image url="@../../../../../../resources/images/pontoAntigo/logosmall-old.png" />
       </image>
     </ImageView>
-    <Text fontSmoothingType="LCD" layoutX="14.0" layoutY="29.0" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Busca de Pessoas">
+    <Text fontSmoothingType="LCD" layoutX="14.0" layoutY="29.0" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Busca de Usuários">
       <font>
         <Font size="14.0" />
       </font>
@@ -34,7 +34,7 @@
             <TableColumn prefWidth="216.0" text="Email" />
       </columns>
     </TableView>
-    <Text layoutX="46.0" layoutY="476.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Clique duas vezes na linha para ver detalhes da pessoa" />
+    <Text layoutX="46.0" layoutY="476.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Clique duas vezes na linha para ver detalhes do usuário" />
     <Button layoutX="637.0" layoutY="468.0" mnemonicParsing="false" text="Cancelar" />
     <Button layoutX="708.0" layoutY="183.0" mnemonicParsing="false" text="Buscar" />
     <Text fontSmoothingType="LCD" layoutX="180.0" layoutY="164.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome:">

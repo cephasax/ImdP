@@ -1,52 +1,76 @@
 package br.ufrn.imd.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import br.ufrn.imd.dominio.Maquina;
 
 public class MaquinaDao extends GenericDao {
-	EntityManager em = getEntityManager();
-
-	public Maquina findByUnidade(int idUnidade) {
-		Query a = em.createQuery("from Maquina m where m.unidade.idUnidade = " + idUnidade);
-		List<Maquina> resultsA = a.getResultList();
-		for (Maquina elemento : resultsA) {
-			System.out.println("Maquina: " + elemento.getDenominacao());
-			return elemento;
+	
+	@SuppressWarnings("unchecked")
+	public ArrayList<Maquina> buscarMaquinaFiltro(String nomeMaquina, int idUnidade) {
+		
+		//CONSTRUCAO DA CONSULTA SQL
+		String sql = " Select m FROM Maquina m"
+				+ " JOIN m.unidade unidade";
+		StringBuilder where = new StringBuilder();
+		where.append(" WHERE 1 = 1 ");
+		
+		if (idUnidade > 0) {
+			where.append(" unidade.idUnidade = :idUnidade");
 		}
-		return null;
+		if (!nomeMaquina.equals("")){
+			where.append(" and lower(m.nome) like lower(:nomeMaquina) ");
+		}
+		StringBuilder sqlFinal = new StringBuilder();
+		sqlFinal.append(sql);
+		sqlFinal.append(where.toString());	
+		Query query = getEntityManager().createQuery(sqlFinal.toString());
+		
+		//DEFINICAO DOS PARAMETROS DA CONSULTA
+		if (idUnidade > 0) {
+			query.setParameter("idUnidade", idUnidade);
+		}
+		if (!nomeMaquina.equals("")){
+			query.setParameter("nomeMaquina", "%"+nomeMaquina+"%");
+		}
+		
+		//EXECUCAO E RETORNO
+		return (ArrayList<Maquina>)query.getResultList();
 	}
 
-	public Maquina findByUnidadeNome(int idUnidade, String denominacao) {
-		Query a = em.createQuery(
-				"from Maquina m where m.unidade.idUnidade = " + idUnidade + "and m.denominacao = " + denominacao);
-		List<Maquina> resultsA = a.getResultList();
-		for (Maquina elemento : resultsA) {
-			System.out.println("Maquina: " + elemento.getDenominacao());
-			return elemento;
-		}
-		return null;
+	public ArrayList<Maquina> listar() {
+		Query a = getEntityManager().createQuery("Select m FROM Maquina m");
+		List<Maquina> results = new ArrayList<Maquina>();
+		results = a.getResultList();
+		return (ArrayList<Maquina>) results;
 	}
-
-	public Maquina findByNome(String denominacao) {
-		Query a = em.createQuery("from Maquina p where p.denominacao = " + denominacao);
-		List<Maquina> resultsA = a.getResultList();
-		for (Maquina elemento : resultsA) {
-			System.out.println("Maquina: " + elemento.getDenominacao());
-			return elemento;
+	
+	public Maquina buscarPorId(int idMaquina) {
+		String sql = " Select m FROM Maquina m";
+		StringBuilder where = new StringBuilder();
+		where.append(" WHERE 1 = 1 ");
+		
+		if (idMaquina > 0) {
+			where.append(" and m.idMaquina = :idMaquina");
+		
+			StringBuilder sqlFinal = new StringBuilder();
+			sqlFinal.append(sql);
+			sqlFinal.append(where.toString());
+			Query query = getEntityManager().createQuery(sqlFinal.toString());
+			
+			//DEFINICAO DOS PARAMETROS DA CONSULTA
+			query.setParameter("idMaquina", idMaquina);
+			
+			//EXECUCAO E RETORNO
+			Maquina result = (Maquina)query.getSingleResult();
+			return result;
 		}
-		return null;
-	}
-
-	public List<Maquina> listAll() {
-		Query a = em.createQuery("from Maquina v");
-		List<Maquina> resultsA = a.getResultList();
-		for (Maquina elemento : resultsA) {
-			System.out.println("Maquina: " + elemento.getDenominacao());
+		else{
+			return null;
 		}
-		return resultsA;
 	}
+	
 }

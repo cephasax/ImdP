@@ -1,32 +1,70 @@
 package br.ufrn.imd.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import br.ufrn.imd.dominio.TipoJustificativa;
 
 public class TipoJustificativaDao extends GenericDao {
 	
-	EntityManager em = getEntityManager();
-
-	public TipoJustificativa findByName(String nome) {
-		Query a = em.createQuery("from TipoJustificativa t where t.nome = " + nome);
-		List<TipoJustificativa> resultsA = a.getResultList();
-		for (TipoJustificativa elemento : resultsA) {
-			System.out.println("TipoJustificativa: " + elemento.getNome());
-			return elemento;
+	@SuppressWarnings("unchecked")
+	public ArrayList<TipoJustificativa> buscarTipoJustificativaFiltro
+							(String nomeTipoJustificativa) {
+		
+		//CONSTRUCAO DA CONSULTA SQL
+		String sql = " Select tj FROM TipoJustificativa tj";
+		StringBuilder where = new StringBuilder();
+		where.append(" WHERE 1 = 1 ");
+		
+		if (!nomeTipoJustificativa.equals("")){
+			where.append(" and lower(tj.nome) like lower(:nomeTipoJustificativa) ");
 		}
-		return null;
+		StringBuilder sqlFinal = new StringBuilder();
+		sqlFinal.append(sql);
+		sqlFinal.append(where.toString());	
+		Query query = getEntityManager().createQuery(sqlFinal.toString());
+		
+		//DEFINICAO DOS PARAMETROS DA CONSULTA
+		if (!nomeTipoJustificativa.equals("")){
+			query.setParameter("nomeTipoJustificativa", "%"+nomeTipoJustificativa+"%");
+		}
+		
+		//EXECUCAO E RETORNO
+		return (ArrayList<TipoJustificativa>)query.getResultList();
+	}
+
+	public ArrayList<TipoJustificativa> listar() {
+		Query a = getEntityManager().createQuery("Select tj from TipoJustificativa tj");
+		List<TipoJustificativa> results = new ArrayList<TipoJustificativa>();
+		results = a.getResultList();
+		return (ArrayList<TipoJustificativa>) results;
 	}
 	
-	public List<TipoJustificativa> listAll() {
-		Query a = em.createQuery("from TipoJustificativa t");
-		List<TipoJustificativa> resultsA = a.getResultList();
-		for (TipoJustificativa elemento : resultsA) {
-			System.out.println("TipoJustificativa: " + elemento.getNome());
+	public TipoJustificativa buscarPorId(int idTipoJustificativa) {
+		
+		//CONSTRUCAO DA CONSULTA SQL
+		String sql = " Select tj FROM TipoJustificativa tj";
+		StringBuilder where = new StringBuilder();
+		where.append(" WHERE 1 = 1 ");
+		
+		if (idTipoJustificativa > 0) {
+			where.append(" and tj.idTipoJustificativa = :idTipoJustificativa");
+			
+			StringBuilder sqlFinal = new StringBuilder();
+			sqlFinal.append(sql);
+			sqlFinal.append(where.toString());	
+			Query query = getEntityManager().createQuery(sqlFinal.toString());
+			
+			//DEFINICAO DOS PARAMETROS DA CONSULTA
+			query.setParameter("idTipoJustificativa", idTipoJustificativa);
+
+			//EXECUCAO E RETORNO
+			return (TipoJustificativa)query.getSingleResult();
 		}
-		return resultsA;
+		else{
+			return null;
+		}		
 	}
 }

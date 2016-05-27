@@ -1,74 +1,84 @@
 package br.ufrn.imd.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import br.ufrn.imd.dominio.Vinculo;
 
 public class VinculoDao extends GenericDao {
 
-	EntityManager em = getEntityManager();
-
-	public Vinculo findByUnidade(int idUnidade) {
-		Query a = em.createQuery("from Vinculo v where v.unidade.idUnidade = " + idUnidade);
-		List<Vinculo> resultsA = a.getResultList();
-		for (Vinculo elemento : resultsA) {
-			System.out.println("Vinculo: " + elemento.getDescricao());
-			return elemento;
+	@SuppressWarnings("unchecked")
+	public ArrayList<Vinculo> buscarVinculoFiltro(String nomeUsuario, int idUnidade, int idSetor) {
+		
+		//CONSTRUCAO DA CONSULTA SQL
+		String sql = " Select v FROM Vinculo v"
+				+ " JOIN v.usuario usuario"
+				+ " JOIN v.setor setor"
+				+ "	JOIN setor.unidade unidade";
+		StringBuilder where = new StringBuilder();
+		where.append(" WHERE 1 = 1 ");
+		
+		if (idUnidade > 0) {
+			where.append(" and unidade.idUnidade = :idUnidade");
 		}
-		return null;
+		if (idSetor > 0) {
+			where.append(" and setor.idSetor = :idSetor");
+		}
+		if (!nomeUsuario.equals("")){
+			where.append(" and lower(v.usuario.nome) like lower(:nome) ");
+		}
+		StringBuilder sqlFinal = new StringBuilder();
+		sqlFinal.append(sql);
+		sqlFinal.append(where.toString());	
+		Query query = getEntityManager().createQuery(sqlFinal.toString());
+		
+		//DEFINICAO DOS PARAMETROS DA CONSULTA
+		if (idUnidade > 0) {
+			query.setParameter("idUnidade", idUnidade);
+		}
+		if (idSetor > 0) {
+			query.setParameter("idSetor", idSetor);
+		}
+		if (!nomeUsuario.equals("")){
+			query.setParameter("nome", "%"+nomeUsuario+"%");
+		}
+		
+		//EXECUCAO E RETORNO
+		return (ArrayList<Vinculo>)query.getResultList();
 	}
 
-	public Vinculo findByUnidadeSetor(int idUnidade, int idSetor) {
-		Query a = em.createQuery(
-				"from Vinculo v where v.unidade.idUnidade = " + idUnidade + "and v.setor.idsetor = " + idSetor);
-		List<Vinculo> resultsA = a.getResultList();
-		for (Vinculo elemento : resultsA) {
-			System.out.println("Vinculo: " + elemento.getDescricao());
-			return elemento;
-		}
-		return null;
+	public ArrayList<Vinculo> listar() {
+		Query a = getEntityManager().createQuery("Select v from Vinculo v");
+		List<Vinculo> results = new ArrayList<Vinculo>();
+		results = a.getResultList();
+		return (ArrayList<Vinculo>) results;
 	}
+	
+	public Vinculo buscarPorId(int idVinculo) {
+		
+		//CONSTRUCAO DA CONSULTA SQL
+		String sql = " Select v FROM Vinculo v";
+		StringBuilder where = new StringBuilder();
+		where.append(" WHERE 1 = 1 ");
+		
+		if (idVinculo > 0) {
+			where.append(" and v.idVinculo = :idVinculo");
+			
+			StringBuilder sqlFinal = new StringBuilder();
+			sqlFinal.append(sql);
+			sqlFinal.append(where.toString());	
+			Query query = getEntityManager().createQuery(sqlFinal.toString());
+			
+			//DEFINICAO DOS PARAMETROS DA CONSULTA
+			query.setParameter("idVinculo", idVinculo);
 
-	public Vinculo findBySetor(int idSetor) {
-		Query a = em.createQuery("from Vinculo v where v.setor.idsetor = " + idSetor);
-		List<Vinculo> resultsA = a.getResultList();
-		for (Vinculo elemento : resultsA) {
-			System.out.println("Vinculo: " + elemento.getDescricao());
-			return elemento;
+			//EXECUCAO E RETORNO
+			return (Vinculo)query.getSingleResult();
 		}
-		return null;
-	}
-
-	public Vinculo findByUnidadeSetorNome(int idUnidade, int idSetor, String nome) {
-		Query a = em.createQuery("from Vinculo v where v.unidade.idUnidade = " + idUnidade + " and v.setor.idsetor = "
-				+ idSetor + " and v.nome = " + nome);
-		List<Vinculo> resultsA = a.getResultList();
-		for (Vinculo elemento : resultsA) {
-			System.out.println("Vinculo: " + elemento.getDescricao());
-			return elemento;
+		else{
+			return null;
 		}
-		return null;
-	}
-
-	public Vinculo findByNome(String nome) {
-		Query a = em.createQuery("from Vinculo v where v.nome = " + nome);
-		List<Vinculo> resultsA = a.getResultList();
-		for (Vinculo elemento : resultsA) {
-			System.out.println("Vinculo: " + elemento.getDescricao());
-			return elemento;
-		}
-		return null;
-	}
-
-	public List<Vinculo> listAll() {
-		Query a = em.createQuery("from Vinculo v");
-		List<Vinculo> resultsA = a.getResultList();
-		for (Vinculo elemento : resultsA) {
-			System.out.println("Vinculo: " + elemento.getDescricao());
-		}
-		return resultsA;
 	}
 }

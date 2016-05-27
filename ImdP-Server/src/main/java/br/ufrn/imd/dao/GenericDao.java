@@ -29,11 +29,6 @@ public class GenericDao {
 		em.getTransaction().commit();
 	}
 	
-//	public Object buscarPorId(Class classe , long id){
-//		EntityManager em = getEntityManager();
-//		return em.find(classe, id);
-//	}
-
 	protected EntityManager getEntityManager(){
 		return Conexao.getInstance().getEntityManager();
 	}

@@ -16,6 +16,11 @@
 <AnchorPane prefHeight="550.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
   <!-- TODO Add Nodes -->
   <children>
+    <Text fontSmoothingType="LCD" layoutX="180.0" layoutY="164.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome:">
+      <font>
+        <Font size="15.0" fx:id="x1" />
+      </font>
+    </Text>
     <ImageView fitHeight="20.259746551513672" fitWidth="104.00002819824107" layoutX="348.0" layoutY="515.0" pickOnBounds="true" preserveRatio="true">
       <image>
         <Image url="@../../../../../../resources/images/pontoAntigo/logosmall-old.png" />
@@ -26,7 +31,7 @@
         <Font size="14.0" />
       </font>
     </Text>
-    <TableView layoutX="42.0" layoutY="223.0" prefHeight="235.0" prefWidth="717.0">
+    <TableView fx:id="tblUsuarios" layoutX="42.0" layoutY="223.0" prefHeight="235.0" prefWidth="717.0">
       <columns>
         <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="246.0" text="Nome" />
             <TableColumn prefWidth="146.0" text="CPF" />
@@ -35,15 +40,10 @@
       </columns>
     </TableView>
     <Text layoutX="46.0" layoutY="476.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Clique duas vezes na linha para ver detalhes do usuário" />
-    <Button layoutX="637.0" layoutY="468.0" mnemonicParsing="false" text="Cancelar" />
-    <Button layoutX="708.0" layoutY="183.0" mnemonicParsing="false" text="Buscar" />
-    <Text fontSmoothingType="LCD" layoutX="180.0" layoutY="164.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome:">
-      <font>
-        <Font size="15.0" fx:id="x1" />
-      </font>
-    </Text>
-    <TextField layoutX="230.0" layoutY="146.0" prefWidth="529.0" promptText="" />
-    <ComboBox layoutX="230.0" layoutY="74.0" prefHeight="21.0" prefWidth="528.9999000000025" visible="true" visibleRowCount="7">
+    <Button fx:id="btnCancelar" layoutX="637.0" layoutY="468.0" mnemonicParsing="false" text="Cancelar" />
+    <Button fx:id="btnBuscar" layoutX="708.0" layoutY="183.0" mnemonicParsing="false" text="Buscar" />
+    <TextField fx:id="tfNome" layoutX="230.0" layoutY="146.0" prefWidth="529.0" promptText="" />
+    <ComboBox fx:id="tfUnidade" layoutX="230.0" layoutY="74.0" prefHeight="21.0" prefWidth="528.9999000000025" visible="true" visibleRowCount="7">
       <items>
         <FXCollections fx:factory="observableArrayList">
           <String fx:value="Item 1" />
@@ -53,7 +53,7 @@
       </items>
     </ComboBox>
     <Text font="$x1" fontSmoothingType="LCD" layoutX="163.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Unidade:" />
-      <ComboBox layoutX="230.0" layoutY="110.0" prefHeight="21.0" prefWidth="528.9999000000025" visible="true" visibleRowCount="7">
+      <ComboBox fx:id="tfSetor" layoutX="230.0" layoutY="110.0" prefHeight="21.0" prefWidth="528.9999000000025" visible="true" visibleRowCount="7">
          <items>
             <FXCollections fx:factory="observableArrayList">
                <String fx:value="Item 1" />
@@ -67,6 +67,6 @@
             <Font size="15.0" fx:id="x12" />
          </font>
       </Text>
-      <Button layoutX="708.0" layoutY="468.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="51.0" text="Excluir" />
+      <Button fx:id="btnExcluir" layoutX="708.0" layoutY="468.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="51.0" text="Excluir" />
   </children>
 </AnchorPane>

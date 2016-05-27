@@ -1,17 +1,19 @@
-package br.ufrn.imd.view.tipoJustificativa;
+package br.ufrn.imd.view.usuario;
 
 import br.ufrn.imd.main.ImdAuth;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 
-public class TipoJustificativaEditarController {
+import javafx.scene.control.Button;
+
+import javafx.scene.control.TableView;
+
+public class UsuarioListarController {
 	@FXML
-	private TextField tfTipoJustificativa;
-	@FXML
-	private Button btnConfirmar;
+	private Button btnExcluir;
 	@FXML
 	private Button btnCancelar;
+	@FXML
+	private TableView tblPessoas;
 
 	private ImdAuth imdAuth;
 

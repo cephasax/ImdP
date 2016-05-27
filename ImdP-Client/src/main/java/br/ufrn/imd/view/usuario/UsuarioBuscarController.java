@@ -1,26 +1,29 @@
-package br.ufrn.imd.view.setor;
+package br.ufrn.imd.view.usuario;
 
 import br.ufrn.imd.main.ImdAuth;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.text.Font;
 
-public class SetorBuscarController {
+import javafx.scene.control.Button;
+
+import javafx.scene.control.TextField;
+
+import javafx.scene.control.ComboBox;
+
+import javafx.scene.control.TableView;
+
+public class UsuarioBuscarController {
 	@FXML
-	private TableView tblSetor;
+	private TableView tblUsuarios;
 	@FXML
 	private Button btnCancelar;
 	@FXML
-	private Font x1;
-	@FXML
-	private TextField tfNomeSetor;
-	@FXML
 	private Button btnBuscar;
 	@FXML
-	private ComboBox cbUnidade;
+	private TextField tfNome;
+	@FXML
+	private ComboBox tfUnidade;
+	@FXML
+	private ComboBox tfSetor;
 	@FXML
 	private Button btnExcluir;
 

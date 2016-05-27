@@ -27,8 +27,8 @@
         <Font size="14.0" />
       </font>
     </Text>
-    <Button layoutX="603.0" layoutY="481.0" mnemonicParsing="false" text="Confirmar Edição" />
-    <Button layoutX="533.0" layoutY="481.0" mnemonicParsing="false" text="Cancelar" />
+    <Button fx:id="btnConfirmar" layoutX="603.0" layoutY="481.0" mnemonicParsing="false" text="Confirmar Edição" />
+    <Button fx:id="btnCancelar" layoutX="533.0" layoutY="481.0" mnemonicParsing="false" text="Cancelar" />
       <GridPane layoutX="91.0" layoutY="54.0" prefHeight="419.0" prefWidth="619.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="305.0" minWidth="10.0" prefWidth="192.0" />
@@ -71,10 +71,10 @@
                   <Font size="15.0" />
                </font>
             </Label>
-            <TextField prefHeight="25.0" prefWidth="225.0" GridPane.columnIndex="1" />
-            <TextField editable="false" prefHeight="25.0" prefWidth="336.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <ComboBox prefHeight="25.0" prefWidth="174.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <DatePicker GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="tfNome" prefHeight="25.0" prefWidth="225.0" GridPane.columnIndex="1" />
+            <TextField fx:id="tfCPF" editable="false" prefHeight="25.0" prefWidth="336.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <ComboBox fx:id="cbSexo" prefHeight="25.0" prefWidth="174.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <DatePicker fx:id="dpDataNascimento" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Label text="RG:" GridPane.halignment="CENTER" GridPane.rowIndex="6">
                <font>
                   <Font size="15.0" />
@@ -125,16 +125,16 @@
                   <Font size="15.0" />
                </font>
             </Label>
-            <TextField prefHeight="25.0" prefWidth="225.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField prefHeight="25.0" prefWidth="225.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <TextField prefHeight="25.0" prefWidth="225.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <DatePicker GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            <TextField prefHeight="25.0" prefWidth="225.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-            <ComboBox prefHeight="25.0" prefWidth="429.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-            <TextField prefHeight="25.0" prefWidth="225.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
-            <TextField prefHeight="25.0" prefWidth="225.0" GridPane.columnIndex="1" GridPane.rowIndex="11" />
-            <TextField prefHeight="25.0" prefWidth="225.0" GridPane.columnIndex="1" GridPane.rowIndex="12" />
-            <TextField prefHeight="25.0" prefWidth="225.0" GridPane.columnIndex="1" GridPane.rowIndex="13" />
+            <TextField fx:id="tfNomePai" prefHeight="25.0" prefWidth="225.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="tfNomeMae" prefHeight="25.0" prefWidth="225.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="tfRG" prefHeight="25.0" prefWidth="225.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <DatePicker fx:id="dpDataRG" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <TextField fx:id="tfOrgaoRG" prefHeight="25.0" prefWidth="225.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <ComboBox fx:id="tfEstado" prefHeight="25.0" prefWidth="429.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+            <TextField fx:id="tfCNH" prefHeight="25.0" prefWidth="225.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+            <TextField fx:id="tfEmail" prefHeight="25.0" prefWidth="225.0" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+            <TextField fx:id="tfTelefone1" prefHeight="25.0" prefWidth="225.0" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+            <TextField fx:id="tfTelefone2" prefHeight="25.0" prefWidth="225.0" GridPane.columnIndex="1" GridPane.rowIndex="13" />
          </children>
       </GridPane>
   </children>

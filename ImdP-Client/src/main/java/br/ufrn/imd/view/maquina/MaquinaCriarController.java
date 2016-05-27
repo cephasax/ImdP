@@ -1,12 +1,10 @@
 package br.ufrn.imd.view.maquina;
 
+import br.ufrn.imd.main.ImdAuth;
 import javafx.fxml.FXML;
-
 import javafx.scene.control.Button;
-
-import javafx.scene.control.TextField;
-
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
 
 public class MaquinaCriarController {
 	@FXML
@@ -26,4 +24,10 @@ public class MaquinaCriarController {
 	@FXML
 	private TextField tfIp4;
 
+	private ImdAuth imdAuth;
+
+	public void setMainApp(ImdAuth imdAuth) {
+		this.imdAuth = imdAuth;
+
+	}
 }

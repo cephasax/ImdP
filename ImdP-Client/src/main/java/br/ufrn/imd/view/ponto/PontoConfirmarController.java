@@ -1,9 +1,8 @@
 package br.ufrn.imd.view.ponto;
 
+import br.ufrn.imd.main.ImdAuth;
 import javafx.fxml.FXML;
-
 import javafx.scene.control.Button;
-
 import javafx.scene.control.ComboBox;
 
 public class PontoConfirmarController {
@@ -14,4 +13,10 @@ public class PontoConfirmarController {
 	@FXML
 	private Button btnAutenticar;
 
+	private ImdAuth imdAuth;
+
+	public void setMainApp(ImdAuth imdAuth) {
+		this.imdAuth = imdAuth;
+
+	}
 }

@@ -1,16 +1,12 @@
 package br.ufrn.imd.view.vinculo;
 
+import br.ufrn.imd.main.ImdAuth;
 import javafx.fxml.FXML;
-
 import javafx.scene.control.Button;
-
-import javafx.scene.control.TextField;
-
 import javafx.scene.control.ComboBox;
-
-import javafx.scene.text.Font;
-
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.text.Font;
 
 public class VinculoBuscarController {
 	@FXML
@@ -32,4 +28,10 @@ public class VinculoBuscarController {
 	@FXML
 	private Button btnExcluir;
 
+	private ImdAuth imdAuth;
+
+	public void setMainApp(ImdAuth imdAuth) {
+		this.imdAuth = imdAuth;
+
+	}
 }

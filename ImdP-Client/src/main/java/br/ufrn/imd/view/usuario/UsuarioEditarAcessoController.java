@@ -1,20 +1,31 @@
-package br.ufrn.imd.view.ponto;
+package br.ufrn.imd.view.usuario;
 
 import br.ufrn.imd.main.ImdAuth;
 import javafx.fxml.FXML;
+
 import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
+
 import javafx.scene.control.TextField;
 
-public class PontoNormalCriarController {
+import javafx.scene.image.ImageView;
+
+import javafx.scene.control.PasswordField;
+
+public class UsuarioEditarAcessoController {
 	@FXML
 	private Button btnCadastrar;
 	@FXML
 	private Button btnCancelar;
 	@FXML
-	private TextField tfCPF;
+	private TextField tfLogin;
+	@FXML
+	private Button btnFoto;
+	@FXML
+	private ImageView imgFoto;
 	@FXML
 	private PasswordField tfSenha;
+	@FXML
+	private PasswordField tfConfSenha;
 
 	private ImdAuth imdAuth;
 

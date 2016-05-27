@@ -21,30 +21,30 @@
         <Image url="@../../../../../../resources/images/pontoAntigo/logosmall-old.png" />
       </image>
     </ImageView>
-    <Text fontSmoothingType="LCD" layoutX="14.0" layoutY="29.0" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Busca de Justificativas de Faltas">
+    <Text fontSmoothingType="LCD" layoutX="14.0" layoutY="29.0" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Busca de Vínculos">
       <font>
         <Font size="14.0" />
       </font>
     </Text>
-    <TableView fx:id="tblJustificativasFaltas" layoutX="42.0" layoutY="223.0" prefHeight="235.0" prefWidth="717.0">
+    <TableView fx:id="tblVinculos" layoutX="42.0" layoutY="223.0" prefHeight="235.0" prefWidth="717.0">
       <columns>
-        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="165.0" text="Usuário" />
-            <TableColumn prefWidth="124.0" text="Data" />
-        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="89.0" text="Tipo" />
-        <TableColumn maxWidth="5000.0" minWidth="0.0" prefWidth="192.0" text="Descrição" />
-            <TableColumn prefWidth="79.0" text="Unidade" />
-            <TableColumn prefWidth="67.0" text="Setor" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="215.0" text="Nome" />
+            <TableColumn prefWidth="118.0" text="CPF" />
+            <TableColumn prefWidth="123.0" text="Unidade" />
+            <TableColumn prefWidth="104.0" text="Setor" />
+            <TableColumn prefWidth="82.0" text="CH semanal" />
+            <TableColumn prefWidth="74.0" text="Status" />
       </columns>
     </TableView>
-    <Text layoutX="46.0" layoutY="476.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Clique duas vezes na linha para ver detalhes da justificativa" />
-    <Button fx:id="btnCancelar" layoutX="638.0" layoutY="468.0" mnemonicParsing="false" text="Cancelar" />
+    <Text layoutX="46.0" layoutY="476.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Clique duas vezes na linha para ver detalhes da vínculo" />
+    <Button fx:id="btnCancelar" layoutX="637.0" layoutY="468.0" mnemonicParsing="false" text="Cancelar" />
     <Button fx:id="btnBuscar" layoutX="708.0" layoutY="183.0" mnemonicParsing="false" text="Buscar" />
-    <Text fontSmoothingType="LCD" layoutX="103.0" layoutY="164.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome do Usuário:">
+    <Text fontSmoothingType="LCD" layoutX="180.0" layoutY="164.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome:">
       <font>
         <Font size="15.0" fx:id="x1" />
       </font>
     </Text>
-    <TextField fx:id="tfNomeUsuario" layoutX="230.0" layoutY="146.0" prefWidth="529.0" promptText="" />
+    <TextField fx:id="tfNome" layoutX="230.0" layoutY="146.0" prefWidth="529.0" promptText="" />
     <ComboBox fx:id="cbUnidade" layoutX="230.0" layoutY="74.0" prefHeight="21.0" prefWidth="528.9999000000025" visible="true" visibleRowCount="7">
       <items>
         <FXCollections fx:factory="observableArrayList">
@@ -69,6 +69,6 @@
             <Font size="15.0" fx:id="x12" />
          </font>
       </Text>
-      <Button fx:id="btnExcluir" layoutX="709.0" layoutY="468.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="51.0" text="Excluir" />
+      <Button fx:id="btnExcluir" layoutX="708.0" layoutY="468.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="51.0" text="Excluir" />
   </children>
 </AnchorPane>

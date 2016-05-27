@@ -1,13 +1,12 @@
 package br.ufrn.imd.view.outras;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 import br.ufrn.imd.main.ImdAuth;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 
 public class InicioController {
 
@@ -19,20 +18,17 @@ public class InicioController {
 	@FXML
 	private TextField txtLogin;
 
-	public InicioController() {
+	@FXML
+	private Text lblCliqueAqui;
+
+	@FXML
+	public void handleBtnLogin() throws IOException {
+		imdAuth.iniciarPontoNormalCriar();
 	}
 
-	/**
-	 * É chamado pela aplicação principal para dar uma referência de volta a si
-	 * mesmo.
-	 * 
-	 * @param ImdAuth
-	 * @throws IOException
-	 */
 	@FXML
-	public void mudandoDeTela() throws IOException {
-		System.out.println("teste");
-		imdAuth.iniciarUnidadeCriar();
+	public void handleCliqueAqui() throws IOException {
+		imdAuth.iniciarUsuarioCriarAcesso();
 	}
 
 	public void setMainApp(ImdAuth imdAuth) {

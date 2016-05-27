@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="356.0" prefWidth="685.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="356.0" prefWidth="685.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.ufrn.imd.view.usuario.UsuarioCriarAcessoController">
   <!-- TODO Add Nodes -->
   <children>
     <ImageView fitHeight="20.259746551513672" fitWidth="176.0" layoutX="289.0" layoutY="321.0" pickOnBounds="true" preserveRatio="true">
@@ -27,8 +27,8 @@
         <Font size="14.0" />
       </font>
     </Text>
-    <Button fx:id="btnCadastrar" layoutX="584.0" layoutY="265.0" mnemonicParsing="false" text="Cadastrar" />
-    <Button fx:id="btnCancelar" layoutX="509.0" layoutY="265.0" mnemonicParsing="false" text="Cancelar" />
+    <Button fx:id="btnCadastrar" layoutX="584.0" layoutY="265.0" mnemonicParsing="false" onAction="#handleBtnCadastrar" text="Cadastrar" />
+    <Button fx:id="btnCancelar" layoutX="509.0" layoutY="265.0" mnemonicParsing="false" onAction="#handleBtnCancelar" text="Cancelar" />
       <GridPane layoutX="32.0" layoutY="68.0" prefHeight="197.0" prefWidth="619.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="222.0" minWidth="10.0" prefWidth="218.0" />
@@ -65,7 +65,7 @@
                   <Font size="15.0" />
                </font>
             </Label>
-            <Button fx:id="btnFoto" mnemonicParsing="false" prefHeight="25.0" prefWidth="479.0" text="Tirar foto" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+            <Button fx:id="btnFoto" mnemonicParsing="false" onAction="#handleBtnTirarFoto" prefHeight="25.0" prefWidth="479.0" text="Tirar foto" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
             <ImageView fx:id="imgFoto" fitHeight="146.0" fitWidth="133.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.rowSpan="4" GridPane.valignment="CENTER" />
             <PasswordField fx:id="tfSenha" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <PasswordField fx:id="tfConfSenha" GridPane.columnIndex="1" GridPane.rowIndex="2" />

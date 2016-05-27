@@ -505,6 +505,16 @@ public class ImdAuth extends Application {
 		controller.setMainApp(this);
 	}
 
+	public void iniciarTelaPrincipal() throws IOException {
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(ImdAuth.class.getResource("../view/outras/Inicio.fxml"));
+		BorderPane newScreen = (BorderPane) loader.load();
+
+		rootLayout.setCenter(newScreen);
+		InicioController controller = loader.getController();
+		controller.setMainApp(this);
+	}
+
 	public static void main(String[] args) {
 		launch(args);
 	}

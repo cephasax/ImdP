@@ -8,20 +8,28 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.ufrn.imd.controllers.InicioController">
-  <!-- TODO Add Nodes -->
-  <children>
-    <Button fx:id="btnLogar" layoutX="340.0" layoutY="309.0" mnemonicParsing="false" prefWidth="121.0" text="Logar" />
-    <TextField fx:id="txtLogin" layoutX="300.0" layoutY="278.0" prefWidth="200.0" />
-    <Text fx:id="labelAindaNaoECadastrado" layoutX="335.0" layoutY="357.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ainda não é cadastrado?" />
-      <ImageView fx:id="imgPonto" fitHeight="150.0" fitWidth="200.0" layoutX="300.0" layoutY="113.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../../../resources/images/pontoAntigo/logo.png" />
-         </image>
-      </ImageView>
-      <MenuBar prefHeight="25.0" prefWidth="800.0">
+<BorderPane xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.ufrn.imd.view.outras.InicioController">
+   <center>
+      <AnchorPane prefHeight="600.0" prefWidth="800.0">
+        <!-- TODO Add Nodes -->
+        <children>
+          <Button fx:id="btnLogar" layoutX="340.0" layoutY="309.0" mnemonicParsing="false" onAction="#handleBtnLogin" prefWidth="121.0" text="Logar" />
+          <TextField fx:id="txtLogin" layoutX="300.0" layoutY="278.0" prefWidth="200.0" />
+          <Text fx:id="labelAindaNaoECadastrado" layoutX="303.0" layoutY="357.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ainda não é cadastrado?" />
+            <ImageView fx:id="imgPonto" fitHeight="150.0" fitWidth="200.0" layoutX="300.0" layoutY="113.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../../resources/images/pontoAntigo/logo.png" />
+               </image>
+            </ImageView>
+            <Text fx:id="lblCliqueAqui" layoutX="437.0" layoutY="357.0" onMouseClicked="#handleCliqueAqui" strokeType="OUTSIDE" strokeWidth="0.0" text="Clique aqui!" />
+        </children>
+      </AnchorPane>
+   </center>
+   <top>
+      <MenuBar prefHeight="25.0" prefWidth="800.0" BorderPane.alignment="CENTER">
         <menus>
           <Menu mnemonicParsing="false" text="Menu">
             <items>
@@ -172,5 +180,5 @@
             </Menu>
         </menus>
       </MenuBar>
-  </children>
-</AnchorPane>
+   </top>
+</BorderPane>

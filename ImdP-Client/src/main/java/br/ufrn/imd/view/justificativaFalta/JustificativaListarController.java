@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 
-public class JustificativasListarController {
+public class JustificativaListarController {
 	@FXML
 	private Button brnCancelar;
 	@FXML

@@ -8,7 +8,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Font;
 
-public class JustificativasBuscarController {
+public class JustificativaBuscarController {
 	@FXML
 	private TableView tblJustificativasFaltas;
 	@FXML

@@ -1,8 +1,5 @@
 ImdP-Server/.classpath
 ImdP-Client/target/classes/META-INF/maven/view/ImdP-Client/pom.properties
 ImdP-Client/target/classes/META-INF/MANIFEST.MF
-ImdP-Client/target/classes/META-INF/MANIFEST.MF
-*.class
 *.class
 *.properties
-*.class

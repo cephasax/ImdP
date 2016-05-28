@@ -40,37 +40,37 @@
                <items>
                   <Menu mnemonicParsing="false" text="Unidade">
                      <items>
-                        <MenuItem mnemonicParsing="false" text="Criar" />
-                        <MenuItem mnemonicParsing="false" text="Listar" />
-                        <MenuItem mnemonicParsing="false" text="Buscar" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleUnidadeCriar" text="Criar" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleUnidadeListar" text="Listar" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleUnidadeBuscar" text="Buscar" />
                      </items>
                   </Menu>
                   <Menu mnemonicParsing="false" text="Setor">
                      <items>
-                        <MenuItem mnemonicParsing="false" text="Criar" />
-                        <MenuItem mnemonicParsing="false" text="Listar" />
-                        <MenuItem mnemonicParsing="false" text="Buscar" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleSetorCriar" text="Criar" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleSetorListar" text="Listar" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleSetorBuscar" text="Buscar" />
                      </items>
                   </Menu>
                   <Menu mnemonicParsing="false" text="Cargo">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="Criar" />
-                        <MenuItem mnemonicParsing="false" text="Listar" />
-                        <MenuItem mnemonicParsing="false" text="Buscar" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleCargoCriar" text="Criar" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleCargoListar" text="Listar" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleCargoBuscar" text="Buscar" />
                     </items>
                   </Menu>
                   <Menu mnemonicParsing="false" text="Máquina">
                      <items>
-                        <MenuItem mnemonicParsing="false" text="Criar" />
-                        <MenuItem mnemonicParsing="false" text="Listar" />
-                        <MenuItem mnemonicParsing="false" text="Buscar" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleMaquinaCriar" text="Criar" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleMaquinaListar" text="Listar" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleMaquinaBuscar" text="Buscar" />
                      </items>
                   </Menu>
                   <Menu mnemonicParsing="false" text="Tipo de Justificativa">
                      <items>
-                        <MenuItem mnemonicParsing="false" text="Criar" />
-                        <MenuItem mnemonicParsing="false" text="Listar" />
-                        <MenuItem mnemonicParsing="false" text="Buscar" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleTipoJustificativaCriar" text="Criar" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleTipoJustificativaListar" text="Listar" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleTipoJustificativaBuscar" text="Buscar" />
                      </items>
                   </Menu>
                   <Menu mnemonicParsing="false" text="Pessoa">
@@ -82,30 +82,30 @@
                   </Menu>
                   <Menu mnemonicParsing="false" text="Usuário">
                      <items>
-                        <MenuItem mnemonicParsing="false" text="Criar" />
-                        <MenuItem mnemonicParsing="false" text="Listar" />
-                        <MenuItem mnemonicParsing="false" text="Buscar" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleUsuarioCriar" text="Criar" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleUsuarioListar" text="Listar" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleUsuarioBuscar" text="Buscar" />
                      </items>
                   </Menu>
                   <Menu mnemonicParsing="false" text="Vínculo">
                      <items>
-                        <MenuItem mnemonicParsing="false" text="Criar" />
-                        <MenuItem mnemonicParsing="false" text="Listar" />
-                        <MenuItem mnemonicParsing="false" text="Buscar" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleVinculoCriar" text="Criar" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleVinculoListar" text="Listar" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleVinculoBuscar" text="Buscar" />
                      </items>
                   </Menu>
                   <Menu mnemonicParsing="false" text="Ponto">
                      <items>
-                        <MenuItem mnemonicParsing="false" text="Criar" />
-                        <MenuItem mnemonicParsing="false" text="Listar" />
-                        <MenuItem mnemonicParsing="false" text="Buscar" />
+                        <MenuItem mnemonicParsing="false" onAction="#handlePontoNormalCriar" text="Criar" />
+                        <MenuItem mnemonicParsing="false" onAction="#handlePontoListar" text="Listar" />
+                        <MenuItem mnemonicParsing="false" onAction="#handlePontoBuscar" text="Buscar" />
                      </items>
                   </Menu>
                   <Menu mnemonicParsing="false" text="Justificativa de falta">
                      <items>
-                        <MenuItem mnemonicParsing="false" text="Criar" />
-                        <MenuItem mnemonicParsing="false" text="Listar" />
-                        <MenuItem mnemonicParsing="false" text="Buscar" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleJustificativaCriar" text="Criar" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleJustificativaListar" text="Listar" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleJustificativaBuscar" text="Buscar" />
                      </items>
                   </Menu>
                </items>

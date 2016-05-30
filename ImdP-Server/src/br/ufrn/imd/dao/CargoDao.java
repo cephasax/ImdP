@@ -10,7 +10,7 @@ import br.ufrn.imd.dominio.Cargo;
 public class CargoDao extends GenericDao {
 
 	@SuppressWarnings("unchecked")
-	public ArrayList<Cargo> buscarVinculoFiltro(String nomeCargo) {
+	public ArrayList<Cargo> buscarCargoFiltro(String nomeCargo) {
 		
 		//CONSTRUCAO DA CONSULTA SQL
 		String sql = " Select c FROM Cargo c";

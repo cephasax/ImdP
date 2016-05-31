@@ -24,7 +24,7 @@ public class Unidade implements Serializable {
 	@OneToMany(mappedBy = "unidade")
 	private Collection<Setor> setores;
 
-	public int geIdUnidade() {
+	public int getIdUnidade() {
 		return idUnidade;
 	}
 

@@ -3,13 +3,17 @@ package br.ufrn.imd.dao;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.EntityManager;
+import javax.ejb.Stateless;
 import javax.persistence.Query;
 
 import br.ufrn.imd.dominio.Unidade;
-import br.ufrn.imd.dominio.Unidade;
 
+@Stateless
 public class UnidadeDao extends GenericDao {
+	
+	public UnidadeDao(){
+		super(Unidade.class);
+	}
 	
 	@SuppressWarnings("unchecked")
 	public ArrayList<Unidade> buscarUnidadeFiltro(String nomeUnidade) {
@@ -25,7 +29,7 @@ public class UnidadeDao extends GenericDao {
 		StringBuilder sqlFinal = new StringBuilder();
 		sqlFinal.append(sql);
 		sqlFinal.append(where.toString());	
-		Query query = getEntityManager().createQuery(sqlFinal.toString());
+		Query query = em.createQuery(sqlFinal.toString());
 		
 		//DEFINICAO DOS PARAMETROS DA CONSULTA
 		if (!nomeUnidade.equals("")){
@@ -37,9 +41,9 @@ public class UnidadeDao extends GenericDao {
 	}
 
 	public ArrayList<Unidade> listar() {
-		Query a = getEntityManager().createQuery("Select u from Unidade u");
+		Query query = em.createQuery("Select u from Unidade u");
 		List<Unidade> results = new ArrayList<Unidade>();
-		results = a.getResultList();
+		results = query.getResultList();
 		return (ArrayList<Unidade>) results;
 	}
 	
@@ -56,7 +60,7 @@ public class UnidadeDao extends GenericDao {
 			StringBuilder sqlFinal = new StringBuilder();
 			sqlFinal.append(sql);
 			sqlFinal.append(where.toString());	
-			Query query = getEntityManager().createQuery(sqlFinal.toString());
+			Query query = em.createQuery(sqlFinal.toString());
 			
 			//DEFINICAO DOS PARAMETROS DA CONSULTA
 				query.setParameter("idUnidade", idUnidade);
@@ -67,5 +71,9 @@ public class UnidadeDao extends GenericDao {
 		else{
 			return null;
 		}
+	}
+
+	public void delete(Unidade unidade) {
+		super.delete(unidade.getIdUnidade(), Unidade.class);
 	}
 }

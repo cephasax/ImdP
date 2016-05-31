@@ -22,9 +22,9 @@ public class Vinculo implements Serializable {
 	private int idVinculo;
 	private String descricao;
 
-	@ManyToOne
+	/*@ManyToOne
 	@JoinColumn(name = "idCargo")
-	private Cargo cargo;
+	private Cargo cargo;*/
 
 	@ManyToOne
 	@JoinColumn(name = "idSetor")
@@ -65,13 +65,13 @@ public class Vinculo implements Serializable {
 		this.descricao = descricao;
 	}
 
-	public Cargo getCargo() {
+	/*public Cargo getCargo() {
 		return cargo;
 	}
 
 	public void setCargo(Cargo cargo) {
 		this.cargo = cargo;
-	}
+	}*/
 
 	public Setor getSetor() {
 		return setor;

@@ -3,12 +3,18 @@ package br.ufrn.imd.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ejb.Stateless;
 import javax.persistence.Query;
 
 import br.ufrn.imd.dominio.Vinculo;
 
+@Stateless
 public class VinculoDao extends GenericDao {
 
+	public VinculoDao(){
+		super(Vinculo.class);
+	}
+	
 	@SuppressWarnings("unchecked")
 	public ArrayList<Vinculo> buscarVinculoFiltro(String nomeUsuario, int idUnidade, int idSetor) {
 		
@@ -32,7 +38,7 @@ public class VinculoDao extends GenericDao {
 		StringBuilder sqlFinal = new StringBuilder();
 		sqlFinal.append(sql);
 		sqlFinal.append(where.toString());	
-		Query query = getEntityManager().createQuery(sqlFinal.toString());
+		Query query = em.createQuery(sqlFinal.toString());
 		
 		//DEFINICAO DOS PARAMETROS DA CONSULTA
 		if (idUnidade > 0) {
@@ -50,9 +56,9 @@ public class VinculoDao extends GenericDao {
 	}
 
 	public ArrayList<Vinculo> listar() {
-		Query a = getEntityManager().createQuery("Select v from Vinculo v");
+		Query query = em.createQuery("Select v from Vinculo v");
 		List<Vinculo> results = new ArrayList<Vinculo>();
-		results = a.getResultList();
+		results = query.getResultList();
 		return (ArrayList<Vinculo>) results;
 	}
 	
@@ -69,7 +75,7 @@ public class VinculoDao extends GenericDao {
 			StringBuilder sqlFinal = new StringBuilder();
 			sqlFinal.append(sql);
 			sqlFinal.append(where.toString());	
-			Query query = getEntityManager().createQuery(sqlFinal.toString());
+			Query query = em.createQuery(sqlFinal.toString());
 			
 			//DEFINICAO DOS PARAMETROS DA CONSULTA
 			query.setParameter("idVinculo", idVinculo);
@@ -80,5 +86,9 @@ public class VinculoDao extends GenericDao {
 		else{
 			return null;
 		}
+	}
+
+	public void delete(Vinculo vinculo) {
+		super.delete(vinculo.getIdVinculo(), Vinculo.class);
 	}
 }

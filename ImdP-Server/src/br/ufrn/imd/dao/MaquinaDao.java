@@ -3,11 +3,18 @@ package br.ufrn.imd.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ejb.Stateless;
 import javax.persistence.Query;
 
 import br.ufrn.imd.dominio.Maquina;
+import br.ufrn.imd.dominio.Vinculo;
 
+@Stateless
 public class MaquinaDao extends GenericDao {
+	
+	public MaquinaDao(){
+		super(Maquina.class);
+	}
 	
 	@SuppressWarnings("unchecked")
 	public ArrayList<Maquina> buscarMaquinaFiltro(String nomeMaquina, int idUnidade) {
@@ -27,7 +34,7 @@ public class MaquinaDao extends GenericDao {
 		StringBuilder sqlFinal = new StringBuilder();
 		sqlFinal.append(sql);
 		sqlFinal.append(where.toString());	
-		Query query = getEntityManager().createQuery(sqlFinal.toString());
+		Query query = em.createQuery(sqlFinal.toString());
 		
 		//DEFINICAO DOS PARAMETROS DA CONSULTA
 		if (idUnidade > 0) {
@@ -42,9 +49,9 @@ public class MaquinaDao extends GenericDao {
 	}
 
 	public ArrayList<Maquina> listar() {
-		Query a = getEntityManager().createQuery("Select m FROM Maquina m");
+		Query query = em.createQuery("Select m FROM Maquina m");
 		List<Maquina> results = new ArrayList<Maquina>();
-		results = a.getResultList();
+		results = query.getResultList();
 		return (ArrayList<Maquina>) results;
 	}
 	
@@ -59,7 +66,7 @@ public class MaquinaDao extends GenericDao {
 			StringBuilder sqlFinal = new StringBuilder();
 			sqlFinal.append(sql);
 			sqlFinal.append(where.toString());
-			Query query = getEntityManager().createQuery(sqlFinal.toString());
+			Query query = em.createQuery(sqlFinal.toString());
 			
 			//DEFINICAO DOS PARAMETROS DA CONSULTA
 			query.setParameter("idMaquina", idMaquina);
@@ -71,6 +78,10 @@ public class MaquinaDao extends GenericDao {
 		else{
 			return null;
 		}
+	}
+	
+	public void delete(Maquina maquina) {
+		super.delete(maquina.getIdMaquina(), Maquina.class);
 	}
 	
 }

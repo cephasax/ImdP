@@ -73,13 +73,6 @@
                         <MenuItem mnemonicParsing="false" onAction="#handleTipoJustificativaBuscar" text="Buscar" />
                      </items>
                   </Menu>
-                  <Menu mnemonicParsing="false" text="Pessoa">
-                     <items>
-                        <MenuItem mnemonicParsing="false" text="Criar" />
-                        <MenuItem mnemonicParsing="false" text="Listar" />
-                        <MenuItem mnemonicParsing="false" text="Buscar" />
-                     </items>
-                  </Menu>
                   <Menu mnemonicParsing="false" text="Usuário">
                      <items>
                         <MenuItem mnemonicParsing="false" onAction="#handleUsuarioCriar" text="Criar" />
@@ -114,27 +107,30 @@
                <items>
                   <Menu mnemonicParsing="false" text="Setor">
                      <items>
-                        <MenuItem mnemonicParsing="false" text="Action 1" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleSetorCriar" text="Criar" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleSetorListar" text="Listar" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleSetorBuscar" text="Buscar" />
                      </items>
                   </Menu>
                   <Menu mnemonicParsing="false" text="Máquina">
                      <items>
-                        <MenuItem mnemonicParsing="false" text="Action 1" />
-                     </items>
-                  </Menu>
-                  <Menu mnemonicParsing="false" text="Pessoa">
-                     <items>
-                        <MenuItem mnemonicParsing="false" text="Action 1" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleMaquinaCriar" text="Criar" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleMaquinaListar" text="Listar" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleMaquinaBuscar" text="Buscar" />
                      </items>
                   </Menu>
                   <Menu mnemonicParsing="false" text="Usuário">
                      <items>
-                        <MenuItem mnemonicParsing="false" text="Action 1" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleUsuarioCriar" text="Criar" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleUsuarioListar" text="Listar" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleUsuarioBuscar" text="Buscar" />
                      </items>
                   </Menu>
                   <Menu mnemonicParsing="false" text="Ponto">
                      <items>
-                        <MenuItem mnemonicParsing="false" text="Action 1" />
+                        <MenuItem mnemonicParsing="false" onAction="#handlePontoNormalCriar" text="Criar" />
+                        <MenuItem mnemonicParsing="false" onAction="#handlePontoListar" text="Listar" />
+                        <MenuItem mnemonicParsing="false" onAction="#handlePontoBuscar" text="Buscar" />
                      </items>
                   </Menu>
                </items>
@@ -143,17 +139,23 @@
                <items>
                   <Menu mnemonicParsing="false" text="Usuário">
                      <items>
-                        <MenuItem mnemonicParsing="false" text="Action 1" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleUsuarioCriar" text="Criar" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleUsuarioListar" text="Listar" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleUsuarioBuscar" text="Buscar" />
                      </items>
                   </Menu>
                   <Menu mnemonicParsing="false" text="Ponto">
                      <items>
-                        <MenuItem mnemonicParsing="false" text="Action 1" />
+                        <MenuItem mnemonicParsing="false" onAction="#handlePontoNormalCriar" text="Criar" />
+                        <MenuItem mnemonicParsing="false" onAction="#handlePontoListar" text="Listar" />
+                        <MenuItem mnemonicParsing="false" onAction="#handlePontoBuscar" text="Buscar" />
                      </items>
                   </Menu>
                   <Menu mnemonicParsing="false" text="Justificativa de falta">
                      <items>
-                        <MenuItem mnemonicParsing="false" text="Action 1" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleJustificativaCriar" text="Criar" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleJustificativaListar" text="Listar" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleJustificativaBuscar" text="Buscar" />
                      </items>
                   </Menu>
                </items>
@@ -162,12 +164,16 @@
             <items>
                   <Menu mnemonicParsing="false" text="Ponto">
                      <items>
-                        <MenuItem mnemonicParsing="false" text="Action 1" />
+                        <MenuItem mnemonicParsing="false" onAction="#handlePontoNormalCriar" text="Criar" />
+                        <MenuItem mnemonicParsing="false" onAction="#handlePontoListar" text="Listar" />
+                        <MenuItem mnemonicParsing="false" onAction="#handlePontoBuscar" text="Buscar" />
                      </items>
                   </Menu>
                   <Menu mnemonicParsing="false" text="Justificativa de falta">
                      <items>
-                        <MenuItem mnemonicParsing="false" text="Action 1" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleJustificativaCriar" text="Criar" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleJustificativaListar" text="Listar" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleJustificativaBuscar" text="Buscar" />
                      </items>
                   </Menu>
             </items>

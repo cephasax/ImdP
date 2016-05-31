@@ -22,9 +22,9 @@ public class Vinculo implements Serializable {
 	private int idVinculo;
 	private String descricao;
 
-	/*@ManyToOne
+	@ManyToOne
 	@JoinColumn(name = "idCargo")
-	private Cargo cargo;*/
+	private Cargo cargo;
 
 	@ManyToOne
 	@JoinColumn(name = "idSetor")
@@ -34,15 +34,15 @@ public class Vinculo implements Serializable {
 	@JoinColumn(name = "idUsuario")
 	private Usuario usuario;
 	
-	@OneToMany(mappedBy = "vinculo")
-	private Collection<Ponto> pontos;
+	/*@OneToMany(mappedBy = "vinculo")
+	private Collection<Ponto> pontos;*/
 	
 	@ManyToOne
 	@JoinColumn(name = "idPermissao")
 	private Permissao permissao;
 	
-	@OneToMany(mappedBy = "vinculo")
-	private Collection<JustificativaFalta> justificativas;
+	/*@OneToMany(mappedBy = "vinculo")
+	private Collection<JustificativaFalta> justificativas;*/
 
 	private int cargaHorariaDiaria;
 	private int cargaHorariaSemanal;
@@ -65,13 +65,13 @@ public class Vinculo implements Serializable {
 		this.descricao = descricao;
 	}
 
-	/*public Cargo getCargo() {
+	public Cargo getCargo() {
 		return cargo;
 	}
 
 	public void setCargo(Cargo cargo) {
 		this.cargo = cargo;
-	}*/
+	}
 
 	public Setor getSetor() {
 		return setor;
@@ -121,13 +121,13 @@ public class Vinculo implements Serializable {
 		this.usuario = usuario;
 	}
 
-	public Collection<Ponto> getPontos() {
+/*	public Collection<Ponto> getPontos() {
 		return pontos;
 	}
 
 	public void setPontos(Collection<Ponto> pontos) {
 		this.pontos = pontos;
-	}
+	}*/
 
 	public Permissao getPermissao() {
 		return permissao;
@@ -137,14 +137,14 @@ public class Vinculo implements Serializable {
 		this.permissao = permissao;
 	}
 
-	public Collection<JustificativaFalta> getJustificativas() {
+/*	public Collection<JustificativaFalta> getJustificativas() {
 		return justificativas;
 	}
 
 	public void setJustificativas(Collection<JustificativaFalta> justificativas) {
 		this.justificativas = justificativas;
 	}
-	
+	*/
 	
 
 }

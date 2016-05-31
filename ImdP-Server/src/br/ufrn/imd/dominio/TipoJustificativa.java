@@ -21,8 +21,8 @@ public class TipoJustificativa implements Serializable {
 	
 	private String nome;
 	
-	@OneToMany(mappedBy="tipoJustificativa")
-	private Collection<JustificativaFalta> justificativas;
+	/*@OneToMany(mappedBy="tipoJustificativa")
+	private Collection<JustificativaFalta> justificativas;*/
 
 	public int getIdTipoJustificativa() {
 		return idTipoJustificativa;
@@ -40,13 +40,13 @@ public class TipoJustificativa implements Serializable {
 		this.nome = nome;
 	}
 
-	public Collection<JustificativaFalta> getJustificativas() {
+	/*public Collection<JustificativaFalta> getJustificativas() {
 		return justificativas;
 	}
 
 	public void setJustificativas(Collection<JustificativaFalta> justificativas) {
 		this.justificativas = justificativas;
-	}
+	}*/
 	
 	
 }

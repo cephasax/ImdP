@@ -11,7 +11,6 @@ import br.ufrn.imd.dominio.Cargo;
 @Stateless
 public class CargoInterfaceImp implements CargoInterface{
 
-	
 	@EJB
 	private CargoDao cargoDao;
 	

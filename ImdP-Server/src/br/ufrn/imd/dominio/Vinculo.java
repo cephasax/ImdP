@@ -121,4 +121,30 @@ public class Vinculo implements Serializable {
 		this.usuario = usuario;
 	}
 
+	public Collection<Ponto> getPontos() {
+		return pontos;
+	}
+
+	public void setPontos(Collection<Ponto> pontos) {
+		this.pontos = pontos;
+	}
+
+	public Permissao getPermissao() {
+		return permissao;
+	}
+
+	public void setPermissao(Permissao permissao) {
+		this.permissao = permissao;
+	}
+
+	public Collection<JustificativaFalta> getJustificativas() {
+		return justificativas;
+	}
+
+	public void setJustificativas(Collection<JustificativaFalta> justificativas) {
+		this.justificativas = justificativas;
+	}
+	
+	
+
 }

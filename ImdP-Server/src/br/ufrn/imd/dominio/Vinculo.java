@@ -34,15 +34,15 @@ public class Vinculo implements Serializable {
 	@JoinColumn(name = "idUsuario")
 	private Usuario usuario;
 	
-	@OneToMany(mappedBy = "vinculo")
-	private Collection<Ponto> pontos;
+	/*@OneToMany(mappedBy = "vinculo")
+	private Collection<Ponto> pontos;*/
 	
 	@ManyToOne
 	@JoinColumn(name = "idPermissao")
 	private Permissao permissao;
 	
-	@OneToMany(mappedBy = "vinculo")
-	private Collection<JustificativaFalta> justificativas;
+	/*@OneToMany(mappedBy = "vinculo")
+	private Collection<JustificativaFalta> justificativas;*/
 
 	private int cargaHorariaDiaria;
 	private int cargaHorariaSemanal;
@@ -120,5 +120,31 @@ public class Vinculo implements Serializable {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
+
+/*	public Collection<Ponto> getPontos() {
+		return pontos;
+	}
+
+	public void setPontos(Collection<Ponto> pontos) {
+		this.pontos = pontos;
+	}*/
+
+	public Permissao getPermissao() {
+		return permissao;
+	}
+
+	public void setPermissao(Permissao permissao) {
+		this.permissao = permissao;
+	}
+
+/*	public Collection<JustificativaFalta> getJustificativas() {
+		return justificativas;
+	}
+
+	public void setJustificativas(Collection<JustificativaFalta> justificativas) {
+		this.justificativas = justificativas;
+	}
+	*/
+	
 
 }

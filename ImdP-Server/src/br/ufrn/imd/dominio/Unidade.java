@@ -21,10 +21,10 @@ public class Unidade implements Serializable {
 
 	private String nome;
 
-	@OneToMany(mappedBy = "unidade")
-	private Collection<Setor> setores;
+	/*@OneToMany(mappedBy = "unidade")
+	private Collection<Setor> setores;*/
 
-	public int geIdUnidade() {
+	public int getIdUnidade() {
 		return idUnidade;
 	}
 
@@ -40,12 +40,12 @@ public class Unidade implements Serializable {
 		this.nome = nome;
 	}
 
-	public Collection<Setor> getSetores() {
+/*	public Collection<Setor> getSetores() {
 		return setores;
 	}
 
 	public void setSetores(Collection<Setor> setores) {
 		this.setores = setores;
-	}
+	}*/
 
 }

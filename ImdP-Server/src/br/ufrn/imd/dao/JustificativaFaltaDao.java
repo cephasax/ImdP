@@ -3,11 +3,18 @@ package br.ufrn.imd.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ejb.Stateless;
 import javax.persistence.Query;
 
 import br.ufrn.imd.dominio.JustificativaFalta;
+import br.ufrn.imd.dominio.Setor;
 
+@Stateless
 public class JustificativaFaltaDao extends GenericDao {
+	
+	public JustificativaFaltaDao(){
+		super(JustificativaFalta.class);
+	}
 	
 	@SuppressWarnings("unchecked")
 	public ArrayList<JustificativaFalta> buscarJustificativaFiltro(
@@ -34,7 +41,7 @@ public class JustificativaFaltaDao extends GenericDao {
 		StringBuilder sqlFinal = new StringBuilder();
 		sqlFinal.append(sql);
 		sqlFinal.append(where.toString());	
-		Query query = getEntityManager().createQuery(sqlFinal.toString());
+		Query query = em.createQuery(sqlFinal.toString());
 		
 		//DEFINICAO DOS PARAMETROS DA CONSULTA
 		if (idUnidade > 0) {
@@ -53,9 +60,9 @@ public class JustificativaFaltaDao extends GenericDao {
 	
 	@SuppressWarnings("unchecked")
 	public ArrayList<JustificativaFalta> listar() {
-		Query a = getEntityManager().createQuery("Select j from JustificativaFalta j");
+		Query query = em.createQuery("Select j from JustificativaFalta j");
 		List<JustificativaFalta> results = new ArrayList<JustificativaFalta>();
-		results = a.getResultList();
+		results = query.getResultList();
 		return (ArrayList<JustificativaFalta>) results;
 	}
 	
@@ -72,7 +79,7 @@ public class JustificativaFaltaDao extends GenericDao {
 			StringBuilder sqlFinal = new StringBuilder();
 			sqlFinal.append(sql);
 			sqlFinal.append(where.toString());	
-			Query query = getEntityManager().createQuery(sqlFinal.toString());
+			Query query = em.createQuery(sqlFinal.toString());
 			
 			//DEFINICAO DOS PARAMETROS DA CONSULTA
 			query.setParameter("idJustificativa", idJustificativa);
@@ -83,5 +90,9 @@ public class JustificativaFaltaDao extends GenericDao {
 		else{
 			return null;
 		}
+	}
+	
+	public void delete(JustificativaFalta justificativaFalta) {
+		super.delete(justificativaFalta.getIdJustificativaFalta(), JustificativaFalta.class);
 	}
 }

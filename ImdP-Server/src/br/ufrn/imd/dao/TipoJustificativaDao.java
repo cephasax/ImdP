@@ -3,12 +3,18 @@ package br.ufrn.imd.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ejb.Stateless;
 import javax.persistence.Query;
 
 import br.ufrn.imd.dominio.TipoJustificativa;
 
+@Stateless
 public class TipoJustificativaDao extends GenericDao {
 	
+	public TipoJustificativaDao(){
+		super(TipoJustificativa.class);
+	}
+		
 	@SuppressWarnings("unchecked")
 	public ArrayList<TipoJustificativa> buscarTipoJustificativaFiltro
 							(String nomeTipoJustificativa) {
@@ -24,7 +30,7 @@ public class TipoJustificativaDao extends GenericDao {
 		StringBuilder sqlFinal = new StringBuilder();
 		sqlFinal.append(sql);
 		sqlFinal.append(where.toString());	
-		Query query = getEntityManager().createQuery(sqlFinal.toString());
+		Query query = em.createQuery(sqlFinal.toString());
 		
 		//DEFINICAO DOS PARAMETROS DA CONSULTA
 		if (!nomeTipoJustificativa.equals("")){
@@ -36,9 +42,9 @@ public class TipoJustificativaDao extends GenericDao {
 	}
 
 	public ArrayList<TipoJustificativa> listar() {
-		Query a = getEntityManager().createQuery("Select tj from TipoJustificativa tj");
+		Query query = em.createQuery("Select tj from TipoJustificativa tj");
 		List<TipoJustificativa> results = new ArrayList<TipoJustificativa>();
-		results = a.getResultList();
+		results = query.getResultList();
 		return (ArrayList<TipoJustificativa>) results;
 	}
 	
@@ -55,7 +61,7 @@ public class TipoJustificativaDao extends GenericDao {
 			StringBuilder sqlFinal = new StringBuilder();
 			sqlFinal.append(sql);
 			sqlFinal.append(where.toString());	
-			Query query = getEntityManager().createQuery(sqlFinal.toString());
+			Query query = em.createQuery(sqlFinal.toString());
 			
 			//DEFINICAO DOS PARAMETROS DA CONSULTA
 			query.setParameter("idTipoJustificativa", idTipoJustificativa);
@@ -66,5 +72,9 @@ public class TipoJustificativaDao extends GenericDao {
 		else{
 			return null;
 		}		
+	}
+
+	public void delete(TipoJustificativa tipoJustificativa) {
+		super.delete(tipoJustificativa.getIdTipoJustificativa(), TipoJustificativa.class);
 	}
 }

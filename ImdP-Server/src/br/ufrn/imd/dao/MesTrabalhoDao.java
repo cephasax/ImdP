@@ -3,11 +3,18 @@ package br.ufrn.imd.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ejb.Stateless;
 import javax.persistence.Query;
 
 import br.ufrn.imd.dominio.MesTrabalho;
+import br.ufrn.imd.dominio.Vinculo;
 
+@Stateless
 public class MesTrabalhoDao extends GenericDao {
+	
+	public MesTrabalhoDao(){
+		super(MesTrabalho.class);
+	}
 	
 	@SuppressWarnings("unchecked")
 	public ArrayList<MesTrabalho> buscarMesTrabalhoFiltro(int mes, int ano) {
@@ -27,7 +34,7 @@ public class MesTrabalhoDao extends GenericDao {
 		StringBuilder sqlFinal = new StringBuilder();
 		sqlFinal.append(sql);
 		sqlFinal.append(where.toString());	
-		Query query = getEntityManager().createQuery(sqlFinal.toString());
+		Query query = em.createQuery(sqlFinal.toString());
 		
 		//DEFINICAO DOS PARAMETROS DA CONSULTA
 		if (mes > 0) {
@@ -42,7 +49,7 @@ public class MesTrabalhoDao extends GenericDao {
 	}
 
 	public ArrayList<MesTrabalho> listar() {
-		Query a = getEntityManager().createQuery(" Select mt FROM MesTrabalho mt");
+		Query a = em.createQuery(" Select mt FROM MesTrabalho mt");
 		List<MesTrabalho> results = new ArrayList<MesTrabalho>();
 		results = a.getResultList();
 		return (ArrayList<MesTrabalho>) results;
@@ -61,7 +68,7 @@ public class MesTrabalhoDao extends GenericDao {
 			StringBuilder sqlFinal = new StringBuilder();
 			sqlFinal.append(sql);
 			sqlFinal.append(where.toString());	
-			Query query = getEntityManager().createQuery(sqlFinal.toString());
+			Query query = em.createQuery(sqlFinal.toString());
 			
 			//DEFINICAO DOS PARAMETROS DA CONSULTA
 			query.setParameter("idMesTrabalho", idMesTrabalho);		
@@ -72,5 +79,9 @@ public class MesTrabalhoDao extends GenericDao {
 		else{
 			return null;
 		}
+	}
+	
+	public void delete(MesTrabalho mesTrabalho) {
+		super.delete(mesTrabalho.getIdMesTrabalho(), MesTrabalho.class);
 	}
 }

@@ -3,14 +3,21 @@ package br.ufrn.imd.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ejb.Stateless;
 import javax.persistence.Query;
 
 import br.ufrn.imd.dominio.Cargo;
+import br.ufrn.imd.dominio.Setor;
 
+@Stateless
 public class CargoDao extends GenericDao {
 
+	public CargoDao(){
+		super(Cargo.class);
+	}
+	
 	@SuppressWarnings("unchecked")
-	public ArrayList<Cargo> buscarVinculoFiltro(String nomeCargo) {
+	public ArrayList<Cargo> buscarCargoFiltro(String nomeCargo) {
 		
 		//CONSTRUCAO DA CONSULTA SQL
 		String sql = " Select c FROM Cargo c";
@@ -23,7 +30,7 @@ public class CargoDao extends GenericDao {
 		StringBuilder sqlFinal = new StringBuilder();
 		sqlFinal.append(sql);
 		sqlFinal.append(where.toString());	
-		Query query = getEntityManager().createQuery(sqlFinal.toString());
+		Query query = em.createQuery(sqlFinal.toString());
 		
 		//DEFINICAO DOS PARAMETROS DA CONSULTA
 		if (!nomeCargo.equals("")){
@@ -35,9 +42,9 @@ public class CargoDao extends GenericDao {
 	}
 
 	public ArrayList<Cargo> listar() {
-		Query a = getEntityManager().createQuery("Select c from Cargo c");
+		Query query = em.createQuery("Select c from Cargo c");
 		List<Cargo> results = new ArrayList<Cargo>();
-		results = a.getResultList();
+		results = query.getResultList();
 		return (ArrayList<Cargo>) results;
 	}
 	
@@ -54,7 +61,7 @@ public class CargoDao extends GenericDao {
 			StringBuilder sqlFinal = new StringBuilder();
 			sqlFinal.append(sql);
 			sqlFinal.append(where.toString());	
-			Query query = getEntityManager().createQuery(sqlFinal.toString());
+			Query query = em.createQuery(sqlFinal.toString());
 			
 			//DEFINICAO DOS PARAMETROS DA CONSULTA
 			query.setParameter("idCargo", idCargo);
@@ -65,6 +72,10 @@ public class CargoDao extends GenericDao {
 		else{
 			return null;
 		}	
+	}
+	
+	public void delete(Cargo cargo) {
+		super.delete(cargo.getIdCargo(), Cargo.class);
 	}
 
 }

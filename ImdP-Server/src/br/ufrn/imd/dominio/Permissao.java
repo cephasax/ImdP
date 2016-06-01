@@ -21,8 +21,8 @@ public class Permissao implements Serializable {
 
 	private String descricao;
 
-	@OneToMany(mappedBy = "permissao")
-	private Collection<Vinculo> vinculos;
+	/*@OneToMany(mappedBy = "permissao")
+	private Collection<Vinculo> vinculos;*/
 
 	public int getIdPermissao() {
 		return idPermissao;
@@ -40,12 +40,12 @@ public class Permissao implements Serializable {
 		this.descricao = descricao;
 	}
 
-	public Collection<Vinculo> getVinculos() {
+	/*public Collection<Vinculo> getVinculos() {
 		return vinculos;
 	}
 
 	public void setVinculos(Collection<Vinculo> vinculos) {
 		this.vinculos = vinculos;
-	}
+	}*/
 
 }

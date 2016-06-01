@@ -20,8 +20,8 @@ public class Cargo implements Serializable {
 	private int idCargo;
 	private String nome;
 
-	@OneToMany(mappedBy = "cargo")
-	private Collection<Vinculo> vinculos;
+	/*@OneToMany(mappedBy = "cargo")
+	private Collection<Vinculo> vinculos;*/
 
 	public int getIdCargo() {
 		return idCargo;
@@ -39,12 +39,12 @@ public class Cargo implements Serializable {
 		this.nome = nome;
 	}
 
-	public Collection<Vinculo> getVinculos() {
+	/*public Collection<Vinculo> getVinculos() {
 		return vinculos;
 	}
 
 	public void setVinculos(Collection<Vinculo> vinculos) {
 		this.vinculos = vinculos;
 	}
-
+*/
 }

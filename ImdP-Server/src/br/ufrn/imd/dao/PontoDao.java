@@ -3,14 +3,18 @@ package br.ufrn.imd.dao;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.EntityManager;
+import javax.ejb.Stateless;
 import javax.persistence.Query;
 
 import br.ufrn.imd.dominio.Ponto;
-import br.ufrn.imd.dominio.Vinculo;
 
+@Stateless
 public class PontoDao extends GenericDao {
 
+	public PontoDao(){
+		super(Ponto.class);
+	}
+	
 	@SuppressWarnings("unchecked")
 	public ArrayList<Ponto> buscarPontoFiltro(String nomeUsuario, int idUnidade, int idSetor) {
 		
@@ -36,7 +40,7 @@ public class PontoDao extends GenericDao {
 		StringBuilder sqlFinal = new StringBuilder();
 		sqlFinal.append(sql);
 		sqlFinal.append(where.toString());	
-		Query query = getEntityManager().createQuery(sqlFinal.toString());
+		Query query = em.createQuery(sqlFinal.toString());
 		
 		//DEFINICAO DOS PARAMETROS DA CONSULTA
 		if (idUnidade > 0) {
@@ -54,9 +58,9 @@ public class PontoDao extends GenericDao {
 	}
 
 	public ArrayList<Ponto> listar() {
-		Query a = getEntityManager().createQuery("Select p from Ponto p");
+		Query query = em.createQuery("Select p from Ponto p");
 		List<Ponto> results = new ArrayList<Ponto>();
-		results = a.getResultList();
+		results = query.getResultList();
 		return (ArrayList<Ponto>) results;
 	}
 	
@@ -73,7 +77,7 @@ public class PontoDao extends GenericDao {
 			StringBuilder sqlFinal = new StringBuilder();
 			sqlFinal.append(sql);
 			sqlFinal.append(where.toString());	
-			Query query = getEntityManager().createQuery(sqlFinal.toString());
+			Query query = em.createQuery(sqlFinal.toString());
 			
 			//DEFINICAO DOS PARAMETROS DA CONSULTA
 			query.setParameter("idPonto", idPonto);
@@ -105,7 +109,7 @@ public class PontoDao extends GenericDao {
 			StringBuilder sqlFinal = new StringBuilder();
 			sqlFinal.append(sql);
 			sqlFinal.append(where.toString());	
-			Query query = getEntityManager().createQuery(sqlFinal.toString());
+			Query query = em.createQuery(sqlFinal.toString());
 			
 			//DEFINICAO DOS PARAMETROS DA CONSULTA
 				query.setParameter("idUsuario", idUsuario);
@@ -137,7 +141,7 @@ public class PontoDao extends GenericDao {
 			StringBuilder sqlFinal = new StringBuilder();
 			sqlFinal.append(sql);
 			sqlFinal.append(where.toString());	
-			Query query = getEntityManager().createQuery(sqlFinal.toString());
+			Query query = em.createQuery(sqlFinal.toString());
 			
 			//DEFINICAO DOS PARAMETROS DA CONSULTA
 			
@@ -149,5 +153,9 @@ public class PontoDao extends GenericDao {
 		else{
 			return null;
 		}
+	}
+	
+	public void delete(Ponto ponto) {
+		super.delete(ponto.getIdPonto(), Ponto.class);
 	}
 }

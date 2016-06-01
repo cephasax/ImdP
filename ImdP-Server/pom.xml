@@ -103,6 +103,12 @@
       <groupId>org.jboss.spec.javax.servlet.jstl</groupId>
       <artifactId>jboss-jstl-api_1.2_spec</artifactId>
       <version>1.1.2.Final</version>
+      <exclusions>
+      	<exclusion>
+      		<artifactId>xalan</artifactId>
+      		<groupId>xalan</groupId>
+      	</exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.jboss.spec.javax.transaction</groupId>
@@ -181,27 +187,7 @@
     </dependency>
     <dependency>
       <groupId>org.jboss.resteasy</groupId>
-      <artifactId>resteasy-jaxb-provider</artifactId>
-      <version>3.0.11.Final</version>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.resteasy</groupId>
       <artifactId>async-http-servlet-3.0</artifactId>
-      <version>3.0.11.Final</version>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.resteasy</groupId>
-      <artifactId>resteasy-client</artifactId>
-      <version>3.0.11.Final</version>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.resteasy</groupId>
-      <artifactId>resteasy-jaxrs</artifactId>
-      <version>3.0.11.Final</version>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.resteasy</groupId>
-      <artifactId>resteasy-multipart-provider</artifactId>
       <version>3.0.11.Final</version>
     </dependency>
     <dependency>

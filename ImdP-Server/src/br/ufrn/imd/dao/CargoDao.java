@@ -7,7 +7,6 @@ import javax.ejb.Stateless;
 import javax.persistence.Query;
 
 import br.ufrn.imd.dominio.Cargo;
-import br.ufrn.imd.dominio.Setor;
 
 @Stateless
 public class CargoDao extends GenericDao {

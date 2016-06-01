@@ -7,7 +7,6 @@ import javax.ejb.Stateless;
 import javax.persistence.Query;
 
 import br.ufrn.imd.dominio.MesTrabalho;
-import br.ufrn.imd.dominio.Vinculo;
 
 @Stateless
 public class MesTrabalhoDao extends GenericDao {

@@ -7,7 +7,6 @@ import javax.ejb.Stateless;
 import javax.persistence.Query;
 
 import br.ufrn.imd.dominio.Setor;
-import br.ufrn.imd.dominio.Vinculo;
 
 @Stateless
 public class SetorDao extends GenericDao {

@@ -1,13 +1,7 @@
 package br.ufrn.imd.dao;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-import javax.persistence.criteria.CriteriaQuery;
 
 public abstract class GenericDao<T> {
 	private final static String UNIT_NAME = "ImdP";

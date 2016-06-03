@@ -26,11 +26,6 @@ import com.digitalpersona.onetouch.verification.DPFPVerificationResult;
 import br.ufrn.imd.dao.GenericDao;
 
 public class FingerprintDao extends GenericDao {
-	public FingerprintDao(Class entityClass) {
-		super(entityClass);
-		// TODO Auto-generated constructor stub
-	}
-
 	static EnumMap<DPFPFingerIndex, DPFPTemplate> templates = new EnumMap<DPFPFingerIndex, DPFPTemplate>(DPFPFingerIndex.class);
 
 	public static void listReaders() { 

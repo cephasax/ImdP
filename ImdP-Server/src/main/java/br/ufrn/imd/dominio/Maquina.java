@@ -28,8 +28,8 @@ public class Maquina implements Serializable {
 	private String denominacao;
 	private String ip;
 
-	/*@OneToMany(mappedBy = "maquina")
-	private Collection<Ponto> pontos;*/
+	@OneToMany(mappedBy = "maquina")
+	private Collection<Ponto> pontos;
 
 	@ManyToOne
 	@JoinColumn(name = "idUnidade")
@@ -59,13 +59,13 @@ public class Maquina implements Serializable {
 		this.idMaquina = idMaquina;
 	}
 
-	/*public Collection<Ponto> getPontos() {
+	public Collection<Ponto> getPontos() {
 		return pontos;
 	}
 
 	public void setPontos(Collection<Ponto> pontos) {
 		this.pontos = pontos;
-	}*/
+	}
 
 	public Unidade getUnidade() {
 		return unidade;

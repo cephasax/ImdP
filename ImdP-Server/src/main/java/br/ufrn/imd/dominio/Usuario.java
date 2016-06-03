@@ -43,8 +43,8 @@ public class Usuario implements Serializable {
 	private String foto;
 	private Date dataCriacao;
 
-	/*@OneToMany(mappedBy = "usuario")
-	private Collection<Vinculo> vinculos;*/
+	@OneToMany(mappedBy = "usuario")
+	private Collection<Vinculo> vinculos;
 
 	public int getIdUsuario() {
 		return idUsuario;
@@ -85,14 +85,14 @@ public class Usuario implements Serializable {
 	public void setDataCriacao(Date dataCriacao) {
 		this.dataCriacao = dataCriacao;
 	}
-/*
+
 	public Collection<Vinculo> getVinculos() {
 		return vinculos;
 	}
 
 	public void setVinculos(Collection<Vinculo> vinculos) {
 		this.vinculos = vinculos;
-	}*/
+	}
 
 	public String getNome() {
 		return nome;

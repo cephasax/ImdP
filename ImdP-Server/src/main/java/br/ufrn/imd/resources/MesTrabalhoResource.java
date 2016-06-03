@@ -17,7 +17,7 @@ import br.ufrn.imd.dominio.Usuario;
 
 @Stateless
 @Path("/consulta")
-public class UsuarioResource {
+public class MesTrabalhoResource {
 
 	@EJB
 	private UsuarioService service;
@@ -37,7 +37,7 @@ public class UsuarioResource {
 	}
 	@GET
 	@Path("/usuarios/{login}")
-	public String login(@PathParam("login") String login, String senha) {
+	public String login(@PathParam("login") String login) {
 		return " Pegando o login: " + login;
 	}
 	@POST

@@ -24,6 +24,13 @@ public class UsuarioResource {
 
 	@GET
 	@Produces("application/json; charset=UTF-8")
+	@Path("/hello")
+	public String hello() {
+		return "Voce conseguiu jovem";
+	}
+	
+	@GET
+	@Produces("application/json; charset=UTF-8")
 	@Path("/usuarios")
 	public List<Usuario> listagem() {
 		return service.findAll();

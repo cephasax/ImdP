@@ -29,7 +29,7 @@
       </columns>
     </TableView>
     <Text layoutX="42.0" layoutY="463.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Clique duas vezes na linha para editar o cargo" />
-    <Button fx:id="btnCancelar" layoutX="635.0" layoutY="455.0" mnemonicParsing="false" text="Cancelar" />
+    <Button fx:id="btnCancelar" layoutX="635.0" layoutY="455.0" mnemonicParsing="false" onAction="#handleCancelar" text="Cancelar" />
     <Text layoutX="86.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome do cargo: ">
       <font>
         <Font size="15.0" />

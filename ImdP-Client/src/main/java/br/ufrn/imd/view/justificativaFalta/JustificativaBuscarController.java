@@ -1,5 +1,7 @@
 package br.ufrn.imd.view.justificativaFalta;
 
+import java.io.IOException;
+
 import br.ufrn.imd.main.ImdAuth;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -33,5 +35,10 @@ public class JustificativaBuscarController {
 	public void setMainApp(ImdAuth imdAuth) {
 		this.imdAuth = imdAuth;
 
+	}
+	
+	@FXML
+	public void handleCancelar() throws IOException {
+		imdAuth.iniciarTelaPrincipal();
 	}
 }

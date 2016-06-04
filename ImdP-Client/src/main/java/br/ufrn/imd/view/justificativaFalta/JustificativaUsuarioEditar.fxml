@@ -27,7 +27,7 @@
       </font>
     </Text>
     <Button fx:id="btnCadastrar" layoutX="635.0" layoutY="398.0" mnemonicParsing="false" text="Cadastrar" />
-    <Button fx:id="btnCancelar" layoutX="560.0" layoutY="398.0" mnemonicParsing="false" text="Cancelar" />
+    <Button fx:id="btnCancelar" layoutX="560.0" layoutY="398.0" mnemonicParsing="false" onAction="#handleCancelar" text="Cancelar" />
     <ComboBox fx:id="cbTipoJustificativa" layoutX="172.0" layoutY="225.0" prefHeight="25.0" prefWidth="529.0" visible="true" visibleRowCount="7">
       <items>
         <FXCollections fx:factory="observableArrayList">

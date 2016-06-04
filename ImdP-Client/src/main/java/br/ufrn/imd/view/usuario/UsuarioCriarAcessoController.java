@@ -28,11 +28,6 @@ public class UsuarioCriarAcessoController {
 	private ImdAuth imdAuth;
 
 	@FXML
-	public void handleBtnCancelar() throws IOException {
-		imdAuth.iniciarTelaPrincipal();
-	}
-
-	@FXML
 	public void handleBtnCadastrar() throws IOException {
 	}
 
@@ -43,5 +38,10 @@ public class UsuarioCriarAcessoController {
 	public void setMainApp(ImdAuth imdAuth) {
 		this.imdAuth = imdAuth;
 
+	}
+	
+	@FXML
+	public void handleCancelar() throws IOException {
+		imdAuth.iniciarTelaPrincipal();
 	}
 }

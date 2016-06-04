@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="550.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.ufrn.imd.view.outras.BlankPageController">
+   <children>
+      <ImageView fx:id="imgPonto" fitHeight="218.0" fitWidth="395.0" layoutX="218.0" layoutY="232.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../resources/images/pontoAntigo/logo.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

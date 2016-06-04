@@ -23,7 +23,7 @@
       </font>
     </Text>
     <Text layoutX="42.0" layoutY="494.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Clique duas vezes na linha para ver detalhes do ponto" />
-    <Button fx:id="btnCancelar" layoutX="639.0" layoutY="479.0" mnemonicParsing="false" text="Cancelar" />
+    <Button fx:id="btnCancelar" layoutX="639.0" layoutY="479.0" mnemonicParsing="false" onAction="#handleCancelar" text="Cancelar" />
       <Button fx:id="btnExcluir" layoutX="709.0" layoutY="479.0" mnemonicParsing="false" text="Excluir" />
       <TableView fx:id="tblPontos" layoutX="42.0" layoutY="43.0" prefHeight="432.0" prefWidth="717.0">
          <columns>

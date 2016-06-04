@@ -29,7 +29,7 @@
       </columns>
     </TableView>
     <Text layoutX="42.0" layoutY="463.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Clique duas vezes na linha para editar o setor" />
-    <Button fx:id="btnCancelar" layoutX="637.0" layoutY="459.0" mnemonicParsing="false" text="Cancelar" />
+    <Button fx:id="btnCancelar" layoutX="637.0" layoutY="459.0" mnemonicParsing="false" onAction="#handleCancelar" text="Cancelar" />
       <Button fx:id="btnExcluir" layoutX="709.0" layoutY="459.0" mnemonicParsing="false" text="Excluir" />
   </children>
 </AnchorPane>

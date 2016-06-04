@@ -21,7 +21,7 @@ public class PontoNormalCriarController {
 	private ImdAuth imdAuth;
 
 	@FXML
-	public void handleBtnCancelar() throws IOException {
+	public void handleCancelar() throws IOException {
 		imdAuth.iniciarTelaPrincipal();
 	}
 

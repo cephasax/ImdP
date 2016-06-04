@@ -29,6 +29,6 @@
     </TableView>
     <Text layoutX="42.0" layoutY="463.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Clique duas vezes na linha para editar o tipo de justificativa" />
     <Button fx:id="btnExcluir" layoutX="709.0" layoutY="455.0" mnemonicParsing="false" text="Excluir" />
-      <Button fx:id="btnCancelar" layoutX="636.0" layoutY="455.0" mnemonicParsing="false" text="Cancelar" />
+      <Button fx:id="btnCancelar" layoutX="636.0" layoutY="455.0" mnemonicParsing="false" onAction="#handleCancelar" text="Cancelar" />
   </children>
 </AnchorPane>

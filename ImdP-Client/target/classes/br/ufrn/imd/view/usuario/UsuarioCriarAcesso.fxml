@@ -28,7 +28,7 @@
       </font>
     </Text>
     <Button fx:id="btnCadastrar" layoutX="584.0" layoutY="265.0" mnemonicParsing="false" onAction="#handleBtnCadastrar" text="Cadastrar" />
-    <Button fx:id="btnCancelar" layoutX="509.0" layoutY="265.0" mnemonicParsing="false" onAction="#handleBtnCancelar" text="Cancelar" />
+    <Button fx:id="btnCancelar" layoutX="509.0" layoutY="265.0" mnemonicParsing="false" onAction="#handleCancelar" text="Cancelar" />
       <GridPane layoutX="32.0" layoutY="68.0" prefHeight="197.0" prefWidth="619.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="222.0" minWidth="10.0" prefWidth="218.0" />

@@ -37,7 +37,7 @@
       </columns>
     </TableView>
     <Text layoutX="46.0" layoutY="476.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Clique duas vezes na linha para ver detalhes do ponto" />
-    <Button fx:id="btnCancelar" layoutX="638.0" layoutY="468.0" mnemonicParsing="false" text="Cancelar" />
+    <Button fx:id="btnCancelar" layoutX="638.0" layoutY="468.0" mnemonicParsing="false" onAction="#handleCancelar" text="Cancelar" />
     <Button fx:id="btnBuscar" layoutX="708.0" layoutY="183.0" mnemonicParsing="false" text="Buscar" />
     <Text fontSmoothingType="LCD" layoutX="103.0" layoutY="164.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome do Usuário:">
       <font>

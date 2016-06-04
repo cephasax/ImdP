@@ -17,6 +17,7 @@ import br.ufrn.imd.view.maquina.MaquinaCriarController;
 import br.ufrn.imd.view.maquina.MaquinaEditarController;
 import br.ufrn.imd.view.maquina.MaquinaListarController;
 import br.ufrn.imd.view.outras.AutenticandoController;
+import br.ufrn.imd.view.outras.BlankPageController;
 import br.ufrn.imd.view.outras.InicioController;
 import br.ufrn.imd.view.ponto.PontoAvulsoCriarController;
 import br.ufrn.imd.view.ponto.PontoBuscarController;
@@ -533,6 +534,17 @@ public class ImdAuth extends Application {
 	}
 
 	public void iniciarTelaPrincipal() throws IOException {
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(ImdAuth.class.getResource("../view/outras/BlankPage.fxml"));
+		AnchorPane newScreen = (AnchorPane) loader.load();
+
+		rootLayout.setCenter(newScreen);
+		BlankPageController controller = loader.getController();
+		controller.setMainApp(this);
+	}
+
+	public void iniciarLogout() throws IOException {
+
 		// Carrega a tela principal
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(ImdAuth.class.getResource("../view/outras/Inicio.fxml"));
@@ -564,7 +576,7 @@ public class ImdAuth extends Application {
 		AutenticandoController controller = loader.getController();
 		controller.setMainApp(this);
 	}
-	
+
 	public static void main(String[] args) {
 		launch(args);
 	}

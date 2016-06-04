@@ -1,23 +1,31 @@
 package br.ufrn.imd.view.outras;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 import br.ufrn.imd.main.ImdAuth;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
-public class InicioController {
+public class InicioController implements Initializable {
 
 	private ImdAuth imdAuth;
 
 	@FXML
 	private ImageView imgPonto;
+
+	@FXML
+	private ImageView imdLogo;
 
 	@FXML
 	private Text lblAindaNaoECadastrado;
@@ -37,8 +45,8 @@ public class InicioController {
 	@FXML
 	private TextField txtLogin;
 
-    @FXML
-    private ComboBox<?> cbVinculo;
+	@FXML
+	private ComboBox<?> cbVinculo;
 
 	@FXML
 	private TextField tfSenha;
@@ -70,6 +78,12 @@ public class InicioController {
 	@FXML
 	private Menu menuAjuda;
 
+    @FXML
+    private MenuItem menuItemLogin;
+
+    @FXML
+    private MenuItem menuItemLogout;
+	
 	@FXML
 	public void handleBtnLogin() throws IOException {
 		imdAuth.iniciarPontoNormalCriar();
@@ -296,18 +310,18 @@ public class InicioController {
 	}
 
 	@FXML
-	public void handleLogout() throws IOException {
+	public void handleExit() throws IOException {
 		imdAuth.exit();
+	}
+
+	@FXML
+	public void handleLogout() throws IOException {
+		imdAuth.iniciarLogout();
 	}
 
 	public void setMainApp(ImdAuth imdAuth) {
 		this.imdAuth = imdAuth;
 
-	}
-
-	@FXML
-	public void testDialog() throws IOException {
-		imdAuth.testDialog2();
 	}
 
 	@FXML
@@ -323,25 +337,27 @@ public class InicioController {
 		btnLogar.setVisible(true);
 		lblAindaNaoECadastrado.setVisible(true);
 		lblCliqueAqui.setVisible(true);
-		menuAjuda.setDisable(false);
-		menuMenu.setDisable(false);
-		menuSetor.setDisable(false);
-		menuSistema.setDisable(false);
-		menuUnidade.setDisable(false);
-		menuUsuario.setDisable(false);
 	}
-	
+
 	@FXML
-	public void actionLogar() {
-		txtLogin.setVisible(false);
-		btnLogar.setVisible(false);
-		lblAindaNaoECadastrado.setVisible(false);
-		lblCliqueAqui.setVisible(false);
+	public void actionLogar() throws IOException {
 		menuAjuda.setDisable(false);
 		menuMenu.setDisable(false);
 		menuSetor.setDisable(false);
 		menuSistema.setDisable(false);
 		menuUnidade.setDisable(false);
 		menuUsuario.setDisable(false);
+		menuItemLogin.setDisable(true);
+		menuItemLogout.setDisable(false);
+
+		imdAuth.iniciarTelaPrincipal();
+	}
+
+	public void initialize(URL location, ResourceBundle resources) {
+		imgPonto.setImage(
+				new Image(ImdAuth.class.getResourceAsStream("../../../../main/resources/images/pontoAntigo/logo.png")));
+		imdLogo.setImage(new Image(
+				ImdAuth.class.getResourceAsStream("../../../../main/resources/images/pontoAntigo/logosmall-old.png")));
+		menuItemLogout.setDisable(true);
 	}
 }

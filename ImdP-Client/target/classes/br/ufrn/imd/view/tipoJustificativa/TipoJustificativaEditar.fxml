@@ -28,6 +28,6 @@
       </font>
     </Text>
     <Button fx:id="btnConfirmar" layoutX="652.0" layoutY="285.0" mnemonicParsing="false" text="Confirmar Edição" />
-    <Button fx:id="btnCancelar" layoutX="577.0" layoutY="285.0" mnemonicParsing="false" text="Cancelar" />
+    <Button fx:id="btnCancelar" layoutX="577.0" layoutY="285.0" mnemonicParsing="false" onAction="#handleCancelar" text="Cancelar" />
   </children>
 </AnchorPane>

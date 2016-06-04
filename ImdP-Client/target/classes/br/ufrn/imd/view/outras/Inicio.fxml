@@ -26,7 +26,7 @@
           <Button fx:id="btnLogar" layoutX="340.0" layoutY="309.0" mnemonicParsing="false" onAction="#actionLogar" prefWidth="121.0" text="Logar" visible="false" />
           <TextField fx:id="txtLogin" layoutX="300.0" layoutY="278.0" prefWidth="200.0" visible="false" />
           <Text fx:id="lblAindaNaoECadastrado" layoutX="303.0" layoutY="357.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ainda não é cadastrado?" visible="false" />
-            <ImageView fx:id="imgPonto" fitHeight="150.0" fitWidth="200.0" layoutX="300.0" layoutY="113.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="imgPonto" fitHeight="150.0" fitWidth="200.0" layoutX="310.0" layoutY="113.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../../../../resources/images/pontoAntigo/logo.png" />
                </image>
@@ -36,7 +36,7 @@
             <GridPane layoutX="239.0" layoutY="241.0" prefHeight="79.0" prefWidth="307.0">
                <columnConstraints>
                   <ColumnConstraints />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="305.0" minWidth="10.0" prefWidth="69.0" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="305.0" minWidth="10.0" prefWidth="69.0" />
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="545.0" minWidth="10.0" prefWidth="229.0" />
                </columnConstraints>
                <rowConstraints>
@@ -73,8 +73,9 @@
         <menus>
           <Menu fx:id="menuMenu" mnemonicParsing="false" text="Menu">
             <items>
-              <MenuItem mnemonicParsing="false" onAction="#actionLogin" text="login" />
-                  <MenuItem mnemonicParsing="false" text="logout" />
+              <MenuItem fx:id="menuItemLogin" mnemonicParsing="false" onAction="#actionLogin" text="Login" />
+                  <MenuItem fx:id="menuItemLogout" mnemonicParsing="false" onAction="#handleLogout" text="Logout" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
             </items>
           </Menu>
             <Menu fx:id="menuSistema" disable="true" mnemonicParsing="false" text="Sistema">
@@ -228,4 +229,11 @@
         </menus>
       </MenuBar>
    </top>
+   <bottom>
+      <ImageView fx:id="imdLogo" fitHeight="20.259746551513672" fitWidth="104.00002819824107" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="TOP_CENTER">
+         <image>
+            <Image url="@../../../../../../resources/images/pontoAntigo/logosmall-old.png" />
+         </image>
+      </ImageView>
+   </bottom>
 </BorderPane>

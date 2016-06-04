@@ -52,6 +52,6 @@
       </items>
     </ComboBox>
     <Text font="$x1" fontSmoothingType="LCD" layoutX="163.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Unidade:" />
-      <Button fx:id="btnCancelar" layoutX="636.0" layoutY="430.0" mnemonicParsing="false" text="Cancelar" />
+      <Button fx:id="btnCancelar" layoutX="636.0" layoutY="430.0" mnemonicParsing="false" onAction="#handleCancelar" text="Cancelar" />
   </children>
 </AnchorPane>

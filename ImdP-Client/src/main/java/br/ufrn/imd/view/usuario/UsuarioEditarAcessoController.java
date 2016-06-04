@@ -1,5 +1,7 @@
 package br.ufrn.imd.view.usuario;
 
+import java.io.IOException;
+
 import br.ufrn.imd.main.ImdAuth;
 import javafx.fxml.FXML;
 
@@ -32,5 +34,10 @@ public class UsuarioEditarAcessoController {
 	public void setMainApp(ImdAuth imdAuth) {
 		this.imdAuth = imdAuth;
 
+	}
+	
+	@FXML
+	public void handleCancelar() throws IOException {
+		imdAuth.iniciarTelaPrincipal();
 	}
 }

@@ -2,19 +2,57 @@ package br.ufrn.imd.main;
 
 import java.io.IOException;
 
-import br.ufrn.imd.view.cargo.*;
-import br.ufrn.imd.view.justificativaFalta.*;
-import br.ufrn.imd.view.maquina.*;
-import br.ufrn.imd.view.outras.*;
-import br.ufrn.imd.view.ponto.*;
-import br.ufrn.imd.view.setor.*;
-import br.ufrn.imd.view.tipoJustificativa.*;
-import br.ufrn.imd.view.unidade.*;
-import br.ufrn.imd.view.usuario.*;
-import br.ufrn.imd.view.vinculo.*;
+import br.ufrn.imd.view.cargo.CargoBuscarController;
+import br.ufrn.imd.view.cargo.CargoCriarController;
+import br.ufrn.imd.view.cargo.CargoEditarController;
+import br.ufrn.imd.view.cargo.CargoListarController;
+import br.ufrn.imd.view.justificativaFalta.JustificativaBuscarController;
+import br.ufrn.imd.view.justificativaFalta.JustificativaCriarController;
+import br.ufrn.imd.view.justificativaFalta.JustificativaGestorEditarController;
+import br.ufrn.imd.view.justificativaFalta.JustificativaListarController;
+import br.ufrn.imd.view.justificativaFalta.JustificativaUsuarioEditarController;
+import br.ufrn.imd.view.justificativaFalta.JustificativaUsuarioListarController;
+import br.ufrn.imd.view.maquina.MaquinaBuscarController;
+import br.ufrn.imd.view.maquina.MaquinaCriarController;
+import br.ufrn.imd.view.maquina.MaquinaEditarController;
+import br.ufrn.imd.view.maquina.MaquinaListarController;
+import br.ufrn.imd.view.outras.AutenticandoController;
+import br.ufrn.imd.view.outras.InicioController;
+import br.ufrn.imd.view.ponto.PontoAvulsoCriarController;
+import br.ufrn.imd.view.ponto.PontoBuscarController;
+import br.ufrn.imd.view.ponto.PontoConfirmarController;
+import br.ufrn.imd.view.ponto.PontoGestorEditarController;
+import br.ufrn.imd.view.ponto.PontoListarController;
+import br.ufrn.imd.view.ponto.PontoNormalCriarController;
+import br.ufrn.imd.view.ponto.PontoUsuarioListarController;
+import br.ufrn.imd.view.setor.SetorBuscarController;
+import br.ufrn.imd.view.setor.SetorCriarController;
+import br.ufrn.imd.view.setor.SetorEditarController;
+import br.ufrn.imd.view.setor.SetorListarController;
+import br.ufrn.imd.view.tipoJustificativa.TipoJustificativaBuscarController;
+import br.ufrn.imd.view.tipoJustificativa.TipoJustificativaCriarController;
+import br.ufrn.imd.view.tipoJustificativa.TipoJustificativaEditarController;
+import br.ufrn.imd.view.tipoJustificativa.TipoJustificativaListarController;
+import br.ufrn.imd.view.unidade.UnidadeBuscarController;
+import br.ufrn.imd.view.unidade.UnidadeCriarController;
+import br.ufrn.imd.view.unidade.UnidadeEditarController;
+import br.ufrn.imd.view.unidade.UnidadeListarController;
+import br.ufrn.imd.view.usuario.UsuarioBuscarController;
+import br.ufrn.imd.view.usuario.UsuarioCriarAcessoController;
+import br.ufrn.imd.view.usuario.UsuarioCriarController;
+import br.ufrn.imd.view.usuario.UsuarioEditarAcessoController;
+import br.ufrn.imd.view.usuario.UsuarioEditarController;
+import br.ufrn.imd.view.usuario.UsuarioListarController;
+import br.ufrn.imd.view.vinculo.VinculoBuscarController;
+import br.ufrn.imd.view.vinculo.VinculoCriarController;
+import br.ufrn.imd.view.vinculo.VinculoEditarController;
+import br.ufrn.imd.view.vinculo.VinculoListarController;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -23,6 +61,8 @@ public class ImdAuth extends Application {
 
 	private Stage primaryStage;
 	public BorderPane rootLayout;
+	final TextField username = new TextField();
+	final PasswordField password = new PasswordField();
 
 	@Override
 	public void start(Stage primaryStage) throws IOException {
@@ -111,7 +151,7 @@ public class ImdAuth extends Application {
 		JustificativaBuscarController controller = loader.getController();
 		controller.setMainApp(this);
 	}
-	
+
 	public void iniciarJustificativaGestorEditar() throws IOException {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(ImdAuth.class.getResource("../view/justificativaFalta/JustificativaGestorEditar.fxml"));
@@ -221,7 +261,7 @@ public class ImdAuth extends Application {
 		PontoAvulsoCriarController controller = loader.getController();
 		controller.setMainApp(this);
 	}
-	
+
 	public void iniciarPontoConfirmar() throws IOException {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(ImdAuth.class.getResource("../view/ponto/PontoConfirmar.fxml"));
@@ -502,13 +542,29 @@ public class ImdAuth extends Application {
 		Scene scene = new Scene(rootLayout);
 		primaryStage.setScene(scene);
 		primaryStage.show();
-		
+
 		getPrimaryStage().show();
 
 		InicioController controller = loader.getController();
 		controller.setMainApp(this);
 	}
 
+	public void exit() {
+		Platform.exit();
+		System.exit(0);
+
+	}
+
+	public void testDialog2() throws IOException {
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(ImdAuth.class.getResource("../view/outras/Autenticando.fxml"));
+		AnchorPane newScreen = (AnchorPane) loader.load();
+
+		rootLayout.setCenter(newScreen);
+		AutenticandoController controller = loader.getController();
+		controller.setMainApp(this);
+	}
+	
 	public static void main(String[] args) {
 		launch(args);
 	}

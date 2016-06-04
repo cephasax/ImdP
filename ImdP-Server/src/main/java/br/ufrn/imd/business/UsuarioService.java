@@ -1,9 +1,11 @@
 package br.ufrn.imd.business;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.persistence.NoResultException;
 
 import br.ufrn.imd.dao.UsuarioDao;
 import br.ufrn.imd.dominio.Usuario;
@@ -28,11 +30,11 @@ public class UsuarioService{
 		usuarioDao.delete(usuario);
 	}
 
-	public Usuario find(int entityID) {
-		return (Usuario) usuarioDao.find(entityID);
+	public Usuario buscar(int entityID) {
+		return (Usuario) usuarioDao.buscarPorId(entityID);
 	}
 
-	public List<Usuario> findAll() {
+	public List<Usuario> listar() {
 		return usuarioDao.listar();
 	}
 	
@@ -80,4 +82,34 @@ public class UsuarioService{
 		}
 	}
 	
+	public ArrayList<Usuario> buscarFiltro(String nomeUsuario, int idUnidade, int idSetor){
+		ArrayList<Usuario> users = new ArrayList<Usuario>();
+		users = usuarioDao.buscarUsuarioFiltro(nomeUsuario, idUnidade, idSetor);
+		if(users.size() > 0){
+			return users;
+		}
+		else{
+			return null;
+		}
+	}
+
+	public Usuario buscaId(int id){
+		try{
+			Usuario user = usuarioDao.buscarPorId(id);
+			return user;
+		}
+		catch(NoResultException e){
+			return null;
+		}
+	}
+	
+	public Usuario buscaCpf(String cpf){
+		try{
+			Usuario user = usuarioDao.buscarPorCpf(cpf);
+			return user;
+		}
+		catch(NoResultException e){
+			return null;
+		}
+	}
 }

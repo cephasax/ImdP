@@ -23,13 +23,10 @@ public abstract class GenericDao<T> {
 		T entityToBeRemoved = em.getReference(classe, id);
 		em.remove(entityToBeRemoved);
 	}
-
+	
 	public T update(T entity) {
 		return em.merge(entity);
 	}
 
-	public T find(int entityID) {
-		return em.find(entityClass, entityID);
-	}
 }
 

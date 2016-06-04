@@ -16,8 +16,7 @@ public class UsuarioDao extends GenericDao {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public ArrayList<Usuario> buscarUsuarioFiltro(String nomeUsuario,
-						int idUnidade, int idSetor) {
+	public ArrayList<Usuario> buscarUsuarioFiltro(String nomeUsuario, int idUnidade, int idSetor) {
 		
 		//CONSTRUCAO DA CONSULTA SQL
 		String sql = " Select u FROM Usuario u"
@@ -89,6 +88,32 @@ public class UsuarioDao extends GenericDao {
 		}
 	}
 
+	public Usuario buscarPorCpf(String cpf) {
+		
+		//CONSTRUCAO DA CONSULTA SQL
+		String sql = " Select u FROM Usuario u";
+		StringBuilder where = new StringBuilder();
+		where.append(" WHERE 1 = 1 ");
+		
+		if (!cpf.equals("")) {
+			where.append(" and u.cpf = :cpf");
+		
+			StringBuilder sqlFinal = new StringBuilder();
+			sqlFinal.append(sql);
+			sqlFinal.append(where.toString());	
+			Query query = em.createQuery(sqlFinal.toString());
+			
+			//DEFINICAO DOS PARAMETROS DA CONSULTA
+			query.setParameter("cpf", cpf);
+			
+			//EXECUCAO E RETORNO
+			return (Usuario)query.getSingleResult();
+		}
+		else{
+			return null;
+		}
+	}
+	
 	public void delete(Usuario usuario) {
 		super.delete(usuario.getIdUsuario(), Usuario.class);
 	}

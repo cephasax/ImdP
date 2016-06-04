@@ -12,40 +12,37 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
-import br.ufrn.imd.business.UsuarioService;
+import br.ufrn.imd.business.VinculoService;
 import br.ufrn.imd.dominio.Usuario;
+import br.ufrn.imd.dominio.Vinculo;
 
 @Stateless
 @Path("/consulta")
 public class VinculoResource {
 
 	@EJB
-	private UsuarioService service;
+	private VinculoService service;
 
 	@GET
 	@Produces("application/json; charset=UTF-8")
-	@Path("/hello")
-	public String hello() {
-		return "Voce conseguiu jovem";
+	@Path("/vinculos")
+	public List<Vinculo> listagem() {
+		return service.findAll();
 	}
 	
 	@GET
-	@Produces("application/json; charset=UTF-8")
-	@Path("/usuarios")
-	public List<Usuario> listagem() {
-		return service.findAll();
-	}
-	@GET
-	@Path("/usuarios/{login}")
+	@Path("/vinculos/{login}")
 	public String login(@PathParam("login") String login) {
 		return " Pegando o login: " + login;
 	}
+	
 	@POST
 	@Path("/novousuario")
 	@Consumes("application/json")
 	@Produces("application/json; charset=UTF-8")
-	public Response novo(Usuario usuario) {
+	public Response novo(Vinculo usuario) {
 		service.save(usuario);
 		return Response.status(200).entity(usuario).build();
 	}
+	
 }

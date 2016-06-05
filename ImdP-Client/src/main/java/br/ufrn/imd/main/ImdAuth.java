@@ -6,6 +6,8 @@ import br.ufrn.imd.view.cargo.CargoBuscarController;
 import br.ufrn.imd.view.cargo.CargoCriarController;
 import br.ufrn.imd.view.cargo.CargoEditarController;
 import br.ufrn.imd.view.cargo.CargoListarController;
+import br.ufrn.imd.view.fingerprint.EnrollmentDialog;
+import br.ufrn.imd.view.fingerprint.MainForm;
 import br.ufrn.imd.view.justificativaFalta.JustificativaBuscarController;
 import br.ufrn.imd.view.justificativaFalta.JustificativaCriarController;
 import br.ufrn.imd.view.justificativaFalta.JustificativaGestorEditarController;
@@ -567,14 +569,9 @@ public class ImdAuth extends Application {
 
 	}
 
-	public void testDialog2() throws IOException {
-		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(ImdAuth.class.getResource("../view/outras/Autenticando.fxml"));
-		AnchorPane newScreen = (AnchorPane) loader.load();
-
-		rootLayout.setCenter(newScreen);
-		AutenticandoController controller = loader.getController();
-		controller.setMainApp(this);
+	public void testDigital() {
+		MainForm main = new MainForm();
+		main.clickVerificar();
 	}
 
 	public static void main(String[] args) {

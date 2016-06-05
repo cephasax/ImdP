@@ -352,6 +352,11 @@ public class InicioController implements Initializable {
 
 		imdAuth.iniciarTelaPrincipal();
 	}
+	
+	@FXML
+	public void actionCadastrarDigital() {
+		imdAuth.testDigital();
+	}
 
 	public void initialize(URL location, ResourceBundle resources) {
 		imgPonto.setImage(

@@ -17,8 +17,14 @@ public class UsuarioService{
 	private UsuarioDao usuarioDao;
 	
 	public void save(Usuario usuario) {
-		verificarUsuario(usuario);
-		usuarioDao.save(usuario);
+		if(!verificarUsuario(usuario)){
+			Usuario user = buscaCpf(usuario.getCpf());
+			if(user == null){
+				usuarioDao.save(usuario);
+			}
+			else{
+				System.out.println("Usuario já existe");
+			}
 	}
 
 	public Usuario update(Usuario usuario) {
@@ -38,7 +44,7 @@ public class UsuarioService{
 		return usuarioDao.listar();
 	}
 	
-	private void verificarUsuario(Usuario usuario){
+	private boolean verificarUsuario(Usuario usuario){
 		boolean hasError = false;
 		
 		//CAMPOS OBRIGATORIOS
@@ -78,7 +84,11 @@ public class UsuarioService{
 		}
 		
 		if (hasError){
-			throw new IllegalArgumentException("O usuario nao possui todos os dados.");
+			System.out.println("O usuario nao possui todos os dados.");
+			return hasError;
+		}
+		else{
+			return hasError;
 		}
 	}
 	

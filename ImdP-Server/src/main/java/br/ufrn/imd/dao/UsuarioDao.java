@@ -67,25 +67,18 @@ public class UsuarioDao extends GenericDao {
 		//CONSTRUCAO DA CONSULTA SQL
 		String sql = " Select u FROM Usuario u";
 		StringBuilder where = new StringBuilder();
-		where.append(" WHERE 1 = 1 ");
+		where.append(" WHERE u.idUsuario = :idUsuario");
 		
-		if (idUsuario > 0) {
-			where.append(" and u.idUsuario = :idUsuario");
+		StringBuilder sqlFinal = new StringBuilder();
+		sqlFinal.append(sql);
+		sqlFinal.append(where.toString());	
+		Query query = em.createQuery(sqlFinal.toString());
 		
-			StringBuilder sqlFinal = new StringBuilder();
-			sqlFinal.append(sql);
-			sqlFinal.append(where.toString());	
-			Query query = em.createQuery(sqlFinal.toString());
-			
-			//DEFINICAO DOS PARAMETROS DA CONSULTA
-			query.setParameter("idUsuario", idUsuario);
-			
-			//EXECUCAO E RETORNO
-			return (Usuario)query.getSingleResult();
-		}
-		else{
-			return null;
-		}
+		//DEFINICAO DOS PARAMETROS DA CONSULTA
+		query.setParameter("idUsuario", idUsuario);
+		
+		//EXECUCAO E RETORNO
+		return (Usuario)query.getSingleResult();
 	}
 
 	public Usuario buscarPorCpf(String cpf) {
@@ -93,25 +86,18 @@ public class UsuarioDao extends GenericDao {
 		//CONSTRUCAO DA CONSULTA SQL
 		String sql = " Select u FROM Usuario u";
 		StringBuilder where = new StringBuilder();
-		where.append(" WHERE 1 = 1 ");
+		where.append(" WHERE u.cpf = :cpf");
 		
-		if (!cpf.equals("")) {
-			where.append(" and u.cpf = :cpf");
+		StringBuilder sqlFinal = new StringBuilder();
+		sqlFinal.append(sql);
+		sqlFinal.append(where.toString());	
+		Query query = em.createQuery(sqlFinal.toString());
 		
-			StringBuilder sqlFinal = new StringBuilder();
-			sqlFinal.append(sql);
-			sqlFinal.append(where.toString());	
-			Query query = em.createQuery(sqlFinal.toString());
-			
-			//DEFINICAO DOS PARAMETROS DA CONSULTA
-			query.setParameter("cpf", cpf);
-			
-			//EXECUCAO E RETORNO
-			return (Usuario)query.getSingleResult();
-		}
-		else{
-			return null;
-		}
+		//DEFINICAO DOS PARAMETROS DA CONSULTA
+		query.setParameter("cpf", cpf);
+		
+		//EXECUCAO E RETORNO
+		return (Usuario)query.getSingleResult();
 	}
 	
 	public void delete(Usuario usuario) {

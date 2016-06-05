@@ -57,26 +57,20 @@ public class MaquinaDao extends GenericDao {
 	public Maquina buscarPorId(int idMaquina) {
 		String sql = " Select m FROM Maquina m";
 		StringBuilder where = new StringBuilder();
-		where.append(" WHERE 1 = 1 ");
+		where.append(" WHERE m.idMaquina = :idMaquina");
 		
-		if (idMaquina > 0) {
-			where.append(" and m.idMaquina = :idMaquina");
+		StringBuilder sqlFinal = new StringBuilder();
+		sqlFinal.append(sql);
+		sqlFinal.append(where.toString());
+		Query query = em.createQuery(sqlFinal.toString());
 		
-			StringBuilder sqlFinal = new StringBuilder();
-			sqlFinal.append(sql);
-			sqlFinal.append(where.toString());
-			Query query = em.createQuery(sqlFinal.toString());
-			
-			//DEFINICAO DOS PARAMETROS DA CONSULTA
-			query.setParameter("idMaquina", idMaquina);
-			
-			//EXECUCAO E RETORNO
-			Maquina result = (Maquina)query.getSingleResult();
-			return result;
-		}
-		else{
-			return null;
-		}
+		//DEFINICAO DOS PARAMETROS DA CONSULTA
+		query.setParameter("idMaquina", idMaquina);
+		
+		//EXECUCAO E RETORNO
+		Maquina result = (Maquina)query.getSingleResult();
+		return result;
+
 	}
 	
 	public void delete(Maquina maquina) {

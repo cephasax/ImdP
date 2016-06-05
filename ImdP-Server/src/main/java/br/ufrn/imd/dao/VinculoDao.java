@@ -67,25 +67,18 @@ public class VinculoDao extends GenericDao {
 		//CONSTRUCAO DA CONSULTA SQL
 		String sql = " Select v FROM Vinculo v";
 		StringBuilder where = new StringBuilder();
-		where.append(" WHERE 1 = 1 ");
+		where.append(" WHERE v.idVinculo = :idVinculo");
 		
-		if (idVinculo > 0) {
-			where.append(" and v.idVinculo = :idVinculo");
-			
-			StringBuilder sqlFinal = new StringBuilder();
-			sqlFinal.append(sql);
-			sqlFinal.append(where.toString());	
-			Query query = em.createQuery(sqlFinal.toString());
-			
-			//DEFINICAO DOS PARAMETROS DA CONSULTA
-			query.setParameter("idVinculo", idVinculo);
+		StringBuilder sqlFinal = new StringBuilder();
+		sqlFinal.append(sql);
+		sqlFinal.append(where.toString());	
+		Query query = em.createQuery(sqlFinal.toString());
+		
+		//DEFINICAO DOS PARAMETROS DA CONSULTA
+		query.setParameter("idVinculo", idVinculo);
 
-			//EXECUCAO E RETORNO
-			return (Vinculo)query.getSingleResult();
-		}
-		else{
-			return null;
-		}
+		//EXECUCAO E RETORNO
+		return (Vinculo)query.getSingleResult();
 	}
 
 	public void delete(Vinculo vinculo) {

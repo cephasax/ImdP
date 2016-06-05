@@ -59,25 +59,18 @@ public class SetorDao extends GenericDao {
 		//CONSTRUCAO DA CONSULTA SQL
 		String sql = " Select s FROM Setor s";
 		StringBuilder where = new StringBuilder();
-		where.append(" WHERE 1 = 1 ");
+		where.append(" WHERE s.idSetor = :idSetor");
 		
-		if (idSetor > 0) {
-			where.append(" and s.idSetor = :idSetor");
+		StringBuilder sqlFinal = new StringBuilder();
+		sqlFinal.append(sql);
+		sqlFinal.append(where.toString());	
+		Query query = em.createQuery(sqlFinal.toString());
 		
-			StringBuilder sqlFinal = new StringBuilder();
-			sqlFinal.append(sql);
-			sqlFinal.append(where.toString());	
-			Query query = em.createQuery(sqlFinal.toString());
-			
-			//DEFINICAO DOS PARAMETROS DA CONSULTA
-			query.setParameter("idSetor", idSetor);
-			
-			//EXECUCAO E RETORNO
-			return (Setor)query.getSingleResult();
-		}
-		else{
-			return null;
-		}
+		//DEFINICAO DOS PARAMETROS DA CONSULTA
+		query.setParameter("idSetor", idSetor);
+		
+		//EXECUCAO E RETORNO
+		return (Setor)query.getSingleResult();
 	}
 
 	public void delete(Setor setor) {

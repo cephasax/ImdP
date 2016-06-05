@@ -27,6 +27,7 @@ public class TipoJustificativaDao extends GenericDao {
 		if (!nomeTipoJustificativa.equals("")){
 			where.append(" and lower(tj.nome) like lower(:nomeTipoJustificativa) ");
 		}
+		
 		StringBuilder sqlFinal = new StringBuilder();
 		sqlFinal.append(sql);
 		sqlFinal.append(where.toString());	
@@ -53,25 +54,18 @@ public class TipoJustificativaDao extends GenericDao {
 		//CONSTRUCAO DA CONSULTA SQL
 		String sql = " Select tj FROM TipoJustificativa tj";
 		StringBuilder where = new StringBuilder();
-		where.append(" WHERE 1 = 1 ");
+		where.append(" WHERE tj.idTipoJustificativa = :idTipoJustificativa");
+			
+		StringBuilder sqlFinal = new StringBuilder();
+		sqlFinal.append(sql);
+		sqlFinal.append(where.toString());	
+		Query query = em.createQuery(sqlFinal.toString());
 		
-		if (idTipoJustificativa > 0) {
-			where.append(" and tj.idTipoJustificativa = :idTipoJustificativa");
-			
-			StringBuilder sqlFinal = new StringBuilder();
-			sqlFinal.append(sql);
-			sqlFinal.append(where.toString());	
-			Query query = em.createQuery(sqlFinal.toString());
-			
-			//DEFINICAO DOS PARAMETROS DA CONSULTA
-			query.setParameter("idTipoJustificativa", idTipoJustificativa);
+		//DEFINICAO DOS PARAMETROS DA CONSULTA
+		query.setParameter("idTipoJustificativa", idTipoJustificativa);
 
-			//EXECUCAO E RETORNO
-			return (TipoJustificativa)query.getSingleResult();
-		}
-		else{
-			return null;
-		}		
+		//EXECUCAO E RETORNO
+		return (TipoJustificativa)query.getSingleResult();
 	}
 
 	public void delete(TipoJustificativa tipoJustificativa) {

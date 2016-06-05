@@ -69,25 +69,18 @@ public class PontoDao extends GenericDao {
 		//CONSTRUCAO DA CONSULTA SQL
 		String sql = "Select p from Ponto p";
 		StringBuilder where = new StringBuilder();
-		where.append(" WHERE 1 = 1");
+		where.append(" WHERE and p.idPonto = :idPonto");
+			
+		StringBuilder sqlFinal = new StringBuilder();
+		sqlFinal.append(sql);
+		sqlFinal.append(where.toString());	
+		Query query = em.createQuery(sqlFinal.toString());
 		
-		if (idPonto > 0) {
-			where.append(" and p.idPonto = :idPonto");
-			
-			StringBuilder sqlFinal = new StringBuilder();
-			sqlFinal.append(sql);
-			sqlFinal.append(where.toString());	
-			Query query = em.createQuery(sqlFinal.toString());
-			
-			//DEFINICAO DOS PARAMETROS DA CONSULTA
-			query.setParameter("idPonto", idPonto);
-					
-			//EXECUCAO E RETORNO
-			return (Ponto)query.getSingleResult();
-		}
-		else{
-			return null;
-		}
+		//DEFINICAO DOS PARAMETROS DA CONSULTA
+		query.setParameter("idPonto", idPonto);
+				
+		//EXECUCAO E RETORNO
+		return (Ponto)query.getSingleResult();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -101,25 +94,18 @@ public class PontoDao extends GenericDao {
 				+ " JOIN vinculo.setor setor"
 				+ " JOIN setor.unidade unidade";
 		StringBuilder where = new StringBuilder();
-		where.append(" WHERE 1 = 1 ");
+		where.append(" WHERE p.vinculo.usuario.idUsuario = :idUsuario");
 		
-		if (idUsuario > 0) {
-			where.append(" and p.vinculo.usuario.idUsuario = :idUsuario");
+		StringBuilder sqlFinal = new StringBuilder();
+		sqlFinal.append(sql);
+		sqlFinal.append(where.toString());	
+		Query query = em.createQuery(sqlFinal.toString());
 		
-			StringBuilder sqlFinal = new StringBuilder();
-			sqlFinal.append(sql);
-			sqlFinal.append(where.toString());	
-			Query query = em.createQuery(sqlFinal.toString());
-			
-			//DEFINICAO DOS PARAMETROS DA CONSULTA
-				query.setParameter("idUsuario", idUsuario);
-			
-			//EXECUCAO E RETORNO
-			return (ArrayList<Ponto>)query.getResultList();
-		}
-		else{
-			return null;
-		}
+		//DEFINICAO DOS PARAMETROS DA CONSULTA
+		query.setParameter("idUsuario", idUsuario);
+		
+		//EXECUCAO E RETORNO
+		return (ArrayList<Ponto>)query.getResultList();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -133,26 +119,18 @@ public class PontoDao extends GenericDao {
 				+ " JOIN vinculo.setor setor"
 				+ " JOIN setor.unidade unidade";
 		StringBuilder where = new StringBuilder();
-		where.append(" WHERE 1 = 1 ");
+		where.append(" WHERE p.vinculo.idVinculo = :idVinculo");
 		
-		if (idVinculo > 0) {
-			where.append(" and p.vinculo.idVinculo = :idVinculo");
+		StringBuilder sqlFinal = new StringBuilder();
+		sqlFinal.append(sql);
+		sqlFinal.append(where.toString());	
+		Query query = em.createQuery(sqlFinal.toString());
 		
-			StringBuilder sqlFinal = new StringBuilder();
-			sqlFinal.append(sql);
-			sqlFinal.append(where.toString());	
-			Query query = em.createQuery(sqlFinal.toString());
-			
-			//DEFINICAO DOS PARAMETROS DA CONSULTA
-			
-			query.setParameter("idVinculo", idVinculo);
-			
-			//EXECUCAO E RETORNO
-			return (ArrayList<Ponto>)query.getResultList();
-		}
-		else{
-			return null;
-		}
+		//DEFINICAO DOS PARAMETROS DA CONSULTA
+		query.setParameter("idVinculo", idVinculo);
+		
+		//EXECUCAO E RETORNO
+		return (ArrayList<Ponto>)query.getResultList();
 	}
 	
 	public void delete(Ponto ponto) {

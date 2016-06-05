@@ -29,7 +29,7 @@ public class CargoService{
 	}
 
 	public Cargo find(int entityID) {
-		return (Cargo) cargoDao.find(entityID);
+		return (Cargo) cargoDao.buscarPorId(entityID);
 	}
 
 	public List<Cargo> findAll() {

@@ -59,25 +59,19 @@ public class MesTrabalhoDao extends GenericDao {
 		//CONSTRUCAO DA CONSULTA SQL
 		String sql = " Select mt FROM MesTrabalho mt";
 		StringBuilder where = new StringBuilder();
-		where.append(" WHERE 1 = 1 ");
+		where.append(" WHERE v.idMesTrabalho = :idMesTrabalho");
 		
-		if (idMesTrabalho > 0) {
-			where.append(" and v.idMesTrabalho = :idMesTrabalho");
+		StringBuilder sqlFinal = new StringBuilder();
+		sqlFinal.append(sql);
+		sqlFinal.append(where.toString());	
+		Query query = em.createQuery(sqlFinal.toString());
 		
-			StringBuilder sqlFinal = new StringBuilder();
-			sqlFinal.append(sql);
-			sqlFinal.append(where.toString());	
-			Query query = em.createQuery(sqlFinal.toString());
-			
-			//DEFINICAO DOS PARAMETROS DA CONSULTA
-			query.setParameter("idMesTrabalho", idMesTrabalho);		
-			
-			//EXECUCAO E RETORNO
-			return (MesTrabalho)query.getSingleResult();
-		}
-		else{
-			return null;
-		}
+		//DEFINICAO DOS PARAMETROS DA CONSULTA
+		query.setParameter("idMesTrabalho", idMesTrabalho);		
+		
+		//EXECUCAO E RETORNO
+		return (MesTrabalho)query.getSingleResult();
+
 	}
 	
 	public void delete(MesTrabalho mesTrabalho) {

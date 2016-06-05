@@ -52,25 +52,18 @@ public class UnidadeDao extends GenericDao {
 		//CONSTRUCAO DA CONSULTA SQL
 		String sql = " Select u FROM Unidade u";
 		StringBuilder where = new StringBuilder();
-		where.append(" WHERE 1 = 1 ");
+		where.append(" WHERE u.idUnidade = :idUnidade");
 		
-		if (idUnidade > 0) {
-			where.append(" and u.idUnidade = :idUnidade");
+		StringBuilder sqlFinal = new StringBuilder();
+		sqlFinal.append(sql);
+		sqlFinal.append(where.toString());	
+		Query query = em.createQuery(sqlFinal.toString());
 		
-			StringBuilder sqlFinal = new StringBuilder();
-			sqlFinal.append(sql);
-			sqlFinal.append(where.toString());	
-			Query query = em.createQuery(sqlFinal.toString());
-			
-			//DEFINICAO DOS PARAMETROS DA CONSULTA
-				query.setParameter("idUnidade", idUnidade);
-			
-			//EXECUCAO E RETORNO
-			return (Unidade)query.getSingleResult();
-		}
-		else{
-			return null;
-		}
+		//DEFINICAO DOS PARAMETROS DA CONSULTA
+		query.setParameter("idUnidade", idUnidade);
+		
+		//EXECUCAO E RETORNO
+		return (Unidade)query.getSingleResult();
 	}
 
 	public void delete(Unidade unidade) {

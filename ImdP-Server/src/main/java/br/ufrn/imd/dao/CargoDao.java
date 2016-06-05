@@ -52,25 +52,18 @@ public class CargoDao extends GenericDao {
 		//CONSTRUCAO DA CONSULTA SQL
 		String sql = " Select c FROM Cargo c";
 		StringBuilder where = new StringBuilder();
-		where.append(" WHERE 1 = 1 ");
+		where.append(" WHERE c.idCargo = :idCargo");
+			
+		StringBuilder sqlFinal = new StringBuilder();
+		sqlFinal.append(sql);
+		sqlFinal.append(where.toString());	
+		Query query = em.createQuery(sqlFinal.toString());
 		
-		if (idCargo > 0) {
-			where.append(" and c.idCargo = :idCargo");
-			
-			StringBuilder sqlFinal = new StringBuilder();
-			sqlFinal.append(sql);
-			sqlFinal.append(where.toString());	
-			Query query = em.createQuery(sqlFinal.toString());
-			
-			//DEFINICAO DOS PARAMETROS DA CONSULTA
-			query.setParameter("idCargo", idCargo);
-			
-			//EXECUCAO E RETORNO
-			return (Cargo)query.getSingleResult();
-		}
-		else{
-			return null;
-		}	
+		//DEFINICAO DOS PARAMETROS DA CONSULTA
+		query.setParameter("idCargo", idCargo);
+		
+		//EXECUCAO E RETORNO
+		return (Cargo)query.getSingleResult();
 	}
 	
 	public void delete(Cargo cargo) {

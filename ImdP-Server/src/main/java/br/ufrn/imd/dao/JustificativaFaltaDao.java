@@ -70,25 +70,18 @@ public class JustificativaFaltaDao extends GenericDao {
 		//CONSTRUCAO DA CONSULTA SQL
 		String sql = " Select j FROM JustificativaFalta j";
 		StringBuilder where = new StringBuilder();
-		where.append(" WHERE 1 = 1 ");
+		where.append(" WHERE j.idJustificativa = :idJustificativa");
+			
+		StringBuilder sqlFinal = new StringBuilder();
+		sqlFinal.append(sql);
+		sqlFinal.append(where.toString());	
+		Query query = em.createQuery(sqlFinal.toString());
 		
-		if (idJustificativa > 0) {
-			where.append(" and j.idJustificativa = :idJustificativa");
-			
-			StringBuilder sqlFinal = new StringBuilder();
-			sqlFinal.append(sql);
-			sqlFinal.append(where.toString());	
-			Query query = em.createQuery(sqlFinal.toString());
-			
-			//DEFINICAO DOS PARAMETROS DA CONSULTA
-			query.setParameter("idJustificativa", idJustificativa);
-			
-			//EXECUCAO E RETORNO
-			return (JustificativaFalta)query.getSingleResult();
-		}
-		else{
-			return null;
-		}
+		//DEFINICAO DOS PARAMETROS DA CONSULTA
+		query.setParameter("idJustificativa", idJustificativa);
+		
+		//EXECUCAO E RETORNO
+		return (JustificativaFalta)query.getSingleResult();
 	}
 	
 	public void delete(JustificativaFalta justificativaFalta) {

@@ -23,17 +23,16 @@
       <AnchorPane prefHeight="600.0" prefWidth="800.0">
         <!-- TODO Add Nodes -->
         <children>
-          <Button fx:id="btnLogar" layoutX="340.0" layoutY="309.0" mnemonicParsing="false" onAction="#actionLogar" prefWidth="121.0" text="Logar" visible="false" />
-          <TextField fx:id="txtLogin" layoutX="300.0" layoutY="278.0" prefWidth="200.0" visible="false" />
-          <Text fx:id="lblAindaNaoECadastrado" layoutX="303.0" layoutY="357.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ainda não é cadastrado?" visible="false" />
+          <Button fx:id="btnLogar" layoutX="413.0" layoutY="332.0" mnemonicParsing="false" onAction="#actionLogar" prefHeight="25.0" prefWidth="65.0" text="Logar" visible="false" />
+          <Text fx:id="lblAindaNaoECadastrado" layoutX="309.0" layoutY="373.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ainda não é cadastrado?" visible="false" />
             <ImageView fx:id="imgPonto" fitHeight="150.0" fitWidth="200.0" layoutX="310.0" layoutY="113.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../../../../resources/images/pontoAntigo/logo.png" />
                </image>
             </ImageView>
-            <Text fx:id="lblCliqueAqui" layoutX="437.0" layoutY="357.0" onMouseClicked="#handleCliqueAqui" strokeType="OUTSIDE" strokeWidth="0.0" text="Clique aqui!" visible="false" />
-            <Button fx:id="btnCadastrar" layoutX="375.0" layoutY="332.0" mnemonicParsing="false" onAction="#actionCadastrarDigital" text="Cadastrar Ponto" />
-            <GridPane layoutX="239.0" layoutY="241.0" prefHeight="79.0" prefWidth="307.0">
+            <Text fx:id="lblCliqueAqui" layoutX="447.0" layoutY="373.0" onMouseClicked="#handleCliqueAqui" strokeType="OUTSIDE" strokeWidth="0.0" text="Clique aqui!" visible="false" />
+            <Button fx:id="btnCadastrar" layoutX="362.0" layoutY="332.0" mnemonicParsing="false" onAction="#actionCadastrarDigital" text="Cadastrar Ponto" />
+            <GridPane layoutX="239.0" layoutY="273.0" prefHeight="54.0" prefWidth="307.0">
                <columnConstraints>
                   <ColumnConstraints />
                   <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="305.0" minWidth="10.0" prefWidth="69.0" />
@@ -42,29 +41,29 @@
                <rowConstraints>
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Label fx:id="lblSenha" text="Senha:" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Label>
                   <Label fx:id="lblCPF" text="CPF:" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="tfCPF" prefHeight="25.0" prefWidth="224.0" GridPane.columnIndex="2" />
-                  <PasswordField fx:id="tfSenha" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                  <ComboBox fx:id="cbVinculo" prefHeight="25.0" prefWidth="239.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                  <Label fx:id="lblVinculo" prefHeight="21.0" prefWidth="60.0" text="Vínculo:" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                  <TextField fx:id="tfCPF" prefHeight="25.0" prefWidth="233.0" GridPane.columnIndex="2" />
+                  <ComboBox fx:id="cbVinculo" prefHeight="25.0" prefWidth="239.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <Label fx:id="lblVinculo" prefHeight="21.0" prefWidth="60.0" text="Vínculo:" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Label>
                </children>
             </GridPane>
+            <Label fx:id="lblSenha" layoutX="255.0" layoutY="303.0" text="Senha:" visible="false">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <PasswordField fx:id="tfSenha" layoutX="313.0" layoutY="301.0" prefHeight="25.0" prefWidth="234.0" visible="false" />
+            <Button fx:id="btnCancelar" layoutX="337.0" layoutY="332.0" mnemonicParsing="false" onAction="#handleCancelar" prefWidth="65.0" text="Cancelar" visible="false" />
         </children>
       </AnchorPane>
    </center>
@@ -131,7 +130,7 @@
                   </Menu>
                   <Menu mnemonicParsing="false" text="Ponto">
                      <items>
-                        <MenuItem mnemonicParsing="false" onAction="#handlePontoNormalCriar" text="Criar" />
+                        <MenuItem mnemonicParsing="false" onAction="#handlePontoAvulsoCriar" text="Criar" />
                         <MenuItem mnemonicParsing="false" onAction="#handlePontoListar" text="Listar" />
                         <MenuItem mnemonicParsing="false" onAction="#handlePontoBuscar" text="Buscar" />
                      </items>
@@ -170,7 +169,7 @@
                   </Menu>
                   <Menu mnemonicParsing="false" text="Ponto">
                      <items>
-                        <MenuItem mnemonicParsing="false" onAction="#handlePontoNormalCriar" text="Criar" />
+                        <MenuItem mnemonicParsing="false" onAction="#handlePontoAvulsoCriar" text="Criar" />
                         <MenuItem mnemonicParsing="false" onAction="#handlePontoListar" text="Listar" />
                         <MenuItem mnemonicParsing="false" onAction="#handlePontoBuscar" text="Buscar" />
                      </items>
@@ -188,7 +187,7 @@
                   </Menu>
                   <Menu mnemonicParsing="false" text="Ponto">
                      <items>
-                        <MenuItem mnemonicParsing="false" onAction="#handlePontoNormalCriar" text="Criar" />
+                        <MenuItem mnemonicParsing="false" onAction="#handlePontoAvulsoCriar" text="Criar" />
                         <MenuItem mnemonicParsing="false" onAction="#handlePontoListar" text="Listar" />
                         <MenuItem mnemonicParsing="false" onAction="#handlePontoBuscar" text="Buscar" />
                      </items>
@@ -206,7 +205,7 @@
             <items>
                   <Menu mnemonicParsing="false" text="Ponto">
                      <items>
-                        <MenuItem mnemonicParsing="false" onAction="#handlePontoNormalCriar" text="Criar" />
+                        <MenuItem mnemonicParsing="false" onAction="#handlePontoAvulsoCriar" text="Criar" />
                         <MenuItem mnemonicParsing="false" onAction="#handlePontoListar" text="Listar" />
                         <MenuItem mnemonicParsing="false" onAction="#handlePontoBuscar" text="Buscar" />
                      </items>
@@ -220,7 +219,8 @@
                   </Menu>
             </items>
           </Menu>
-            <Menu fx:id="menuAjuda" mnemonicParsing="false" text="Ajuda">
+            <Menu fx:id="menuRelatorio" disable="true" mnemonicParsing="false" text="Relatório" />
+            <Menu fx:id="menuAjuda" disable="true" mnemonicParsing="false" text="Ajuda">
                <items>
                   <MenuItem mnemonicParsing="false" text="Dúvida / Sugestão / Crítica" />
                   <MenuItem mnemonicParsing="false" text="Sobre" />

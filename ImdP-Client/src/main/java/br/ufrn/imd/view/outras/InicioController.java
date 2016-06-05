@@ -7,6 +7,8 @@ import java.util.ResourceBundle;
 import br.ufrn.imd.main.ImdAuth;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -43,7 +45,7 @@ public class InicioController implements Initializable {
 	private Button btnLogar;
 
 	@FXML
-	private TextField txtLogin;
+	private Button btnCancelar;
 
 	@FXML
 	private ComboBox<?> cbVinculo;
@@ -78,12 +80,12 @@ public class InicioController implements Initializable {
 	@FXML
 	private Menu menuAjuda;
 
-    @FXML
-    private MenuItem menuItemLogin;
+	@FXML
+	private MenuItem menuItemLogin;
 
-    @FXML
-    private MenuItem menuItemLogout;
-	
+	@FXML
+	private MenuItem menuItemLogout;
+
 	@FXML
 	public void handleBtnLogin() throws IOException {
 		imdAuth.iniciarPontoNormalCriar();
@@ -91,7 +93,11 @@ public class InicioController implements Initializable {
 
 	@FXML
 	public void handleCliqueAqui() throws IOException {
-		imdAuth.iniciarUsuarioCriarAcesso();
+		Alert alerta = new Alert(AlertType.INFORMATION);
+		alerta.setTitle("Atenção");
+		alerta.setHeaderText(null);
+		alerta.setContentText("Contacte o administrador do sistema.");
+		alerta.showAndWait();
 	}
 
 	@FXML
@@ -325,16 +331,19 @@ public class InicioController implements Initializable {
 	}
 
 	@FXML
+	public void handleCancelar() throws IOException {
+		imdAuth.iniciarLogout();
+	}
+
+	@FXML
 	public void actionLogin() {
-		lblCPF.setVisible(false);
-		tfCPF.setVisible(false);
-		lblSenha.setVisible(false);
-		tfSenha.setVisible(false);
+		lblSenha.setVisible(true);
+		tfSenha.setVisible(true);
 		lblVinculo.setVisible(false);
 		cbVinculo.setVisible(false);
 		btnCadastrar.setVisible(false);
-		txtLogin.setVisible(true);
 		btnLogar.setVisible(true);
+		btnCancelar.setVisible(true);
 		lblAindaNaoECadastrado.setVisible(true);
 		lblCliqueAqui.setVisible(true);
 	}
@@ -352,7 +361,7 @@ public class InicioController implements Initializable {
 
 		imdAuth.iniciarTelaPrincipal();
 	}
-	
+
 	@FXML
 	public void actionCadastrarDigital() {
 		imdAuth.testDigital();

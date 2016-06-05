@@ -15,7 +15,7 @@ import javafx.scene.control.DatePicker;
 
 public class UsuarioCriarController {
 	@FXML
-	private Button btnCadastrar;
+	private Button btnProximo;
 	@FXML
 	private Button btnCancelar;
 	@FXML
@@ -53,9 +53,14 @@ public class UsuarioCriarController {
 		this.imdAuth = imdAuth;
 
 	}
-	
+
 	@FXML
 	public void handleCancelar() throws IOException {
 		imdAuth.iniciarTelaPrincipal();
+	}
+
+	@FXML
+	public void handleProximo() throws IOException {
+		imdAuth.iniciarUsuarioCriarAcesso();
 	}
 }

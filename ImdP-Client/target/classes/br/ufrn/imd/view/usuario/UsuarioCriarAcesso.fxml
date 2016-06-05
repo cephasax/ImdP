@@ -5,7 +5,6 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -14,22 +13,17 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="356.0" prefWidth="685.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.ufrn.imd.view.usuario.UsuarioCriarAcessoController">
+<AnchorPane prefHeight="550.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.ufrn.imd.view.usuario.UsuarioCriarAcessoController">
   <!-- TODO Add Nodes -->
   <children>
-    <ImageView fitHeight="20.259746551513672" fitWidth="176.0" layoutX="289.0" layoutY="321.0" pickOnBounds="true" preserveRatio="true">
-      <image>
-        <Image url="@../../../../../../resources/images/pontoAntigo/logosmall-old.png" />
-      </image>
-    </ImageView>
-    <Text fontSmoothingType="LCD" layoutX="14.0" layoutY="29.0" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Cadastramento de Usuário - Dados de Acesso">
+    <Text fontSmoothingType="LCD" layoutX="82.0" layoutY="126.0" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Cadastramento de Usuário - Dados de Acesso">
       <font>
         <Font size="14.0" />
       </font>
     </Text>
-    <Button fx:id="btnCadastrar" layoutX="584.0" layoutY="265.0" mnemonicParsing="false" onAction="#handleBtnCadastrar" text="Cadastrar" />
-    <Button fx:id="btnCancelar" layoutX="509.0" layoutY="265.0" mnemonicParsing="false" onAction="#handleCancelar" text="Cancelar" />
-      <GridPane layoutX="32.0" layoutY="68.0" prefHeight="197.0" prefWidth="619.0">
+    <Button fx:id="btnCadastrar" layoutX="652.0" layoutY="362.0" mnemonicParsing="false" onAction="#handleBtnCadastrar" text="Cadastrar" />
+    <Button fx:id="btnCancelar" layoutX="577.0" layoutY="362.0" mnemonicParsing="false" onAction="#handleCancelar" text="Cancelar" />
+      <GridPane layoutX="100.0" layoutY="165.0" prefHeight="197.0" prefWidth="619.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="222.0" minWidth="10.0" prefWidth="218.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="344.0" minWidth="10.0" prefWidth="259.0" />

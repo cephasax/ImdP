@@ -27,7 +27,7 @@
         <Font size="14.0" />
       </font>
     </Text>
-    <Button fx:id="btnCadastrar" layoutX="643.0" layoutY="480.0" mnemonicParsing="false" text="Cadastrar" />
+    <Button fx:id="btnProximo" layoutX="643.0" layoutY="480.0" mnemonicParsing="false" onAction="#handleProximo" text="Próximo" />
     <Button fx:id="btnCancelar" layoutX="573.0" layoutY="480.0" mnemonicParsing="false" onAction="#handleCancelar" text="Cancelar" />
       <GridPane layoutX="91.0" layoutY="54.0" prefHeight="419.0" prefWidth="619.0">
          <columnConstraints>

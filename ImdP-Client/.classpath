@@ -21,5 +21,9 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="src/lib/dpfpenrollment.jar"/>
+	<classpathentry kind="lib" path="src/lib/dpfpverification.jar"/>
+	<classpathentry kind="lib" path="src/lib/dpotapi.jar"/>
+	<classpathentry kind="lib" path="src/lib/dpotjni.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

@@ -21,7 +21,7 @@ import br.ufrn.imd.dominio.Usuario;
 
 @Stateless
 @Path("/consulta")
-public class JustificativaFaltaResource {
+public class UnidadeResource {
 
 	@EJB
 	private UsuarioService service;

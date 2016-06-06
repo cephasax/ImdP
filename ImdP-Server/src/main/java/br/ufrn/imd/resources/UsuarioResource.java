@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.persistence.NoResultException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -37,8 +38,8 @@ public class UsuarioResource {
 	@GET
 	@Path("/usuarios/{id}")
 	@Produces("application/json; charset=UTF-8")
-	public Usuario buscaId(@PathParam("id") int id) {
-		Usuario user = service.buscaId(id);
+	public Usuario buscaId(@PathParam("id") int id){
+		Usuario user = service.buscar(id);
 		return user;
 	}
 	
@@ -48,8 +49,15 @@ public class UsuarioResource {
 	@Consumes("application/json")
 	@Produces("application/json; charset=UTF-8")
 	public Response novo(Usuario usuario) {
-		service.save(usuario);
-		return Response.status(200).entity(usuario).build();
+		Usuario user = new Usuario();
+		
+		try{
+			service.save(usuario);
+			return Response.status(200).entity(user).build();
+		}
+		catch (NoResultException e){
+			return Response.status(204).entity(user).build();
+		}
 	}
 	
 	//UPDATE
@@ -57,13 +65,14 @@ public class UsuarioResource {
 	@Path("/usuarios/{id}")
 	@Produces("application/json; charset=UTF-8")
 	public Response update(@PathParam("id") int id) {
-		Usuario user = service.buscaId(id);
-		if(user == null){
-			return Response.status(204).entity(user).build();
-		}
-		else{
+		Usuario user = new Usuario();
+		try{
+			user = service.buscar(id);
 			service.update(user);
 			return Response.status(200).entity(user).build();
+		}
+		catch (NoResultException e){
+			return Response.status(204).entity(user).build();
 		}
 	}
 	
@@ -72,13 +81,14 @@ public class UsuarioResource {
 	@Path("/usuarios/{id}")
 	@Produces("application/json; charset=UTF-8")
 	public Response delete(@PathParam("id") int id) {
-		Usuario user = service.buscaId(id);
-		if(user == null){
-			return Response.status(204).entity(user).build();
-		}
-		else{
+		Usuario user = new Usuario();
+		try{
+			user = service.buscar(id);
 			service.delete(user);
 			return Response.status(200).entity(user).build();
+		}
+		catch (NoResultException e){
+			return Response.status(204).entity(user).build();
 		}
 	}
 

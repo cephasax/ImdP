@@ -17,14 +17,15 @@ public class UsuarioService{
 	private UsuarioDao usuarioDao;
 	
 	public void save(Usuario usuario) {
-		if(!verificarUsuario(usuario)){
-			Usuario user = buscaCpf(usuario.getCpf());
-			if(user == null){
-				usuarioDao.save(usuario);
-			}
-			else{
-				System.out.println("Usuario já existe");
-			}
+		verificarUsuario(usuario);
+		Usuario user = buscaCpf(usuario.getCpf());
+		
+		if(user == null){
+			usuarioDao.save(usuario);
+		}
+		else{
+			throw new IllegalArgumentException("Erro - save: Usuario ja existe na base de dados");
+		}
 	}
 
 	public Usuario update(Usuario usuario) {
@@ -33,18 +34,73 @@ public class UsuarioService{
 	}
 
 	public void delete(Usuario usuario) {
-		usuarioDao.delete(usuario);
+		verificarUsuario(usuario);
+		Usuario user = buscaCpf(usuario.getCpf());
+		
+		if(user == null){
+			throw new IllegalArgumentException("Erro - delete: Usuario nao existe na base de dados");
+		}
+		else{
+			usuarioDao.delete(usuario);
+		}
 	}
 
 	public Usuario buscar(int entityID) {
-		return (Usuario) usuarioDao.buscarPorId(entityID);
+		Usuario user = new Usuario();
+		user = buscaId(entityID);
+		
+		if(user == null){
+			throw new NoResultException("Erro - buscar: Usuario nao encontrado");
+		}
+		else{
+			return user;
+		}
 	}
 
 	public List<Usuario> listar() {
-		return usuarioDao.listar();
+		ArrayList<Usuario> users = new ArrayList<Usuario>();
+		users = usuarioDao.listar();
+		if(users.size() > 0){
+			return users;
+		}
+		else{
+			throw new NoResultException("Erro - listar: nenhum usuario cadastrado");
+		}
 	}
 	
-	private boolean verificarUsuario(Usuario usuario){
+	public ArrayList<Usuario> buscarFiltro(String nomeUsuario, int idUnidade, int idSetor){
+		ArrayList<Usuario> users = new ArrayList<Usuario>();
+		users = usuarioDao.buscarUsuarioFiltro(nomeUsuario, idUnidade, idSetor);
+		if(users.size() > 0){
+			return users;
+		}
+		else{
+			return null;
+		}
+	}
+
+	//Metodo usados apenas para verificacoes no escopo do service
+	private Usuario buscaId(int id){
+		try{
+			Usuario user = usuarioDao.buscarPorId(id);
+			return user;
+		}
+		catch(NoResultException e){
+			return null;
+		}
+	}
+	
+	public Usuario buscaCpf(String cpf){
+		try{
+			Usuario user = usuarioDao.buscarPorCpf(cpf);
+			return user;
+		}
+		catch(NoResultException e){
+			return null;
+		}
+	}
+	
+	private void verificarUsuario(Usuario usuario){
 		boolean hasError = false;
 		
 		//CAMPOS OBRIGATORIOS
@@ -84,42 +140,7 @@ public class UsuarioService{
 		}
 		
 		if (hasError){
-			System.out.println("O usuario nao possui todos os dados.");
-			return hasError;
-		}
-		else{
-			return hasError;
-		}
-	}
-	
-	public ArrayList<Usuario> buscarFiltro(String nomeUsuario, int idUnidade, int idSetor){
-		ArrayList<Usuario> users = new ArrayList<Usuario>();
-		users = usuarioDao.buscarUsuarioFiltro(nomeUsuario, idUnidade, idSetor);
-		if(users.size() > 0){
-			return users;
-		}
-		else{
-			return null;
-		}
-	}
-
-	public Usuario buscaId(int id){
-		try{
-			Usuario user = usuarioDao.buscarPorId(id);
-			return user;
-		}
-		catch(NoResultException e){
-			return null;
-		}
-	}
-	
-	public Usuario buscaCpf(String cpf){
-		try{
-			Usuario user = usuarioDao.buscarPorCpf(cpf);
-			return user;
-		}
-		catch(NoResultException e){
-			return null;
+			throw new IllegalArgumentException("O usuario nao possui todos os dados.");
 		}
 	}
 }

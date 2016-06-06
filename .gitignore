@@ -6,3 +6,5 @@
 *.properties
 >>>>>>> 8ce32713a0677643eaf7ae960bf5d0650ca16b38
 *.MF
+
+ImdP-Client/target/classes/.gitignore

@@ -16,91 +16,91 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
-import br.ufrn.imd.business.UsuarioService;
-import br.ufrn.imd.dominio.Usuario;
+import br.ufrn.imd.business.SetorService;
+import br.ufrn.imd.dominio.Setor;
 
 @Stateless
 @Path("/consulta")
 public class SetorResource {
 
 	@EJB
-	private UsuarioService service;
+	private SetorService service;
 
 	//LIST
 	@GET
-	@Path("/usuarios")
+	@Path("/setores")
 	@Produces("application/json; charset=UTF-8")
-	public List<Usuario> listagem() {
+	public List<Setor> listagem() {
 		return service.listar();
 	}
 	
 	//FIND BY ID
 	@GET
-	@Path("/usuarios/{id}")
+	@Path("/setores/{id}")
 	@Produces("application/json; charset=UTF-8")
-	public Usuario buscaId(@PathParam("id") int id){
-		Usuario user = service.buscar(id);
-		return user;
+	public Setor buscaId(@PathParam("id") int id){
+		Setor place = service.buscar(id);
+		return place;
 	}
 	
 	//CREATE
 	@POST
-	@Path("/usuarios")
+	@Path("/setores")
 	@Consumes("application/json")
 	@Produces("application/json; charset=UTF-8")
-	public Response novo(Usuario usuario) {
-		Usuario user = new Usuario();
+	public Response novo(Setor setor) {
+		Setor place = new Setor();
 		
 		try{
-			service.save(usuario);
-			return Response.status(200).entity(user).build();
+			service.save(setor);
+			return Response.status(200).entity(place).build();
 		}
 		catch (NoResultException e){
-			return Response.status(204).entity(user).build();
+			return Response.status(204).entity(place).build();
 		}
 	}
 	
 	//UPDATE
 	@PUT
-	@Path("/usuarios/{id}")
+	@Path("/setores/{id}")
 	@Produces("application/json; charset=UTF-8")
 	public Response update(@PathParam("id") int id) {
-		Usuario user = new Usuario();
+		Setor place = new Setor();
 		try{
-			user = service.buscar(id);
-			service.update(user);
-			return Response.status(200).entity(user).build();
+			place = service.buscar(id);
+			service.update(place);
+			return Response.status(200).entity(place).build();
 		}
 		catch (NoResultException e){
-			return Response.status(204).entity(user).build();
+			return Response.status(204).entity(place).build();
 		}
 	}
 	
 	//DELETE
 	@DELETE
-	@Path("/usuarios/{id}")
+	@Path("/setores/{id}")
 	@Produces("application/json; charset=UTF-8")
 	public Response delete(@PathParam("id") int id) {
-		Usuario user = new Usuario();
+		Setor place = new Setor();
 		try{
-			user = service.buscar(id);
-			service.delete(user);
-			return Response.status(200).entity(user).build();
+			place = service.buscar(id);
+			service.delete(place);
+			return Response.status(200).entity(place).build();
 		}
 		catch (NoResultException e){
-			return Response.status(204).entity(user).build();
+			return Response.status(204).entity(place).build();
 		}
 	}
 
 	//FIND FILTRO
 	@GET
-	@Path("/usuarios/{nomeUsuario}/{idUnidade}/{idSetor}")
+	@Path("/setores/{nomeSetor}/{idUnidade}")
 	@Produces("application/json; charset=UTF-8")
-	public List<Usuario> buscaFiltro(@PathParam("nomeUsuario") String nomeUsuario, 
-			@PathParam("idUnidade")int idUnidade, @PathParam("idSetor")int idSetor) {
+	public List<Setor> buscaFiltro(@PathParam("nomeSetor") String nomeSetor, 
+			@PathParam("idUnidade")int idUnidade) {
 		
-		ArrayList<Usuario> users = new ArrayList<Usuario>();
-		users = service.buscarFiltro(nomeUsuario, idUnidade, idSetor);
-		return users;
+		ArrayList<Setor> places = new ArrayList<Setor>();
+		places = service.buscarFiltro(nomeSetor, idUnidade);
+		return places;
 	}
 }

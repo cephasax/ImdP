@@ -16,91 +16,91 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
-import br.ufrn.imd.business.UsuarioService;
-import br.ufrn.imd.dominio.Usuario;
+import br.ufrn.imd.business.JustificativaFaltaService;
+import br.ufrn.imd.dominio.JustificativaFalta;
 
 @Stateless
 @Path("/consulta")
 public class JustificativaFaltaResource {
 
 	@EJB
-	private UsuarioService service;
+	private JustificativaFaltaService service;
 
 	//LIST
 	@GET
-	@Path("/usuarios")
+	@Path("/justificativasFalta")
 	@Produces("application/json; charset=UTF-8")
-	public List<Usuario> listagem() {
+	public List<JustificativaFalta> listagem() {
 		return service.listar();
 	}
 	
 	//FIND BY ID
 	@GET
-	@Path("/usuarios/{id}")
+	@Path("/justificativasFalta/{id}")
 	@Produces("application/json; charset=UTF-8")
-	public Usuario buscaId(@PathParam("id") int id){
-		Usuario user = service.buscar(id);
-		return user;
+	public JustificativaFalta buscaId(@PathParam("id") int id){
+		JustificativaFalta jf = service.buscar(id);
+		return jf;
 	}
 	
 	//CREATE
 	@POST
-	@Path("/usuarios")
+	@Path("/justificativasFalta")
 	@Consumes("application/json")
 	@Produces("application/json; charset=UTF-8")
-	public Response novo(Usuario usuario) {
-		Usuario user = new Usuario();
+	public Response novo(JustificativaFalta justificativaFalta) {
+		JustificativaFalta jf = new JustificativaFalta();
 		
 		try{
-			service.save(usuario);
-			return Response.status(200).entity(user).build();
+			service.save(justificativaFalta);
+			return Response.status(200).entity(jf).build();
 		}
 		catch (NoResultException e){
-			return Response.status(204).entity(user).build();
+			return Response.status(204).entity(jf).build();
 		}
 	}
 	
 	//UPDATE
 	@PUT
-	@Path("/usuarios/{id}")
+	@Path("/justificativasFalta/{id}")
 	@Produces("application/json; charset=UTF-8")
 	public Response update(@PathParam("id") int id) {
-		Usuario user = new Usuario();
+		JustificativaFalta jf = new JustificativaFalta();
 		try{
-			user = service.buscar(id);
-			service.update(user);
-			return Response.status(200).entity(user).build();
+			jf = service.buscar(id);
+			service.update(jf);
+			return Response.status(200).entity(jf).build();
 		}
 		catch (NoResultException e){
-			return Response.status(204).entity(user).build();
+			return Response.status(204).entity(jf).build();
 		}
 	}
 	
 	//DELETE
 	@DELETE
-	@Path("/usuarios/{id}")
+	@Path("/justificativasFalta/{id}")
 	@Produces("application/json; charset=UTF-8")
 	public Response delete(@PathParam("id") int id) {
-		Usuario user = new Usuario();
+		JustificativaFalta jf = new JustificativaFalta();
 		try{
-			user = service.buscar(id);
-			service.delete(user);
-			return Response.status(200).entity(user).build();
+			jf = service.buscar(id);
+			service.delete(jf);
+			return Response.status(200).entity(jf).build();
 		}
 		catch (NoResultException e){
-			return Response.status(204).entity(user).build();
+			return Response.status(204).entity(jf).build();
 		}
 	}
 
 	//FIND FILTRO
 	@GET
-	@Path("/usuarios/{nomeUsuario}/{idUnidade}/{idSetor}")
+	@Path("/justificativasFalta/{nomeUsuario}/{idUnidade}/{idSetor}")
 	@Produces("application/json; charset=UTF-8")
-	public List<Usuario> buscaFiltro(@PathParam("nomeUsuario") String nomeUsuario, 
+	public List<JustificativaFalta> buscaFiltro(@PathParam("nomeUsuario") String nomeUsuario, 
 			@PathParam("idUnidade")int idUnidade, @PathParam("idSetor")int idSetor) {
 		
-		ArrayList<Usuario> users = new ArrayList<Usuario>();
-		users = service.buscarFiltro(nomeUsuario, idUnidade, idSetor);
-		return users;
+		ArrayList<JustificativaFalta> jfs = new ArrayList<JustificativaFalta>();
+		jfs = service.buscarFiltro(nomeUsuario, idUnidade, idSetor);
+		return jfs;
 	}
 }

@@ -79,6 +79,28 @@ public class PontoService{
 		}
 	}
 
+	public ArrayList<Ponto> buscarPontosVinculo(int idVinculo){
+		ArrayList<Ponto> pons = new ArrayList<Ponto>();
+		pons = pontoDao.listarPontosVinculo(idVinculo);
+		if(pons.size() > 0){
+			return pons;
+		}
+		else{
+			return null;
+		}
+	}
+
+	public ArrayList<Ponto> buscarPontosUsuario(int idUsuario){
+		ArrayList<Ponto> pons = new ArrayList<Ponto>();
+		pons = pontoDao.listarPontosUsuario(idUsuario);
+		if(pons.size() > 0){
+			return pons;
+		}
+		else{
+			return null;
+		}
+	}
+	
 	//Metodo usados apenas para verificacoes no escopo do service
 	private Ponto buscaId(int id){
 		try{

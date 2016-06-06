@@ -16,91 +16,112 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
-import br.ufrn.imd.business.UsuarioService;
-import br.ufrn.imd.dominio.Usuario;
+import br.ufrn.imd.business.PontoService;
+import br.ufrn.imd.dominio.Ponto;
 
 @Stateless
 @Path("/consulta")
 public class PontoResource {
 
 	@EJB
-	private UsuarioService service;
+	private PontoService service;
 
 	//LIST
 	@GET
-	@Path("/usuarios")
+	@Path("/pontos")
 	@Produces("application/json; charset=UTF-8")
-	public List<Usuario> listagem() {
+	public List<Ponto> listagem() {
 		return service.listar();
 	}
 	
 	//FIND BY ID
 	@GET
-	@Path("/usuarios/{id}")
+	@Path("/pontos/{id}")
 	@Produces("application/json; charset=UTF-8")
-	public Usuario buscaId(@PathParam("id") int id){
-		Usuario user = service.buscar(id);
-		return user;
+	public Ponto buscaId(@PathParam("id") int id){
+		Ponto dot = service.buscar(id);
+		return dot;
 	}
 	
 	//CREATE
 	@POST
-	@Path("/usuarios")
+	@Path("/pontos")
 	@Consumes("application/json")
 	@Produces("application/json; charset=UTF-8")
-	public Response novo(Usuario usuario) {
-		Usuario user = new Usuario();
+	public Response novo(Ponto ponto) {
+		Ponto dot = new Ponto();
 		
 		try{
-			service.save(usuario);
-			return Response.status(200).entity(user).build();
+			service.save(ponto);
+			return Response.status(200).entity(dot).build();
 		}
 		catch (NoResultException e){
-			return Response.status(204).entity(user).build();
+			return Response.status(204).entity(dot).build();
 		}
 	}
 	
 	//UPDATE
 	@PUT
-	@Path("/usuarios/{id}")
+	@Path("/pontos/{id}")
 	@Produces("application/json; charset=UTF-8")
 	public Response update(@PathParam("id") int id) {
-		Usuario user = new Usuario();
+		Ponto dot = new Ponto();
 		try{
-			user = service.buscar(id);
-			service.update(user);
-			return Response.status(200).entity(user).build();
+			dot = service.buscar(id);
+			service.update(dot);
+			return Response.status(200).entity(dot).build();
 		}
 		catch (NoResultException e){
-			return Response.status(204).entity(user).build();
+			return Response.status(204).entity(dot).build();
 		}
 	}
 	
 	//DELETE
 	@DELETE
-	@Path("/usuarios/{id}")
+	@Path("/pontos/{id}")
 	@Produces("application/json; charset=UTF-8")
 	public Response delete(@PathParam("id") int id) {
-		Usuario user = new Usuario();
+		Ponto dot = new Ponto();
 		try{
-			user = service.buscar(id);
-			service.delete(user);
-			return Response.status(200).entity(user).build();
+			dot = service.buscar(id);
+			service.delete(dot);
+			return Response.status(200).entity(dot).build();
 		}
 		catch (NoResultException e){
-			return Response.status(204).entity(user).build();
+			return Response.status(204).entity(dot).build();
 		}
 	}
 
 	//FIND FILTRO
 	@GET
-	@Path("/usuarios/{nomeUsuario}/{idUnidade}/{idSetor}")
+	@Path("/pontos/{nomePonto}/{idUnidade}/{idSetor}")
 	@Produces("application/json; charset=UTF-8")
-	public List<Usuario> buscaFiltro(@PathParam("nomeUsuario") String nomeUsuario, 
+	public List<Ponto> buscaFiltro(@PathParam("nomePonto") String nomePonto, 
 			@PathParam("idUnidade")int idUnidade, @PathParam("idSetor")int idSetor) {
 		
-		ArrayList<Usuario> users = new ArrayList<Usuario>();
-		users = service.buscarFiltro(nomeUsuario, idUnidade, idSetor);
-		return users;
+		ArrayList<Ponto> dots = new ArrayList<Ponto>();
+		dots = service.buscarFiltro(nomePonto, idUnidade, idSetor);
+		return dots;
+	}
+	
+	//FIND PONTOS USUARIO
+	@GET
+	@Path("/pontos/usuario/{idUsuario}")
+	@Produces("application/json; charset=UTF-8")
+	public List<Ponto> buscaPontoUsuario(@PathParam("idUsuario") int idUsuario) {
+		
+		ArrayList<Ponto> dots = new ArrayList<Ponto>();
+		dots = service.buscarPontosUsuario(idUsuario);
+		return dots;
+	}
+	//FIND PONTOS USUARIO
+	@GET
+	@Path("/pontos/vinculo/{idVinculo}")
+	@Produces("application/json; charset=UTF-8")
+	public List<Ponto> buscaPontoVinculo(@PathParam("idVinculo") int idVinculo) {
+		
+		ArrayList<Ponto> dots = new ArrayList<Ponto>();
+		dots = service.buscarPontosVinculo(idVinculo);
+		return dots;
 	}
 }

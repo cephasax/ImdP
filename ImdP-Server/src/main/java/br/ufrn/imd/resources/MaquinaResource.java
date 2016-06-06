@@ -16,91 +16,91 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
-import br.ufrn.imd.business.UsuarioService;
-import br.ufrn.imd.dominio.Usuario;
+import br.ufrn.imd.business.MaquinaService;
+import br.ufrn.imd.dominio.Maquina;
 
 @Stateless
 @Path("/consulta")
 public class MaquinaResource {
 
 	@EJB
-	private UsuarioService service;
+	private MaquinaService service;
 
 	//LIST
 	@GET
-	@Path("/usuarios")
+	@Path("/maquinas")
 	@Produces("application/json; charset=UTF-8")
-	public List<Usuario> listagem() {
+	public List<Maquina> listagem() {
 		return service.listar();
 	}
 	
 	//FIND BY ID
 	@GET
-	@Path("/usuarios/{id}")
+	@Path("/maquinas/{id}")
 	@Produces("application/json; charset=UTF-8")
-	public Usuario buscaId(@PathParam("id") int id){
-		Usuario user = service.buscar(id);
-		return user;
+	public Maquina buscaId(@PathParam("id") int id){
+		Maquina maq = service.buscar(id);
+		return maq;
 	}
 	
 	//CREATE
 	@POST
-	@Path("/usuarios")
+	@Path("/maquinas")
 	@Consumes("application/json")
 	@Produces("application/json; charset=UTF-8")
-	public Response novo(Usuario usuario) {
-		Usuario user = new Usuario();
+	public Response novo(Maquina maquina) {
+		Maquina maq = new Maquina();
 		
 		try{
-			service.save(usuario);
-			return Response.status(200).entity(user).build();
+			service.save(maquina);
+			return Response.status(200).entity(maq).build();
 		}
 		catch (NoResultException e){
-			return Response.status(204).entity(user).build();
+			return Response.status(204).entity(maq).build();
 		}
 	}
 	
 	//UPDATE
 	@PUT
-	@Path("/usuarios/{id}")
+	@Path("/maquinas/{id}")
 	@Produces("application/json; charset=UTF-8")
 	public Response update(@PathParam("id") int id) {
-		Usuario user = new Usuario();
+		Maquina maq = new Maquina();
 		try{
-			user = service.buscar(id);
-			service.update(user);
-			return Response.status(200).entity(user).build();
+			maq = service.buscar(id);
+			service.update(maq);
+			return Response.status(200).entity(maq).build();
 		}
 		catch (NoResultException e){
-			return Response.status(204).entity(user).build();
+			return Response.status(204).entity(maq).build();
 		}
 	}
 	
 	//DELETE
 	@DELETE
-	@Path("/usuarios/{id}")
+	@Path("/maquinas/{id}")
 	@Produces("application/json; charset=UTF-8")
 	public Response delete(@PathParam("id") int id) {
-		Usuario user = new Usuario();
+		Maquina maq = new Maquina();
 		try{
-			user = service.buscar(id);
-			service.delete(user);
-			return Response.status(200).entity(user).build();
+			maq = service.buscar(id);
+			service.delete(maq);
+			return Response.status(200).entity(maq).build();
 		}
 		catch (NoResultException e){
-			return Response.status(204).entity(user).build();
+			return Response.status(204).entity(maq).build();
 		}
 	}
 
 	//FIND FILTRO
 	@GET
-	@Path("/usuarios/{nomeUsuario}/{idUnidade}/{idSetor}")
+	@Path("/maquinas/{nomeMaquina}/{idUnidade}")
 	@Produces("application/json; charset=UTF-8")
-	public List<Usuario> buscaFiltro(@PathParam("nomeUsuario") String nomeUsuario, 
-			@PathParam("idUnidade")int idUnidade, @PathParam("idSetor")int idSetor) {
+	public List<Maquina> buscaFiltro(@PathParam("nomeMaquina") String nomeMaquina, 
+			@PathParam("idUnidade")int idUnidade) {
 		
-		ArrayList<Usuario> users = new ArrayList<Usuario>();
-		users = service.buscarFiltro(nomeUsuario, idUnidade, idSetor);
-		return users;
+		ArrayList<Maquina> maqs = new ArrayList<Maquina>();
+		maqs = service.buscarFiltro(nomeMaquina, idUnidade);
+		return maqs;
 	}
 }

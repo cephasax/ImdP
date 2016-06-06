@@ -16,91 +16,90 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
-import br.ufrn.imd.business.UsuarioService;
-import br.ufrn.imd.dominio.Usuario;
+import br.ufrn.imd.business.CargoService;
+import br.ufrn.imd.dominio.Cargo;
 
 @Stateless
 @Path("/consulta")
 public class CargoResource {
 
 	@EJB
-	private UsuarioService service;
+	private CargoService service;
 
 	//LIST
 	@GET
-	@Path("/usuarios")
+	@Path("/cargos")
 	@Produces("application/json; charset=UTF-8")
-	public List<Usuario> listagem() {
+	public List<Cargo> listagem() {
 		return service.listar();
 	}
 	
 	//FIND BY ID
 	@GET
-	@Path("/usuarios/{id}")
+	@Path("/cargos/{id}")
 	@Produces("application/json; charset=UTF-8")
-	public Usuario buscaId(@PathParam("id") int id){
-		Usuario user = service.buscar(id);
-		return user;
+	public Cargo buscaId(@PathParam("id") int id){
+		Cargo cargo = service.buscar(id);
+		return cargo;
 	}
 	
 	//CREATE
 	@POST
-	@Path("/usuarios")
+	@Path("/cargos")
 	@Consumes("application/json")
 	@Produces("application/json; charset=UTF-8")
-	public Response novo(Usuario usuario) {
-		Usuario user = new Usuario();
+	public Response novo(Cargo cargo) {
+		Cargo car = new Cargo();
 		
 		try{
-			service.save(usuario);
-			return Response.status(200).entity(user).build();
+			service.save(car);
+			return Response.status(200).entity(car).build();
 		}
 		catch (NoResultException e){
-			return Response.status(204).entity(user).build();
+			return Response.status(204).entity(car).build();
 		}
 	}
 	
 	//UPDATE
 	@PUT
-	@Path("/usuarios/{id}")
+	@Path("/cargos/{id}")
 	@Produces("application/json; charset=UTF-8")
 	public Response update(@PathParam("id") int id) {
-		Usuario user = new Usuario();
+		Cargo cargo = new Cargo();
 		try{
-			user = service.buscar(id);
-			service.update(user);
-			return Response.status(200).entity(user).build();
+			cargo = service.buscar(id);
+			service.update(cargo);
+			return Response.status(200).entity(cargo).build();
 		}
 		catch (NoResultException e){
-			return Response.status(204).entity(user).build();
+			return Response.status(204).entity(cargo).build();
 		}
 	}
 	
 	//DELETE
 	@DELETE
-	@Path("/usuarios/{id}")
+	@Path("/cargos/{id}")
 	@Produces("application/json; charset=UTF-8")
 	public Response delete(@PathParam("id") int id) {
-		Usuario user = new Usuario();
+		Cargo cargo = new Cargo();
 		try{
-			user = service.buscar(id);
-			service.delete(user);
-			return Response.status(200).entity(user).build();
+			cargo = service.buscar(id);
+			service.delete(cargo);
+			return Response.status(200).entity(cargo).build();
 		}
 		catch (NoResultException e){
-			return Response.status(204).entity(user).build();
+			return Response.status(204).entity(cargo).build();
 		}
 	}
 
 	//FIND FILTRO
 	@GET
-	@Path("/usuarios/{nomeUsuario}/{idUnidade}/{idSetor}")
+	@Path("/cargos/{nomeCargo}")
 	@Produces("application/json; charset=UTF-8")
-	public List<Usuario> buscaFiltro(@PathParam("nomeUsuario") String nomeUsuario, 
-			@PathParam("idUnidade")int idUnidade, @PathParam("idSetor")int idSetor) {
+	public List<Cargo> buscaFiltro(@PathParam("nomeCargo") String nomeCargo){
 		
-		ArrayList<Usuario> users = new ArrayList<Usuario>();
-		users = service.buscarFiltro(nomeUsuario, idUnidade, idSetor);
-		return users;
+		ArrayList<Cargo> cargos = new ArrayList<Cargo>();
+		cargos = service.buscarFiltro(nomeCargo);
+		return cargos;
 	}
 }

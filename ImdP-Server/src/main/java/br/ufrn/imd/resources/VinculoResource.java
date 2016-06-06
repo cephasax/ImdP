@@ -16,43 +16,43 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
-import br.ufrn.imd.business.UsuarioService;
-import br.ufrn.imd.dominio.Usuario;
+import br.ufrn.imd.business.VinculoService;
+import br.ufrn.imd.dominio.Vinculo;
 
 @Stateless
 @Path("/consulta")
 public class VinculoResource {
 
 	@EJB
-	private UsuarioService service;
+	private VinculoService service;
 
 	//LIST
 	@GET
-	@Path("/usuarios")
+	@Path("/vinculos")
 	@Produces("application/json; charset=UTF-8")
-	public List<Usuario> listagem() {
+	public List<Vinculo> listagem() {
 		return service.listar();
 	}
 	
 	//FIND BY ID
 	@GET
-	@Path("/usuarios/{id}")
+	@Path("/vinculos/{id}")
 	@Produces("application/json; charset=UTF-8")
-	public Usuario buscaId(@PathParam("id") int id){
-		Usuario user = service.buscar(id);
+	public Vinculo buscaId(@PathParam("id") int id){
+		Vinculo user = service.buscar(id);
 		return user;
 	}
 	
 	//CREATE
 	@POST
-	@Path("/usuarios")
+	@Path("/vinculos")
 	@Consumes("application/json")
 	@Produces("application/json; charset=UTF-8")
-	public Response novo(Usuario usuario) {
-		Usuario user = new Usuario();
+	public Response novo(Vinculo vinculo) {
+		Vinculo user = new Vinculo();
 		
 		try{
-			service.save(usuario);
+			service.save(vinculo);
 			return Response.status(200).entity(user).build();
 		}
 		catch (NoResultException e){
@@ -62,10 +62,10 @@ public class VinculoResource {
 	
 	//UPDATE
 	@PUT
-	@Path("/usuarios/{id}")
+	@Path("/vinculos/{id}")
 	@Produces("application/json; charset=UTF-8")
 	public Response update(@PathParam("id") int id) {
-		Usuario user = new Usuario();
+		Vinculo user = new Vinculo();
 		try{
 			user = service.buscar(id);
 			service.update(user);
@@ -78,10 +78,10 @@ public class VinculoResource {
 	
 	//DELETE
 	@DELETE
-	@Path("/usuarios/{id}")
+	@Path("/vinculos/{id}")
 	@Produces("application/json; charset=UTF-8")
 	public Response delete(@PathParam("id") int id) {
-		Usuario user = new Usuario();
+		Vinculo user = new Vinculo();
 		try{
 			user = service.buscar(id);
 			service.delete(user);
@@ -94,12 +94,12 @@ public class VinculoResource {
 
 	//FIND FILTRO
 	@GET
-	@Path("/usuarios/{nomeUsuario}/{idUnidade}/{idSetor}")
+	@Path("/vinculos/{nomeUsuario}/{idUnidade}/{idSetor}")
 	@Produces("application/json; charset=UTF-8")
-	public List<Usuario> buscaFiltro(@PathParam("nomeUsuario") String nomeUsuario, 
+	public List<Vinculo> buscaFiltro(@PathParam("nomeUsuario") String nomeUsuario, 
 			@PathParam("idUnidade")int idUnidade, @PathParam("idSetor")int idSetor) {
 		
-		ArrayList<Usuario> users = new ArrayList<Usuario>();
+		ArrayList<Vinculo> users = new ArrayList<Vinculo>();
 		users = service.buscarFiltro(nomeUsuario, idUnidade, idSetor);
 		return users;
 	}

@@ -16,91 +16,91 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
-import br.ufrn.imd.business.UsuarioService;
-import br.ufrn.imd.dominio.Usuario;
+import br.ufrn.imd.business.MesTrabalhoService;
+import br.ufrn.imd.dominio.MesTrabalho;
 
 @Stateless
 @Path("/consulta")
 public class MesTrabalhoResource {
 
 	@EJB
-	private UsuarioService service;
+	private MesTrabalhoService service;
 
 	//LIST
 	@GET
-	@Path("/usuarios")
+	@Path("/mesesTrabalho")
 	@Produces("application/json; charset=UTF-8")
-	public List<Usuario> listagem() {
+	public List<MesTrabalho> listagem() {
 		return service.listar();
 	}
 	
 	//FIND BY ID
 	@GET
-	@Path("/usuarios/{id}")
+	@Path("/mesesTrabalho/{id}")
 	@Produces("application/json; charset=UTF-8")
-	public Usuario buscaId(@PathParam("id") int id){
-		Usuario user = service.buscar(id);
-		return user;
+	public MesTrabalho buscaId(@PathParam("id") int id){
+		MesTrabalho mt = service.buscar(id);
+		return mt;
 	}
 	
 	//CREATE
 	@POST
-	@Path("/usuarios")
+	@Path("/mesesTrabalho")
 	@Consumes("application/json")
 	@Produces("application/json; charset=UTF-8")
-	public Response novo(Usuario usuario) {
-		Usuario user = new Usuario();
+	public Response novo(MesTrabalho mesTrabalho) {
+		MesTrabalho mt = new MesTrabalho();
 		
 		try{
-			service.save(usuario);
-			return Response.status(200).entity(user).build();
+			service.save(mesTrabalho);
+			return Response.status(200).entity(mt).build();
 		}
 		catch (NoResultException e){
-			return Response.status(204).entity(user).build();
+			return Response.status(204).entity(mt).build();
 		}
 	}
 	
 	//UPDATE
 	@PUT
-	@Path("/usuarios/{id}")
+	@Path("/mesesTrabalho/{id}")
 	@Produces("application/json; charset=UTF-8")
 	public Response update(@PathParam("id") int id) {
-		Usuario user = new Usuario();
+		MesTrabalho mt = new MesTrabalho();
 		try{
-			user = service.buscar(id);
-			service.update(user);
-			return Response.status(200).entity(user).build();
+			mt = service.buscar(id);
+			service.update(mt);
+			return Response.status(200).entity(mt).build();
 		}
 		catch (NoResultException e){
-			return Response.status(204).entity(user).build();
+			return Response.status(204).entity(mt).build();
 		}
 	}
 	
 	//DELETE
 	@DELETE
-	@Path("/usuarios/{id}")
+	@Path("/mesesTrabalho/{id}")
 	@Produces("application/json; charset=UTF-8")
 	public Response delete(@PathParam("id") int id) {
-		Usuario user = new Usuario();
+		MesTrabalho mt = new MesTrabalho();
 		try{
-			user = service.buscar(id);
-			service.delete(user);
-			return Response.status(200).entity(user).build();
+			mt = service.buscar(id);
+			service.delete(mt);
+			return Response.status(200).entity(mt).build();
 		}
 		catch (NoResultException e){
-			return Response.status(204).entity(user).build();
+			return Response.status(204).entity(mt).build();
 		}
 	}
 
 	//FIND FILTRO
 	@GET
-	@Path("/usuarios/{nomeUsuario}/{idUnidade}/{idSetor}")
+	@Path("/mesesTrabalho/{numeroMes}/{ano}")
 	@Produces("application/json; charset=UTF-8")
-	public List<Usuario> buscaFiltro(@PathParam("nomeUsuario") String nomeUsuario, 
-			@PathParam("idUnidade")int idUnidade, @PathParam("idSetor")int idSetor) {
+	public List<MesTrabalho> buscaFiltro(@PathParam("numeroMes") int numeroMes, 
+			@PathParam("ano")int ano) {
 		
-		ArrayList<Usuario> users = new ArrayList<Usuario>();
-		users = service.buscarFiltro(nomeUsuario, idUnidade, idSetor);
-		return users;
+		ArrayList<MesTrabalho> mts = new ArrayList<MesTrabalho>();
+		mts = service.buscarFiltro(numeroMes, ano);
+		return mts;
 	}
 }

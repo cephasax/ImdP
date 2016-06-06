@@ -68,9 +68,9 @@ public class VinculoService{
 		}
 	}
 	
-	public ArrayList<Vinculo> buscarFiltro(String nomeVinculo, int idUnidade, int idSetor){
+	public ArrayList<Vinculo> buscarFiltro(String nomeUsuario, int idUnidade, int idSetor){
 		ArrayList<Vinculo> vincs = new ArrayList<Vinculo>();
-		vincs = vinculoDao.buscarVinculoFiltro(nomeVinculo, idUnidade, idSetor);
+		vincs = vinculoDao.buscarVinculoFiltro(nomeUsuario, idUnidade, idSetor);
 		if(vincs.size() > 0){
 			return vincs;
 		}

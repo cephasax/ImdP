@@ -94,7 +94,7 @@ public class PontoResource {
 
 	//FIND FILTRO
 	@GET
-	@Path("/pontos/{nomePonto}/{idUnidade}/{idSetor}")
+	@Path("/pontos/{nomePonto}/unidades/{idUnidade}/setores/{idSetor}")
 	@Produces("application/json; charset=UTF-8")
 	public List<Ponto> buscaFiltro(@PathParam("nomePonto") String nomePonto, 
 			@PathParam("idUnidade")int idUnidade, @PathParam("idSetor")int idSetor) {
@@ -106,7 +106,7 @@ public class PontoResource {
 	
 	//FIND PONTOS USUARIO
 	@GET
-	@Path("/pontos/usuario/{idUsuario}")
+	@Path("/pontos/usuarios/{idUsuario}")
 	@Produces("application/json; charset=UTF-8")
 	public List<Ponto> buscaPontoUsuario(@PathParam("idUsuario") int idUsuario) {
 		
@@ -116,7 +116,7 @@ public class PontoResource {
 	}
 	//FIND PONTOS USUARIO
 	@GET
-	@Path("/pontos/vinculo/{idVinculo}")
+	@Path("/pontos/vinculos/{idVinculo}")
 	@Produces("application/json; charset=UTF-8")
 	public List<Ponto> buscaPontoVinculo(@PathParam("idVinculo") int idVinculo) {
 		

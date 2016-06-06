@@ -94,7 +94,7 @@ public class VinculoResource {
 
 	//FIND FILTRO
 	@GET
-	@Path("/vinculos/{nomeUsuario}/{idUnidade}/{idSetor}")
+	@Path("/vinculos/{nomeUsuario}/unidades/{idUnidade}/setores/{idSetor}")
 	@Produces("application/json; charset=UTF-8")
 	public List<Vinculo> buscaFiltro(@PathParam("nomeUsuario") String nomeUsuario, 
 			@PathParam("idUnidade")int idUnidade, @PathParam("idSetor")int idSetor) {

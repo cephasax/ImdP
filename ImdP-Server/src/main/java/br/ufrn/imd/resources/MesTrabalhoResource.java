@@ -94,13 +94,13 @@ public class MesTrabalhoResource {
 
 	//FIND FILTRO
 	@GET
-	@Path("/mesesTrabalho/{numeroMes}/{ano}")
+	@Path("/mesesTrabalho/{ano}/{numeroMes}")
 	@Produces("application/json; charset=UTF-8")
-	public List<MesTrabalho> buscaFiltro(@PathParam("numeroMes") int numeroMes, 
-			@PathParam("ano")int ano) {
+	public List<MesTrabalho> buscaFiltro(@PathParam("ano")int ano,
+			@PathParam("numeroMes") int numeroMes) {
 		
 		ArrayList<MesTrabalho> mts = new ArrayList<MesTrabalho>();
-		mts = service.buscarFiltro(numeroMes, ano);
+		mts = service.buscarFiltro(ano, numeroMes);
 		return mts;
 	}
 }

@@ -68,9 +68,9 @@ public class MesTrabalhoService{
 		}
 	}
 	
-	public ArrayList<MesTrabalho> buscarFiltro(int mes, int ano){
+	public ArrayList<MesTrabalho> buscarFiltro(int ano, int mes){
 		ArrayList<MesTrabalho> months = new ArrayList<MesTrabalho>();
-		months = mesTrabalhoDao.buscarMesTrabalhoFiltro(mes, ano);
+		months = mesTrabalhoDao.buscarMesTrabalhoFiltro(ano, mes);
 		if(months.size() > 0){
 			return months;
 		}

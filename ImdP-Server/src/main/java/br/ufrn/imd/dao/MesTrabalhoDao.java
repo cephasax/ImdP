@@ -16,7 +16,7 @@ public class MesTrabalhoDao extends GenericDao {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public ArrayList<MesTrabalho> buscarMesTrabalhoFiltro(int mes, int ano) {
+	public ArrayList<MesTrabalho> buscarMesTrabalhoFiltro(int ano, int mes) {
 		
 		//CONSTRUCAO DA CONSULTA SQL
 		String sql = " Select mt FROM MesTrabalho mt";

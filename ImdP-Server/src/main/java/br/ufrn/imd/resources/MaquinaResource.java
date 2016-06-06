@@ -94,7 +94,7 @@ public class MaquinaResource {
 
 	//FIND FILTRO
 	@GET
-	@Path("/maquinas/{nomeMaquina}/{idUnidade}")
+	@Path("/maquinas/{nomeMaquina}/unidades/{idUnidade}")
 	@Produces("application/json; charset=UTF-8")
 	public List<Maquina> buscaFiltro(@PathParam("nomeMaquina") String nomeMaquina, 
 			@PathParam("idUnidade")int idUnidade) {

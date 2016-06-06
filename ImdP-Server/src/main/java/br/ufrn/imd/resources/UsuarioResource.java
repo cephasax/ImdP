@@ -94,7 +94,7 @@ public class UsuarioResource {
 
 	//FIND FILTRO
 	@GET
-	@Path("/usuarios/{nomeUsuario}/{idUnidade}/{idSetor}")
+	@Path("/usuarios/{nomeUsuario}/unidades/{idUnidade}/setores/{idSetor}")
 	@Produces("application/json; charset=UTF-8")
 	public List<Usuario> buscaFiltro(@PathParam("nomeUsuario") String nomeUsuario, 
 			@PathParam("idUnidade")int idUnidade, @PathParam("idSetor")int idSetor) {

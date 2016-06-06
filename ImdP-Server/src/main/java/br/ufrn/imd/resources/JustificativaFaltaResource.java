@@ -94,7 +94,7 @@ public class JustificativaFaltaResource {
 
 	//FIND FILTRO
 	@GET
-	@Path("/justificativasFalta/{nomeUsuario}/{idUnidade}/{idSetor}")
+	@Path("/justificativasFalta/usuarios/{nomeUsuario}/unidades/{idUnidade}/setores/{idSetor}")
 	@Produces("application/json; charset=UTF-8")
 	public List<JustificativaFalta> buscaFiltro(@PathParam("nomeUsuario") String nomeUsuario, 
 			@PathParam("idUnidade")int idUnidade, @PathParam("idSetor")int idSetor) {

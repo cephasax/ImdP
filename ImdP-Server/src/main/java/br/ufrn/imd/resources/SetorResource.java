@@ -94,7 +94,7 @@ public class SetorResource {
 
 	//FIND FILTRO
 	@GET
-	@Path("/setores/{nomeSetor}/{idUnidade}")
+	@Path("/setores/{nomeSetor}/unidades/{idUnidade}")
 	@Produces("application/json; charset=UTF-8")
 	public List<Setor> buscaFiltro(@PathParam("nomeSetor") String nomeSetor, 
 			@PathParam("idUnidade")int idUnidade) {

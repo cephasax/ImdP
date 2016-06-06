@@ -205,7 +205,7 @@
             <items>
                   <Menu mnemonicParsing="false" text="Ponto">
                      <items>
-                        <MenuItem mnemonicParsing="false" onAction="#handlePontoAvulsoCriar" text="Criar" />
+                        <MenuItem mnemonicParsing="false" onAction="#handlePontoNormalCriar" text="Criar" />
                         <MenuItem mnemonicParsing="false" onAction="#handlePontoListar" text="Listar" />
                         <MenuItem mnemonicParsing="false" onAction="#handlePontoBuscar" text="Buscar" />
                      </items>

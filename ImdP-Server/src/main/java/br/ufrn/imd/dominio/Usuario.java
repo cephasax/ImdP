@@ -1,14 +1,12 @@
 package br.ufrn.imd.dominio;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
 
@@ -36,15 +34,12 @@ public class Usuario implements Serializable {
 	private String email;
 	private String telefone1;
 	private String telefone2;
-	private String digital;
+	private byte[] digital;
 
 	private String login;
 	private String senha;
 	private String foto;
 	private Date dataCriacao;
-
-	@OneToMany(mappedBy = "usuario")
-	private Collection<Vinculo> vinculos;
 
 	public int getIdUsuario() {
 		return idUsuario;
@@ -84,14 +79,6 @@ public class Usuario implements Serializable {
 
 	public void setDataCriacao(Date dataCriacao) {
 		this.dataCriacao = dataCriacao;
-	}
-
-	public Collection<Vinculo> getVinculos() {
-		return vinculos;
-	}
-
-	public void setVinculos(Collection<Vinculo> vinculos) {
-		this.vinculos = vinculos;
 	}
 
 	public String getNome() {
@@ -206,12 +193,11 @@ public class Usuario implements Serializable {
 		this.telefone2 = telefone2;
 	}
 
-	public String getDigital() {
+	public byte[] getDigital() {
 		return digital;
 	}
 
-	public void setDigital(String digital) {
+	public void setDigital(byte[] digital) {
 		this.digital = digital;
 	}
-
 }

@@ -1,13 +1,11 @@
 package br.ufrn.imd.dominio;
 
 import java.io.Serializable;
-import java.util.Collection;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
 @Entity
@@ -19,9 +17,6 @@ public class Cargo implements Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_CARGO")
 	private int idCargo;
 	private String nome;
-
-	@OneToMany(mappedBy = "cargo")
-	private Collection<Vinculo> vinculos;
 
 	public int getIdCargo() {
 		return idCargo;
@@ -37,14 +32,6 @@ public class Cargo implements Serializable {
 
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-
-	public Collection<Vinculo> getVinculos() {
-		return vinculos;
-	}
-
-	public void setVinculos(Collection<Vinculo> vinculos) {
-		this.vinculos = vinculos;
 	}
 
 }

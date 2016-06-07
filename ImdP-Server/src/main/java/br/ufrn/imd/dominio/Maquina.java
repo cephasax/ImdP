@@ -1,7 +1,6 @@
 package br.ufrn.imd.dominio;
 
 import java.io.Serializable;
-import java.util.Collection;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,7 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
 @Entity
@@ -27,9 +25,6 @@ public class Maquina implements Serializable {
 
 	private String denominacao;
 	private String ip;
-
-	@OneToMany(mappedBy = "maquina")
-	private Collection<Ponto> pontos;
 
 	@ManyToOne
 	@JoinColumn(name = "idUnidade")
@@ -57,14 +52,6 @@ public class Maquina implements Serializable {
 
 	public void setIdMaquina(int idMaquina) {
 		this.idMaquina = idMaquina;
-	}
-
-	public Collection<Ponto> getPontos() {
-		return pontos;
-	}
-
-	public void setPontos(Collection<Ponto> pontos) {
-		this.pontos = pontos;
 	}
 
 	public Unidade getUnidade() {

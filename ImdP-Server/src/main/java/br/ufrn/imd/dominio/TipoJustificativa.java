@@ -1,13 +1,11 @@
 package br.ufrn.imd.dominio;
 
 import java.io.Serializable;
-import java.util.Collection;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
 @Entity
@@ -21,9 +19,6 @@ public class TipoJustificativa implements Serializable {
 	
 	private String nome;
 	
-	@OneToMany(mappedBy="tipoJustificativa")
-	private Collection<JustificativaFalta> justificativas;
-
 	public int getIdTipoJustificativa() {
 		return idTipoJustificativa;
 	}
@@ -39,14 +34,4 @@ public class TipoJustificativa implements Serializable {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-
-	public Collection<JustificativaFalta> getJustificativas() {
-		return justificativas;
-	}
-
-	public void setJustificativas(Collection<JustificativaFalta> justificativas) {
-		this.justificativas = justificativas;
-	}
-	
-	
 }

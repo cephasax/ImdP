@@ -1,13 +1,11 @@
 package br.ufrn.imd.dominio;
 
 import java.io.Serializable;
-import java.util.Collection;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
 @Entity
@@ -20,9 +18,6 @@ public class Unidade implements Serializable {
 	private int idUnidade;
 
 	private String nome;
-
-	@OneToMany(mappedBy = "unidade")
-	private Collection<Setor> setores;
 
 	public int getIdUnidade() {
 		return idUnidade;
@@ -39,13 +34,4 @@ public class Unidade implements Serializable {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-
-	public Collection<Setor> getSetores() {
-		return setores;
-	}
-
-	public void setSetores(Collection<Setor> setores) {
-		this.setores = setores;
-	}
-
 }

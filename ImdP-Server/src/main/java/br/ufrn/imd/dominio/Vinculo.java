@@ -1,7 +1,6 @@
 package br.ufrn.imd.dominio;
 
 import java.io.Serializable;
-import java.util.Collection;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,7 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
 @Entity
@@ -34,15 +32,9 @@ public class Vinculo implements Serializable {
 	@JoinColumn(name = "idUsuario")
 	private Usuario usuario;
 	
-	@OneToMany(mappedBy = "vinculo")
-	private Collection<Ponto> pontos;
-	
 	@ManyToOne
 	@JoinColumn(name = "idPermissao")
 	private Permissao permissao;
-	
-	@OneToMany(mappedBy = "vinculo")
-	private Collection<JustificativaFalta> justificativas;
 
 	private int cargaHorariaDiaria;
 	private int cargaHorariaSemanal;
@@ -121,14 +113,6 @@ public class Vinculo implements Serializable {
 		this.usuario = usuario;
 	}
 
-	public Collection<Ponto> getPontos() {
-		return pontos;
-	}
-
-	public void setPontos(Collection<Ponto> pontos) {
-		this.pontos = pontos;
-	}
-
 	public Permissao getPermissao() {
 		return permissao;
 	}
@@ -136,14 +120,5 @@ public class Vinculo implements Serializable {
 	public void setPermissao(Permissao permissao) {
 		this.permissao = permissao;
 	}
-
-	public Collection<JustificativaFalta> getJustificativas() {
-		return justificativas;
-	}
-
-	public void setJustificativas(Collection<JustificativaFalta> justificativas) {
-		this.justificativas = justificativas;
-	}
-	
 
 }

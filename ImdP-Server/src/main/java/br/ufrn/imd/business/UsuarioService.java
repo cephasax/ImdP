@@ -109,7 +109,7 @@ public class UsuarioService{
 			hasError = true;
 		}
 		
-		//Data DE NASCIMENTO
+		//DATA DE NASCIMENTO
 		if (usuario.getDataNascimento() == null){
 			hasError = true;
 		}

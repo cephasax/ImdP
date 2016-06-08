@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 
 @Entity
@@ -22,10 +24,14 @@ public class Usuario implements Serializable {
 
 	private String nome;
 	private String sexo;
+	
+	@Temporal(TemporalType.DATE)
 	private Date dataNascimento;
 	private String cpf;
 	private String rg;
 	private String orgaoExpedicaoRg;
+	
+	@Temporal(TemporalType.DATE)
 	private Date dataExpedicaoRg;
 	private String EstadoRg;
 	private String cnh;

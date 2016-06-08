@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @SequenceGenerator(name = "SEQ_JUSTIFICATIVAFALTA", initialValue = 1, allocationSize = 1, sequenceName = "seq_justificativafalta")
@@ -20,7 +22,10 @@ public class JustificativaFalta implements Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_JUSTIFICATIVAFALTA")
 	private int idJustificativaFalta;
 
+	@Temporal(TemporalType.DATE)
 	private Date dataInicio;
+	
+	@Temporal(TemporalType.DATE)
 	private Date dataFim;
 
 	@ManyToOne

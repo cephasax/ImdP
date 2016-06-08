@@ -16,7 +16,6 @@ public class Unidade implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_UNIDADE")
 	private int idUnidade;
-
 	private String nome;
 
 	public int getIdUnidade() {

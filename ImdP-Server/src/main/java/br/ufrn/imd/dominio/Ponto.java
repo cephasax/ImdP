@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @SequenceGenerator(name = "SEQ_PONTO", initialValue = 1, allocationSize = 1, sequenceName = "seq_ponto")
@@ -21,10 +23,13 @@ public class Ponto implements Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_PONTO")
 	private int idPonto;
 
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date timeStamp;
 	private char tipo;
 	private char validado;
 	private String observacao;
+	
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date timeStampAlteracao;
 	private int idUsuarioAlteracao;
 

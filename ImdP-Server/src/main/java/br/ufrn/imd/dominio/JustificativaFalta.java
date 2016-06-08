@@ -39,12 +39,14 @@ public class JustificativaFalta implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "idUsuario")
 	private Usuario gestor;
-
 	private String descricao;
+	
+	@Temporal(TemporalType.DATE)
 	private Date dataEnvio;
 	private char situacao;
-
 	private String observacaoAnalise;
+	
+	@Temporal(TemporalType.DATE)
 	private Date dataAnalise;
 	private int cargaHorariaAbonada;
 	private int cargaHorariaNaoAbonada;

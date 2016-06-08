@@ -45,6 +45,8 @@ public class Usuario implements Serializable {
 	private String login;
 	private String senha;
 	private String foto;
+	
+	@Temporal(TemporalType.DATE)
 	private Date dataCriacao;
 
 	public int getIdUsuario() {

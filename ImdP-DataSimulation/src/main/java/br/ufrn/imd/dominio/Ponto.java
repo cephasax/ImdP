@@ -23,12 +23,13 @@ public class Ponto implements Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_PONTO")
 	private int idPonto;
 
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date timeStamp;
 	private char tipo;
 	private char validado;
 	private String observacao;
-	@Temporal(TemporalType.DATE)
+	
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date timeStampAlteracao;
 	private int idUsuarioAlteracao;
 

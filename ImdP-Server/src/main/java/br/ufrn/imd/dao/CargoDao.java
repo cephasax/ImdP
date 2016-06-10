@@ -21,10 +21,9 @@ public class CargoDao extends GenericDao {
 		//CONSTRUCAO DA CONSULTA SQL
 		String sql = " Select c FROM Cargo c";
 		StringBuilder where = new StringBuilder();
-		where.append(" WHERE 1 = 1 ");
-		
+		where.append(" WHERE 1 = 1");
 		if (!nomeCargo.equals("")){
-			where.append(" and lower(c.nome) like lower(:nome) ");
+			where.append(" and lower(c.nome) like lower(:nome)");
 		}
 		StringBuilder sqlFinal = new StringBuilder();
 		sqlFinal.append(sql);
@@ -70,4 +69,21 @@ public class CargoDao extends GenericDao {
 		super.delete(cargo.getIdCargo(), Cargo.class);
 	}
 
+	public ArrayList<Cargo> buscarCargoCheck(String nome){
+		
+		//CONSTRUCAO DA CONSULTA SQL
+		String sql = " Select c FROM Cargo c";
+		StringBuilder where = new StringBuilder();
+		where.append(" WHERE c.nome = :nome ");
+		StringBuilder sqlFinal = new StringBuilder();
+		sqlFinal.append(sql);
+		sqlFinal.append(where.toString());	
+		Query query = em.createQuery(sqlFinal.toString());
+		query.setParameter("nome", nome);
+		
+		//EXECUCAO E RETORNO
+		return (ArrayList<Cargo>)query.getResultList();
+		 
+	}
+	
 }

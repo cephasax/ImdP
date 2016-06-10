@@ -9,6 +9,9 @@ import javax.persistence.NoResultException;
 
 import br.ufrn.imd.dao.PontoDao;
 import br.ufrn.imd.dominio.Ponto;
+import br.ufrn.imd.excecoes.DadoIncompletoException;
+import br.ufrn.imd.excecoes.DadoJaExisteException;
+import br.ufrn.imd.excecoes.DadoNaoEncontradoException;
 
 @Stateless
 public class PontoService{
@@ -16,55 +19,48 @@ public class PontoService{
 	@Inject
 	private PontoDao pontoDao;
 	
-	public void save(Ponto ponto) {
+	public void save(Ponto ponto) throws DadoJaExisteException, DadoIncompletoException {
 		verificarPonto(ponto);
-		Ponto pon = pontoDao.buscarPorId(ponto.getIdPonto());
+		ArrayList<Ponto> pontos = pontoDao.buscarPontoCheck(ponto);
 		
-		if(pon == null){
+		if(pontos.size() == 0){
 			pontoDao.save(ponto);
 		}
 		else{
-			throw new IllegalArgumentException("Erro - save: Ponto ja existe na base de dados");
+			throw new DadoJaExisteException("Erro - save: Ponto ja existe na base de dados");
 		}
 	}
 
-	public Ponto update(Ponto ponto) {
+	public Ponto update(Ponto ponto) throws DadoIncompletoException {
 		verificarPonto(ponto);
 		return (Ponto) pontoDao.update(ponto);
 	}
 
-	public void delete(Ponto ponto) {
+	public void delete(Ponto ponto) throws DadoIncompletoException {
 		verificarPonto(ponto);
-		Ponto pon = pontoDao.buscarPorId(ponto.getIdPonto());
-		
-		if(pon == null){
-			throw new IllegalArgumentException("Erro - delete: Ponto nao existe na base de dados");
-		}
-		else{
-			pontoDao.delete(ponto);
-		}
+		pontoDao.delete(ponto);
 	}
 
-	public Ponto buscar(int entityID) {
+	public Ponto buscar(int entityID) throws DadoNaoEncontradoException {
 		Ponto pon = new Ponto();
-		pon = buscaId(entityID);
+		pon = pontoDao.buscarPorId(entityID);
 		
 		if(pon == null){
-			throw new NoResultException("Erro - buscar: Ponto nao encontrado");
+			throw new DadoNaoEncontradoException("Erro - buscar: Ponto nao encontrado");
 		}
 		else{
 			return pon;
 		}
 	}
 
-	public List<Ponto> listar() {
+	public List<Ponto> listar() throws DadoNaoEncontradoException {
 		ArrayList<Ponto> pons = new ArrayList<Ponto>();
 		pons = pontoDao.listar();
 		if(pons.size() > 0){
 			return pons;
 		}
 		else{
-			throw new NoResultException("Erro - listar: nenhum ponto cadastrado");
+			throw new DadoNaoEncontradoException("Erro - listar: nenhum ponto cadastrado");
 		}
 	}
 	
@@ -101,18 +97,7 @@ public class PontoService{
 		}
 	}
 	
-	//Metodo usados apenas para verificacoes no escopo do service
-	private Ponto buscaId(int id){
-		try{
-			Ponto pon = pontoDao.buscarPorId(id);
-			return pon;
-		}
-		catch(NoResultException e){
-			return null;
-		}
-	}
-	
-	private void verificarPonto(Ponto ponto){
+	private void verificarPonto(Ponto ponto) throws DadoIncompletoException{
 		boolean hasError = false;
 		
 		//CAMPOS OBRIGATORIOS
@@ -121,8 +106,8 @@ public class PontoService{
 			hasError = true;
 		}
 		
-		//VINCULO
-		if (ponto.getVinculo() == null){
+		//Id Vinculo
+		if(ponto.getVinculo().getIdVinculo() <= 0){
 			hasError = true;
 		}
 		
@@ -132,7 +117,7 @@ public class PontoService{
 		}
 		
 		if (hasError){
-			throw new IllegalArgumentException("O ponto nao possui todos os dados.");
+			throw new DadoIncompletoException("O ponto nao possui todos os dados.");
 		}
 	}
 }

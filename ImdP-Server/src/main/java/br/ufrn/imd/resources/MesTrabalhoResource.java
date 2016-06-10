@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.persistence.NoResultException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -14,10 +13,12 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
 import br.ufrn.imd.business.MesTrabalhoService;
 import br.ufrn.imd.dominio.MesTrabalho;
+import br.ufrn.imd.excecoes.DadoNaoEncontradoException;
 
 @Stateless
 @Path("/consulta")
@@ -31,7 +32,12 @@ public class MesTrabalhoResource {
 	@Path("/mesesTrabalho")
 	@Produces("application/json; charset=UTF-8")
 	public List<MesTrabalho> listagem() {
-		return service.listar();
+		try {
+			return service.listar();
+		} catch (DadoNaoEncontradoException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 	
 	//FIND BY ID
@@ -39,7 +45,13 @@ public class MesTrabalhoResource {
 	@Path("/mesesTrabalho/{id}")
 	@Produces("application/json; charset=UTF-8")
 	public MesTrabalho buscaId(@PathParam("id") int id){
-		MesTrabalho mt = service.buscar(id);
+		MesTrabalho mt;
+		try {
+			mt = service.buscar(id);
+		} catch (DadoNaoEncontradoException e) {
+			e.printStackTrace();
+			return null;
+		}
 		return mt;
 	}
 	
@@ -55,24 +67,24 @@ public class MesTrabalhoResource {
 			service.save(mesTrabalho);
 			return Response.status(200).entity(mt).build();
 		}
-		catch (NoResultException e){
+		catch (Exception e){
 			return Response.status(204).entity(mt).build();
 		}
 	}
 	
 	//UPDATE
 	@PUT
-	@Path("/mesesTrabalho/{id}")
+	@Path("/mesesTrabalho")
+	@Consumes("application/json")
 	@Produces("application/json; charset=UTF-8")
-	public Response update(@PathParam("id") int id) {
-		MesTrabalho mt = new MesTrabalho();
+	public Response update(MesTrabalho mesTrabalho) {
 		try{
-			mt = service.buscar(id);
-			service.update(mt);
-			return Response.status(200).entity(mt).build();
+			MesTrabalho mt = service.buscar(mesTrabalho.getIdMesTrabalho());
+			service.update(mesTrabalho);
+			return Response.status(200).entity(mesTrabalho).build();
 		}
-		catch (NoResultException e){
-			return Response.status(204).entity(mt).build();
+		catch (Exception e){
+			return Response.status(204).entity(mesTrabalho).build();
 		}
 	}
 	
@@ -87,17 +99,17 @@ public class MesTrabalhoResource {
 			service.delete(mt);
 			return Response.status(200).entity(mt).build();
 		}
-		catch (NoResultException e){
+		catch (Exception e){
 			return Response.status(204).entity(mt).build();
 		}
 	}
 
 	//FIND FILTRO
 	@GET
-	@Path("/mesesTrabalho/{ano}/{numeroMes}")
+	@Path("/mesesTrabalhoFilter")
 	@Produces("application/json; charset=UTF-8")
-	public List<MesTrabalho> buscaFiltro(@PathParam("ano")int ano,
-			@PathParam("numeroMes") int numeroMes) {
+	public List<MesTrabalho> buscaFiltro(@QueryParam("ano")int ano,
+			@QueryParam("numeroMes") int numeroMes) {
 		
 		ArrayList<MesTrabalho> mts = new ArrayList<MesTrabalho>();
 		mts = service.buscarFiltro(ano, numeroMes);

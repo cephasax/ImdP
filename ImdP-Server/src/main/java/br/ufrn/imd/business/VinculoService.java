@@ -9,6 +9,9 @@ import javax.persistence.NoResultException;
 
 import br.ufrn.imd.dao.VinculoDao;
 import br.ufrn.imd.dominio.Vinculo;
+import br.ufrn.imd.excecoes.DadoIncompletoException;
+import br.ufrn.imd.excecoes.DadoJaExisteException;
+import br.ufrn.imd.excecoes.DadoNaoEncontradoException;
 
 @Stateless
 public class VinculoService{
@@ -16,55 +19,46 @@ public class VinculoService{
 	@Inject
 	private VinculoDao vinculoDao;
 	
-	public void save(Vinculo vinculo) {
+	public void save(Vinculo vinculo) throws DadoJaExisteException, DadoIncompletoException {
 		verificarVinculo(vinculo);
-		Vinculo vinc = vinculoDao.buscarPorId(vinculo.getIdVinculo());
-		
-		if(vinc == null){
+		ArrayList<Vinculo> vincs = vinculoDao.buscarVinculoCheck(vinculo);
+		if(vincs.size() == 0){
 			vinculoDao.save(vinculo);
 		}
 		else{
-			throw new IllegalArgumentException("Erro - save: Vinculo ja existe na base de dados");
+			throw new DadoJaExisteException("Erro - save: Vinculo ja existe na base de dados");
 		}
 	}
 
-	public Vinculo update(Vinculo vinculo) {
+	public Vinculo update(Vinculo vinculo) throws DadoIncompletoException {
 		verificarVinculo(vinculo);
 		return (Vinculo) vinculoDao.update(vinculo);
 	}
 
-	public void delete(Vinculo vinculo) {
+	public void delete(Vinculo vinculo) throws DadoNaoEncontradoException, DadoIncompletoException {
 		verificarVinculo(vinculo);
-		Vinculo vinc = vinculoDao.buscarPorId(vinculo.getIdVinculo());
-		
-		if(vinc == null){
-			throw new IllegalArgumentException("Erro - delete: Vinculo nao existe na base de dados");
-		}
-		else{
-			vinculoDao.delete(vinculo);
-		}
+		vinculoDao.delete(vinculo);
 	}
 
-	public Vinculo buscar(int entityID) {
+	public Vinculo buscar(int entityID) throws DadoNaoEncontradoException {
 		Vinculo vinc = new Vinculo();
-		vinc = buscaId(entityID);
-		
+		vinc = vinculoDao.buscarPorId(entityID);
 		if(vinc == null){
-			throw new NoResultException("Erro - buscar: Vinculo nao encontrado");
+			throw new DadoNaoEncontradoException("Erro - buscar: Vinculo nao encontrado");
 		}
 		else{
 			return vinc;
 		}
 	}
 
-	public List<Vinculo> listar() {
+	public List<Vinculo> listar() throws DadoNaoEncontradoException {
 		ArrayList<Vinculo> vincs = new ArrayList<Vinculo>();
 		vincs = vinculoDao.listar();
 		if(vincs.size() > 0){
 			return vincs;
 		}
 		else{
-			throw new NoResultException("Erro - listar: nenhum vinculo cadastrado");
+			throw new DadoNaoEncontradoException("Erro - listar: nenhum vinculo cadastrado");
 		}
 	}
 	
@@ -79,18 +73,7 @@ public class VinculoService{
 		}
 	}
 
-	//Metodo usados apenas para verificacoes no escopo do service
-	private Vinculo buscaId(int id){
-		try{
-			Vinculo vinc = vinculoDao.buscarPorId(id);
-			return vinc;
-		}
-		catch(NoResultException e){
-			return null;
-		}
-	}
-	
-	private void verificarVinculo(Vinculo vinculo){
+	private void verificarVinculo(Vinculo vinculo) throws DadoIncompletoException{
 		boolean hasError = false;
 		
 		//CAMPOS OBRIGATORIOS
@@ -120,7 +103,7 @@ public class VinculoService{
 		}
 		
 		if (hasError){
-			throw new IllegalArgumentException("O vinculo nao possui todos os dados.");
+			throw new DadoIncompletoException("O vinculo nao possui todos os dados.");
 		}
 	}
 }

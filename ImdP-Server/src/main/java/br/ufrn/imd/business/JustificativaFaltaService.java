@@ -8,7 +8,12 @@ import javax.inject.Inject;
 import javax.persistence.NoResultException;
 
 import br.ufrn.imd.dao.JustificativaFaltaDao;
+import br.ufrn.imd.dao.VinculoDao;
 import br.ufrn.imd.dominio.JustificativaFalta;
+import br.ufrn.imd.dominio.Vinculo;
+import br.ufrn.imd.excecoes.DadoIncompletoException;
+import br.ufrn.imd.excecoes.DadoJaExisteException;
+import br.ufrn.imd.excecoes.DadoNaoEncontradoException;
 
 @Stateless
 public class JustificativaFaltaService{
@@ -16,55 +21,49 @@ public class JustificativaFaltaService{
 	@Inject
 	private JustificativaFaltaDao justificativaFaltaDao;
 	
-	public void save(JustificativaFalta justificativaFalta) {
+	@SuppressWarnings("unchecked")
+	public void save(JustificativaFalta justificativaFalta) throws DadoJaExisteException, DadoIncompletoException {
 		verificarJustificativaFalta(justificativaFalta);
-		JustificativaFalta justficativa = justificativaFaltaDao.buscarPorId(justificativaFalta.getIdJustificativaFalta());
+		ArrayList<JustificativaFalta> justficativas = justificativaFaltaDao.buscarJustificativaCheck(justificativaFalta);
 		
-		if(justficativa == null){
+		if(justficativas.size() == 0){
 			justificativaFaltaDao.save(justificativaFalta);
 		}
 		else{
-			throw new IllegalArgumentException("Erro - save: JustificativaFalta ja existe na base de dados");
+			throw new DadoJaExisteException("Erro - save: JustificativaFalta ja existe na base de dados");
 		}
 	}
 
-	public JustificativaFalta update(JustificativaFalta justificativaFalta) {
+	public JustificativaFalta update(JustificativaFalta justificativaFalta) throws DadoIncompletoException {
 		verificarJustificativaFalta(justificativaFalta);
 		return (JustificativaFalta) justificativaFaltaDao.update(justificativaFalta);
 	}
 
-	public void delete(JustificativaFalta justificativaFalta) {
+	public void delete(JustificativaFalta justificativaFalta) throws DadoIncompletoException{
 		verificarJustificativaFalta(justificativaFalta);
-		JustificativaFalta justficativa = justificativaFaltaDao.buscarPorId(justificativaFalta.getIdJustificativaFalta());
-		
-		if(justficativa == null){
-			throw new IllegalArgumentException("Erro - delete: Justificativa de falta nao existe na base de dados");
-		}
-		else{
-			justificativaFaltaDao.delete(justificativaFalta);
-		}
+		justificativaFaltaDao.delete(justificativaFalta);
 	}
 
-	public JustificativaFalta buscar(int entityID) {
+	public JustificativaFalta buscar(int entityID) throws DadoNaoEncontradoException {
 		JustificativaFalta justficativa = new JustificativaFalta();
-		justficativa = buscaId(entityID);
+		justficativa = justificativaFaltaDao.buscarPorId(entityID);
 		
 		if(justficativa == null){
-			throw new NoResultException("Erro - buscar: Justificativa de falta nao encontrada");
+			throw new DadoNaoEncontradoException("Erro - buscar: Justificativa de falta nao encontrada");
 		}
 		else{
 			return justficativa;
 		}
 	}
 
-	public List<JustificativaFalta> listar() {
+	public List<JustificativaFalta> listar() throws DadoNaoEncontradoException {
 		ArrayList<JustificativaFalta> justficativas = new ArrayList<JustificativaFalta>();
 		justficativas = justificativaFaltaDao.listar();
 		if(justficativas.size() > 0){
 			return justficativas;
 		}
 		else{
-			throw new NoResultException("Erro - listar: nenhuma justificativa de falta cadastrado");
+			throw new DadoNaoEncontradoException("Erro - listar: nenhuma justificativa de falta cadastrado");
 		}
 	}
 	
@@ -79,18 +78,7 @@ public class JustificativaFaltaService{
 		}
 	}
 
-	//Metodo usados apenas para verificacoes no escopo do service
-	private JustificativaFalta buscaId(int id){
-		try{
-			JustificativaFalta justficativa = justificativaFaltaDao.buscarPorId(id);
-			return justficativa;
-		}
-		catch(NoResultException e){
-			return null;
-		}
-	}
-	
-	private void verificarJustificativaFalta(JustificativaFalta justificativaFalta){
+	private void verificarJustificativaFalta(JustificativaFalta justificativaFalta) throws DadoIncompletoException{
 		boolean hasError = false;
 		
 		//CAMPOS OBRIGATORIOS
@@ -109,12 +97,13 @@ public class JustificativaFaltaService{
 			hasError = true;
 		}
 		
-		//Vinculo
-		if (justificativaFalta.getVinculo() == null){
+		//Id Vinculo
+		if(justificativaFalta.getVinculo().getIdVinculo() <= 0){
 			hasError = true;
 		}
+
 		if (hasError){
-			throw new IllegalArgumentException("A justificativa de falta nao possui todos os dados.");
+			throw new DadoIncompletoException("A justificativa de falta nao possui todos os dados.");
 		}
 	}
 }

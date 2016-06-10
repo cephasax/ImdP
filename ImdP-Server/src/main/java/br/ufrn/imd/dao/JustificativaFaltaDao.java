@@ -65,12 +65,12 @@ public class JustificativaFaltaDao extends GenericDao {
 		return (ArrayList<JustificativaFalta>) results;
 	}
 	
-	public JustificativaFalta buscarPorId(int idJustificativa) {
+	public JustificativaFalta buscarPorId(int idJustificativaFalta) {
 		
 		//CONSTRUCAO DA CONSULTA SQL
 		String sql = " Select j FROM JustificativaFalta j";
 		StringBuilder where = new StringBuilder();
-		where.append(" WHERE j.idJustificativa = :idJustificativa");
+		where.append(" WHERE j.idJustificativaFalta = :idJustificativaFalta");
 			
 		StringBuilder sqlFinal = new StringBuilder();
 		sqlFinal.append(sql);
@@ -78,10 +78,45 @@ public class JustificativaFaltaDao extends GenericDao {
 		Query query = em.createQuery(sqlFinal.toString());
 		
 		//DEFINICAO DOS PARAMETROS DA CONSULTA
-		query.setParameter("idJustificativa", idJustificativa);
+		query.setParameter("idJustificativaFalta", idJustificativaFalta);
 		
 		//EXECUCAO E RETORNO
 		return (JustificativaFalta)query.getSingleResult();
+	}
+	
+	//Metodo que busca no banco uma justificativa para saber se pode inserir ou ja existe
+	@SuppressWarnings("unchecked")
+	public ArrayList<JustificativaFalta> buscarJustificativaCheck(JustificativaFalta just) {
+		
+		//CONSTRUCAO DA CONSULTA SQL
+		String sql = " Select j FROM JustificativaFalta j"
+				+ " JOIN j.vinculo vinculo"
+				+ " JOIN vinculo.usuario usuario"
+				+ " JOIN vinculo.setor setor"
+				+ "	JOIN setor.unidade unidade";
+		
+		StringBuilder where = new StringBuilder();
+		where.append(" WHERE 1 = 1 ");
+		where.append(" and unidade.idUnidade = :idUnidade");
+		where.append(" and setor.idSetor = :idSetor");
+		where.append(" and lower(vinculo.usuario.nome) = lower(:nome)");
+		where.append(" and j.dataInicio = :dataInicio");
+		where.append(" and j.dataFim = :dataFim");
+		
+		StringBuilder sqlFinal = new StringBuilder();
+		sqlFinal.append(sql);
+		sqlFinal.append(where.toString());	
+		Query query = em.createQuery(sqlFinal.toString());
+		
+		//DEFINICAO DOS PARAMETROS DA CONSULTA
+		query.setParameter("idUnidade", just.getVinculo().getSetor().getUnidade().getIdUnidade());
+		query.setParameter("idSetor", just.getVinculo().getSetor().getIdSetor());
+		query.setParameter("nome", just.getVinculo().getUsuario().getNome());
+		query.setParameter("dataInicio", just.getDataInicio());
+		query.setParameter("dataFim", just.getDataFim());
+
+		//EXECUCAO E RETORNO
+		return (ArrayList<JustificativaFalta>)query.getResultList();
 	}
 	
 	public void delete(JustificativaFalta justificativaFalta) {

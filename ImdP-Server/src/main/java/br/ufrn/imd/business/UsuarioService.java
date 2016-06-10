@@ -8,7 +8,11 @@ import javax.inject.Inject;
 import javax.persistence.NoResultException;
 
 import br.ufrn.imd.dao.UsuarioDao;
+import br.ufrn.imd.dao.VinculoDao;
 import br.ufrn.imd.dominio.Usuario;
+import br.ufrn.imd.excecoes.DadoIncompletoException;
+import br.ufrn.imd.excecoes.DadoJaExisteException;
+import br.ufrn.imd.excecoes.DadoNaoEncontradoException;
 
 @Stateless
 public class UsuarioService{
@@ -16,55 +20,48 @@ public class UsuarioService{
 	@Inject
 	private UsuarioDao usuarioDao;
 	
-	public void save(Usuario usuario) {
+	public void save(Usuario usuario) throws DadoJaExisteException, DadoIncompletoException {
 		verificarUsuario(usuario);
-		Usuario user = buscaCpf(usuario.getCpf());
+		ArrayList<Usuario> users = usuarioDao.buscarUsuarioCheck(usuario);
 		
-		if(user == null){
+		if(users.size() == 0){
 			usuarioDao.save(usuario);
 		}
 		else{
-			throw new IllegalArgumentException("Erro - save: Usuario ja existe na base de dados");
+			throw new DadoJaExisteException("Erro - save: Usuario ja existe na base de dados");
 		}
 	}
 
-	public Usuario update(Usuario usuario) {
+	public Usuario update(Usuario usuario) throws DadoIncompletoException {
 		verificarUsuario(usuario);
 		return (Usuario) usuarioDao.update(usuario);
 	}
 
-	public void delete(Usuario usuario) {
+	public void delete(Usuario usuario) throws DadoIncompletoException {
 		verificarUsuario(usuario);
-		Usuario user = buscaCpf(usuario.getCpf());
-		
-		if(user == null){
-			throw new IllegalArgumentException("Erro - delete: Usuario nao existe na base de dados");
-		}
-		else{
-			usuarioDao.delete(usuario);
-		}
+		usuarioDao.delete(usuario);
 	}
 
-	public Usuario buscar(int entityID) {
+	public Usuario buscar(int entityID) throws DadoNaoEncontradoException {
 		Usuario user = new Usuario();
-		user = buscaId(entityID);
+		user = usuarioDao.buscarPorId(entityID);
 		
 		if(user == null){
-			throw new NoResultException("Erro - buscar: Usuario nao encontrado");
+			throw new DadoNaoEncontradoException("Erro - buscar: Usuario nao encontrado");
 		}
 		else{
 			return user;
 		}
 	}
 
-	public List<Usuario> listar() {
+	public List<Usuario> listar() throws DadoNaoEncontradoException {
 		ArrayList<Usuario> users = new ArrayList<Usuario>();
 		users = usuarioDao.listar();
 		if(users.size() > 0){
 			return users;
 		}
 		else{
-			throw new NoResultException("Erro - listar: nenhum usuario cadastrado");
+			throw new DadoNaoEncontradoException("Erro - listar: nenhum usuario cadastrado");
 		}
 	}
 	
@@ -75,17 +72,6 @@ public class UsuarioService{
 			return users;
 		}
 		else{
-			return null;
-		}
-	}
-
-	//Metodo usados apenas para verificacoes no escopo do service
-	private Usuario buscaId(int id){
-		try{
-			Usuario user = usuarioDao.buscarPorId(id);
-			return user;
-		}
-		catch(NoResultException e){
 			return null;
 		}
 	}
@@ -100,7 +86,7 @@ public class UsuarioService{
 		}
 	}
 	
-	private void verificarUsuario(Usuario usuario){
+	private void verificarUsuario(Usuario usuario) throws DadoIncompletoException{
 		boolean hasError = false;
 		
 		//CAMPOS OBRIGATORIOS
@@ -140,7 +126,7 @@ public class UsuarioService{
 		}
 		
 		if (hasError){
-			throw new IllegalArgumentException("O usuario nao possui todos os dados.");
+			throw new DadoIncompletoException("O usuario nao possui todos os dados.");
 		}
 	}
 }

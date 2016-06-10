@@ -9,6 +9,9 @@ import javax.persistence.NoResultException;
 
 import br.ufrn.imd.dao.TipoJustificativaDao;
 import br.ufrn.imd.dominio.TipoJustificativa;
+import br.ufrn.imd.excecoes.DadoIncompletoException;
+import br.ufrn.imd.excecoes.DadoJaExisteException;
+import br.ufrn.imd.excecoes.DadoNaoEncontradoException;
 
 @Stateless
 public class TipoJustificativaService{
@@ -16,55 +19,48 @@ public class TipoJustificativaService{
 	@Inject
 	private TipoJustificativaDao tipoJustificativaDao;
 	
-	public void save(TipoJustificativa tipoJustificativa) {
+	public void save(TipoJustificativa tipoJustificativa) throws DadoJaExisteException, DadoIncompletoException {
 		verificarTipoJustificativa(tipoJustificativa);
-		TipoJustificativa tj = tipoJustificativaDao.buscarPorId(tipoJustificativa.getIdTipoJustificativa());
+		ArrayList<TipoJustificativa> tjs = tipoJustificativaDao.buscarTipoJustificativaCheck(tipoJustificativa);
 		
-		if(tj == null){
+		if(tjs.size() == 0){
 			tipoJustificativaDao.save(tipoJustificativa);
 		}
 		else{
-			throw new IllegalArgumentException("Erro - save: tipo de justificativa ja existe na base de dados");
+			throw new DadoJaExisteException("Erro - save: tipo de justificativa ja existe na base de dados");
 		}
 	}
 
-	public TipoJustificativa update(TipoJustificativa tipoJustificativa) {
+	public TipoJustificativa update(TipoJustificativa tipoJustificativa) throws DadoIncompletoException {
 		verificarTipoJustificativa(tipoJustificativa);
 		return (TipoJustificativa) tipoJustificativaDao.update(tipoJustificativa);
 	}
 
-	public void delete(TipoJustificativa tipoJustificativa) {
+	public void delete(TipoJustificativa tipoJustificativa) throws DadoIncompletoException {
 		verificarTipoJustificativa(tipoJustificativa);
-		TipoJustificativa tj = tipoJustificativaDao.buscarPorId(tipoJustificativa.getIdTipoJustificativa());
-		
-		if(tj == null){
-			throw new IllegalArgumentException("Erro - delete: tipo de justificativa nao existe na base de dados");
-		}
-		else{
-			tipoJustificativaDao.delete(tipoJustificativa);
-		}
+		tipoJustificativaDao.delete(tipoJustificativa);
 	}
 
-	public TipoJustificativa buscar(int entityID) {
+	public TipoJustificativa buscar(int entityID) throws DadoNaoEncontradoException {
 		TipoJustificativa tj = new TipoJustificativa();
-		tj = buscaId(entityID);
+		tj = tipoJustificativaDao.buscarPorId(entityID);
 		
 		if(tj == null){
-			throw new NoResultException("Erro - buscar: tipo de justificativa nao encontrado");
+			throw new DadoNaoEncontradoException("Erro - buscar: tipo de justificativa nao encontrado");
 		}
 		else{
 			return tj;
 		}
 	}
 
-	public List<TipoJustificativa> listar() {
+	public List<TipoJustificativa> listar() throws DadoNaoEncontradoException {
 		ArrayList<TipoJustificativa> tjs = new ArrayList<TipoJustificativa>();
 		tjs = tipoJustificativaDao.listar();
 		if(tjs.size() > 0){
 			return tjs;
 		}
 		else{
-			throw new NoResultException("Erro - listar: nenhum tipo de justificativa cadastrado");
+			throw new DadoNaoEncontradoException("Erro - listar: nenhum tipo de justificativa cadastrado");
 		}
 	}
 	
@@ -79,18 +75,7 @@ public class TipoJustificativaService{
 		}
 	}
 
-	//Metodo usados apenas para verificacoes no escopo do service
-	private TipoJustificativa buscaId(int id){
-		try{
-			TipoJustificativa tj = tipoJustificativaDao.buscarPorId(id);
-			return tj;
-		}
-		catch(NoResultException e){
-			return null;
-		}
-	}
-
-	private void verificarTipoJustificativa(TipoJustificativa tipoJustificativa){
+	private void verificarTipoJustificativa(TipoJustificativa tipoJustificativa) throws DadoIncompletoException{
 		boolean hasError = false;
 		
 		//CAMPOS OBRIGATORIOS
@@ -100,7 +85,7 @@ public class TipoJustificativaService{
 		}
 		
 		if (hasError){
-			throw new IllegalArgumentException("O tipo de justificativa nao possui todos os dados.");
+			throw new DadoIncompletoException("O tipo de justificativa nao possui todos os dados.");
 		}
 	}
 }

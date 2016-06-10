@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.persistence.NoResultException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -14,10 +13,14 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
 import br.ufrn.imd.business.PontoService;
 import br.ufrn.imd.dominio.Ponto;
+import br.ufrn.imd.excecoes.DadoIncompletoException;
+import br.ufrn.imd.excecoes.DadoJaExisteException;
+import br.ufrn.imd.excecoes.DadoNaoEncontradoException;
 
 @Stateless
 @Path("/consulta")
@@ -31,7 +34,12 @@ public class PontoResource {
 	@Path("/pontos")
 	@Produces("application/json; charset=UTF-8")
 	public List<Ponto> listagem() {
-		return service.listar();
+		try {
+			return service.listar();
+		} catch (DadoNaoEncontradoException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 	
 	//FIND BY ID
@@ -39,8 +47,15 @@ public class PontoResource {
 	@Path("/pontos/{id}")
 	@Produces("application/json; charset=UTF-8")
 	public Ponto buscaId(@PathParam("id") int id){
-		Ponto dot = service.buscar(id);
-		return dot;
+		Ponto dot;
+		try {
+			dot = service.buscar(id);
+			return dot;
+		} catch (DadoNaoEncontradoException e) {
+			e.printStackTrace();
+			return null;
+		}
+		
 	}
 	
 	//CREATE
@@ -49,29 +64,28 @@ public class PontoResource {
 	@Consumes("application/json")
 	@Produces("application/json; charset=UTF-8")
 	public Response novo(Ponto ponto) {
-		Ponto dot = new Ponto();
-		
-		try{
-			service.save(ponto);
-			return Response.status(200).entity(dot).build();
-		}
-		catch (NoResultException e){
-			return Response.status(204).entity(dot).build();
-		}
+			try {
+				service.save(ponto);
+				return Response.status(200).entity(ponto).build();
+			} 
+			catch (DadoJaExisteException | DadoIncompletoException e) {
+				e.printStackTrace();
+				return Response.status(204).entity(ponto).build();
+			}	
 	}
 	
 	//UPDATE
 	@PUT
-	@Path("/pontos/{id}")
+	@Path("/pontos")
 	@Produces("application/json; charset=UTF-8")
-	public Response update(@PathParam("id") int id) {
+	public Response update(Ponto ponto) {
 		Ponto dot = new Ponto();
 		try{
-			dot = service.buscar(id);
+			dot = service.buscar(ponto.getIdPonto());
 			service.update(dot);
 			return Response.status(200).entity(dot).build();
 		}
-		catch (NoResultException e){
+		catch (DadoNaoEncontradoException | DadoIncompletoException e){
 			return Response.status(204).entity(dot).build();
 		}
 	}
@@ -87,17 +101,17 @@ public class PontoResource {
 			service.delete(dot);
 			return Response.status(200).entity(dot).build();
 		}
-		catch (NoResultException e){
+		catch (DadoNaoEncontradoException | DadoIncompletoException e){
 			return Response.status(204).entity(dot).build();
 		}
 	}
 
 	//FIND FILTRO
 	@GET
-	@Path("/pontos/{nomePonto}/unidades/{idUnidade}/setores/{idSetor}")
+	@Path("/pontosFilter")
 	@Produces("application/json; charset=UTF-8")
-	public List<Ponto> buscaFiltro(@PathParam("nomePonto") String nomePonto, 
-			@PathParam("idUnidade")int idUnidade, @PathParam("idSetor")int idSetor) {
+	public List<Ponto> buscaFiltro(@QueryParam("nomePonto") String nomePonto, 
+			@QueryParam("idUnidade")int idUnidade, @QueryParam("idSetor")int idSetor) {
 		
 		ArrayList<Ponto> dots = new ArrayList<Ponto>();
 		dots = service.buscarFiltro(nomePonto, idUnidade, idSetor);
@@ -114,12 +128,11 @@ public class PontoResource {
 		dots = service.buscarPontosUsuario(idUsuario);
 		return dots;
 	}
-	//FIND PONTOS USUARIO
+	//FIND PONTOS VINCULO
 	@GET
 	@Path("/pontos/vinculos/{idVinculo}")
 	@Produces("application/json; charset=UTF-8")
 	public List<Ponto> buscaPontoVinculo(@PathParam("idVinculo") int idVinculo) {
-		
 		ArrayList<Ponto> dots = new ArrayList<Ponto>();
 		dots = service.buscarPontosVinculo(idVinculo);
 		return dots;

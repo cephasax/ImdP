@@ -73,6 +73,28 @@ public class MaquinaDao extends GenericDao {
 
 	}
 	
+	public ArrayList<Maquina> buscarMaquinaCheck(Maquina maq) {
+		
+		//CONSTRUCAO DA CONSULTA SQL
+		String sql = " Select m FROM Maquina m";
+		StringBuilder where = new StringBuilder();
+		where.append(" WHERE 1 = 1 ");
+		where.append(" and m.ip = :ip");
+		where.append(" and lower(m.denominacao) = lower(:denominacao)");
+
+		StringBuilder sqlFinal = new StringBuilder();
+		sqlFinal.append(sql);
+		sqlFinal.append(where.toString());	
+		Query query = em.createQuery(sqlFinal.toString());
+		
+		//DEFINICAO DOS PARAMETROS DA CONSULTA
+		query.setParameter("ip", maq.getIp());
+		query.setParameter("denominacao", maq.getDenominacao());
+		
+		//EXECUCAO E RETORNO
+		return (ArrayList<Maquina>)query.getResultList();
+	}
+	
 	public void delete(Maquina maquina) {
 		super.delete(maquina.getIdMaquina(), Maquina.class);
 	}

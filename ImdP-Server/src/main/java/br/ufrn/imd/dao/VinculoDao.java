@@ -81,6 +81,34 @@ public class VinculoDao extends GenericDao {
 		return (Vinculo)query.getSingleResult();
 	}
 
+	public ArrayList<Vinculo> buscarVinculoCheck(Vinculo vinculo) {
+		
+		//CONSTRUCAO DA CONSULTA SQL
+		String sql = " Select v FROM Vinculo v"
+				+ " JOIN v.usuario usuario"
+				+ " JOIN v.setor setor"
+				+ "	JOIN setor.unidade unidade";
+		
+		StringBuilder where = new StringBuilder();
+		where.append(" WHERE 1 = 1 ");
+		where.append(" and unidade.idUnidade = :idUnidade");
+		where.append(" and setor.idSetor = :idSetor");
+		where.append(" and v.usuario.cpf = :cpf ");
+	
+		StringBuilder sqlFinal = new StringBuilder();
+		sqlFinal.append(sql);
+		sqlFinal.append(where.toString());	
+		Query query = em.createQuery(sqlFinal.toString());
+		
+		//DEFINICAO DOS PARAMETROS DA CONSULTA
+		query.setParameter("idUnidade", vinculo.getSetor().getUnidade().getIdUnidade());
+		query.setParameter("idSetor", vinculo.getSetor().getIdSetor());
+		query.setParameter("cpf", vinculo.getUsuario().getCpf());
+		
+		//EXECUCAO E RETORNO
+		return (ArrayList<Vinculo>)query.getResultList();
+	}
+	
 	public void delete(Vinculo vinculo) {
 		super.delete(vinculo.getIdVinculo(), Vinculo.class);
 	}

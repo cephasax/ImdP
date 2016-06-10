@@ -100,6 +100,26 @@ public class UsuarioDao extends GenericDao {
 		return (Usuario)query.getSingleResult();
 	}
 	
+	@SuppressWarnings("unchecked")
+	public ArrayList<Usuario> buscarUsuarioCheck(Usuario usuario) {
+		
+		//CONSTRUCAO DA CONSULTA SQL
+		String sql = " Select u FROM Usuario u";
+		StringBuilder where = new StringBuilder();
+		where.append(" WHERE u.cpf = :cpf");
+		
+		StringBuilder sqlFinal = new StringBuilder();
+		sqlFinal.append(sql);
+		sqlFinal.append(where.toString());	
+		Query query = em.createQuery(sqlFinal.toString());
+		
+		//DEFINICAO DOS PARAMETROS DA CONSULTA
+		query.setParameter("cpf", usuario.getCpf());
+		
+		//EXECUCAO E RETORNO
+		return (ArrayList<Usuario>) query.getResultList();
+	}
+	
 	public void delete(Usuario usuario) {
 		super.delete(usuario.getIdUsuario(), Usuario.class);
 	}

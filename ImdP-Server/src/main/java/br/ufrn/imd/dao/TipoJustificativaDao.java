@@ -68,6 +68,28 @@ public class TipoJustificativaDao extends GenericDao {
 		return (TipoJustificativa)query.getSingleResult();
 	}
 
+	@SuppressWarnings("unchecked")
+	public ArrayList<TipoJustificativa> buscarTipoJustificativaCheck (TipoJustificativa tipoJust) {
+		
+		//CONSTRUCAO DA CONSULTA SQL
+		String sql = " Select tj FROM TipoJustificativa tj";
+		StringBuilder where = new StringBuilder();
+		
+		where.append(" WHERE 1 = 1 ");
+		where.append(" and lower(tj.nome) = lower(:nomeTipoJustificativa) ");
+	
+		StringBuilder sqlFinal = new StringBuilder();
+		sqlFinal.append(sql);
+		sqlFinal.append(where.toString());	
+		Query query = em.createQuery(sqlFinal.toString());
+		
+		//DEFINICAO DOS PARAMETROS DA CONSULTA
+			query.setParameter("nomeTipoJustificativa", tipoJust.getNome());
+		
+		//EXECUCAO E RETORNO
+		return (ArrayList<TipoJustificativa>)query.getResultList();
+	}
+	
 	public void delete(TipoJustificativa tipoJustificativa) {
 		super.delete(tipoJustificativa.getIdTipoJustificativa(), TipoJustificativa.class);
 	}

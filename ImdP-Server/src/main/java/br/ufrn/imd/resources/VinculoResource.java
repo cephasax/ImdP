@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.persistence.NoResultException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -14,10 +13,14 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
 import br.ufrn.imd.business.VinculoService;
 import br.ufrn.imd.dominio.Vinculo;
+import br.ufrn.imd.excecoes.DadoIncompletoException;
+import br.ufrn.imd.excecoes.DadoJaExisteException;
+import br.ufrn.imd.excecoes.DadoNaoEncontradoException;
 
 @Stateless
 @Path("/consulta")
@@ -31,7 +34,12 @@ public class VinculoResource {
 	@Path("/vinculos")
 	@Produces("application/json; charset=UTF-8")
 	public List<Vinculo> listagem() {
-		return service.listar();
+		try {
+			return service.listar();
+		} catch (DadoNaoEncontradoException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 	
 	//FIND BY ID
@@ -39,8 +47,15 @@ public class VinculoResource {
 	@Path("/vinculos/{id}")
 	@Produces("application/json; charset=UTF-8")
 	public Vinculo buscaId(@PathParam("id") int id){
-		Vinculo user = service.buscar(id);
-		return user;
+		Vinculo user;
+		try {
+			user = service.buscar(id);
+			return user;
+		} catch (DadoNaoEncontradoException e) {
+			e.printStackTrace();
+			return null;
+		}
+
 	}
 	
 	//CREATE
@@ -49,30 +64,28 @@ public class VinculoResource {
 	@Consumes("application/json")
 	@Produces("application/json; charset=UTF-8")
 	public Response novo(Vinculo vinculo) {
-		Vinculo user = new Vinculo();
-		
 		try{
 			service.save(vinculo);
-			return Response.status(200).entity(user).build();
+			return Response.status(200).entity(vinculo).build();
 		}
-		catch (NoResultException e){
-			return Response.status(204).entity(user).build();
+		catch (DadoJaExisteException | DadoIncompletoException e){
+			return Response.status(204).entity(vinculo).build();
 		}
 	}
 	
 	//UPDATE
 	@PUT
-	@Path("/vinculos/{id}")
+	@Path("/vinculos")
+	@Consumes("application/json")
 	@Produces("application/json; charset=UTF-8")
-	public Response update(@PathParam("id") int id) {
-		Vinculo user = new Vinculo();
+	public Response update(Vinculo vinculo) {
 		try{
-			user = service.buscar(id);
-			service.update(user);
-			return Response.status(200).entity(user).build();
+			Vinculo vinc = service.buscar(vinculo.getIdVinculo());
+			service.update(vinculo);
+			return Response.status(200).entity(vinculo).build();
 		}
-		catch (NoResultException e){
-			return Response.status(204).entity(user).build();
+		catch (DadoIncompletoException | DadoNaoEncontradoException e){
+			return Response.status(204).entity(vinculo).build();
 		}
 	}
 	
@@ -81,23 +94,23 @@ public class VinculoResource {
 	@Path("/vinculos/{id}")
 	@Produces("application/json; charset=UTF-8")
 	public Response delete(@PathParam("id") int id) {
-		Vinculo user = new Vinculo();
+		Vinculo vinculo = new Vinculo();
 		try{
-			user = service.buscar(id);
-			service.delete(user);
-			return Response.status(200).entity(user).build();
+			vinculo = service.buscar(id);
+			service.delete(vinculo);
+			return Response.status(200).entity(vinculo).build();
 		}
-		catch (NoResultException e){
-			return Response.status(204).entity(user).build();
+		catch (DadoNaoEncontradoException | DadoIncompletoException e){
+			return Response.status(204).entity(vinculo).build();
 		}
 	}
 
 	//FIND FILTRO
 	@GET
-	@Path("/vinculos/{nomeUsuario}/unidades/{idUnidade}/setores/{idSetor}")
+	@Path("/vinculos")
 	@Produces("application/json; charset=UTF-8")
-	public List<Vinculo> buscaFiltro(@PathParam("nomeUsuario") String nomeUsuario, 
-			@PathParam("idUnidade")int idUnidade, @PathParam("idSetor")int idSetor) {
+	public List<Vinculo> buscaFiltro(@QueryParam("nomeUsuario") String nomeUsuario, 
+			@QueryParam("idUnidade")int idUnidade, @QueryParam("idSetor")int idSetor) {
 		
 		ArrayList<Vinculo> users = new ArrayList<Vinculo>();
 		users = service.buscarFiltro(nomeUsuario, idUnidade, idSetor);

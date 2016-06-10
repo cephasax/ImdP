@@ -5,10 +5,12 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.persistence.NoResultException;
 
 import br.ufrn.imd.dao.SetorDao;
 import br.ufrn.imd.dominio.Setor;
+import br.ufrn.imd.excecoes.DadoIncompletoException;
+import br.ufrn.imd.excecoes.DadoJaExisteException;
+import br.ufrn.imd.excecoes.DadoNaoEncontradoException;
 
 @Stateless
 public class SetorService{
@@ -16,55 +18,48 @@ public class SetorService{
 	@Inject
 	private SetorDao setorDao;
 	
-	public void save(Setor setor) {
+	public void save(Setor setor) throws DadoJaExisteException, DadoIncompletoException {
 		verificarSetor(setor);
-		Setor place = setorDao.buscarPorId(setor.getIdSetor());
+		ArrayList<Setor> places = setorDao.buscarSetorCheck(setor);
 		
-		if(place == null){
+		if(places.size() == 0){
 			setorDao.save(setor);
 		}
 		else{
-			throw new IllegalArgumentException("Erro - save: Setor ja existe na base de dados");
+			throw new DadoJaExisteException("Erro - save: Setor ja existe na base de dados");
 		}
 	}
 
-	public Setor update(Setor setor) {
+	public Setor update(Setor setor) throws DadoIncompletoException {
 		verificarSetor(setor);
 		return (Setor) setorDao.update(setor);
 	}
 
-	public void delete(Setor setor) {
+	public void delete(Setor setor) throws DadoIncompletoException {
 		verificarSetor(setor);
-		Setor place = setorDao.buscarPorId(setor.getIdSetor());
-		
-		if(place == null){
-			throw new IllegalArgumentException("Erro - delete: Setor nao existe na base de dados");
-		}
-		else{
-			setorDao.delete(setor);
-		}
+		setorDao.delete(setor);
 	}
 
-	public Setor buscar(int entityID) {
+	public Setor buscar(int entityID) throws DadoNaoEncontradoException {
 		Setor place = new Setor();
-		place = buscaId(entityID);
+		place = setorDao.buscarPorId(entityID);
 		
 		if(place == null){
-			throw new NoResultException("Erro - buscar: Setor nao encontrado");
+			throw new DadoNaoEncontradoException("Erro - buscar: Setor nao encontrado");
 		}
 		else{
 			return place;
 		}
 	}
 
-	public List<Setor> listar() {
+	public List<Setor> listar() throws DadoNaoEncontradoException {
 		ArrayList<Setor> places = new ArrayList<Setor>();
 		places = setorDao.listar();
 		if(places.size() > 0){
 			return places;
 		}
 		else{
-			throw new NoResultException("Erro - listar: nenhum setor cadastrado");
+			throw new DadoNaoEncontradoException("Erro - listar: nenhum setor cadastrado");
 		}
 	}
 	
@@ -79,18 +74,7 @@ public class SetorService{
 		}
 	}
 
-	//Metodo usados apenas para verificacoes no escopo do service
-	private Setor buscaId(int id){
-		try{
-			Setor place = setorDao.buscarPorId(id);
-			return place;
-		}
-		catch(NoResultException e){
-			return null;
-		}
-	}
-	
-	private void verificarSetor(Setor setor){
+	private void verificarSetor(Setor setor) throws DadoIncompletoException{
 		boolean hasError = false;
 		
 		//CAMPOS OBRIGATORIOS
@@ -99,13 +83,13 @@ public class SetorService{
 			hasError = true;
 		}
 		
-		//UNIDADE
-		if (setor.getUnidade() == null){
+		//Id UNIDADE
+		if(setor.getUnidade().getIdUnidade() <= 0){
 			hasError = true;
 		}
 		
 		if (hasError){
-			throw new IllegalArgumentException("O setor nao possui todos os dados.");
+			throw new DadoIncompletoException("O setor nao possui todos os dados.");
 		}
 	}
 }

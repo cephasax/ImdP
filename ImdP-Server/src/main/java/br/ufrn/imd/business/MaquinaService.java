@@ -9,6 +9,9 @@ import javax.persistence.NoResultException;
 
 import br.ufrn.imd.dao.MaquinaDao;
 import br.ufrn.imd.dominio.Maquina;
+import br.ufrn.imd.excecoes.DadoIncompletoException;
+import br.ufrn.imd.excecoes.DadoJaExisteException;
+import br.ufrn.imd.excecoes.DadoNaoEncontradoException;
 
 @Stateless
 public class MaquinaService{
@@ -16,55 +19,48 @@ public class MaquinaService{
 	@Inject
 	private MaquinaDao maquinaDao;
 	
-	public void save(Maquina maquina) {
+	public void save(Maquina maquina) throws DadoIncompletoException, DadoJaExisteException {
 		verificarMaquina(maquina);
-		Maquina maq = maquinaDao.buscarPorId(maquina.getIdMaquina());
-		
-		if(maq == null){
+		ArrayList<Maquina> maqs = maquinaDao.buscarMaquinaCheck(maquina);
+
+		if(maqs.size() == 0){
 			maquinaDao.save(maquina);
 		}
 		else{
-			throw new IllegalArgumentException("Erro - save: Maquina ja existe na base de dados");
+			throw new DadoJaExisteException("Erro - save: Maquina ja existe na base de dados");
 		}
 	}
 
-	public Maquina update(Maquina maquina) {
+	public Maquina update(Maquina maquina) throws DadoIncompletoException {
 		verificarMaquina(maquina);
 		return (Maquina) maquinaDao.update(maquina);
 	}
 
-	public void delete(Maquina maquina) {
+	public void delete(Maquina maquina) throws DadoIncompletoException {
 		verificarMaquina(maquina);
-		Maquina maq = maquinaDao.buscarPorId(maquina.getIdMaquina());
-		
-		if(maq == null){
-			throw new IllegalArgumentException("Erro - delete: Maquina nao existe na base de dados");
-		}
-		else{
-			maquinaDao.delete(maquina);
-		}
+		maquinaDao.delete(maquina);
 	}
 
-	public Maquina buscar(int entityID) {
+	public Maquina buscar(int entityID) throws DadoNaoEncontradoException {
 		Maquina maq = new Maquina();
 		maq = buscaId(entityID);
 		
 		if(maq == null){
-			throw new NoResultException("Erro - buscar: Maquina nao encontrada");
+			throw new DadoNaoEncontradoException("Erro - buscar: Maquina nao encontrada");
 		}
 		else{
 			return maq;
 		}
 	}
 
-	public List<Maquina> listar() {
+	public List<Maquina> listar() throws DadoNaoEncontradoException {
 		ArrayList<Maquina> maqs = new ArrayList<Maquina>();
 		maqs = maquinaDao.listar();
 		if(maqs.size() > 0){
 			return maqs;
 		}
 		else{
-			throw new NoResultException("Erro - listar: nenhuma maquina cadastrada");
+			throw new DadoNaoEncontradoException("Erro - listar: nenhuma maquina cadastrada");
 		}
 	}	
 	
@@ -90,7 +86,7 @@ public class MaquinaService{
 		}
 	}
 	
-	private void verificarMaquina(Maquina maquina){
+	private void verificarMaquina(Maquina maquina) throws DadoIncompletoException{
 		boolean hasError = false;
 		
 		//CAMPOS OBRIGATORIOS
@@ -99,13 +95,13 @@ public class MaquinaService{
 			hasError = true;
 		}
 		
-		//UNIDADE
-		if (maquina.getUnidade() == null){
+		//id UNIDADE
+		if (maquina.getUnidade().getIdUnidade() <= 0){
 			hasError = true;
 		}
 		
 		if (hasError){
-			throw new IllegalArgumentException("A maquina nao possui todos os dados.");
+			throw new DadoIncompletoException("A maquina nao possui todos os dados.");
 		}
 	}
 }

@@ -66,6 +66,29 @@ public class UnidadeDao extends GenericDao {
 		return (Unidade)query.getSingleResult();
 	}
 
+	@SuppressWarnings("unchecked")
+	public ArrayList<Unidade> buscarUnidadeCheck(Unidade unidade) {
+		
+		//CONSTRUCAO DA CONSULTA SQL
+		String sql = " Select u FROM Unidade u";
+		StringBuilder where = new StringBuilder();
+		
+		where.append(" WHERE 1 = 1 ");
+		where.append(" and lower(u.nomeUnidade) = lower(:nomeUnidade) ");
+		
+		StringBuilder sqlFinal = new StringBuilder();
+		sqlFinal.append(sql);
+		sqlFinal.append(where.toString());	
+		Query query = em.createQuery(sqlFinal.toString());
+		
+		//DEFINICAO DOS PARAMETROS DA CONSULTA
+		
+		query.setParameter("nomeUnidade", unidade.getNome());
+		
+		//EXECUCAO E RETORNO
+		return (ArrayList<Unidade>)query.getResultList();
+	}
+	
 	public void delete(Unidade unidade) {
 		super.delete(unidade.getIdUnidade(), Unidade.class);
 	}

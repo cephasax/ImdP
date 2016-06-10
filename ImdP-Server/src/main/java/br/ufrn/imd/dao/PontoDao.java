@@ -69,7 +69,7 @@ public class PontoDao extends GenericDao {
 		//CONSTRUCAO DA CONSULTA SQL
 		String sql = "Select p from Ponto p";
 		StringBuilder where = new StringBuilder();
-		where.append(" WHERE and p.idPonto = :idPonto");
+		where.append(" WHERE p.idPonto = :idPonto");
 			
 		StringBuilder sqlFinal = new StringBuilder();
 		sqlFinal.append(sql);
@@ -135,5 +135,33 @@ public class PontoDao extends GenericDao {
 	
 	public void delete(Ponto ponto) {
 		super.delete(ponto.getIdPonto(), Ponto.class);
+	}
+	
+	public ArrayList<Ponto> buscarPontoCheck(Ponto ponto) {
+		
+		//CONSTRUCAO DA CONSULTA SQL
+		String sql = " Select p FROM Ponto p"
+				+ " JOIN p.maquina maquina"
+				+ " JOIN p.vinculo vinculo"
+				+ " JOIN vinculo.usuario usuario"
+				+ " JOIN vinculo.setor setor"
+				+ " JOIN setor.unidade unidade";
+		
+		StringBuilder where = new StringBuilder();
+		where.append(" WHERE 1 = 1 ");
+		where.append(" and p.vinculo.idVinculo = :idVinculo");
+		where.append(" and DATE(p.timeStamp) = :timeStamp ");
+		
+		StringBuilder sqlFinal = new StringBuilder();
+		sqlFinal.append(sql);
+		sqlFinal.append(where.toString());	
+		Query query = em.createQuery(sqlFinal.toString());
+		
+		//DEFINICAO DOS PARAMETROS DA CONSULTA
+		query.setParameter("idVinculo", ponto.getVinculo().getIdVinculo());
+		query.setParameter("timeStamp", ponto.getTimeStamp());
+		
+		//EXECUCAO E RETORNO
+		return (ArrayList<Ponto>)query.getResultList();
 	}
 }

@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.persistence.NoResultException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -14,10 +13,12 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
 import br.ufrn.imd.business.JustificativaFaltaService;
 import br.ufrn.imd.dominio.JustificativaFalta;
+import br.ufrn.imd.excecoes.DadoNaoEncontradoException;
 
 @Stateless
 @Path("/consulta")
@@ -31,7 +32,12 @@ public class JustificativaFaltaResource {
 	@Path("/justificativasFalta")
 	@Produces("application/json; charset=UTF-8")
 	public List<JustificativaFalta> listagem() {
-		return service.listar();
+		try {
+			return service.listar();
+		} catch (DadoNaoEncontradoException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 	
 	//FIND BY ID
@@ -39,8 +45,14 @@ public class JustificativaFaltaResource {
 	@Path("/justificativasFalta/{id}")
 	@Produces("application/json; charset=UTF-8")
 	public JustificativaFalta buscaId(@PathParam("id") int id){
-		JustificativaFalta jf = service.buscar(id);
-		return jf;
+		JustificativaFalta jf = new JustificativaFalta();
+		try {
+			jf = service.buscar(id);
+			return jf;
+		} catch (DadoNaoEncontradoException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 	
 	//CREATE
@@ -49,29 +61,28 @@ public class JustificativaFaltaResource {
 	@Consumes("application/json")
 	@Produces("application/json; charset=UTF-8")
 	public Response novo(JustificativaFalta justificativaFalta) {
-		JustificativaFalta jf = new JustificativaFalta();
 		
 		try{
 			service.save(justificativaFalta);
-			return Response.status(200).entity(jf).build();
+			return Response.status(200).entity(justificativaFalta).build();
 		}
-		catch (NoResultException e){
-			return Response.status(204).entity(jf).build();
+		catch (Exception e){
+			return Response.status(204).entity(justificativaFalta).build();
 		}
 	}
 	
 	//UPDATE
 	@PUT
-	@Path("/justificativasFalta/{id}")
+	@Path("/justificativasFalta")
+	@Consumes("application/json")
 	@Produces("application/json; charset=UTF-8")
-	public Response update(@PathParam("id") int id) {
-		JustificativaFalta jf = new JustificativaFalta();
+	public Response update(JustificativaFalta jf) {
 		try{
-			jf = service.buscar(id);
+			JustificativaFalta justf = service.buscar(jf.getIdJustificativaFalta());
 			service.update(jf);
 			return Response.status(200).entity(jf).build();
 		}
-		catch (NoResultException e){
+		catch (Exception e){
 			return Response.status(204).entity(jf).build();
 		}
 	}
@@ -87,17 +98,17 @@ public class JustificativaFaltaResource {
 			service.delete(jf);
 			return Response.status(200).entity(jf).build();
 		}
-		catch (NoResultException e){
+		catch (Exception e){
 			return Response.status(204).entity(jf).build();
 		}
 	}
 
 	//FIND FILTRO
 	@GET
-	@Path("/justificativasFalta/usuarios/{nomeUsuario}/unidades/{idUnidade}/setores/{idSetor}")
+	@Path("/justificativasFaltaFilter")
 	@Produces("application/json; charset=UTF-8")
-	public List<JustificativaFalta> buscaFiltro(@PathParam("nomeUsuario") String nomeUsuario, 
-			@PathParam("idUnidade")int idUnidade, @PathParam("idSetor")int idSetor) {
+	public List<JustificativaFalta> buscaFiltro(@QueryParam("nomeUsuario") String nomeUsuario, 
+			@QueryParam("idUnidade")int idUnidade, @QueryParam("idSetor")int idSetor) {
 		
 		ArrayList<JustificativaFalta> jfs = new ArrayList<JustificativaFalta>();
 		jfs = service.buscarFiltro(nomeUsuario, idUnidade, idSetor);

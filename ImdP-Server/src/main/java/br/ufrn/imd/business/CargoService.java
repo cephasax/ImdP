@@ -9,6 +9,9 @@ import javax.persistence.NoResultException;
 
 import br.ufrn.imd.dao.CargoDao;
 import br.ufrn.imd.dominio.Cargo;
+import br.ufrn.imd.excecoes.DadoIncompletoException;
+import br.ufrn.imd.excecoes.DadoJaExisteException;
+import br.ufrn.imd.excecoes.DadoNaoEncontradoException;
 
 @Stateless
 public class CargoService{
@@ -16,54 +19,46 @@ public class CargoService{
 	@Inject
 	private CargoDao cargoDao;
 	
-	public void save(Cargo cargo) {
+	public void save(Cargo cargo) throws DadoJaExisteException, DadoIncompletoException {
 		verificarCargo(cargo);
-		Cargo carg = cargoDao.buscarPorId(cargo.getIdCargo());
-		if(carg == null){
+		ArrayList<Cargo> cargs = cargoDao.buscarCargoCheck(cargo.getNome());
+		if(cargs.size() == 0){
 			cargoDao.save(cargo);
 		}
 		else{
-			throw new IllegalArgumentException("Erro - save: Cargo ja existe na base de dados");
+			throw new DadoJaExisteException("Erro - save: Cargo ja existe na base de dados");
 		}
 	}
 
-	public Cargo update(Cargo cargo) {
+	public Cargo update(Cargo cargo) throws DadoIncompletoException {
 		verificarCargo(cargo);
 		return (Cargo) cargoDao.update(cargo);
 	}
 
-	public void delete(Cargo cargo) {
+	public void delete(Cargo cargo) throws DadoIncompletoException{
 		verificarCargo(cargo);
-		Cargo carg = cargoDao.buscarPorId(cargo.getIdCargo());
-		
-		if(carg == null){
-			throw new IllegalArgumentException("Erro - delete: Cargo nao existe na base de dados");
-		}
-		else{
-			cargoDao.delete(cargo);
-		}
+		cargoDao.delete(cargo);
 	}
 
-	public Cargo buscar(int entityID) {
+	public Cargo buscar(int entityID) throws DadoNaoEncontradoException {
 		Cargo cargo = new Cargo();
-		cargo = buscaId(entityID);
-		
+		cargo = cargoDao.buscarPorId(entityID);
 		if(cargo == null){
-			throw new NoResultException("Erro - buscar: Cargo nao encontrado");
+			throw new DadoNaoEncontradoException("Erro - buscar: Cargo nao encontrado");
 		}
 		else{
 			return cargo;
 		}
 	}
 
-	public List<Cargo> listar() {
+	public List<Cargo> listar() throws DadoNaoEncontradoException {
 		ArrayList<Cargo> cargos = new ArrayList<Cargo>();
 		cargos = cargoDao.listar();
 		if(cargos.size() > 0){
 			return cargos;
 		}
 		else{
-			throw new NoResultException("Erro - listar: nenhum cargo cadastrado");
+			throw new DadoNaoEncontradoException("Erro - listar: nenhum cargo cadastrado");
 		}
 	}
 	
@@ -77,19 +72,8 @@ public class CargoService{
 			return null;
 		}
 	}
-
-	//Metodo usados apenas para verificacoes no escopo do service
-	private Cargo buscaId(int id){
-		try{
-			Cargo cargo = cargoDao.buscarPorId(id);
-			return cargo;
-		}
-		catch(NoResultException e){
-			return null;
-		}
-	}
 	
-	private void verificarCargo(Cargo cargo){
+	private void verificarCargo(Cargo cargo) throws DadoIncompletoException{
 		boolean hasError = false;
 		
 		//CAMPO OBRIGATORIO
@@ -99,7 +83,7 @@ public class CargoService{
 		}
 		
 		if (hasError){
-			throw new IllegalArgumentException("O cargo nao possui todos os dados.");
+			throw new DadoIncompletoException("O cargo nao possui todos os dados.");
 		}
 	}
 }

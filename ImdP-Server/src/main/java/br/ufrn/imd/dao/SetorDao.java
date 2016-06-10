@@ -73,6 +73,31 @@ public class SetorDao extends GenericDao {
 		return (Setor)query.getSingleResult();
 	}
 
+	@SuppressWarnings("unchecked")
+	public ArrayList<Setor> buscarSetorCheck(Setor setor) {
+		
+		//CONSTRUCAO DA CONSULTA SQL
+		String sql = " Select s FROM Setor s"
+				+ "JOIN s.Unidade unidade";
+		
+		StringBuilder where = new StringBuilder();
+		where.append(" WHERE 1 = 1 ");
+		where.append(" and s.unidade.idUnidade = :idUnidade");
+		where.append(" and lower(s.nomeSetor) = lower(:nomeSetor) ");
+		
+		StringBuilder sqlFinal = new StringBuilder();
+		sqlFinal.append(sql);
+		sqlFinal.append(where.toString());	
+		Query query = em.createQuery(sqlFinal.toString());
+		
+		//DEFINICAO DOS PARAMETROS DA CONSULTA
+		query.setParameter("idUnidade", setor.getUnidade().getIdUnidade());
+		query.setParameter("nomeSetor", setor.getNome());
+		
+		//EXECUCAO E RETORNO
+		return (ArrayList<Setor>)query.getResultList();
+	}
+	
 	public void delete(Setor setor) {
 		super.delete(setor.getIdSetor(), Setor.class);
 	}

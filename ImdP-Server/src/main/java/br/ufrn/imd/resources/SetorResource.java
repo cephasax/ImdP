@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.persistence.NoResultException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -14,10 +13,14 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
 import br.ufrn.imd.business.SetorService;
 import br.ufrn.imd.dominio.Setor;
+import br.ufrn.imd.excecoes.DadoIncompletoException;
+import br.ufrn.imd.excecoes.DadoJaExisteException;
+import br.ufrn.imd.excecoes.DadoNaoEncontradoException;
 
 @Stateless
 @Path("/consulta")
@@ -31,7 +34,12 @@ public class SetorResource {
 	@Path("/setores")
 	@Produces("application/json; charset=UTF-8")
 	public List<Setor> listagem() {
-		return service.listar();
+		try {
+			return service.listar();
+		} catch (DadoNaoEncontradoException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 	
 	//FIND BY ID
@@ -39,8 +47,15 @@ public class SetorResource {
 	@Path("/setores/{id}")
 	@Produces("application/json; charset=UTF-8")
 	public Setor buscaId(@PathParam("id") int id){
-		Setor place = service.buscar(id);
-		return place;
+		Setor place = new Setor();
+		try {
+			place = service.buscar(id);
+			return place;
+		} catch (DadoNaoEncontradoException e) {
+			e.printStackTrace();
+			return null;
+		}
+		
 	}
 	
 	//CREATE
@@ -49,29 +64,28 @@ public class SetorResource {
 	@Consumes("application/json")
 	@Produces("application/json; charset=UTF-8")
 	public Response novo(Setor setor) {
-		Setor place = new Setor();
-		
 		try{
 			service.save(setor);
-			return Response.status(200).entity(place).build();
+			return Response.status(200).entity(setor).build();
 		}
-		catch (NoResultException e){
-			return Response.status(204).entity(place).build();
+		catch (DadoJaExisteException | DadoIncompletoException e){
+			return Response.status(204).entity(setor).build();
 		}
 	}
 	
 	//UPDATE
 	@PUT
 	@Path("/setores/{id}")
+	@Consumes("application/json")
 	@Produces("application/json; charset=UTF-8")
-	public Response update(@PathParam("id") int id) {
+	public Response update(Setor setor) {
 		Setor place = new Setor();
 		try{
-			place = service.buscar(id);
+			place = service.buscar(setor.getIdSetor());
 			service.update(place);
 			return Response.status(200).entity(place).build();
 		}
-		catch (NoResultException e){
+		catch (DadoNaoEncontradoException | DadoIncompletoException e){
 			return Response.status(204).entity(place).build();
 		}
 	}
@@ -87,17 +101,17 @@ public class SetorResource {
 			service.delete(place);
 			return Response.status(200).entity(place).build();
 		}
-		catch (NoResultException e){
+		catch (DadoNaoEncontradoException | DadoIncompletoException e){
 			return Response.status(204).entity(place).build();
 		}
 	}
 
 	//FIND FILTRO
 	@GET
-	@Path("/setores/{nomeSetor}/unidades/{idUnidade}")
+	@Path("/setoresFilter")
 	@Produces("application/json; charset=UTF-8")
-	public List<Setor> buscaFiltro(@PathParam("nomeSetor") String nomeSetor, 
-			@PathParam("idUnidade")int idUnidade) {
+	public List<Setor> buscaFiltro(@QueryParam("nomeSetor") String nomeSetor, 
+			@QueryParam("idUnidade")int idUnidade) {
 		
 		ArrayList<Setor> places = new ArrayList<Setor>();
 		places = service.buscarFiltro(nomeSetor, idUnidade);

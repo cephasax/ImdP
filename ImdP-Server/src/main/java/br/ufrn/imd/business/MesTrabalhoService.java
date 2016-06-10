@@ -9,6 +9,9 @@ import javax.persistence.NoResultException;
 
 import br.ufrn.imd.dao.MesTrabalhoDao;
 import br.ufrn.imd.dominio.MesTrabalho;
+import br.ufrn.imd.excecoes.DadoIncompletoException;
+import br.ufrn.imd.excecoes.DadoJaExisteException;
+import br.ufrn.imd.excecoes.DadoNaoEncontradoException;
 
 @Stateless
 public class MesTrabalhoService{
@@ -16,55 +19,48 @@ public class MesTrabalhoService{
 	@Inject
 	private MesTrabalhoDao mesTrabalhoDao;
 	
-	public void save(MesTrabalho mesTrabalho) {
+	public void save(MesTrabalho mesTrabalho) throws DadoJaExisteException, DadoIncompletoException {
 		verificarMesTrabalho(mesTrabalho);
-		MesTrabalho month = mesTrabalhoDao.buscarPorId(mesTrabalho.getIdMesTrabalho());
+		ArrayList<MesTrabalho> months = mesTrabalhoDao.buscarMesTrabalhoCheck(mesTrabalho);
 		
-		if(month == null){
+		if(months.size() == 0){
 			mesTrabalhoDao.save(mesTrabalho);
 		}
 		else{
-			throw new IllegalArgumentException("Erro - save: MesTrabalho ja existe na base de dados");
+			throw new DadoJaExisteException("Erro - save: MesTrabalho ja existe na base de dados");
 		}
 	}
 
-	public MesTrabalho update(MesTrabalho mesTrabalho) {
+	public MesTrabalho update(MesTrabalho mesTrabalho) throws DadoIncompletoException {
 		verificarMesTrabalho(mesTrabalho);
 		return (MesTrabalho) mesTrabalhoDao.update(mesTrabalho);
 	}
 
-	public void delete(MesTrabalho mesTrabalho) {
+	public void delete(MesTrabalho mesTrabalho) throws DadoIncompletoException {
 		verificarMesTrabalho(mesTrabalho);
-		MesTrabalho month = mesTrabalhoDao.buscarPorId(mesTrabalho.getIdMesTrabalho());
-		
-		if(month == null){
-			throw new IllegalArgumentException("Erro - delete: MesTrabalho nao existe na base de dados");
-		}
-		else{
-			mesTrabalhoDao.delete(mesTrabalho);
-		}
+		mesTrabalhoDao.delete(mesTrabalho);
 	}
 
-	public MesTrabalho buscar(int entityID) {
+	public MesTrabalho buscar(int entityID) throws DadoNaoEncontradoException {
 		MesTrabalho month = new MesTrabalho();
-		month = buscaId(entityID);
+		month = mesTrabalhoDao.buscarPorId(entityID);
 		
 		if(month == null){
-			throw new NoResultException("Erro - buscar: MesTrabalho nao encontrado");
+			throw new DadoNaoEncontradoException("Erro - buscar: MesTrabalho nao encontrado");
 		}
 		else{
 			return month;
 		}
 	}
 
-	public List<MesTrabalho> listar() {
+	public List<MesTrabalho> listar() throws DadoNaoEncontradoException {
 		ArrayList<MesTrabalho> months = new ArrayList<MesTrabalho>();
 		months = mesTrabalhoDao.listar();
 		if(months.size() > 0){
 			return months;
 		}
 		else{
-			throw new NoResultException("Erro - listar: nenhum mesTrabalho cadastrado");
+			throw new DadoNaoEncontradoException("Erro - listar: nenhum mesTrabalho cadastrado");
 		}
 	}
 	
@@ -78,19 +74,8 @@ public class MesTrabalhoService{
 			return null;
 		}
 	}
-
-	//Metodo usados apenas para verificacoes no escopo do service
-	private MesTrabalho buscaId(int id){
-		try{
-			MesTrabalho month = mesTrabalhoDao.buscarPorId(id);
-			return month;
-		}
-		catch(NoResultException e){
-			return null;
-		}
-	}
 		
-	private void verificarMesTrabalho(MesTrabalho mesTrabalho){
+	private void verificarMesTrabalho(MesTrabalho mesTrabalho) throws DadoIncompletoException{
 		boolean hasError = false;
 		
 		//CAMPOS OBRIGATORIOS
@@ -110,7 +95,7 @@ public class MesTrabalhoService{
 		}
 		
 		if (hasError){
-			throw new IllegalArgumentException("O mesTrabalho nao possui todos os dados.");
+			throw new DadoIncompletoException("O mesTrabalho nao possui todos os dados.");
 		}
 	}
 }

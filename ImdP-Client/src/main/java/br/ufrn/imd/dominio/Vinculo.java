@@ -1,7 +1,6 @@
 package br.ufrn.imd.dominio;
 
 import java.io.Serializable;
-import java.util.Collection;
 
 public class Vinculo implements Serializable {
 	private static final long serialVersionUID = 118938217482360981L;
@@ -9,21 +8,13 @@ public class Vinculo implements Serializable {
 	private int idVinculo;
 	private String descricao;
 
-//	@JoinColumn(name = "idCargo")
 	private Cargo cargo;
 
-//	@JoinColumn(name = "idSetor")
 	private Setor setor;
 
-//	@JoinColumn(name = "idUsuario")
 	private Usuario usuario;
 	
-	private Collection<Ponto> pontos;
-	
-//	@JoinColumn(name = "idPermissao")
 	private Permissao permissao;
-	
-	private Collection<JustificativaFalta> justificativas;
 
 	private int cargaHorariaDiaria;
 	private int cargaHorariaSemanal;
@@ -102,14 +93,6 @@ public class Vinculo implements Serializable {
 		this.usuario = usuario;
 	}
 
-	public Collection<Ponto> getPontos() {
-		return pontos;
-	}
-
-	public void setPontos(Collection<Ponto> pontos) {
-		this.pontos = pontos;
-	}
-
 	public Permissao getPermissao() {
 		return permissao;
 	}
@@ -117,14 +100,5 @@ public class Vinculo implements Serializable {
 	public void setPermissao(Permissao permissao) {
 		this.permissao = permissao;
 	}
-
-	public Collection<JustificativaFalta> getJustificativas() {
-		return justificativas;
-	}
-
-	public void setJustificativas(Collection<JustificativaFalta> justificativas) {
-		this.justificativas = justificativas;
-	}
-	
 
 }

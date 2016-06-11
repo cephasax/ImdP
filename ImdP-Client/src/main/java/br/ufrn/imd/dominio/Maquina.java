@@ -1,10 +1,12 @@
 package br.ufrn.imd.dominio;
 
 import java.io.Serializable;
-import java.util.Collection;
 
 public class Maquina implements Serializable {
 
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 2145547853919156580L;
 
 	private int idMaquina;
@@ -12,9 +14,6 @@ public class Maquina implements Serializable {
 	private String denominacao;
 	private String ip;
 
-	private Collection<Ponto> pontos;
-
-//	@JoinColumn(name = "idUnidade")
 	private Unidade unidade;
 
 	public String getDenominacao() {
@@ -39,14 +38,6 @@ public class Maquina implements Serializable {
 
 	public void setIdMaquina(int idMaquina) {
 		this.idMaquina = idMaquina;
-	}
-
-	public Collection<Ponto> getPontos() {
-		return pontos;
-	}
-
-	public void setPontos(Collection<Ponto> pontos) {
-		this.pontos = pontos;
 	}
 
 	public Unidade getUnidade() {

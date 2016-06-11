@@ -9,7 +9,6 @@ public class Setor implements Serializable {
 
 	private String nome;
 
-//	@JoinColumn(name = "idUnidade")
 	private Unidade unidade;
 
 	public int getIdSetor() {

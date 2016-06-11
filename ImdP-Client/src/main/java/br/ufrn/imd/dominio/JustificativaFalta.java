@@ -9,22 +9,20 @@ public class JustificativaFalta implements Serializable {
 	private int idJustificativaFalta;
 
 	private Date dataInicio;
+	
 	private Date dataFim;
 
-//	@JoinColumn(name = "idVinculo")
 	private Vinculo vinculo;
 
-//	@JoinColumn(name = "idTipoJustificativa")
 	private TipoJustificativa tipoJustificativa;
 
-//	@JoinColumn(name = "idUsuario")
 	private Usuario gestor;
-
 	private String descricao;
+	
 	private Date dataEnvio;
 	private char situacao;
-
 	private String observacaoAnalise;
+	
 	private Date dataAnalise;
 	private int cargaHorariaAbonada;
 	private int cargaHorariaNaoAbonada;

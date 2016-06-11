@@ -13,13 +13,12 @@ public class Ponto implements Serializable {
 	private char tipo;
 	private char validado;
 	private String observacao;
+	
 	private Date timeStampAlteracao;
 	private int idUsuarioAlteracao;
 
-//	@JoinColumn(name = "idVinculo")
 	private Vinculo vinculo;
 
-//	@JoinColumn(name = "idMaquina")
 	private Maquina maquina;
 
 	public int getIdPonto() {

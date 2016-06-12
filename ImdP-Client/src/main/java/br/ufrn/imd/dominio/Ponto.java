@@ -3,6 +3,9 @@ package br.ufrn.imd.dominio;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class Ponto implements Serializable {
 
 	private static final long serialVersionUID = 3995925481211634067L;
@@ -13,13 +16,30 @@ public class Ponto implements Serializable {
 	private char tipo;
 	private char validado;
 	private String observacao;
-	
+
 	private Date timeStampAlteracao;
 	private int idUsuarioAlteracao;
 
 	private Vinculo vinculo;
 
 	private Maquina maquina;
+
+	public Ponto() {
+		super();
+	}
+
+	public Ponto(Date timeStamp, char tipo, char validado, String observacao, Date timeStampAlteracao,
+			int idUsuarioAlteracao, Vinculo vinculo, Maquina maquina) {
+		super();
+		this.timeStamp = timeStamp;
+		this.tipo = tipo;
+		this.validado = validado;
+		this.observacao = observacao;
+		this.timeStampAlteracao = timeStampAlteracao;
+		this.idUsuarioAlteracao = idUsuarioAlteracao;
+		this.vinculo = vinculo;
+		this.maquina = maquina;
+	}
 
 	public int getIdPonto() {
 		return idPonto;

@@ -2,11 +2,11 @@ package br.ufrn.imd.dominio;
 
 import java.io.Serializable;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class Maquina implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 2145547853919156580L;
 
 	private int idMaquina;
@@ -15,6 +15,17 @@ public class Maquina implements Serializable {
 	private String ip;
 
 	private Unidade unidade;
+
+	public Maquina() {
+
+	}
+
+	public Maquina(String denominacao, String ip, Unidade unidade) {
+		super();
+		this.denominacao = denominacao;
+		this.ip = ip;
+		this.unidade = unidade;
+	}
 
 	public String getDenominacao() {
 		return denominacao;

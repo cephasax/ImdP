@@ -2,6 +2,8 @@ package br.ufrn.imd.view.maquina;
 
 import java.io.IOException;
 
+import br.ufrn.imd.dominio.Maquina;
+import br.ufrn.imd.dominio.Unidade;
 import br.ufrn.imd.main.ImdAuth;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -12,7 +14,7 @@ import javafx.scene.text.Font;
 
 public class MaquinaBuscarController {
 	@FXML
-	private TableView tblMaquinas;
+	private TableView<Maquina> tblMaquinas;
 	@FXML
 	private Button btnExcluir;
 	@FXML
@@ -22,7 +24,7 @@ public class MaquinaBuscarController {
 	@FXML
 	private TextField tfNomeMaquina;
 	@FXML
-	private ComboBox cbUnidade;
+	private ComboBox<Unidade> cbUnidade;
 	@FXML
 	private Button btnCancelar;
 

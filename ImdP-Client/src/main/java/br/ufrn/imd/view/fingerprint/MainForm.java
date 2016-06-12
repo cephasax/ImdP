@@ -21,11 +21,9 @@ import com.digitalpersona.onetouch.verification.DPFPVerification;
  * Enrollment control test console
  */
 public class MainForm extends JFrame {
+	private static final long serialVersionUID = 8682406205679842900L;
 	private EnumMap<DPFPFingerIndex, DPFPTemplate> templates = new EnumMap<DPFPFingerIndex, DPFPTemplate>(
 			DPFPFingerIndex.class);
-	private EnumMap<DPFPFingerIndex, JCheckBox> checkBoxes = new EnumMap<DPFPFingerIndex, JCheckBox>(
-			DPFPFingerIndex.class);
-
 	private static final DPFPTemplate fakeTemplate;
 	private SpinnerNumberModel maxCount = new SpinnerNumberModel(DPFPFingerIndex.values().length, 0,
 			DPFPFingerIndex.values().length, 1);
@@ -46,9 +44,7 @@ public class MainForm extends JFrame {
 		}
 	}
 
-	
-	
-	public void clickVerificar(){
+	public void clickVerificar() {
 		try {
 			VerificationDialog dlg = new VerificationDialog(MainForm.this, templates,
 					farRequested.getNumber().intValue());
@@ -68,7 +64,7 @@ public class MainForm extends JFrame {
 		}
 	}
 
-	public void clickCadastrarDigital(){
+	public void clickCadastrarDigital() {
 		new EnrollmentDialog(MainForm.this, maxCount.getNumber().intValue(), null, templates).setVisible(true);
 		UpdateUI();
 		enrollButton.setAlignmentX(CENTER_ALIGNMENT);
@@ -77,14 +73,14 @@ public class MainForm extends JFrame {
 	private void UpdateUI() {
 		// update enrolled fingers checkboxes
 		for (DPFPFingerIndex finger : DPFPFingerIndex.values())
-		verifyButton.setEnabled(!templates.isEmpty());
+			verifyButton.setEnabled(!templates.isEmpty());
 	}
-	
+
 	public static void main(String... args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                new MainForm();
-            }
-        });
-    }
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				new MainForm();
+			}
+		});
+	}
 }

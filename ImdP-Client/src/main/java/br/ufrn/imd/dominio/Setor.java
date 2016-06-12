@@ -2,6 +2,9 @@ package br.ufrn.imd.dominio;
 
 import java.io.Serializable;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class Setor implements Serializable {
 	private static final long serialVersionUID = -4096652352782721877L;
 
@@ -10,6 +13,16 @@ public class Setor implements Serializable {
 	private String nome;
 
 	private Unidade unidade;
+
+	public Setor() {
+		super();
+	}
+
+	public Setor(String nome, Unidade unidade) {
+		super();
+		this.nome = nome;
+		this.unidade = unidade;
+	}
 
 	public int getIdSetor() {
 		return idSetor;

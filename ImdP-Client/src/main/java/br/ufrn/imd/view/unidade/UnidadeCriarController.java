@@ -3,7 +3,6 @@ package br.ufrn.imd.view.unidade;
 import java.io.IOException;
 
 import br.ufrn.imd.main.ImdAuth;
-import br.ufrn.imd.view.outras.InicioController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;

@@ -2,6 +2,9 @@ package br.ufrn.imd.view.ponto;
 
 import java.io.IOException;
 
+import br.ufrn.imd.dominio.Ponto;
+import br.ufrn.imd.dominio.Setor;
+import br.ufrn.imd.dominio.Unidade;
 import br.ufrn.imd.main.ImdAuth;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -11,7 +14,7 @@ import javafx.scene.control.TextField;
 
 public class PontoBuscarController {
 	@FXML
-	private TableView tblPontos;
+	private TableView<Ponto> tblPontos;
 	@FXML
 	private Button btnCancelar;
 	@FXML
@@ -19,9 +22,9 @@ public class PontoBuscarController {
 	@FXML
 	private TextField tfNomeUsuario;
 	@FXML
-	private ComboBox cbUnidade;
+	private ComboBox<Unidade> cbUnidade;
 	@FXML
-	private ComboBox cbSetor;
+	private ComboBox<Setor> cbSetor;
 	@FXML
 	private Button btnExcluir;
 

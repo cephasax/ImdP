@@ -2,6 +2,7 @@ package br.ufrn.imd.view.maquina;
 
 import java.io.IOException;
 
+import br.ufrn.imd.dominio.Unidade;
 import br.ufrn.imd.main.ImdAuth;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -18,7 +19,7 @@ public class MaquinaCriarController {
 	@FXML
 	private TextField tfIp1;
 	@FXML
-	private ComboBox cbUnidade;
+	private ComboBox<Unidade> cbUnidade;
 	@FXML
 	private TextField tfIp2;
 	@FXML

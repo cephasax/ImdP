@@ -2,6 +2,8 @@ package br.ufrn.imd.view.setor;
 
 import java.io.IOException;
 
+import br.ufrn.imd.dominio.Setor;
+import br.ufrn.imd.dominio.Unidade;
 import br.ufrn.imd.main.ImdAuth;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -12,7 +14,7 @@ import javafx.scene.text.Font;
 
 public class SetorBuscarController {
 	@FXML
-	private TableView tblSetor;
+	private TableView<Setor> tblSetor;
 	@FXML
 	private Button btnCancelar;
 	@FXML
@@ -22,7 +24,7 @@ public class SetorBuscarController {
 	@FXML
 	private Button btnBuscar;
 	@FXML
-	private ComboBox cbUnidade;
+	private ComboBox<Unidade> cbUnidade;
 	@FXML
 	private Button btnExcluir;
 

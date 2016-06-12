@@ -2,6 +2,7 @@ package br.ufrn.imd.view.cargo;
 
 import java.io.IOException;
 
+import br.ufrn.imd.dominio.Cargo;
 import br.ufrn.imd.main.ImdAuth;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -13,7 +14,7 @@ public class CargoBuscarController {
 	@FXML
 	private AnchorPane telaBuscaCargo;
 	@FXML
-	private TableView tblListaCargo;
+	private TableView<Cargo> tblListaCargo;
 	@FXML
 	private Button btnCancelar;
 	@FXML

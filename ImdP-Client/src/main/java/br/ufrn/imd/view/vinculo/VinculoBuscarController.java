@@ -2,6 +2,9 @@ package br.ufrn.imd.view.vinculo;
 
 import java.io.IOException;
 
+import br.ufrn.imd.dominio.Setor;
+import br.ufrn.imd.dominio.Unidade;
+import br.ufrn.imd.dominio.Vinculo;
 import br.ufrn.imd.main.ImdAuth;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -12,7 +15,7 @@ import javafx.scene.text.Font;
 
 public class VinculoBuscarController {
 	@FXML
-	private TableView tblVinculos;
+	private TableView<Vinculo> tblVinculos;
 	@FXML
 	private Button btnCancelar;
 	@FXML
@@ -22,9 +25,9 @@ public class VinculoBuscarController {
 	@FXML
 	private TextField tfNome;
 	@FXML
-	private ComboBox cbUnidade;
+	private ComboBox<Unidade> cbUnidade;
 	@FXML
-	private ComboBox cbSetor;
+	private ComboBox<Setor> cbSetor;
 	@FXML
 	private Font x12;
 	@FXML

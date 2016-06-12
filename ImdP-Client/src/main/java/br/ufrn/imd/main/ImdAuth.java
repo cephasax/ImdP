@@ -6,7 +6,6 @@ import br.ufrn.imd.view.cargo.CargoBuscarController;
 import br.ufrn.imd.view.cargo.CargoCriarController;
 import br.ufrn.imd.view.cargo.CargoEditarController;
 import br.ufrn.imd.view.cargo.CargoListarController;
-import br.ufrn.imd.view.fingerprint.EnrollmentDialog;
 import br.ufrn.imd.view.fingerprint.MainForm;
 import br.ufrn.imd.view.justificativaFalta.JustificativaBuscarController;
 import br.ufrn.imd.view.justificativaFalta.JustificativaCriarController;

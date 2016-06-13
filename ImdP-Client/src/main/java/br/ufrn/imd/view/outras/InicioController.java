@@ -4,6 +4,14 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import br.ufrn.imd.dominio.Cargo;
+import br.ufrn.imd.dominio.Maquina;
+import br.ufrn.imd.dominio.Ponto;
+import br.ufrn.imd.dominio.Setor;
+import br.ufrn.imd.dominio.TipoJustificativa;
+import br.ufrn.imd.dominio.Unidade;
+import br.ufrn.imd.dominio.Usuario;
+import br.ufrn.imd.dominio.Vinculo;
 import br.ufrn.imd.main.ImdAuth;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -111,8 +119,8 @@ public class InicioController implements Initializable {
 	}
 
 	@FXML
-	public void handleCargoEditar() throws IOException {
-		imdAuth.iniciarCargoEditar();
+	public void handleCargoEditar(Cargo cargo) throws IOException {
+		imdAuth.iniciarCargoEditar(cargo);
 	}
 
 	@FXML
@@ -161,8 +169,8 @@ public class InicioController implements Initializable {
 	}
 
 	@FXML
-	public void handleMaquinaEditar() throws IOException {
-		imdAuth.iniciarMaquinaEditar();
+	public void handleMaquinaEditar(Maquina maquina) throws IOException {
+		imdAuth.iniciarMaquinaEditar(maquina);
 	}
 
 	@FXML
@@ -186,8 +194,8 @@ public class InicioController implements Initializable {
 	}
 
 	@FXML
-	public void handlePontoGestorEditar() throws IOException {
-		imdAuth.iniciarPontoGestorEditar();
+	public void handlePontoGestorEditar(Ponto ponto) throws IOException {
+		imdAuth.iniciarPontoGestorEditar(ponto);
 	}
 
 	@FXML
@@ -221,8 +229,8 @@ public class InicioController implements Initializable {
 	}
 
 	@FXML
-	public void handleSetorEditar() throws IOException {
-		imdAuth.iniciarSetorEditar();
+	public void handleSetorEditar(Setor setor) throws IOException {
+		imdAuth.iniciarSetorEditar(setor);
 	}
 
 	@FXML
@@ -236,8 +244,8 @@ public class InicioController implements Initializable {
 	}
 
 	@FXML
-	public void handleTipoJustificativaEditar() throws IOException {
-		imdAuth.iniciarTipoJustificativaEditar();
+	public void handleTipoJustificativaEditar(TipoJustificativa tipoJustificativa) throws IOException {
+		imdAuth.iniciarTipoJustificativaEditar(tipoJustificativa);
 	}
 
 	@FXML
@@ -256,8 +264,8 @@ public class InicioController implements Initializable {
 	}
 
 	@FXML
-	public void handleUnidadeEditar() throws IOException {
-		imdAuth.iniciarUnidadeEditar();
+	public void handleUnidadeEditar(Unidade unidade) throws IOException {
+		imdAuth.iniciarUnidadeEditar(unidade);
 	}
 
 	@FXML
@@ -281,8 +289,8 @@ public class InicioController implements Initializable {
 	}
 
 	@FXML
-	public void handleUsuarioEditar() throws IOException {
-		imdAuth.iniciarUsuarioEditar();
+	public void handleUsuarioEditar(Usuario usuario) throws IOException {
+		imdAuth.iniciarUsuarioEditar(usuario);
 	}
 
 	@FXML
@@ -306,8 +314,8 @@ public class InicioController implements Initializable {
 	}
 
 	@FXML
-	public void handleVinculoEditar() throws IOException {
-		imdAuth.iniciarVinculoEditar();
+	public void handleVinculoEditar(Vinculo vinculo) throws IOException {
+		imdAuth.iniciarVinculoEditar(vinculo);
 	}
 
 	@FXML

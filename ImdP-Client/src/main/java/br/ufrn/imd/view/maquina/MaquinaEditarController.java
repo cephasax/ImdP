@@ -2,6 +2,7 @@ package br.ufrn.imd.view.maquina;
 
 import java.io.IOException;
 
+import br.ufrn.imd.dominio.Maquina;
 import br.ufrn.imd.dominio.Unidade;
 import br.ufrn.imd.main.ImdAuth;
 import javafx.fxml.FXML;
@@ -31,10 +32,15 @@ public class MaquinaEditarController {
 	private TextField tfIp4;
 
 	private ImdAuth imdAuth;
+	
+	private Maquina maquina = new Maquina();
 
 	public void setMainApp(ImdAuth imdAuth) {
 		this.imdAuth = imdAuth;
-
+	}
+	
+	public void setMaquina(Maquina maquina) {
+		this.maquina = maquina;
 	}
 	
 	@FXML

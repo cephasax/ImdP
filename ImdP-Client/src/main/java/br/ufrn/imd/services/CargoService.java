@@ -1,7 +1,6 @@
 package br.ufrn.imd.services;
 
 import javax.ws.rs.client.Entity;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.jboss.resteasy.client.jaxrs.ResteasyClient;
@@ -14,7 +13,7 @@ public class CargoService extends GenericService {
 	ResteasyClient client = new ResteasyClientBuilder().build();
 
 	public CargoService() {
-		
+
 	}
 
 	public String CargoListar() {
@@ -29,19 +28,57 @@ public class CargoService extends GenericService {
 		return value;
 	}
 
-	public void CargoCriar(Cargo cargo) {
+	public int CargoCriar(Cargo cargo) {
 		ResteasyWebTarget add = client
 				.target(getUrl() + getDomain() + getComplement() + getVersion() + "consulta/cargos");
 
-		Response addResponse = add.request().post(Entity.entity(cargo, MediaType.APPLICATION_XML));
+		Response addResponse = add.request().post(Entity.entity(cargo, "application/json"));
 		System.out.println("HTTP Response Code:" + addResponse.getStatus());
-		addResponse.close();
 
-		System.out.println(cargo.getNome());
+		System.out.println("Server response : \n");
+		System.out.println(addResponse.readEntity(String.class));
 
-		addResponse = add.request().post(Entity.entity(cargo, MediaType.APPLICATION_XML));
-		System.out.println("HTTP Response Code:" + addResponse.getStatus());
-		addResponse.close();
+		return addResponse.getStatus();
+	}
 
+	public String CargoBuscar(String nome) {
+		ResteasyWebTarget target = client.target(
+				getUrl() + getDomain() + getComplement() + getVersion() + "consulta/cargosFilter?nomeCargo=" + nome);
+		Response response = target.request().get();
+
+		System.out.println("HTTP Response Code:" + response.getStatus());
+
+		String value = response.readEntity(String.class);
+		System.out.println(value);
+
+		response.close();
+		return value;
+	}
+
+	public int CargoDeletar(Cargo cargo) {
+		ResteasyWebTarget delete = client.target(
+				getUrl() + getDomain() + getComplement() + getVersion() + "consulta/cargos/" + cargo.getIdCargo());
+
+		Response deleteResponse = delete.request().delete();
+		System.out.println("HTTP Response Code:" + deleteResponse.getStatus());
+
+		System.out.println("Server response : \n");
+		System.out.println(deleteResponse.readEntity(String.class));
+
+		return deleteResponse.getStatus();
+	}
+	
+	public int CargoEditar(Cargo cargo){
+		ResteasyWebTarget update = client.target(
+				getUrl() + getDomain() + getComplement() + getVersion() + "consulta/cargos/");
+
+		Response updateResponse = update.request().put(Entity.entity(cargo, "application/json"));
+		System.out.println("HTTP Response Code:" + updateResponse.getStatus());
+
+		System.out.println("Server response : \n");
+		System.out.println(updateResponse.readEntity(String.class));
+
+		return updateResponse.getStatus();
+		
 	}
 }

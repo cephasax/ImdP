@@ -5,7 +5,9 @@ import java.io.IOException;
 import br.ufrn.imd.dominio.Cargo;
 import br.ufrn.imd.dominio.Setor;
 import br.ufrn.imd.dominio.Unidade;
+import br.ufrn.imd.dominio.Vinculo;
 import br.ufrn.imd.main.ImdAuth;
+import br.ufrn.imd.services.VinculoService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -31,10 +33,17 @@ public class VinculoEditarController {
 	private CheckBox checkboxAtivo;
 
 	private ImdAuth imdAuth;
+	
+	private Vinculo vinculo = new Vinculo();
+	
+	private VinculoService service = new VinculoService();
 
 	public void setMainApp(ImdAuth imdAuth) {
 		this.imdAuth = imdAuth;
-
+	}
+	
+	public void setVinculo(Vinculo vinculo) {
+		this.vinculo = vinculo;
 	}
 
 	@FXML

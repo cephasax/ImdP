@@ -16,9 +16,11 @@ import br.ufrn.imd.services.CargoService;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class CargoListarController implements Initializable {
@@ -32,6 +34,8 @@ public class CargoListarController implements Initializable {
 	private TableColumn<Cargo, String> cargoNome;
 
 	private ImdAuth imdAuth;
+
+	private int resultado;
 
 	private CargoService service = new CargoService();
 
@@ -55,11 +59,40 @@ public class CargoListarController implements Initializable {
 		Type listType = new TypeToken<ArrayList<Cargo>>() {
 		}.getType();
 		List<Cargo> yourClassList = new Gson().fromJson(service.CargoListar(), listType);
-		for(int i=0; i<yourClassList.size(); i++){
+		for (int i = 0; i < yourClassList.size(); i++) {
 			System.out.println(yourClassList.get(i).getIdCargo() + " " + yourClassList.get(i).getNome());
 		}
-		
+
 		tblCargos.setItems(FXCollections.observableArrayList(yourClassList));
 		cargoNome.setCellValueFactory(new PropertyValueFactory<Cargo, String>("nome"));
+	}
+
+	@FXML
+	public void handleExcluir() throws IOException {
+		Cargo cargo = tblCargos.getSelectionModel().getSelectedItem();
+		resultado = service.CargoDeletar(cargo);
+
+		if (resultado == 200) {
+			Alert alert = new Alert(AlertType.CONFIRMATION);
+			alert.setTitle("Feedback");
+			alert.setHeaderText(null);
+			alert.setContentText("Dado deletado!");
+
+			alert.showAndWait();
+			imdAuth.iniciarCargoListar();
+		} else {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Feedback");
+			alert.setHeaderText(null);
+			alert.setContentText("Ocorreu um erro!");
+
+			alert.showAndWait();
+		}
+	}
+
+	@FXML
+	public void handleEditar() throws IOException {
+		Cargo cargo = tblCargos.getSelectionModel().getSelectedItem();
+		imdAuth.iniciarCargoEditar(cargo);
 	}
 }

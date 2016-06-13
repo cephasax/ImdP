@@ -2,6 +2,7 @@ package br.ufrn.imd.view.ponto;
 
 import java.io.IOException;
 
+import br.ufrn.imd.dominio.Ponto;
 import br.ufrn.imd.dominio.Setor;
 import br.ufrn.imd.dominio.Unidade;
 import br.ufrn.imd.dominio.Vinculo;
@@ -40,11 +41,16 @@ public class PontoGestorEditarController {
 
 	private ImdAuth imdAuth;
 
+	private Ponto ponto = new Ponto();
+
 	public void setMainApp(ImdAuth imdAuth) {
 		this.imdAuth = imdAuth;
-
 	}
-	
+
+	public void setPonto(Ponto ponto) {
+		this.ponto = ponto;
+	}
+
 	@FXML
 	public void handleCancelar() throws IOException {
 		imdAuth.iniciarTelaPrincipal();

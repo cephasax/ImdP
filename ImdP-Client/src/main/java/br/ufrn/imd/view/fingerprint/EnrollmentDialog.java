@@ -1,18 +1,28 @@
 package br.ufrn.imd.view.fingerprint;
 
-import com.digitalpersona.onetouch.*;
-import com.digitalpersona.onetouch.ui.swing.*;
+import java.awt.BorderLayout;
+import java.awt.Frame;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.EnumMap;
+import java.util.EnumSet;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JPanel;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.util.*;
+import com.digitalpersona.onetouch.DPFPFingerIndex;
+import com.digitalpersona.onetouch.DPFPTemplate;
+import com.digitalpersona.onetouch.ui.swing.DPFPEnrollmentControl;
+import com.digitalpersona.onetouch.ui.swing.DPFPEnrollmentEvent;
+import com.digitalpersona.onetouch.ui.swing.DPFPEnrollmentListener;
+import com.digitalpersona.onetouch.ui.swing.DPFPEnrollmentVetoException;
 
 /**
  * Enrollment control test
  */
 public class EnrollmentDialog extends JDialog {
+	private static final long serialVersionUID = 2488751390726405707L;
 	private EnumMap<DPFPFingerIndex, DPFPTemplate> templates;
 
 	public EnrollmentDialog(Frame owner, int maxCount, final String reasonToFail,

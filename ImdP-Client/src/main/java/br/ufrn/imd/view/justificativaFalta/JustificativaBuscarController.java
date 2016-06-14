@@ -2,6 +2,9 @@ package br.ufrn.imd.view.justificativaFalta;
 
 import java.io.IOException;
 
+import br.ufrn.imd.dominio.JustificativaFalta;
+import br.ufrn.imd.dominio.Setor;
+import br.ufrn.imd.dominio.Unidade;
 import br.ufrn.imd.main.ImdAuth;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -12,7 +15,7 @@ import javafx.scene.text.Font;
 
 public class JustificativaBuscarController {
 	@FXML
-	private TableView tblJustificativasFaltas;
+	private TableView<JustificativaFalta> tblJustificativasFaltas;
 	@FXML
 	private Button btnCancelar;
 	@FXML
@@ -22,9 +25,9 @@ public class JustificativaBuscarController {
 	@FXML
 	private TextField tfNomeUsuario;
 	@FXML
-	private ComboBox cbUnidade;
+	private ComboBox<Unidade> cbUnidade;
 	@FXML
-	private ComboBox cbSetor;
+	private ComboBox<Setor> cbSetor;
 	@FXML
 	private Font x12;
 	@FXML

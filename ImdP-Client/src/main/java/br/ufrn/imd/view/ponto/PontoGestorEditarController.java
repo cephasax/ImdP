@@ -2,6 +2,10 @@ package br.ufrn.imd.view.ponto;
 
 import java.io.IOException;
 
+import br.ufrn.imd.dominio.Ponto;
+import br.ufrn.imd.dominio.Setor;
+import br.ufrn.imd.dominio.Unidade;
+import br.ufrn.imd.dominio.Vinculo;
 import br.ufrn.imd.main.ImdAuth;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -25,11 +29,11 @@ public class PontoGestorEditarController {
 	@FXML
 	private TextField taObservacao;
 	@FXML
-	private ComboBox cbVinculo;
+	private ComboBox<Vinculo> cbVinculo;
 	@FXML
-	private ComboBox cbUnidade;
+	private ComboBox<Unidade> cbUnidade;
 	@FXML
-	private ComboBox cbSetor;
+	private ComboBox<Setor> cbSetor;
 	@FXML
 	private ChoiceBox cbTipoPonto;
 	@FXML
@@ -37,11 +41,16 @@ public class PontoGestorEditarController {
 
 	private ImdAuth imdAuth;
 
+	private Ponto ponto = new Ponto();
+
 	public void setMainApp(ImdAuth imdAuth) {
 		this.imdAuth = imdAuth;
-
 	}
-	
+
+	public void setPonto(Ponto ponto) {
+		this.ponto = ponto;
+	}
+
 	@FXML
 	public void handleCancelar() throws IOException {
 		imdAuth.iniciarTelaPrincipal();

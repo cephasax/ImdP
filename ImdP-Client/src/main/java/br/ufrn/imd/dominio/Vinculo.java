@@ -1,34 +1,46 @@
 package br.ufrn.imd.dominio;
 
 import java.io.Serializable;
-import java.util.Collection;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class Vinculo implements Serializable {
 	private static final long serialVersionUID = 118938217482360981L;
 
 	private int idVinculo;
 	private String descricao;
 
-//	@JoinColumn(name = "idCargo")
 	private Cargo cargo;
 
-//	@JoinColumn(name = "idSetor")
 	private Setor setor;
 
-//	@JoinColumn(name = "idUsuario")
 	private Usuario usuario;
-	
-	private Collection<Ponto> pontos;
-	
-//	@JoinColumn(name = "idPermissao")
+
 	private Permissao permissao;
-	
-	private Collection<JustificativaFalta> justificativas;
 
 	private int cargaHorariaDiaria;
 	private int cargaHorariaSemanal;
 	private int cargaHorariaMensal;
 	private char situacao;
+
+	public Vinculo() {
+		super();
+	}
+
+	public Vinculo(String descricao, Cargo cargo, Setor setor, Usuario usuario, Permissao permissao,
+			int cargaHorariaDiaria, int cargaHorariaSemanal, int cargaHorariaMensal, char situacao) {
+		super();
+		this.descricao = descricao;
+		this.cargo = cargo;
+		this.setor = setor;
+		this.usuario = usuario;
+		this.permissao = permissao;
+		this.cargaHorariaDiaria = cargaHorariaDiaria;
+		this.cargaHorariaSemanal = cargaHorariaSemanal;
+		this.cargaHorariaMensal = cargaHorariaMensal;
+		this.situacao = situacao;
+	}
 
 	public int getIdVinculo() {
 		return idVinculo;
@@ -102,14 +114,6 @@ public class Vinculo implements Serializable {
 		this.usuario = usuario;
 	}
 
-	public Collection<Ponto> getPontos() {
-		return pontos;
-	}
-
-	public void setPontos(Collection<Ponto> pontos) {
-		this.pontos = pontos;
-	}
-
 	public Permissao getPermissao() {
 		return permissao;
 	}
@@ -117,14 +121,5 @@ public class Vinculo implements Serializable {
 	public void setPermissao(Permissao permissao) {
 		this.permissao = permissao;
 	}
-
-	public Collection<JustificativaFalta> getJustificativas() {
-		return justificativas;
-	}
-
-	public void setJustificativas(Collection<JustificativaFalta> justificativas) {
-		this.justificativas = justificativas;
-	}
-	
 
 }

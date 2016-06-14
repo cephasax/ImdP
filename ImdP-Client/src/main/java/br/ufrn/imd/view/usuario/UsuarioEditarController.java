@@ -2,16 +2,14 @@ package br.ufrn.imd.view.usuario;
 
 import java.io.IOException;
 
+import br.ufrn.imd.dominio.Usuario;
 import br.ufrn.imd.main.ImdAuth;
+import br.ufrn.imd.services.UsuarioService;
 import javafx.fxml.FXML;
-
 import javafx.scene.control.Button;
-
-import javafx.scene.control.TextField;
-
 import javafx.scene.control.ComboBox;
-
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextField;
 
 public class UsuarioEditarController {
 	@FXML
@@ -48,10 +46,17 @@ public class UsuarioEditarController {
 	private TextField tfTelefone2;
 
 	private ImdAuth imdAuth;
+	
+	private Usuario usuario = new Usuario();
+	
+	private UsuarioService service = new UsuarioService();
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
 
 	public void setMainApp(ImdAuth imdAuth) {
 		this.imdAuth = imdAuth;
-
 	}
 	
 	@FXML

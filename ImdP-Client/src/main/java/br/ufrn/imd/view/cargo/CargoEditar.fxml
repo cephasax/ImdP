@@ -27,7 +27,7 @@
         <Font size="14.0" />
       </font>
     </Text>
-    <Button fx:id="btnConfirmar" layoutX="652.0" layoutY="285.0" mnemonicParsing="false" text="Confirmar Edição" />
+    <Button fx:id="btnConfirmar" layoutX="652.0" layoutY="285.0" mnemonicParsing="false" onAction="#handleEditar" text="Confirmar Edição" />
     <Button fx:id="btnCancelar" layoutX="580.0" layoutY="285.0" mnemonicParsing="false" onAction="#handleCancelar" text="Cancelar" />
   </children>
 </AnchorPane>

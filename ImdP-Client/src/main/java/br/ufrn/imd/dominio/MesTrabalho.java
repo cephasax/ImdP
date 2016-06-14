@@ -2,6 +2,9 @@ package br.ufrn.imd.dominio;
 
 import java.io.Serializable;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class MesTrabalho implements Serializable {
 
 	private static final long serialVersionUID = 26929024920294405L;

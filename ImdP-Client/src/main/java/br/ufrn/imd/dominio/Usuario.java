@@ -1,9 +1,11 @@
 package br.ufrn.imd.dominio;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class Usuario implements Serializable {
 
 	private static final long serialVersionUID = 6952842832271889997L;
@@ -12,10 +14,12 @@ public class Usuario implements Serializable {
 
 	private String nome;
 	private String sexo;
+
 	private Date dataNascimento;
 	private String cpf;
 	private String rg;
 	private String orgaoExpedicaoRg;
+
 	private Date dataExpedicaoRg;
 	private String EstadoRg;
 	private String cnh;
@@ -24,14 +28,43 @@ public class Usuario implements Serializable {
 	private String email;
 	private String telefone1;
 	private String telefone2;
-	private String digital;
+	private byte[] digital;
 
 	private String login;
 	private String senha;
 	private String foto;
+
 	private Date dataCriacao;
 
-	private Collection<Vinculo> vinculos;
+	public Usuario() {
+		super();
+	}
+
+	public Usuario(String nome, String sexo, Date dataNascimento, String cpf, String rg, String orgaoExpedicaoRg,
+			Date dataExpedicaoRg, String estadoRg, String cnh, String nomePai, String nomeMae, String email,
+			String telefone1, String telefone2, byte[] digital, String login, String senha, String foto,
+			Date dataCriacao) {
+		super();
+		this.nome = nome;
+		this.sexo = sexo;
+		this.dataNascimento = dataNascimento;
+		this.cpf = cpf;
+		this.rg = rg;
+		this.orgaoExpedicaoRg = orgaoExpedicaoRg;
+		this.dataExpedicaoRg = dataExpedicaoRg;
+		EstadoRg = estadoRg;
+		this.cnh = cnh;
+		this.nomePai = nomePai;
+		this.nomeMae = nomeMae;
+		this.email = email;
+		this.telefone1 = telefone1;
+		this.telefone2 = telefone2;
+		this.digital = digital;
+		this.login = login;
+		this.senha = senha;
+		this.foto = foto;
+		this.dataCriacao = dataCriacao;
+	}
 
 	public int getIdUsuario() {
 		return idUsuario;
@@ -71,14 +104,6 @@ public class Usuario implements Serializable {
 
 	public void setDataCriacao(Date dataCriacao) {
 		this.dataCriacao = dataCriacao;
-	}
-
-	public Collection<Vinculo> getVinculos() {
-		return vinculos;
-	}
-
-	public void setVinculos(Collection<Vinculo> vinculos) {
-		this.vinculos = vinculos;
 	}
 
 	public String getNome() {
@@ -193,12 +218,11 @@ public class Usuario implements Serializable {
 		this.telefone2 = telefone2;
 	}
 
-	public String getDigital() {
+	public byte[] getDigital() {
 		return digital;
 	}
 
-	public void setDigital(String digital) {
+	public void setDigital(byte[] digital) {
 		this.digital = digital;
 	}
-
 }

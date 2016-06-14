@@ -2,6 +2,8 @@ package br.ufrn.imd.view.justificativaFalta;
 
 import java.io.IOException;
 
+import br.ufrn.imd.dominio.TipoJustificativa;
+import br.ufrn.imd.dominio.Vinculo;
 import br.ufrn.imd.main.ImdAuth;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -16,7 +18,7 @@ public class JustificativaUsuarioEditarController {
 	@FXML
 	private Button btnCancelar;
 	@FXML
-	private ComboBox cbTipoJustificativa;
+	private ComboBox<TipoJustificativa> cbTipoJustificativa;
 	@FXML
 	private DatePicker dpDataInicial;
 	@FXML
@@ -24,7 +26,7 @@ public class JustificativaUsuarioEditarController {
 	@FXML
 	private TextArea taDescricao;
 	@FXML
-	private ComboBox cbVinculo;
+	private ComboBox<Vinculo> cbVinculo;
 	@FXML
 	private TextField tfComprovante;
 	@FXML

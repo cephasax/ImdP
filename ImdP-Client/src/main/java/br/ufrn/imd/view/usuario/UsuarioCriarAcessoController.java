@@ -39,7 +39,7 @@ public class UsuarioCriarAcessoController {
 		this.imdAuth = imdAuth;
 
 	}
-	
+
 	@FXML
 	public void handleCancelar() throws IOException {
 		imdAuth.iniciarTelaPrincipal();

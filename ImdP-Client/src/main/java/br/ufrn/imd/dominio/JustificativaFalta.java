@@ -3,32 +3,56 @@ package br.ufrn.imd.dominio;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class JustificativaFalta implements Serializable {
 	private static final long serialVersionUID = -4432018474136066836L;
 
 	private int idJustificativaFalta;
 
 	private Date dataInicio;
+
 	private Date dataFim;
 
-//	@JoinColumn(name = "idVinculo")
 	private Vinculo vinculo;
 
-//	@JoinColumn(name = "idTipoJustificativa")
 	private TipoJustificativa tipoJustificativa;
 
-//	@JoinColumn(name = "idUsuario")
 	private Usuario gestor;
-
 	private String descricao;
+
 	private Date dataEnvio;
 	private char situacao;
-
 	private String observacaoAnalise;
+
 	private Date dataAnalise;
 	private int cargaHorariaAbonada;
 	private int cargaHorariaNaoAbonada;
 	private String comprovante;
+
+	public JustificativaFalta() {
+
+	}
+
+	public JustificativaFalta(Date dataInicio, Date dataFim, Vinculo vinculo, TipoJustificativa tipoJustificativa,
+			Usuario gestor, String descricao, Date dataEnvio, char situacao, String observacaoAnalise, Date dataAnalise,
+			int cargaHorariaAbonada, int cargaHorariaNaoAbonada, String comprovante) {
+		super();
+		this.dataInicio = dataInicio;
+		this.dataFim = dataFim;
+		this.vinculo = vinculo;
+		this.tipoJustificativa = tipoJustificativa;
+		this.gestor = gestor;
+		this.descricao = descricao;
+		this.dataEnvio = dataEnvio;
+		this.situacao = situacao;
+		this.observacaoAnalise = observacaoAnalise;
+		this.dataAnalise = dataAnalise;
+		this.cargaHorariaAbonada = cargaHorariaAbonada;
+		this.cargaHorariaNaoAbonada = cargaHorariaNaoAbonada;
+		this.comprovante = comprovante;
+	}
 
 	public int getIdJustificativaFalta() {
 		return idJustificativaFalta;

@@ -2,6 +2,7 @@ package br.ufrn.imd.view.setor;
 
 import java.io.IOException;
 
+import br.ufrn.imd.dominio.Unidade;
 import br.ufrn.imd.main.ImdAuth;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -19,7 +20,7 @@ public class SetorCriarController {
 	@FXML
 	private Button btnCancelar;
 	@FXML
-	private ComboBox cbUnidade;
+	private ComboBox<Unidade> cbUnidade;
 
 	private ImdAuth imdAuth;
 

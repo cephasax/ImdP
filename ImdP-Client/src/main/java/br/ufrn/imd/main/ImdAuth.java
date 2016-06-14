@@ -2,11 +2,18 @@ package br.ufrn.imd.main;
 
 import java.io.IOException;
 
+import br.ufrn.imd.dominio.Cargo;
+import br.ufrn.imd.dominio.Maquina;
+import br.ufrn.imd.dominio.Ponto;
+import br.ufrn.imd.dominio.Setor;
+import br.ufrn.imd.dominio.TipoJustificativa;
+import br.ufrn.imd.dominio.Unidade;
+import br.ufrn.imd.dominio.Usuario;
+import br.ufrn.imd.dominio.Vinculo;
 import br.ufrn.imd.view.cargo.CargoBuscarController;
 import br.ufrn.imd.view.cargo.CargoCriarController;
 import br.ufrn.imd.view.cargo.CargoEditarController;
 import br.ufrn.imd.view.cargo.CargoListarController;
-import br.ufrn.imd.view.fingerprint.EnrollmentDialog;
 import br.ufrn.imd.view.fingerprint.MainForm;
 import br.ufrn.imd.view.justificativaFalta.JustificativaBuscarController;
 import br.ufrn.imd.view.justificativaFalta.JustificativaCriarController;
@@ -125,13 +132,15 @@ public class ImdAuth extends Application {
 		controller.setMainApp(this);
 	}
 
-	public void iniciarCargoEditar() throws IOException {
+	public void iniciarCargoEditar(Cargo cargo) throws IOException {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(ImdAuth.class.getResource("../view/cargo/CargoEditar.fxml"));
 		AnchorPane newScreen = (AnchorPane) loader.load();
 
 		rootLayout.setCenter(newScreen);
 		CargoEditarController controller = loader.getController();
+
+		controller.setCargo(cargo);
 		controller.setMainApp(this);
 	}
 
@@ -225,13 +234,14 @@ public class ImdAuth extends Application {
 		controller.setMainApp(this);
 	}
 
-	public void iniciarMaquinaEditar() throws IOException {
+	public void iniciarMaquinaEditar(Maquina maquina) throws IOException {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(ImdAuth.class.getResource("../view/maquina/MaquinaEditar.fxml"));
 		AnchorPane newScreen = (AnchorPane) loader.load();
 
 		rootLayout.setCenter(newScreen);
 		MaquinaEditarController controller = loader.getController();
+		controller.setMaquina(maquina);
 		controller.setMainApp(this);
 	}
 
@@ -275,13 +285,14 @@ public class ImdAuth extends Application {
 		controller.setMainApp(this);
 	}
 
-	public void iniciarPontoGestorEditar() throws IOException {
+	public void iniciarPontoGestorEditar(Ponto ponto) throws IOException {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(ImdAuth.class.getResource("../view/ponto/PontoGestorEditar.fxml"));
 		AnchorPane newScreen = (AnchorPane) loader.load();
 
 		rootLayout.setCenter(newScreen);
 		PontoGestorEditarController controller = loader.getController();
+		controller.setPonto(ponto);
 		controller.setMainApp(this);
 	}
 
@@ -345,13 +356,14 @@ public class ImdAuth extends Application {
 		controller.setMainApp(this);
 	}
 
-	public void iniciarSetorEditar() throws IOException {
+	public void iniciarSetorEditar(Setor setor) throws IOException {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(ImdAuth.class.getResource("../view/setor/SetorEditar.fxml"));
 		AnchorPane newScreen = (AnchorPane) loader.load();
 
 		rootLayout.setCenter(newScreen);
 		SetorEditarController controller = loader.getController();
+		controller.setSetor(setor);
 		controller.setMainApp(this);
 	}
 
@@ -385,13 +397,14 @@ public class ImdAuth extends Application {
 		controller.setMainApp(this);
 	}
 
-	public void iniciarTipoJustificativaEditar() throws IOException {
+	public void iniciarTipoJustificativaEditar(TipoJustificativa tipoJustificativa) throws IOException {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(ImdAuth.class.getResource("../view/tipoJustificativa/TipoJustificativaEditar.fxml"));
 		AnchorPane newScreen = (AnchorPane) loader.load();
 
 		rootLayout.setCenter(newScreen);
 		TipoJustificativaEditarController controller = loader.getController();
+		controller.setTipoJustificativa(tipoJustificativa);
 		controller.setMainApp(this);
 	}
 
@@ -425,13 +438,14 @@ public class ImdAuth extends Application {
 		controller.setMainApp(this);
 	}
 
-	public void iniciarUnidadeEditar() throws IOException {
+	public void iniciarUnidadeEditar(Unidade unidade) throws IOException {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(ImdAuth.class.getResource("../view/unidade/UnidadeEditar.fxml"));
 		AnchorPane newScreen = (AnchorPane) loader.load();
 
 		rootLayout.setCenter(newScreen);
 		UnidadeEditarController controller = loader.getController();
+		controller.setUnidade(unidade);
 		controller.setMainApp(this);
 	}
 
@@ -475,13 +489,14 @@ public class ImdAuth extends Application {
 		controller.setMainApp(this);
 	}
 
-	public void iniciarUsuarioEditar() throws IOException {
+	public void iniciarUsuarioEditar(Usuario usuario) throws IOException {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(ImdAuth.class.getResource("../view/usuario/UsuarioEditar.fxml"));
 		AnchorPane newScreen = (AnchorPane) loader.load();
 
 		rootLayout.setCenter(newScreen);
 		UsuarioEditarController controller = loader.getController();
+		controller.setUsuario(usuario);
 		controller.setMainApp(this);
 	}
 
@@ -515,13 +530,14 @@ public class ImdAuth extends Application {
 		controller.setMainApp(this);
 	}
 
-	public void iniciarVinculoEditar() throws IOException {
+	public void iniciarVinculoEditar(Vinculo vinculo) throws IOException {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(ImdAuth.class.getResource("../view/vinculo/VinculoEditar.fxml"));
 		AnchorPane newScreen = (AnchorPane) loader.load();
 
 		rootLayout.setCenter(newScreen);
 		VinculoEditarController controller = loader.getController();
+		controller.setVinculo(vinculo);
 		controller.setMainApp(this);
 	}
 

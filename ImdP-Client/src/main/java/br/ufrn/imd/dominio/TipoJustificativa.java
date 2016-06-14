@@ -1,16 +1,24 @@
 package br.ufrn.imd.dominio;
 
 import java.io.Serializable;
-import java.util.Collection;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class TipoJustificativa implements Serializable {
 	private static final long serialVersionUID = 8868548151221158266L;
 
 	private int idTipoJustificativa;
-	
+
 	private String nome;
-	
-	private Collection<JustificativaFalta> justificativas;
+
+	public TipoJustificativa() {
+		super();
+	}
+
+	public TipoJustificativa(String nome) {
+		this.nome = nome;
+	}
 
 	public int getIdTipoJustificativa() {
 		return idTipoJustificativa;
@@ -27,14 +35,4 @@ public class TipoJustificativa implements Serializable {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-
-	public Collection<JustificativaFalta> getJustificativas() {
-		return justificativas;
-	}
-
-	public void setJustificativas(Collection<JustificativaFalta> justificativas) {
-		this.justificativas = justificativas;
-	}
-	
-	
 }

@@ -2,6 +2,7 @@ package br.ufrn.imd.view.ponto;
 
 import java.io.IOException;
 
+import br.ufrn.imd.dominio.Vinculo;
 import br.ufrn.imd.main.ImdAuth;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -11,7 +12,7 @@ public class PontoConfirmarController {
 	@FXML
 	private Button btnCancelar;
 	@FXML
-	private ComboBox cbVinculo;
+	private ComboBox<Vinculo> cbVinculo;
 	@FXML
 	private Button btnAutenticar;
 

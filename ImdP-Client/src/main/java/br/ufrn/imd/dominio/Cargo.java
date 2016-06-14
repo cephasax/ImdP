@@ -1,15 +1,23 @@
 package br.ufrn.imd.dominio;
 
 import java.io.Serializable;
-import java.util.Collection;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class Cargo implements Serializable {
 	private static final long serialVersionUID = 858455918925207560L;
 
 	private int idCargo;
 	private String nome;
-
-	private Collection<Vinculo> vinculos;
+	
+	public Cargo(){
+		
+	}
+	
+	public Cargo(String nome){
+		this.nome = nome;
+	}
 
 	public int getIdCargo() {
 		return idCargo;
@@ -25,14 +33,6 @@ public class Cargo implements Serializable {
 
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-
-	public Collection<Vinculo> getVinculos() {
-		return vinculos;
-	}
-
-	public void setVinculos(Collection<Vinculo> vinculos) {
-		this.vinculos = vinculos;
 	}
 
 }

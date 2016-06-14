@@ -7,6 +7,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -61,14 +62,12 @@ public class MesTrabalhoResource {
 	@Consumes("application/json")
 	@Produces("application/json; charset=UTF-8")
 	public Response novo(MesTrabalho mesTrabalho) {
-		MesTrabalho mt = new MesTrabalho();
-		
 		try{
 			service.save(mesTrabalho);
-			return Response.status(200).entity(mt).build();
+			return Response.status(200).entity(mesTrabalho).build();
 		}
 		catch (Exception e){
-			return Response.status(204).entity(mt).build();
+			return Response.status(204).entity(mesTrabalho).build();
 		}
 	}
 	
@@ -108,8 +107,9 @@ public class MesTrabalhoResource {
 	@GET
 	@Path("/mesesTrabalhoFilter")
 	@Produces("application/json; charset=UTF-8")
-	public List<MesTrabalho> buscaFiltro(@QueryParam("ano")int ano,
-			@QueryParam("numeroMes") int numeroMes) {
+	public List<MesTrabalho> buscaFiltro(
+			@DefaultValue("0")@QueryParam("ano")int ano,
+			@DefaultValue("0")@QueryParam("numeroMes") int numeroMes) {
 		
 		ArrayList<MesTrabalho> mts = new ArrayList<MesTrabalho>();
 		mts = service.buscarFiltro(ano, numeroMes);

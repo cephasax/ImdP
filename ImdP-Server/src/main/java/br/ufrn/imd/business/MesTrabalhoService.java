@@ -90,7 +90,7 @@ public class MesTrabalhoService{
 		}
 		
 		//MES
-		if (mesTrabalho.getIdMesTrabalho() <= 0 || mesTrabalho.getIdMesTrabalho() > 12){
+		if (mesTrabalho.getMes() <= 0 || mesTrabalho.getMes() > 12){
 			hasError = true;
 		}
 		

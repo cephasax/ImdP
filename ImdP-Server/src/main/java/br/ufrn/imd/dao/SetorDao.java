@@ -78,7 +78,7 @@ public class SetorDao extends GenericDao {
 		
 		//CONSTRUCAO DA CONSULTA SQL
 		String sql = " Select s FROM Setor s"
-				+ "JOIN s.Unidade unidade";
+				+ " JOIN s.Unidade unidade";
 		
 		StringBuilder where = new StringBuilder();
 		where.append(" WHERE 1 = 1 ");

@@ -7,6 +7,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -110,7 +111,7 @@ public class SetorResource {
 	@GET
 	@Path("/setoresFilter")
 	@Produces("application/json; charset=UTF-8")
-	public List<Setor> buscaFiltro(@QueryParam("nomeSetor") String nomeSetor, 
+	public List<Setor> buscaFiltro(@DefaultValue("")@QueryParam("nomeSetor") String nomeSetor, 
 			@QueryParam("idUnidade")int idUnidade) {
 		
 		ArrayList<Setor> places = new ArrayList<Setor>();

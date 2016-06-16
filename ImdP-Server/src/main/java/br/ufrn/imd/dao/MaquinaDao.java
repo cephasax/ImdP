@@ -25,10 +25,10 @@ public class MaquinaDao extends GenericDao {
 		where.append(" WHERE 1 = 1 ");
 		
 		if (idUnidade > 0) {
-			where.append(" unidade.idUnidade = :idUnidade");
+			where.append(" and unidade.idUnidade = :idUnidade");
 		}
 		if (!nomeMaquina.equals("")){
-			where.append(" and lower(m.nome) like lower(:nomeMaquina) ");
+			where.append(" and lower(m.denominacao) like lower(:nomeMaquina) ");
 		}
 		StringBuilder sqlFinal = new StringBuilder();
 		sqlFinal.append(sql);

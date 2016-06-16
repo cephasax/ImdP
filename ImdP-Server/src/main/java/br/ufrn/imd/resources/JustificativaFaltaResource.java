@@ -7,6 +7,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -107,7 +108,7 @@ public class JustificativaFaltaResource {
 	@GET
 	@Path("/justificativasFaltaFilter")
 	@Produces("application/json; charset=UTF-8")
-	public List<JustificativaFalta> buscaFiltro(@QueryParam("nomeUsuario") String nomeUsuario, 
+	public List<JustificativaFalta> buscaFiltro(@DefaultValue("")@QueryParam("nomeUsuario") String nomeUsuario, 
 			@QueryParam("idUnidade")int idUnidade, @QueryParam("idSetor")int idSetor) {
 		
 		ArrayList<JustificativaFalta> jfs = new ArrayList<JustificativaFalta>();

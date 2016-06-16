@@ -7,6 +7,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -110,7 +111,7 @@ public class UsuarioResource {
 	@GET
 	@Path("/usuariosFilter")
 	@Produces("application/json; charset=UTF-8")
-	public List<Usuario> buscaFiltro(@QueryParam("nomeUsuario") String nomeUsuario, 
+	public List<Usuario> buscaFiltro(@DefaultValue("")@QueryParam("nomeUsuario") String nomeUsuario, 
 			@QueryParam("idUnidade")int idUnidade, @QueryParam("idSetor")int idSetor) {
 		
 		ArrayList<Usuario> users = new ArrayList<Usuario>();

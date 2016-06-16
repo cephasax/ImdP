@@ -7,6 +7,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -107,7 +108,7 @@ public class MaquinaResource {
 	@GET
 	@Path("/maquinasFilter")
 	@Produces("application/json; charset=UTF-8")
-	public List<Maquina> buscaFiltro(@QueryParam("nomeMaquina") String nomeMaquina, 
+	public List<Maquina> buscaFiltro(@DefaultValue("")@QueryParam("nomeMaquina") String nomeMaquina, 
 			@QueryParam("idUnidade")int idUnidade) {
 	
 		ArrayList<Maquina> maqs = new ArrayList<Maquina>();

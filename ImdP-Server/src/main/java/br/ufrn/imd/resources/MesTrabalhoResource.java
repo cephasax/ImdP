@@ -107,9 +107,8 @@ public class MesTrabalhoResource {
 	@GET
 	@Path("/mesesTrabalhoFilter")
 	@Produces("application/json; charset=UTF-8")
-	public List<MesTrabalho> buscaFiltro(
-			@DefaultValue("0")@QueryParam("ano")int ano,
-			@DefaultValue("0")@QueryParam("numeroMes") int numeroMes) {
+	public List<MesTrabalho> buscaFiltro(@QueryParam("ano")int ano,
+										@QueryParam("numeroMes") int numeroMes) {
 		
 		ArrayList<MesTrabalho> mts = new ArrayList<MesTrabalho>();
 		mts = service.buscarFiltro(ano, numeroMes);

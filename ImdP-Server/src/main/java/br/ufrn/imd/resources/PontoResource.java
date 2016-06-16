@@ -7,6 +7,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -110,7 +111,7 @@ public class PontoResource {
 	@GET
 	@Path("/pontosFilter")
 	@Produces("application/json; charset=UTF-8")
-	public List<Ponto> buscaFiltro(@QueryParam("nomePonto") String nomePonto, 
+	public List<Ponto> buscaFiltro(@DefaultValue("")@QueryParam("nomePonto") String nomePonto, 
 			@QueryParam("idUnidade")int idUnidade, @QueryParam("idSetor")int idSetor) {
 		
 		ArrayList<Ponto> dots = new ArrayList<Ponto>();

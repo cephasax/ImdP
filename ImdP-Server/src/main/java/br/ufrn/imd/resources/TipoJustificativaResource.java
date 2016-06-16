@@ -7,6 +7,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -81,11 +82,11 @@ public class TipoJustificativaResource {
 		TipoJustificativa tp = new TipoJustificativa();
 		try{
 			tp = service.buscar(tipoJustificativa.getIdTipoJustificativa());
-			service.update(tp);
-			return Response.status(200).entity(tp).build();
+			service.update(tipoJustificativa);
+			return Response.status(200).entity(tipoJustificativa).build();
 		}
 		catch (DadoNaoEncontradoException | DadoIncompletoException e){
-			return Response.status(204).entity(tp).build();
+			return Response.status(204).entity(tipoJustificativa).build();
 		}
 	}
 	
@@ -109,7 +110,8 @@ public class TipoJustificativaResource {
 	@GET
 	@Path("/tiposJustificativaFilter")
 	@Produces("application/json; charset=UTF-8")
-	public List<TipoJustificativa> buscaFiltro(@QueryParam(value = "nomeJustificativa") String nomeTipoJustificativa){
+	public List<TipoJustificativa> buscaFiltro(@DefaultValue("") @QueryParam(value = "nomeTipoJustificativa") 
+													String nomeTipoJustificativa){
 		
 		ArrayList<TipoJustificativa> tps = new ArrayList<TipoJustificativa>();
 		tps = service.buscarFiltro(nomeTipoJustificativa);

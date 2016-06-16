@@ -95,7 +95,7 @@ public class MaquinaService{
 			hasError = true;
 		}
 		
-		//id UNIDADE
+		//IdUNIDADE
 		if (maquina.getUnidade().getIdUnidade() <= 0){
 			hasError = true;
 		}

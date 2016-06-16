@@ -5,9 +5,9 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.persistence.NoResultException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -19,7 +19,6 @@ import javax.ws.rs.core.Response;
 
 import br.ufrn.imd.business.CargoService;
 import br.ufrn.imd.dominio.Cargo;
-import br.ufrn.imd.excecoes.DadoJaExisteException;
 import br.ufrn.imd.excecoes.DadoNaoEncontradoException;
 
 @Stateless
@@ -108,7 +107,7 @@ public class CargoResource {
 	@GET
 	@Path("/cargosFilter")
 	@Produces("application/json; charset=UTF-8")
-	public List<Cargo> buscaFiltro(@QueryParam("nomeCargo") String nomeCargo){
+	public List<Cargo> buscaFiltro(@DefaultValue("")@QueryParam("nomeCargo") String nomeCargo){
 		
 		ArrayList<Cargo> cargos = new ArrayList<Cargo>();
 		cargos = service.buscarFiltro(nomeCargo);

@@ -7,6 +7,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -109,7 +110,7 @@ public class VinculoResource {
 	@GET
 	@Path("/vinculosFilter")
 	@Produces("application/json; charset=UTF-8")
-	public List<Vinculo> buscaFiltro(@QueryParam("nomeUsuario") String nomeUsuario, 
+	public List<Vinculo> buscaFiltro(@DefaultValue("") @QueryParam("nomeUsuario") String nomeUsuario, 
 			@QueryParam("idUnidade")int idUnidade, @QueryParam("idSetor")int idSetor) {
 		
 		ArrayList<Vinculo> users = new ArrayList<Vinculo>();

@@ -32,8 +32,8 @@ public class VinculoDao extends GenericDao {
 		if (idSetor > 0) {
 			where.append(" and setor.idSetor = :idSetor");
 		}
-		if (!nomeUsuario.equals("")){
-			where.append(" and lower(v.usuario.nome) like lower(:nome) ");
+		if (!nomeUsuario.equals("") && (nomeUsuario != null)){
+			where.append(" and lower(usuario.nome) like lower(:nome) ");
 		}
 		StringBuilder sqlFinal = new StringBuilder();
 		sqlFinal.append(sql);
@@ -47,7 +47,7 @@ public class VinculoDao extends GenericDao {
 		if (idSetor > 0) {
 			query.setParameter("idSetor", idSetor);
 		}
-		if (!nomeUsuario.equals("")){
+		if (!nomeUsuario.equals("") && (nomeUsuario != null)){
 			query.setParameter("nome", "%"+nomeUsuario+"%");
 		}
 		
@@ -91,9 +91,8 @@ public class VinculoDao extends GenericDao {
 		
 		StringBuilder where = new StringBuilder();
 		where.append(" WHERE 1 = 1 ");
-		where.append(" and unidade.idUnidade = :idUnidade");
 		where.append(" and setor.idSetor = :idSetor");
-		where.append(" and v.usuario.cpf = :cpf ");
+		where.append(" and usuario.cpf = :cpf ");
 	
 		StringBuilder sqlFinal = new StringBuilder();
 		sqlFinal.append(sql);
@@ -101,7 +100,6 @@ public class VinculoDao extends GenericDao {
 		Query query = em.createQuery(sqlFinal.toString());
 		
 		//DEFINICAO DOS PARAMETROS DA CONSULTA
-		query.setParameter("idUnidade", vinculo.getSetor().getUnidade().getIdUnidade());
 		query.setParameter("idSetor", vinculo.getSetor().getIdSetor());
 		query.setParameter("cpf", vinculo.getUsuario().getCpf());
 		

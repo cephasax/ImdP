@@ -25,10 +25,10 @@ public class SetorDao extends GenericDao {
 		where.append(" WHERE 1 = 1 ");
 		
 		if (idUnidade > 0) {
-			where.append(" and s.unidade.idUnidade = :idUnidade");
+			where.append(" and unidade.idUnidade = :idUnidade");
 		}
 		if (!nomeSetor.equals("")){
-			where.append(" and lower(s.nomeSetor) like lower(:nomeSetor) ");
+			where.append(" and lower(s.nome) like lower(:nomeSetor) ");
 		}
 		StringBuilder sqlFinal = new StringBuilder();
 		sqlFinal.append(sql);
@@ -78,12 +78,12 @@ public class SetorDao extends GenericDao {
 		
 		//CONSTRUCAO DA CONSULTA SQL
 		String sql = " Select s FROM Setor s"
-				+ " JOIN s.Unidade unidade";
+				+ " JOIN s.unidade unidade";
 		
 		StringBuilder where = new StringBuilder();
 		where.append(" WHERE 1 = 1 ");
-		where.append(" and s.unidade.idUnidade = :idUnidade");
-		where.append(" and lower(s.nomeSetor) = lower(:nomeSetor) ");
+		where.append(" and unidade.idUnidade = :idUnidade");
+		where.append(" and lower(s.nome) = lower(:nomeSetor) ");
 		
 		StringBuilder sqlFinal = new StringBuilder();
 		sqlFinal.append(sql);

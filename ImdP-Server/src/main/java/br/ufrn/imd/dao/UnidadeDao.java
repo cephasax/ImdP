@@ -24,7 +24,7 @@ public class UnidadeDao extends GenericDao {
 		where.append(" WHERE 1 = 1 ");
 		
 		if (!nomeUnidade.equals("")){
-			where.append(" and lower(u.nomeUnidade) like lower(:nomeUnidade) ");
+			where.append(" and lower(u.nome) like lower(:nomeUnidade) ");
 		}
 		StringBuilder sqlFinal = new StringBuilder();
 		sqlFinal.append(sql);
@@ -74,7 +74,7 @@ public class UnidadeDao extends GenericDao {
 		StringBuilder where = new StringBuilder();
 		
 		where.append(" WHERE 1 = 1 ");
-		where.append(" and lower(u.nomeUnidade) = lower(:nomeUnidade) ");
+		where.append(" and lower(u.nome) = lower(:nomeUnidade) ");
 		
 		StringBuilder sqlFinal = new StringBuilder();
 		sqlFinal.append(sql);

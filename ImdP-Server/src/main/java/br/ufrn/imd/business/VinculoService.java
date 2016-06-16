@@ -77,23 +77,23 @@ public class VinculoService{
 		boolean hasError = false;
 		
 		//CAMPOS OBRIGATORIOS
-		//SETOR
-		if (vinculo.getSetor() == null){
+		//IdSETOR
+		if (vinculo.getSetor().getIdSetor() <= 0){
 			hasError = true;
 		}
 		
-		//USUARIO
-		if (vinculo.getUsuario() == null){
+		//IdUSUARIO
+		if (vinculo.getUsuario().getIdUsuario() <= 0){
 			hasError = true;
 		}
 		
-		//PERMISSAO
-		if (vinculo.getPermissao() == null){
+		//IdPERMISSAO
+		if (vinculo.getPermissao().getIdPermissao() <= 0){
 			hasError = true;
 		}
 		
 		//CARGA HORARIA DIARIA
-		if (vinculo.getCargaHorariaDiaria() < 0){
+		if (vinculo.getCargaHorariaDiaria() <= 0){
 			hasError = true;
 		}
 		

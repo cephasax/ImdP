@@ -22,7 +22,7 @@
         <Font size="14.0" />
       </font>
     </Text>
-    <TableView fx:id="tblSetores" layoutX="42.0" layoutY="57.0" prefHeight="388.0" prefWidth="717.0">
+    <TableView fx:id="tblSetores" layoutX="42.0" layoutY="57.0" onMouseClicked="#handleEditar" prefHeight="388.0" prefWidth="717.0">
       <columns>
         <TableColumn fx:id="setorNome" maxWidth="5000.0" minWidth="10.0" prefWidth="434.0" text="Nome" />
         <TableColumn fx:id="setorUnidade" maxWidth="5000.0" minWidth="10.0" prefWidth="282.0" text="Unidade" />
@@ -30,6 +30,6 @@
     </TableView>
     <Text layoutX="42.0" layoutY="463.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Clique duas vezes na linha para editar o setor" />
     <Button fx:id="btnCancelar" layoutX="637.0" layoutY="459.0" mnemonicParsing="false" onAction="#handleCancelar" text="Cancelar" />
-      <Button fx:id="btnExcluir" layoutX="709.0" layoutY="459.0" mnemonicParsing="false" text="Excluir" />
+      <Button fx:id="btnExcluir" layoutX="709.0" layoutY="459.0" mnemonicParsing="false" onAction="#handleExcluir" text="Excluir" />
   </children>
 </AnchorPane>

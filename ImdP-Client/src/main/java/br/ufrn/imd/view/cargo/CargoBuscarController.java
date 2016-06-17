@@ -42,8 +42,6 @@ public class CargoBuscarController {
 
 	private CargoService service = new CargoService();
 
-	private int resultado;
-
 	public void setMainApp(ImdAuth imdAuth) {
 		this.imdAuth = imdAuth;
 
@@ -72,7 +70,7 @@ public class CargoBuscarController {
 	@FXML
 	public void handleExcluir() throws IOException {
 		Cargo cargo = tblCargos.getSelectionModel().getSelectedItem();
-		resultado = service.CargoDeletar(cargo);
+		int resultado = service.CargoDeletar(cargo);
 
 		if (resultado == 200) {
 			Alert alert = new Alert(AlertType.CONFIRMATION);

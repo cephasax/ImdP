@@ -29,8 +29,6 @@ public class UnidadeCriarController implements Initializable{
 	
 	private UnidadeService service = new UnidadeService();
 	
-	private int resultado;
-
 	public UnidadeCriarController() {
 
 	}
@@ -48,7 +46,7 @@ public class UnidadeCriarController implements Initializable{
 	public void handleCadastrar() throws IOException {
 		Unidade unidade = new Unidade(tfNomeUnidade.getText());
 
-		resultado = service.UnidadeCriar(unidade);
+		int resultado = service.UnidadeCriar(unidade);
 		if(resultado == 200){
 			Alert alert = new Alert(AlertType.CONFIRMATION);
 			alert.setTitle("Feedback");

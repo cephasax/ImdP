@@ -16,7 +16,7 @@
         <Font size="20.0" />
       </font>
     </Text>
-    <TextField fx:id="tfUnidade" layoutX="230.0" layoutY="251.0" prefWidth="529.0" />
+    <TextField fx:id="tfNomeUnidade" layoutX="230.0" layoutY="251.0" prefWidth="529.0" />
     <ImageView fitHeight="20.259746551513672" fitWidth="104.00002819824107" layoutX="348.0" layoutY="516.0" pickOnBounds="true" preserveRatio="true">
       <image>
         <Image url="@../../../../../../resources/images/pontoAntigo/logosmall-old.png" />
@@ -27,7 +27,7 @@
         <Font size="14.0" />
       </font>
     </Text>
-    <Button fx:id="btnConfirmar" layoutX="652.0" layoutY="285.0" mnemonicParsing="false" text="Confirmar Edição" />
+    <Button fx:id="btnConfirmar" layoutX="652.0" layoutY="285.0" mnemonicParsing="false" onAction="#handleEditar" text="Confirmar Edição" />
     <Button fx:id="btnCancelar" layoutX="577.0" layoutY="285.0" mnemonicParsing="false" onAction="#handleCancelar" text="Cancelar" />
   </children>
 </AnchorPane>

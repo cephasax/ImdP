@@ -26,16 +26,16 @@
         <Font size="14.0" />
       </font>
     </Text>
-    <TableView fx:id="tblMaquinas" layoutX="42.0" layoutY="185.0" prefHeight="235.0" prefWidth="717.0">
+    <TableView fx:id="tblMaquinas" layoutX="42.0" layoutY="185.0" onMouseClicked="#handleEditar" prefHeight="235.0" prefWidth="717.0">
       <columns>
-        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="368.0" text="Nome" />
-        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="150.0" text="IP" />
-        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="198.0" text="Unidade" />
+        <TableColumn fx:id="maquinaNome" maxWidth="5000.0" minWidth="10.0" prefWidth="368.0" text="Nome" />
+        <TableColumn fx:id="maquinaIP" maxWidth="5000.0" minWidth="10.0" prefWidth="150.0" text="IP" />
+        <TableColumn fx:id="maquinaUnidade" maxWidth="5000.0" minWidth="10.0" prefWidth="198.0" text="Unidade" />
       </columns>
     </TableView>
     <Text layoutX="42.0" layoutY="438.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Clique duas vezes na linha para editar a máquina" />
     <Button fx:id="btnExcluir" layoutX="709.0" layoutY="430.0" mnemonicParsing="false" text="Excluir" />
-    <Button fx:id="btnBuscar" layoutX="704.0" layoutY="148.0" mnemonicParsing="false" text="Buscar" />
+    <Button fx:id="btnBuscar" layoutX="704.0" layoutY="148.0" mnemonicParsing="false" onMouseClicked="#handleBuscar" text="Buscar" />
     <Text fontSmoothingType="LCD" layoutX="95.0" layoutY="134.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome da Máquina:">
       <font>
         <Font size="15.0" fx:id="x1" />

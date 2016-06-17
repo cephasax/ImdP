@@ -16,6 +16,8 @@ import br.ufrn.imd.services.TipoJustificativaService;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -58,4 +60,34 @@ public class TipoJustificativaListarController implements Initializable {
 		tiposJustificativaNome.setCellValueFactory(new PropertyValueFactory<TipoJustificativa, String>("nome"));
 
 	}
+
+	@FXML
+	public void handleExcluir() throws IOException {
+		TipoJustificativa tipoJustificativa = tblTiposJustificativas.getSelectionModel().getSelectedItem();
+		int resultado = service.tipoJustificativaDeletar(tipoJustificativa);
+
+		if (resultado == 200) {
+			Alert alert = new Alert(AlertType.CONFIRMATION);
+			alert.setTitle("Feedback");
+			alert.setHeaderText(null);
+			alert.setContentText("Dado deletado!");
+
+			alert.showAndWait();
+			imdAuth.iniciarTipoJustificativaListar();
+		} else {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Feedback");
+			alert.setHeaderText(null);
+			alert.setContentText("Ocorreu um erro!");
+
+			alert.showAndWait();
+		}
+	}
+
+	@FXML
+	public void handleEditar() throws IOException {
+		TipoJustificativa tipoJustificativa = tblTiposJustificativas.getSelectionModel().getSelectedItem();
+		imdAuth.iniciarTipoJustificativaEditar(tipoJustificativa);
+	}
+
 }

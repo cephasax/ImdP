@@ -34,9 +34,7 @@ public class CargoListarController implements Initializable {
 	private TableColumn<Cargo, String> cargoNome;
 
 	private ImdAuth imdAuth;
-
-	private int resultado;
-
+	
 	private CargoService service = new CargoService();
 
 	public CargoListarController() throws Exception {
@@ -59,9 +57,6 @@ public class CargoListarController implements Initializable {
 		Type listType = new TypeToken<ArrayList<Cargo>>() {
 		}.getType();
 		List<Cargo> yourClassList = new Gson().fromJson(service.CargoListar(), listType);
-		for (int i = 0; i < yourClassList.size(); i++) {
-			System.out.println(yourClassList.get(i).getIdCargo() + " " + yourClassList.get(i).getNome());
-		}
 
 		tblCargos.setItems(FXCollections.observableArrayList(yourClassList));
 		cargoNome.setCellValueFactory(new PropertyValueFactory<Cargo, String>("nome"));
@@ -70,7 +65,7 @@ public class CargoListarController implements Initializable {
 	@FXML
 	public void handleExcluir() throws IOException {
 		Cargo cargo = tblCargos.getSelectionModel().getSelectedItem();
-		resultado = service.CargoDeletar(cargo);
+		int resultado = service.CargoDeletar(cargo);
 
 		if (resultado == 200) {
 			Alert alert = new Alert(AlertType.CONFIRMATION);

@@ -18,7 +18,7 @@ public class SetorService extends GenericService {
 
 	public String SetorListar() {
 		ResteasyWebTarget target = client
-				.target(getUrl() + getDomain() + getComplement() + getVersion() + "consulta/setors");
+				.target(getUrl() + getDomain() + getComplement() + getVersion() + "consulta/setores");
 		Response response = target.request().get();
 
 		String value = response.readEntity(String.class);
@@ -30,7 +30,7 @@ public class SetorService extends GenericService {
 
 	public int SetorCriar(Setor setor) {
 		ResteasyWebTarget add = client
-				.target(getUrl() + getDomain() + getComplement() + getVersion() + "consulta/setors");
+				.target(getUrl() + getDomain() + getComplement() + getVersion() + "consulta/setores");
 
 		Response addResponse = add.request().post(Entity.entity(setor, "application/json"));
 		System.out.println("HTTP Response Code:" + addResponse.getStatus());
@@ -43,7 +43,7 @@ public class SetorService extends GenericService {
 
 	public String SetorBuscar(String nome) {
 		ResteasyWebTarget target = client.target(
-				getUrl() + getDomain() + getComplement() + getVersion() + "consulta/setorsFilter?nomeSetor=" + nome);
+				getUrl() + getDomain() + getComplement() + getVersion() + "consulta/setoresFilter?nomeSetor=" + nome);
 		Response response = target.request().get();
 
 		System.out.println("HTTP Response Code:" + response.getStatus());
@@ -57,7 +57,7 @@ public class SetorService extends GenericService {
 
 	public int SetorDeletar(Setor setor) {
 		ResteasyWebTarget delete = client.target(
-				getUrl() + getDomain() + getComplement() + getVersion() + "consulta/setors/" + setor.getIdSetor());
+				getUrl() + getDomain() + getComplement() + getVersion() + "consulta/setores/" + setor.getIdSetor());
 
 		Response deleteResponse = delete.request().delete();
 		System.out.println("HTTP Response Code:" + deleteResponse.getStatus());
@@ -70,7 +70,7 @@ public class SetorService extends GenericService {
 	
 	public int SetorEditar(Setor setor){
 		ResteasyWebTarget update = client.target(
-				getUrl() + getDomain() + getComplement() + getVersion() + "consulta/setors/");
+				getUrl() + getDomain() + getComplement() + getVersion() + "consulta/setores/");
 
 		Response updateResponse = update.request().put(Entity.entity(setor, "application/json"));
 		System.out.println("HTTP Response Code:" + updateResponse.getStatus());

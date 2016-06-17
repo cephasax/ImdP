@@ -1,6 +1,8 @@
 package br.ufrn.imd.dominio;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.xml.bind.annotation.XmlRootElement;
@@ -11,6 +13,8 @@ public class Usuario implements Serializable {
 	private static final long serialVersionUID = 6952842832271889997L;
 
 	private int idUsuario;
+	
+    DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
 	private String nome;
 	private String sexo;

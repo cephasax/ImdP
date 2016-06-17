@@ -16,9 +16,9 @@ public class TipoJustificativaService extends GenericService {
 
 	}
 
-	public String TipoJustificativaListar() {
+	public String tipoJustificativaListar() {
 		ResteasyWebTarget target = client
-				.target(getUrl() + getDomain() + getComplement() + getVersion() + "consulta/tipoJustificativas");
+				.target(getUrl() + getDomain() + getComplement() + getVersion() + "consulta/tiposJustificativa");
 		Response response = target.request().get();
 
 		String value = response.readEntity(String.class);
@@ -28,9 +28,9 @@ public class TipoJustificativaService extends GenericService {
 		return value;
 	}
 
-	public int TipoJustificativaCriar(TipoJustificativa tipoJustificativa) {
+	public int tipoJustificativaCriar(TipoJustificativa tipoJustificativa) {
 		ResteasyWebTarget add = client
-				.target(getUrl() + getDomain() + getComplement() + getVersion() + "consulta/tipoJustificativas");
+				.target(getUrl() + getDomain() + getComplement() + getVersion() + "consulta/tiposJustificativa");
 
 		Response addResponse = add.request().post(Entity.entity(tipoJustificativa, "application/json"));
 		System.out.println("HTTP Response Code:" + addResponse.getStatus());
@@ -41,9 +41,9 @@ public class TipoJustificativaService extends GenericService {
 		return addResponse.getStatus();
 	}
 
-	public String TipoJustificativaBuscar(String nome) {
+	public String tipoJustificativaBuscar(String nome) {
 		ResteasyWebTarget target = client.target(
-				getUrl() + getDomain() + getComplement() + getVersion() + "consulta/tipoJustificativasFilter?nomeTipoJustificativa=" + nome);
+				getUrl() + getDomain() + getComplement() + getVersion() + "consulta/tiposJustificativaFilter?nomeTipoJustificativa=" + nome);
 		Response response = target.request().get();
 
 		System.out.println("HTTP Response Code:" + response.getStatus());
@@ -55,9 +55,9 @@ public class TipoJustificativaService extends GenericService {
 		return value;
 	}
 
-	public int TipoJustificativaDeletar(TipoJustificativa tipoJustificativa) {
+	public int tipoJustificativaDeletar(TipoJustificativa tipoJustificativa) {
 		ResteasyWebTarget delete = client.target(
-				getUrl() + getDomain() + getComplement() + getVersion() + "consulta/tipoJustificativas/" + tipoJustificativa.getIdTipoJustificativa());
+				getUrl() + getDomain() + getComplement() + getVersion() + "consulta/tiposJustificativa/" + tipoJustificativa.getIdTipoJustificativa());
 
 		Response deleteResponse = delete.request().delete();
 		System.out.println("HTTP Response Code:" + deleteResponse.getStatus());
@@ -68,9 +68,9 @@ public class TipoJustificativaService extends GenericService {
 		return deleteResponse.getStatus();
 	}
 	
-	public int TipoJustificativaEditar(TipoJustificativa tipoJustificativa){
+	public int tipoJustificativaEditar(TipoJustificativa tipoJustificativa){
 		ResteasyWebTarget update = client.target(
-				getUrl() + getDomain() + getComplement() + getVersion() + "consulta/tipoJustificativas/");
+				getUrl() + getDomain() + getComplement() + getVersion() + "consulta/tiposJustificativa/");
 
 		Response updateResponse = update.request().put(Entity.entity(tipoJustificativa, "application/json"));
 		System.out.println("HTTP Response Code:" + updateResponse.getStatus());

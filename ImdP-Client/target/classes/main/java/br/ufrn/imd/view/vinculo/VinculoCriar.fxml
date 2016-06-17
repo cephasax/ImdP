@@ -42,44 +42,58 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Label text="Setor:" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+            <Label text="Setor:" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <Label text="Ativo:" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+            <Label text="Ativo:" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <ComboBox fx:id="cbSetor" prefHeight="25.0" prefWidth="571.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1" />
-            <Label text="Carga horária semanal:" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+            <ComboBox fx:id="cbSetor" prefHeight="25.0" prefWidth="571.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2" />
+            <Label text="Carga horária semanal:" GridPane.halignment="CENTER" GridPane.rowIndex="5">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <Label text="Carga horária mensal:" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+            <Label text="Carga horária mensal:" GridPane.halignment="CENTER" GridPane.rowIndex="6">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <TextField fx:id="tfCargaHorariaSemanal" prefHeight="25.0" prefWidth="225.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField fx:id="tfCargaHorarioMensal" editable="false" prefHeight="25.0" prefWidth="225.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <ComboBox fx:id="cbCargo" prefHeight="25.0" prefWidth="570.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2" />
-            <ComboBox fx:id="cbUnidade" prefHeight="25.0" prefWidth="570.0" GridPane.columnIndex="1" GridPane.columnSpan="2" />
-            <Label text="Unidade:" GridPane.halignment="CENTER">
+            <TextField fx:id="tfCargaHorariaSemanal" prefHeight="25.0" prefWidth="225.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextField fx:id="tfCargaHorarioMensal" editable="false" prefHeight="25.0" prefWidth="225.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <ComboBox fx:id="cbCargo" prefHeight="25.0" prefWidth="570.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3" />
+            <ComboBox fx:id="cbUnidade" prefHeight="25.0" prefWidth="570.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1" />
+            <Label text="Unidade:" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <Label text="Cargo:" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+            <Label text="Cargo:" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <CheckBox fx:id="checkboxAtivo" mnemonicParsing="false" selected="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
+            <CheckBox fx:id="checkboxAtivo" mnemonicParsing="false" selected="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
+            <Label fx:id="lblDescricao" text="Descrição:" GridPane.halignment="CENTER">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <TextField fx:id="tfDescricao" prefHeight="25.0" prefWidth="316.0" GridPane.columnIndex="1" GridPane.columnSpan="2" />
+            <Label text="Carga horária diária:" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <TextField fx:id="tfCargaHorariaDiaria" prefHeight="25.0" prefWidth="225.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
          </children>
       </GridPane>
   </children>

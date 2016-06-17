@@ -16,7 +16,7 @@ public class JustificativaFaltaService extends GenericService {
 		
 	}
 
-	public String JustificativaFaltaListar() {
+	public String justificativaFaltaListar() {
 		ResteasyWebTarget target = client
 				.target(getUrl() + getDomain() + getComplement() + getVersion() + "consulta/justificativaFaltas");
 		Response response = target.request().get();
@@ -28,7 +28,7 @@ public class JustificativaFaltaService extends GenericService {
 		return value;
 	}
 
-	public int JustificativaFaltaCriar(JustificativaFalta justificativaFalta) {
+	public int justificativaFaltaCriar(JustificativaFalta justificativaFalta) {
 		ResteasyWebTarget add = client
 				.target(getUrl() + getDomain() + getComplement() + getVersion() + "consulta/justificativaFaltas");
 
@@ -41,7 +41,7 @@ public class JustificativaFaltaService extends GenericService {
 		return addResponse.getStatus();
 	}
 
-	public String JustificativaFaltaBuscar(String nome) {
+	public String justificativaFaltaBuscar(String nome) {
 		ResteasyWebTarget target = client.target(
 				getUrl() + getDomain() + getComplement() + getVersion() + "consulta/justificativaFaltasFilter?nomeJustificativaFalta=" + nome);
 		Response response = target.request().get();
@@ -55,7 +55,7 @@ public class JustificativaFaltaService extends GenericService {
 		return value;
 	}
 
-	public int JustificativaFaltaDeletar(JustificativaFalta justificativaFalta) {
+	public int justificativaFaltaDeletar(JustificativaFalta justificativaFalta) {
 		ResteasyWebTarget delete = client.target(
 				getUrl() + getDomain() + getComplement() + getVersion() + "consulta/justificativaFaltas/" + justificativaFalta.getIdJustificativaFalta());
 
@@ -68,7 +68,7 @@ public class JustificativaFaltaService extends GenericService {
 		return deleteResponse.getStatus();
 	}
 	
-	public int JustificativaFaltaEditar(JustificativaFalta justificativaFalta){
+	public int justificativaFaltaEditar(JustificativaFalta justificativaFalta){
 		ResteasyWebTarget update = client.target(
 				getUrl() + getDomain() + getComplement() + getVersion() + "consulta/justificativaFaltas/");
 

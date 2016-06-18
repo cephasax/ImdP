@@ -16,22 +16,18 @@ public class UsuarioDao extends GenericDao {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public ArrayList<Usuario> buscarUsuarioFiltro(String nomeUsuario, int idUnidade, int idSetor) {
+	public ArrayList<Usuario> buscarUsuarioFiltro(String nomeUsuario, String cpf) {
 		
 		//CONSTRUCAO DA CONSULTA SQL
-		String sql = " Select u FROM Usuario u"
-				+ " JOIN u.vinculo vinculo"
-				+ " JOIN vinculo.setor setor"
-				+ "	JOIN setor.unidade unidade";
+		String sql = "SELECT u FROM Usuario u";
+				
 		StringBuilder where = new StringBuilder();
 		where.append(" WHERE 1 = 1 ");
 		
-		if (idUnidade > 0) {
-			where.append(" and unidade.idUnidade = :idUnidade");
+		if (!cpf.equals("")){
+			where.append(" and u.cpf like :cpf");
 		}
-		if (idSetor > 0) {
-			where.append(" and setor.idSetor = :idSetor");
-		}
+		
 		if (!nomeUsuario.equals("")){
 			where.append(" and lower(u.nome) like lower(:nomeUsuario) ");
 		}
@@ -41,11 +37,8 @@ public class UsuarioDao extends GenericDao {
 		Query query = em.createQuery(sqlFinal.toString());
 		
 		//DEFINICAO DOS PARAMETROS DA CONSULTA
-		if (idUnidade > 0) {
-			query.setParameter("idUnidade", idUnidade);
-		}
-		if (idSetor > 0) {
-			query.setParameter("idSetor", idSetor);
+		if (!cpf.equals("")){
+			query.setParameter("cpf", "%"+cpf+"%");
 		}
 		if (!nomeUsuario.equals("")){
 			query.setParameter("nomeUsuario", "%"+nomeUsuario+"%");

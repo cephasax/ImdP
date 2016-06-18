@@ -65,9 +65,9 @@ public class UsuarioService{
 		}
 	}
 	
-	public ArrayList<Usuario> buscarFiltro(String nomeUsuario, int idUnidade, int idSetor){
+	public ArrayList<Usuario> buscarFiltro(String nomeUsuario, String cpf){
 		ArrayList<Usuario> users = new ArrayList<Usuario>();
-		users = usuarioDao.buscarUsuarioFiltro(nomeUsuario, idUnidade, idSetor);
+		users = usuarioDao.buscarUsuarioFiltro(nomeUsuario, cpf);
 		if(users.size() > 0){
 			return users;
 		}

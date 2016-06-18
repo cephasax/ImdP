@@ -5,31 +5,47 @@ import java.util.ArrayList;
 import javax.persistence.Query;
 
 import br.ufrn.imd.dominio.Cargo;
+import br.ufrn.imd.dominio.Usuario;
 import dao.Banco;
 
 public class Teste {
 
 	public static void main(String[] args) {
-		String nomeCargo = "de";
-		String sql = " Select c FROM Cargo c";
-		StringBuilder where = new StringBuilder();
-		where.append(" WHERE 1 = 1");
-		where.append(" and lower(c.nome) like lower(:nome) ");
+		String cpf = "67";
+		String nomeUsuario = "mo";
 		
+		//CONSTRUCAO DA CONSULTA SQL
+		String sql = "SELECT u FROM Usuario u";
+				
+		StringBuilder where = new StringBuilder();
+		where.append(" WHERE 1 = 1 ");
+		
+		if (!cpf.equals("")){
+			where.append(" and u.cpf like :cpf");
+		}
+		
+		if (!nomeUsuario.equals("")){
+			where.append(" and lower(u.nome) like lower(:nomeUsuario) ");
+		}
 		StringBuilder sqlFinal = new StringBuilder();
 		sqlFinal.append(sql);
 		sqlFinal.append(where.toString());	
 		Query query = Banco.getInstance().getEntityManager().createQuery(sqlFinal.toString());
 		
 		//DEFINICAO DOS PARAMETROS DA CONSULTA
-		query.setParameter("nome", "%"+nomeCargo+"%");
+		if (!cpf.equals("")){
+			query.setParameter("cpf", "%"+cpf+"%");
+		}
+		if (!nomeUsuario.equals("")){
+			query.setParameter("nomeUsuario", "%"+nomeUsuario+"%");
+		}
 		
-		//EXECUCAO E RETORNO
-		ArrayList<Cargo> cargos = new ArrayList<Cargo>();
-		cargos = (ArrayList<Cargo>)query.getResultList();
+		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+		usuarios = (ArrayList<Usuario>)query.getResultList();
+		System.out.println(usuarios.size());
 
-		for(Cargo c: cargos){
-			System.out.println(c.getNome());
+		for(Usuario u: usuarios){
+			System.out.println(u.getNome() + " - " + u.getCpf());
 		}
 	}
 

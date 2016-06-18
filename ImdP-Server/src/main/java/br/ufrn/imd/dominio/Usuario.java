@@ -1,12 +1,14 @@
 package br.ufrn.imd.dominio;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -22,6 +24,10 @@ public class Usuario implements Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_USUARIO")
 	private int idUsuario;
 
+	@OneToMany(mappedBy="usuario")
+	private Collection<Vinculo> vinculos;
+	
+	
 	private String nome;
 	private String sexo;
 	

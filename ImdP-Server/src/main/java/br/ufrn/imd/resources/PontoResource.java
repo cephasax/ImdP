@@ -83,11 +83,11 @@ public class PontoResource {
 		Ponto dot = new Ponto();
 		try{
 			dot = service.buscar(ponto.getIdPonto());
-			service.update(dot);
-			return Response.status(200).entity(dot).build();
+			service.update(ponto);
+			return Response.status(200).entity(ponto).build();
 		}
 		catch (DadoNaoEncontradoException | DadoIncompletoException e){
-			return Response.status(204).entity(dot).build();
+			return Response.status(204).entity(ponto).build();
 		}
 	}
 	
@@ -111,11 +111,11 @@ public class PontoResource {
 	@GET
 	@Path("/pontosFilter")
 	@Produces("application/json; charset=UTF-8")
-	public List<Ponto> buscaFiltro(@DefaultValue("")@QueryParam("nomePonto") String nomePonto, 
+	public List<Ponto> buscaFiltro(@DefaultValue("")@QueryParam("nomeUsuario") String nomeUsuario, 
 			@QueryParam("idUnidade")int idUnidade, @QueryParam("idSetor")int idSetor) {
 		
 		ArrayList<Ponto> dots = new ArrayList<Ponto>();
-		dots = service.buscarFiltro(nomePonto, idUnidade, idSetor);
+		dots = service.buscarFiltro(nomeUsuario, idUnidade, idSetor);
 		return dots;
 	}
 	
@@ -123,7 +123,7 @@ public class PontoResource {
 	@GET
 	@Path("/pontos/usuarios/{idUsuario}")
 	@Produces("application/json; charset=UTF-8")
-	public List<Ponto> buscaPontoUsuario(@PathParam("idUsuario") int idUsuario) {
+	public List<Ponto> buscaPontosUsuario(@PathParam("idUsuario") int idUsuario) {
 		
 		ArrayList<Ponto> dots = new ArrayList<Ponto>();
 		dots = service.buscarPontosUsuario(idUsuario);
@@ -133,7 +133,7 @@ public class PontoResource {
 	@GET
 	@Path("/pontos/vinculos/{idVinculo}")
 	@Produces("application/json; charset=UTF-8")
-	public List<Ponto> buscaPontoVinculo(@PathParam("idVinculo") int idVinculo) {
+	public List<Ponto> buscaPontosVinculo(@PathParam("idVinculo") int idVinculo) {
 		ArrayList<Ponto> dots = new ArrayList<Ponto>();
 		dots = service.buscarPontosVinculo(idVinculo);
 		return dots;

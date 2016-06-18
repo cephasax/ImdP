@@ -112,10 +112,10 @@ public class UsuarioResource {
 	@Path("/usuariosFilter")
 	@Produces("application/json; charset=UTF-8")
 	public List<Usuario> buscaFiltro(@DefaultValue("")@QueryParam("nomeUsuario") String nomeUsuario, 
-			@QueryParam("idUnidade")int idUnidade, @QueryParam("idSetor")int idSetor) {
+			@DefaultValue("")@QueryParam("cpf") String cpf) {
 		
 		ArrayList<Usuario> users = new ArrayList<Usuario>();
-		users = service.buscarFiltro(nomeUsuario, idUnidade, idSetor);
+		users = service.buscarFiltro(nomeUsuario, cpf);
 		return users;
 	}
 }

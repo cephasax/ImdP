@@ -64,9 +64,9 @@ public class PontoService{
 		}
 	}
 	
-	public ArrayList<Ponto> buscarFiltro(String nomePonto, int idUnidade, int idSetor){
+	public ArrayList<Ponto> buscarFiltro(String nomeUsuario, int idUnidade, int idSetor){
 		ArrayList<Ponto> pons = new ArrayList<Ponto>();
-		pons = pontoDao.buscarPontoFiltro(nomePonto, idUnidade, idSetor);
+		pons = pontoDao.buscarPontoFiltro(nomeUsuario, idUnidade, idSetor);
 		if(pons.size() > 0){
 			return pons;
 		}
@@ -112,7 +112,7 @@ public class PontoService{
 		}
 		
 		//MAQUINA
-		if (ponto.getMaquina() == null){
+		if (ponto.getMaquina().getIdMaquina() <= 0){
 			hasError = true;
 		}
 		

@@ -28,8 +28,6 @@ public class CargoEditarController implements Initializable {
 
 	private CargoService service = new CargoService();
 
-	private int resultado;
-
 	public void setCargo(Cargo cargo) {
 		this.cargo = cargo;
 		tfNomeCargo.setText(cargo.getNome());
@@ -51,7 +49,7 @@ public class CargoEditarController implements Initializable {
 	@FXML
 	public void handleEditar() throws IOException {
 		cargo.setNome(tfNomeCargo.getText());
-		resultado = service.CargoEditar(cargo);
+		int resultado = service.CargoEditar(cargo);
 
 		if (resultado == 200) {
 			Alert alert = new Alert(AlertType.CONFIRMATION);

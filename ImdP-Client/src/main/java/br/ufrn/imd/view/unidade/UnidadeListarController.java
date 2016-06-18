@@ -10,7 +10,6 @@ import java.util.ResourceBundle;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import br.ufrn.imd.dominio.Cargo;
 import br.ufrn.imd.dominio.Unidade;
 import br.ufrn.imd.main.ImdAuth;
 import br.ufrn.imd.services.UnidadeService;
@@ -18,10 +17,10 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class UnidadeListarController implements Initializable {
@@ -33,7 +32,7 @@ public class UnidadeListarController implements Initializable {
 	private Button btnCancelar;
 	@FXML
 	private TableColumn<Unidade, String> unidadeNome;
-	
+
 	private ImdAuth imdAuth;
 
 	private UnidadeService service = new UnidadeService();
@@ -61,12 +60,11 @@ public class UnidadeListarController implements Initializable {
 		unidadeNome.setCellValueFactory(new PropertyValueFactory<Unidade, String>("nome"));
 
 	}
-	
+
 	@FXML
 	public void handleExcluir() throws IOException {
 		Unidade unidade = tblUnidades.getSelectionModel().getSelectedItem();
-		int resultado;
-		resultado = service.UnidadeDeletar(unidade);
+		int resultado = service.UnidadeDeletar(unidade);
 
 		if (resultado == 200) {
 			Alert alert = new Alert(AlertType.CONFIRMATION);

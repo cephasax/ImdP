@@ -16,12 +16,14 @@ import br.ufrn.imd.services.SetorService;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class SetorListarController implements Initializable{
+public class SetorListarController implements Initializable {
 	@FXML
 	private TableView<Setor> tblSetores;
 	@FXML
@@ -35,7 +37,7 @@ public class SetorListarController implements Initializable{
 	private TableColumn<Setor, String> setorUnidade;
 
 	private ImdAuth imdAuth;
-	
+
 	private SetorService service = new SetorService();
 
 	public void setMainApp(ImdAuth imdAuth) {
@@ -59,5 +61,34 @@ public class SetorListarController implements Initializable{
 		tblSetores.setItems(FXCollections.observableArrayList(yourClassList));
 		setorNome.setCellValueFactory(new PropertyValueFactory<Setor, String>("nome"));
 		setorUnidade.setCellValueFactory(new PropertyValueFactory<Setor, String>("unidade"));
+	}
+
+	@FXML
+	public void handleExcluir() throws IOException {
+		Setor setor = tblSetores.getSelectionModel().getSelectedItem();
+		int resultado = service.SetorDeletar(setor);
+
+		if (resultado == 200) {
+			Alert alert = new Alert(AlertType.CONFIRMATION);
+			alert.setTitle("Feedback");
+			alert.setHeaderText(null);
+			alert.setContentText("Dado deletado!");
+
+			alert.showAndWait();
+			imdAuth.iniciarSetorListar();
+		} else {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Feedback");
+			alert.setHeaderText(null);
+			alert.setContentText("Ocorreu um erro!");
+
+			alert.showAndWait();
+		}
+	}
+
+	@FXML
+	public void handleEditar() throws IOException {
+		Setor setor = tblSetores.getSelectionModel().getSelectedItem();
+		imdAuth.iniciarSetorEditar(setor);
 	}
 }

@@ -17,6 +17,8 @@ import br.ufrn.imd.services.MaquinaService;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -35,7 +37,7 @@ public class MaquinaListarController implements Initializable {
 	private TableColumn<Maquina, String> maquinaIP;
 	@FXML
 	private TableColumn<Unidade, String> maquinaUnidade;
-	
+
 	private ImdAuth imdAuth;
 
 	private MaquinaService service = new MaquinaService();
@@ -55,14 +57,39 @@ public class MaquinaListarController implements Initializable {
 		Type listType = new TypeToken<ArrayList<Maquina>>() {
 		}.getType();
 		List<Maquina> yourClassList = new Gson().fromJson(service.MaquinaListar(), listType);
-		for (int i = 0; i < yourClassList.size(); i++) {
-			System.out.println(yourClassList.get(i).getIdMaquina() + " " + yourClassList.get(i).getDenominacao());
-		}
 
 		tblMaquinas.setItems(FXCollections.observableArrayList(yourClassList));
 		maquinaNome.setCellValueFactory(new PropertyValueFactory<Maquina, String>("denominacao"));
 		maquinaIP.setCellValueFactory(new PropertyValueFactory<Maquina, String>("ip"));
 		maquinaUnidade.setCellValueFactory(new PropertyValueFactory<Unidade, String>("unidade"));
+	}
 
+	@FXML
+	public void handleExcluir() throws IOException {
+		Maquina maquina = tblMaquinas.getSelectionModel().getSelectedItem();
+		int resultado = service.MaquinaDeletar(maquina);
+
+		if (resultado == 200) {
+			Alert alert = new Alert(AlertType.CONFIRMATION);
+			alert.setTitle("Feedback");
+			alert.setHeaderText(null);
+			alert.setContentText("Dado deletado!");
+
+			alert.showAndWait();
+			imdAuth.iniciarMaquinaListar();
+		} else {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Feedback");
+			alert.setHeaderText(null);
+			alert.setContentText("Ocorreu um erro!");
+
+			alert.showAndWait();
+		}
+	}
+
+	@FXML
+	public void handleEditar() throws IOException {
+		Maquina maquina = tblMaquinas.getSelectionModel().getSelectedItem();
+		imdAuth.iniciarMaquinaEditar(maquina);
 	}
 }

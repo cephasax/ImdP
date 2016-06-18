@@ -23,8 +23,6 @@ public class CargoCriarController {
 	
 	private CargoService service = new CargoService();
 	
-	private int resultado;
-
 	public void setMainApp(ImdAuth imdAuth) {
 		this.imdAuth = imdAuth;
 
@@ -38,7 +36,7 @@ public class CargoCriarController {
 	@FXML
 	public void handleCadastrar() throws IOException {
 		Cargo cargo = new Cargo(tfNomeCargo.getText());
-		
+		int resultado;
 		resultado = service.CargoCriar(cargo);
 		if(resultado == 200){
 			Alert alert = new Alert(AlertType.CONFIRMATION);

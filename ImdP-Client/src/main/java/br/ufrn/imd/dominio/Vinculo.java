@@ -41,20 +41,6 @@ public class Vinculo implements Serializable {
 		this.cargaHorariaMensal = cargaHorariaMensal;
 		this.situacao = situacao;
 	}
-	
-	
-
-	public Vinculo(String descricao, Cargo cargo, Setor setor, int cargaHorariaDiaria, int cargaHorariaSemanal,
-			int cargaHorariaMensal, char situacao) {
-		super();
-		this.descricao = descricao;
-		this.cargo = cargo;
-		this.setor = setor;
-		this.cargaHorariaDiaria = cargaHorariaDiaria;
-		this.cargaHorariaSemanal = cargaHorariaSemanal;
-		this.cargaHorariaMensal = cargaHorariaMensal;
-		this.situacao = situacao;
-	}
 
 	public int getIdVinculo() {
 		return idVinculo;

@@ -60,6 +60,7 @@ public class SetorEditarController implements Initializable {
 	public void handleEditar() throws IOException {
 		setor.setNome(tfNomeSetor.getText());
 		setor.setUnidade(cbUnidade.getSelectionModel().getSelectedItem());
+		
 		int resultado = service.SetorEditar(setor);
 
 		if (resultado == 200) {
@@ -69,7 +70,7 @@ public class SetorEditarController implements Initializable {
 			alert.setContentText("Dado editado!");
 
 			alert.showAndWait();
-			imdAuth.iniciarCargoListar();
+			imdAuth.iniciarSetorListar();
 		} else {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Feedback");

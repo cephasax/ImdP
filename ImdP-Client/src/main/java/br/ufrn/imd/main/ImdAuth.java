@@ -3,6 +3,7 @@ package br.ufrn.imd.main;
 import java.io.IOException;
 
 import br.ufrn.imd.dominio.Cargo;
+import br.ufrn.imd.dominio.JustificativaFalta;
 import br.ufrn.imd.dominio.Maquina;
 import br.ufrn.imd.dominio.Ponto;
 import br.ufrn.imd.dominio.Setor;
@@ -78,6 +79,7 @@ public class ImdAuth extends Application {
 	public void start(Stage primaryStage) throws IOException {
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("Biometric Auth IMD");
+//		this.primaryStage.getIcons().add(new Image("../../../../../resources/images/pontoAntigo/logoicon.png"));
 		showMainView();
 
 	}
@@ -194,13 +196,14 @@ public class ImdAuth extends Application {
 		controller.setMainApp(this);
 	}
 
-	public void iniciarJustificativaUsuarioEditar() throws IOException {
+	public void iniciarJustificativaUsuarioEditar(JustificativaFalta justificativaFalta) throws IOException {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(ImdAuth.class.getResource("../view/justificativaFalta/JustificativaUsuarioEditar.fxml"));
 		AnchorPane newScreen = (AnchorPane) loader.load();
 
 		rootLayout.setCenter(newScreen);
 		JustificativaUsuarioEditarController controller = loader.getController();
+		controller.setJustificativaFalta(justificativaFalta);
 		controller.setMainApp(this);
 	}
 
@@ -459,13 +462,14 @@ public class ImdAuth extends Application {
 		controller.setMainApp(this);
 	}
 
-	public void iniciarUsuarioCriarAcesso() throws IOException {
+	public void iniciarUsuarioCriarAcesso(Usuario usuario) throws IOException {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(ImdAuth.class.getResource("../view/usuario/UsuarioCriarAcesso.fxml"));
 		AnchorPane newScreen = (AnchorPane) loader.load();
 
 		rootLayout.setCenter(newScreen);
 		UsuarioCriarAcessoController controller = loader.getController();
+		controller.setUsuario(usuario);
 		controller.setMainApp(this);
 	}
 
@@ -479,13 +483,14 @@ public class ImdAuth extends Application {
 		controller.setMainApp(this);
 	}
 
-	public void iniciarUsuarioEditarAcesso() throws IOException {
+	public void iniciarUsuarioEditarAcesso(Usuario usuario) throws IOException {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(ImdAuth.class.getResource("../view/usuario/UsuarioEditarAcesso.fxml"));
 		AnchorPane newScreen = (AnchorPane) loader.load();
 
 		rootLayout.setCenter(newScreen);
 		UsuarioEditarAcessoController controller = loader.getController();
+		controller.setUsuario(usuario);
 		controller.setMainApp(this);
 	}
 

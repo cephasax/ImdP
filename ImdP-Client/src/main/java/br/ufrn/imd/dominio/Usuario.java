@@ -13,8 +13,8 @@ public class Usuario implements Serializable {
 	private static final long serialVersionUID = 6952842832271889997L;
 
 	private int idUsuario;
-	
-    DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+
+	DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
 	private String nome;
 	private String sexo;
@@ -68,6 +68,26 @@ public class Usuario implements Serializable {
 		this.senha = senha;
 		this.foto = foto;
 		this.dataCriacao = dataCriacao;
+	}
+
+	public Usuario(String nome, String sexo, Date dataNascimento, String cpf, String rg, String orgaoExpedicaoRg,
+			Date dataExpedicaoRg, String estadoRg, String cnh, String nomePai, String nomeMae, String email,
+			String telefone1, String telefone2) {
+		super();
+		this.nome = nome;
+		this.sexo = sexo;
+		this.dataNascimento = dataNascimento;
+		this.cpf = cpf;
+		this.rg = rg;
+		this.orgaoExpedicaoRg = orgaoExpedicaoRg;
+		this.dataExpedicaoRg = dataExpedicaoRg;
+		EstadoRg = estadoRg;
+		this.cnh = cnh;
+		this.nomePai = nomePai;
+		this.nomeMae = nomeMae;
+		this.email = email;
+		this.telefone1 = telefone1;
+		this.telefone2 = telefone2;
 	}
 
 	public int getIdUsuario() {

@@ -23,9 +23,9 @@
       </font>
     </Text>
     <Text layoutX="42.0" layoutY="463.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Clique duas vezes na linha para editar a pessoa" />
-    <Button fx:id="btnExcluir" layoutX="709.0" layoutY="455.0" mnemonicParsing="false" text="Excluir" />
+    <Button fx:id="btnExcluir" layoutX="709.0" layoutY="455.0" mnemonicParsing="false" onAction="#handleExcluir" text="Excluir" />
       <Button fx:id="btnCancelar" layoutX="637.0" layoutY="455.0" mnemonicParsing="false" onAction="#handleCancelar" text="Cancelar" />
-      <TableView fx:id="tblUsuarios" layoutX="42.0" layoutY="55.0" prefHeight="389.0" prefWidth="717.0">
+      <TableView fx:id="tblUsuarios" layoutX="42.0" layoutY="55.0" onMouseClicked="#handleEditar" prefHeight="389.0" prefWidth="717.0">
          <columns>
             <TableColumn fx:id="usuarioNome" maxWidth="5000.0" minWidth="10.0" prefWidth="246.0" text="Nome" />
             <TableColumn fx:id="usuarioCPF" prefWidth="146.0" text="CPF" />

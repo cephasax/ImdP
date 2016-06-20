@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import br.ufrn.imd.dominio.Cargo;
+import br.ufrn.imd.dominio.JustificativaFalta;
 import br.ufrn.imd.dominio.Maquina;
 import br.ufrn.imd.dominio.Ponto;
 import br.ufrn.imd.dominio.Setor;
@@ -149,8 +150,8 @@ public class InicioController implements Initializable {
 	}
 
 	@FXML
-	public void handleJustificativaUsuarioEditar() throws IOException {
-		imdAuth.iniciarJustificativaUsuarioEditar();
+	public void handleJustificativaUsuarioEditar(JustificativaFalta justificativaFalta) throws IOException {
+		imdAuth.iniciarJustificativaUsuarioEditar(justificativaFalta);
 	}
 
 	@FXML
@@ -279,8 +280,8 @@ public class InicioController implements Initializable {
 	}
 
 	@FXML
-	public void handleUsuarioCriarAcesso() throws IOException {
-		imdAuth.iniciarUsuarioCriarAcesso();
+	public void handleUsuarioCriarAcesso(Usuario usuario) throws IOException {
+		imdAuth.iniciarUsuarioCriarAcesso(usuario);
 	}
 
 	@FXML
@@ -294,8 +295,8 @@ public class InicioController implements Initializable {
 	}
 
 	@FXML
-	public void handleUsuarioEditarAcesso() throws IOException {
-		imdAuth.iniciarUsuarioEditarAcesso();
+	public void handleUsuarioEditarAcesso(Usuario usuario) throws IOException {
+		imdAuth.iniciarUsuarioEditarAcesso(usuario);
 	}
 
 	@FXML

@@ -2,8 +2,12 @@ package br.ufrn.imd.view.usuario;
 
 import java.io.IOException;
 
+import br.ufrn.imd.dominio.Usuario;
 import br.ufrn.imd.main.ImdAuth;
+import br.ufrn.imd.services.UsuarioService;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -27,8 +31,43 @@ public class UsuarioCriarAcessoController {
 
 	private ImdAuth imdAuth;
 
+	private UsuarioService service = new UsuarioService();
+
+	private Usuario usuario = new Usuario();
+
 	@FXML
 	public void handleBtnCadastrar() throws IOException {
+		if (confereSenha()) {
+			usuario.setLogin(tfLogin.getText());
+			usuario.setSenha(tfSenha.getText());
+			usuario.setFoto("foto");
+			usuario.setDigital(null);
+			int resultado;
+			resultado = service.usuarioCriar(usuario);
+			if (resultado == 200) {
+				Alert alert = new Alert(AlertType.CONFIRMATION);
+				alert.setTitle("Feedback");
+				alert.setHeaderText(null);
+				alert.setContentText("Dado criado!");
+
+				alert.showAndWait();
+				imdAuth.iniciarUsuarioListar();
+			} else {
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Feedback");
+				alert.setHeaderText(null);
+				alert.setContentText("Ocorreu um erro!");
+
+				alert.showAndWait();
+			}
+		} else {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Feedback");
+			alert.setHeaderText(null);
+			alert.setContentText("Ocorreu um erro!");
+
+			alert.showAndWait();
+		}
 	}
 
 	@FXML
@@ -43,5 +82,22 @@ public class UsuarioCriarAcessoController {
 	@FXML
 	public void handleCancelar() throws IOException {
 		imdAuth.iniciarTelaPrincipal();
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public boolean confereSenha() {
+		if (tfSenha.getText().equals(tfConfSenha.getText())) {
+			return true;
+		} else {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Feedback");
+			alert.setHeaderText(null);
+			alert.setContentText("Ocorreu um erro!\nSenhas não conferem.");
+			alert.showAndWait();
+			return false;
+		}
 	}
 }

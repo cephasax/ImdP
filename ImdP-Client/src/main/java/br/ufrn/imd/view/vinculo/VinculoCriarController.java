@@ -5,19 +5,24 @@ import java.lang.reflect.Type;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import br.ufrn.imd.dominio.Cargo;
+import br.ufrn.imd.dominio.Permissao;
 import br.ufrn.imd.dominio.Setor;
 import br.ufrn.imd.dominio.Unidade;
+import br.ufrn.imd.dominio.Usuario;
 import br.ufrn.imd.dominio.Vinculo;
 import br.ufrn.imd.main.ImdAuth;
 import br.ufrn.imd.services.CargoService;
 import br.ufrn.imd.services.SetorService;
 import br.ufrn.imd.services.UnidadeService;
+import br.ufrn.imd.services.UsuarioService;
 import br.ufrn.imd.services.VinculoService;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -38,11 +43,13 @@ public class VinculoCriarController implements Initializable {
 	@FXML
 	private TextField tfCargaHorariaSemanal;
 	@FXML
-	private TextField tfCargaHorarioMensal;
+	private TextField tfCargaHorariaMensal;
 	@FXML
 	private ComboBox<Cargo> cbCargo;
 	@FXML
 	private ComboBox<Unidade> cbUnidade;
+	@FXML
+	private ComboBox<Usuario> cbUsuario;
 	@FXML
 	private CheckBox checkboxAtivo;
 	@FXML
@@ -59,6 +66,8 @@ public class VinculoCriarController implements Initializable {
 	private SetorService serviceSetor = new SetorService();
 
 	private CargoService serviceCargo = new CargoService();
+	
+	private UsuarioService serviceUsuario = new UsuarioService();
 
 	public void setMainApp(ImdAuth imdAuth) {
 		this.imdAuth = imdAuth;
@@ -89,16 +98,25 @@ public class VinculoCriarController implements Initializable {
 		Collection<Cargo> cargos = new Gson().fromJson(serviceCargo.CargoListar(), listTypeC);
 
 		cbCargo.getItems().addAll(cargos);
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		Type listTypeUs = new TypeToken<ArrayList<Usuario>>() {
+		}.getType();
+		List<Usuario> usuarios = gson.fromJson(serviceUsuario.usuarioListar(), listTypeUs);
+		
+		cbUsuario.getItems().addAll(usuarios);
+
 	}
 
 	@FXML
 	public void handleCadastrar() throws IOException {
+		Permissao permissao = new Permissao(1, "Diretor");
+		
 		Vinculo vinculo = new Vinculo(tfDescricao.getText(), cbCargo.getSelectionModel().getSelectedItem(),
-				cbSetor.getSelectionModel().getSelectedItem(), Integer.parseInt(tfCargaHorariaDiaria.getText()),
-				Integer.parseInt(tfCargaHorariaSemanal.getText()), Integer.parseInt(tfCargaHorarioMensal.getText()),
-				marked(checkboxAtivo));
-		int resultado;
-		resultado = service.VinculoCriar(vinculo);
+				cbSetor.getSelectionModel().getSelectedItem(), cbUsuario.getSelectionModel().getSelectedItem(), permissao,
+				Integer.parseInt(tfCargaHorariaDiaria.getText()), Integer.parseInt(tfCargaHorariaSemanal.getText()),
+				Integer.parseInt(tfCargaHorariaMensal.getText()), marked(checkboxAtivo));
+		int resultado = service.VinculoCriar(vinculo);
 		if (resultado == 200) {
 			Alert alert = new Alert(AlertType.CONFIRMATION);
 			alert.setTitle("Feedback");

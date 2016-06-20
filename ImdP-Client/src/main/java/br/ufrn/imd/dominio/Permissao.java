@@ -16,6 +16,12 @@ public class Permissao implements Serializable {
 		super();
 	}
 
+	public Permissao(int idPermissao, String descricao) {
+		super();
+		this.idPermissao = idPermissao;
+		this.descricao = descricao;
+	}
+
 	public Permissao(String descricao) {
 		super();
 		this.descricao = descricao;

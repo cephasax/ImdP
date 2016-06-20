@@ -18,7 +18,7 @@ public class JustificativaFaltaService extends GenericService {
 
 	public String justificativaFaltaListar() {
 		ResteasyWebTarget target = client
-				.target(getUrl() + getDomain() + getComplement() + getVersion() + "consulta/justificativaFaltas");
+				.target(getUrl() + getDomain() + getComplement() + getVersion() + "consulta/justificativasFalta");
 		Response response = target.request().get();
 
 		String value = response.readEntity(String.class);
@@ -30,7 +30,7 @@ public class JustificativaFaltaService extends GenericService {
 
 	public int justificativaFaltaCriar(JustificativaFalta justificativaFalta) {
 		ResteasyWebTarget add = client
-				.target(getUrl() + getDomain() + getComplement() + getVersion() + "consulta/justificativaFaltas");
+				.target(getUrl() + getDomain() + getComplement() + getVersion() + "consulta/justificativasFalta");
 
 		Response addResponse = add.request().post(Entity.entity(justificativaFalta, "application/json"));
 		System.out.println("HTTP Response Code:" + addResponse.getStatus());
@@ -43,7 +43,7 @@ public class JustificativaFaltaService extends GenericService {
 
 	public String justificativaFaltaBuscar(String nome) {
 		ResteasyWebTarget target = client.target(
-				getUrl() + getDomain() + getComplement() + getVersion() + "consulta/justificativaFaltasFilter?nomeJustificativaFalta=" + nome);
+				getUrl() + getDomain() + getComplement() + getVersion() + "consulta/justificativasFaltaFilter?nomeJustificativaFalta=" + nome);
 		Response response = target.request().get();
 
 		System.out.println("HTTP Response Code:" + response.getStatus());
@@ -57,7 +57,7 @@ public class JustificativaFaltaService extends GenericService {
 
 	public int justificativaFaltaDeletar(JustificativaFalta justificativaFalta) {
 		ResteasyWebTarget delete = client.target(
-				getUrl() + getDomain() + getComplement() + getVersion() + "consulta/justificativaFaltas/" + justificativaFalta.getIdJustificativaFalta());
+				getUrl() + getDomain() + getComplement() + getVersion() + "consulta/justificativasFalta" + justificativaFalta.getIdJustificativaFalta());
 
 		Response deleteResponse = delete.request().delete();
 		System.out.println("HTTP Response Code:" + deleteResponse.getStatus());
@@ -70,7 +70,7 @@ public class JustificativaFaltaService extends GenericService {
 	
 	public int justificativaFaltaEditar(JustificativaFalta justificativaFalta){
 		ResteasyWebTarget update = client.target(
-				getUrl() + getDomain() + getComplement() + getVersion() + "consulta/justificativaFaltas/");
+				getUrl() + getDomain() + getComplement() + getVersion() + "consulta/justificativasFalta");
 
 		Response updateResponse = update.request().put(Entity.entity(justificativaFalta, "application/json"));
 		System.out.println("HTTP Response Code:" + updateResponse.getStatus());

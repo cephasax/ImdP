@@ -64,7 +64,6 @@ public class MaquinaEditarController implements Initializable {
 		maquina.setDenominacao(tfNomeMaquina.getText());
 		maquina.setIp(tfIP.getText());
 		maquina.setUnidade(cbUnidade.getSelectionModel().getSelectedItem());
-		
 
 		int resultado = service.MaquinaEditar(maquina);
 
@@ -93,6 +92,5 @@ public class MaquinaEditarController implements Initializable {
 		Collection<Unidade> unidades = new Gson().fromJson(serviceUnidade.UnidadeListar(), listType);
 
 		cbUnidade.getItems().addAll(unidades);
-
 	}
 }

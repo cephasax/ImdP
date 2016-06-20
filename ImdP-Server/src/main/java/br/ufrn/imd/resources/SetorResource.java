@@ -76,18 +76,17 @@ public class SetorResource {
 	
 	//UPDATE
 	@PUT
-	@Path("/setores/{id}")
+	@Path("/setores")
 	@Consumes("application/json")
 	@Produces("application/json; charset=UTF-8")
 	public Response update(Setor setor) {
-		Setor place = new Setor();
 		try{
-			place = service.buscar(setor.getIdSetor());
-			service.update(place);
-			return Response.status(200).entity(place).build();
+			Setor place = service.buscar(setor.getIdSetor());
+			service.update(setor);
+			return Response.status(200).entity(setor).build();
 		}
 		catch (DadoNaoEncontradoException | DadoIncompletoException e){
-			return Response.status(204).entity(place).build();
+			return Response.status(204).entity(setor).build();
 		}
 	}
 	

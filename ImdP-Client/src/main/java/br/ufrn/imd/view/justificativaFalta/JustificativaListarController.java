@@ -3,7 +3,6 @@ package br.ufrn.imd.view.justificativaFalta;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.net.URL;
-import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -22,6 +21,8 @@ import br.ufrn.imd.services.JustificativaFaltaService;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -31,7 +32,7 @@ public class JustificativaListarController implements Initializable {
 	@FXML
 	private Button brnCancelar;
 	@FXML
-	private TableView<JustificativaFalta> tblJustificativasFaltas;
+	private TableView<JustificativaFalta> tblJustificativasFalta;
 	@FXML
 	private Button btnExcluir;
 	@FXML
@@ -62,8 +63,8 @@ public class JustificativaListarController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		Gson gson = new Gson();
-		gson = new GsonBuilder().setDateFormat(DateFormat.FULL, DateFormat.FULL).create();
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+
 		Type listType = new TypeToken<ArrayList<JustificativaFalta>>() {
 		}.getType();
 		List<JustificativaFalta> yourClassList = gson.fromJson(service.justificativaFaltaListar(), listType);
@@ -72,13 +73,41 @@ public class JustificativaListarController implements Initializable {
 					yourClassList.get(i).getIdJustificativaFalta() + " " + yourClassList.get(i).getDescricao());
 		}
 
-		tblJustificativasFaltas.setItems(FXCollections.observableArrayList(yourClassList));
+		tblJustificativasFalta.setItems(FXCollections.observableArrayList(yourClassList));
 		justificativaUsuario.setCellValueFactory(new PropertyValueFactory<Usuario, String>("nome"));
-//		justificativaData.setCellValueFactory(new PropertyValueFactory<JustificativaFalta, String>("data"));
-		justificativaTipo.setCellValueFactory(new PropertyValueFactory<JustificativaFalta, String>("tipo"));
+		justificativaData.setCellValueFactory(new PropertyValueFactory<JustificativaFalta, Date>("dataInicio"));
+		justificativaTipo.setCellValueFactory(new PropertyValueFactory<JustificativaFalta, String>("tipoJustificativa"));
 		justificativaDescricao.setCellValueFactory(new PropertyValueFactory<JustificativaFalta, String>("descricao"));
 		justificativaUnidade.setCellValueFactory(new PropertyValueFactory<Unidade, String>("nome"));
-		justificativaSetor.setCellValueFactory(new PropertyValueFactory<Setor, String>("nome"));
+		justificativaSetor.setCellValueFactory(new PropertyValueFactory<Setor, String>("setor"));
+	}
+	
+	@FXML
+	public void handleExcluir() throws IOException {
+		JustificativaFalta justificativaFalta = tblJustificativasFalta.getSelectionModel().getSelectedItem();
+		int resultado = service.justificativaFaltaDeletar(justificativaFalta);
 
+		if (resultado == 200) {
+			Alert alert = new Alert(AlertType.CONFIRMATION);
+			alert.setTitle("Feedback");
+			alert.setHeaderText(null);
+			alert.setContentText("Dado deletado!");
+
+			alert.showAndWait();
+			imdAuth.iniciarJustificativaListar();
+		} else {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Feedback");
+			alert.setHeaderText(null);
+			alert.setContentText("Ocorreu um erro!");
+
+			alert.showAndWait();
+		}
+	}
+
+	@FXML
+	public void handleEditar() throws IOException {
+		JustificativaFalta justificativaFalta = tblJustificativasFalta.getSelectionModel().getSelectedItem();
+		imdAuth.iniciarJustificativaUsuarioEditar(justificativaFalta);
 	}
 }

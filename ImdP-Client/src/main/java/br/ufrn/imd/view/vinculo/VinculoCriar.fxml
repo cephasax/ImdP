@@ -27,9 +27,9 @@
         <Font size="14.0" />
       </font>
     </Text>
-    <Button fx:id="btnCadastrar" layoutX="643.0" layoutY="335.0" mnemonicParsing="false" text="Cadastrar" />
-    <Button fx:id="btnCancelar" layoutX="573.0" layoutY="335.0" mnemonicParsing="false" onAction="#handleCancelar" text="Cancelar" />
-      <GridPane layoutX="91.0" layoutY="142.0" prefHeight="193.0" prefWidth="619.0">
+    <Button fx:id="btnCadastrar" layoutX="643.0" layoutY="370.0" mnemonicParsing="false" onAction="#handleCadastrar" text="Cadastrar" />
+    <Button fx:id="btnCancelar" layoutX="573.0" layoutY="370.0" mnemonicParsing="false" onAction="#handleCancelar" text="Cancelar" />
+      <GridPane layoutX="84.0" layoutY="105.0" prefHeight="265.0" prefWidth="633.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="305.0" minWidth="10.0" prefWidth="166.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="427.0" minWidth="10.0" prefWidth="96.0" />
@@ -44,56 +44,63 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Label text="Setor:" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+            <Label text="Setor:" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <Label text="Ativo:" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
+            <Label text="Ativo:" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <ComboBox fx:id="cbSetor" prefHeight="25.0" prefWidth="571.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2" />
-            <Label text="Carga horária semanal:" GridPane.halignment="CENTER" GridPane.rowIndex="5">
+            <ComboBox fx:id="cbSetor" prefHeight="25.0" prefWidth="571.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3" />
+            <Label text="Carga horária semanal:" GridPane.halignment="CENTER" GridPane.rowIndex="6">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <Label text="Carga horária mensal:" GridPane.halignment="CENTER" GridPane.rowIndex="6">
+            <Label text="Carga horária mensal:" GridPane.halignment="CENTER" GridPane.rowIndex="7">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <TextField fx:id="tfCargaHorariaSemanal" prefHeight="25.0" prefWidth="225.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <TextField fx:id="tfCargaHorarioMensal" editable="false" prefHeight="25.0" prefWidth="225.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <ComboBox fx:id="cbCargo" prefHeight="25.0" prefWidth="570.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3" />
-            <ComboBox fx:id="cbUnidade" prefHeight="25.0" prefWidth="570.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1" />
-            <Label text="Unidade:" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+            <TextField fx:id="tfCargaHorariaSemanal" prefHeight="25.0" prefWidth="225.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <TextField fx:id="tfCargaHorariaMensal" prefHeight="25.0" prefWidth="225.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <ComboBox fx:id="cbCargo" prefHeight="25.0" prefWidth="570.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="4" />
+            <ComboBox fx:id="cbUnidade" prefHeight="25.0" prefWidth="570.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2" />
+            <Label text="Unidade:" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <Label text="Cargo:" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+            <Label text="Cargo:" GridPane.halignment="CENTER" GridPane.rowIndex="4">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <CheckBox fx:id="checkboxAtivo" mnemonicParsing="false" selected="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
+            <CheckBox fx:id="checkboxAtivo" mnemonicParsing="false" selected="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="8" />
             <Label fx:id="lblDescricao" text="Descrição:" GridPane.halignment="CENTER">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
             <TextField fx:id="tfDescricao" prefHeight="25.0" prefWidth="316.0" GridPane.columnIndex="1" GridPane.columnSpan="2" />
-            <Label text="Carga horária diária:" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+            <Label text="Carga horária diária:" GridPane.halignment="CENTER" GridPane.rowIndex="5">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <TextField fx:id="tfCargaHorariaDiaria" prefHeight="25.0" prefWidth="225.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="tfCargaHorariaDiaria" prefHeight="25.0" prefWidth="225.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Label text="Usuário:" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="cbUsuario" prefHeight="25.0" prefWidth="476.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1" />
          </children>
       </GridPane>
   </children>

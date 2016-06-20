@@ -26,19 +26,19 @@
         <Font size="14.0" />
       </font>
     </Text>
-    <TableView fx:id="tblVinculos" layoutX="42.0" layoutY="223.0" prefHeight="235.0" prefWidth="717.0">
+    <TableView fx:id="tblVinculos" layoutX="42.0" layoutY="223.0" onMouseClicked="#handleEditar" prefHeight="235.0" prefWidth="717.0">
       <columns>
-        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="215.0" text="Nome" />
-            <TableColumn prefWidth="118.0" text="CPF" />
-            <TableColumn prefWidth="123.0" text="Unidade" />
-            <TableColumn prefWidth="104.0" text="Setor" />
-            <TableColumn prefWidth="82.0" text="CH semanal" />
-            <TableColumn prefWidth="74.0" text="Status" />
+        <TableColumn fx:id="vinculoNome" maxWidth="5000.0" minWidth="10.0" prefWidth="215.0" text="Nome" />
+            <TableColumn fx:id="vinculoCPF" prefWidth="118.0" text="CPF" />
+            <TableColumn fx:id="vinculoUnidade" prefWidth="123.0" text="Unidade" />
+            <TableColumn fx:id="vinculoSetor" prefWidth="104.0" text="Setor" />
+            <TableColumn fx:id="vinculoCHSemanal" prefWidth="82.0" text="CH semanal" />
+            <TableColumn fx:id="vinculoStatus" prefWidth="74.0" text="Status" />
       </columns>
     </TableView>
     <Text layoutX="46.0" layoutY="476.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Clique duas vezes na linha para ver detalhes da vínculo" />
     <Button fx:id="btnCancelar" layoutX="637.0" layoutY="468.0" mnemonicParsing="false" onAction="#handleCancelar" text="Cancelar" />
-    <Button fx:id="btnBuscar" layoutX="708.0" layoutY="183.0" mnemonicParsing="false" text="Buscar" />
+    <Button fx:id="btnBuscar" layoutX="708.0" layoutY="183.0" mnemonicParsing="false" onAction="#handleBuscar" text="Buscar" />
     <Text fontSmoothingType="LCD" layoutX="180.0" layoutY="164.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome:">
       <font>
         <Font size="15.0" fx:id="x1" />
@@ -69,6 +69,6 @@
             <Font size="15.0" fx:id="x12" />
          </font>
       </Text>
-      <Button fx:id="btnExcluir" layoutX="708.0" layoutY="468.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="51.0" text="Excluir" />
+      <Button fx:id="btnExcluir" layoutX="708.0" layoutY="468.0" mnemonicParsing="false" onAction="#handleExcluir" prefHeight="25.0" prefWidth="51.0" text="Excluir" />
   </children>
 </AnchorPane>

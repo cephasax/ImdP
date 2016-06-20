@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import br.ufrn.imd.dominio.Ponto;
@@ -64,9 +65,11 @@ public class PontoListarController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+
 		Type listType = new TypeToken<ArrayList<Ponto>>() {
 		}.getType();
-		List<Ponto> yourClassList = new Gson().fromJson(service.PontoListar(), listType);
+		List<Ponto> yourClassList = gson.fromJson(service.PontoListar(), listType);
 
 		tblPontos.setItems(FXCollections.observableArrayList(yourClassList));
 		pontoUnidade.setCellValueFactory(new PropertyValueFactory<Ponto, Unidade>("unidade"));

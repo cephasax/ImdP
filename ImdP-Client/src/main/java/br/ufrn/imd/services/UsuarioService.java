@@ -16,7 +16,7 @@ public class UsuarioService extends GenericService {
 
 	}
 
-	public String UsuarioListar() {
+	public String usuarioListar() {
 		ResteasyWebTarget target = client
 				.target(getUrl() + getDomain() + getComplement() + getVersion() + "consulta/usuarios");
 		Response response = target.request().get();
@@ -28,7 +28,7 @@ public class UsuarioService extends GenericService {
 		return value;
 	}
 
-	public int UsuarioCriar(Usuario usuario) {
+	public int usuarioCriar(Usuario usuario) {
 		ResteasyWebTarget add = client
 				.target(getUrl() + getDomain() + getComplement() + getVersion() + "consulta/usuarios");
 
@@ -41,7 +41,7 @@ public class UsuarioService extends GenericService {
 		return addResponse.getStatus();
 	}
 
-	public String UsuarioBuscar(String nome) {
+	public String usuarioBuscar(String nome) {
 		ResteasyWebTarget target = client.target(getUrl() + getDomain() + getComplement() + getVersion()
 				+ "consulta/usuariosFilter?nomeUsuario=" + nome);
 		Response response = target.request().get();
@@ -55,7 +55,7 @@ public class UsuarioService extends GenericService {
 		return value;
 	}
 
-	public int UsuarioDeletar(Usuario usuario) {
+	public int usuarioDeletar(Usuario usuario) {
 		ResteasyWebTarget delete = client.target(getUrl() + getDomain() + getComplement() + getVersion()
 				+ "consulta/usuarios/" + usuario.getIdUsuario());
 
@@ -68,7 +68,7 @@ public class UsuarioService extends GenericService {
 		return deleteResponse.getStatus();
 	}
 
-	public int UsuarioEditar(Usuario usuario) {
+	public int usuarioEditar(Usuario usuario) {
 		ResteasyWebTarget update = client
 				.target(getUrl() + getDomain() + getComplement() + getVersion() + "consulta/usuarios/");
 

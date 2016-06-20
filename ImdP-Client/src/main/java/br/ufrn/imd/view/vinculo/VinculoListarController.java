@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import br.ufrn.imd.dominio.Setor;
@@ -18,6 +19,8 @@ import br.ufrn.imd.services.VinculoService;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -42,7 +45,7 @@ public class VinculoListarController implements Initializable {
 	private TableColumn<Vinculo, String> vinculoCH;
 	@FXML
 	private TableColumn<Vinculo, String> vinculoStatus;
-
+	
 	private ImdAuth imdAuth;
 
 	private VinculoService service = new VinculoService();
@@ -58,9 +61,11 @@ public class VinculoListarController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+
 		Type listType = new TypeToken<ArrayList<Vinculo>>() {
 		}.getType();
-		List<Vinculo> yourClassList = new Gson().fromJson(service.VinculoListar(), listType);
+		List<Vinculo> yourClassList = gson.fromJson(service.VinculoListar(), listType);
 		for (int i = 0; i < yourClassList.size(); i++) {
 			System.out.println(yourClassList.get(i).getIdVinculo() + " " + yourClassList.get(i).getDescricao());
 		}
@@ -72,5 +77,34 @@ public class VinculoListarController implements Initializable {
 		vinculoSetor.setCellValueFactory(new PropertyValueFactory<Setor, String>("setor"));
 		vinculoCH.setCellValueFactory(new PropertyValueFactory<Vinculo, String>("ch"));
 		vinculoStatus.setCellValueFactory(new PropertyValueFactory<Vinculo, String>("status"));
+	}
+	
+	@FXML
+	public void handleExcluir() throws IOException {
+		Vinculo vinculo = tblVinculos.getSelectionModel().getSelectedItem();
+		int resultado = service.VinculoDeletar(vinculo);
+
+		if (resultado == 200) {
+			Alert alert = new Alert(AlertType.CONFIRMATION);
+			alert.setTitle("Feedback");
+			alert.setHeaderText(null);
+			alert.setContentText("Dado deletado!");
+
+			alert.showAndWait();
+			imdAuth.iniciarVinculoListar();
+		} else {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Feedback");
+			alert.setHeaderText(null);
+			alert.setContentText("Ocorreu um erro!");
+
+			alert.showAndWait();
+		}
+	}
+	
+	@FXML
+	public void handleEditar() throws IOException {
+		Vinculo vinculo = tblVinculos.getSelectionModel().getSelectedItem();
+		imdAuth.iniciarVinculoEditar(vinculo);
 	}
 }

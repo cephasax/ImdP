@@ -79,7 +79,7 @@ public class PontoAvulsoCriarController implements Initializable {
 
 		Date dataAtual = new Date();
 		
-		Ponto ponto = new Ponto(dataAtual, 'm', 'm', taObservacao.getText(), null, 1, null, null);
+		Ponto ponto = new Ponto(date, 'm', 'm', taObservacao.getText(), dataAtual, 1, null, null);
 		
 		int resultado = service.PontoCriar(ponto);
 		if (resultado == 200) {

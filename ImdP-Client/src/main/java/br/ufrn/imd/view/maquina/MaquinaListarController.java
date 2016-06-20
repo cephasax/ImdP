@@ -11,9 +11,10 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import br.ufrn.imd.dominio.Maquina;
-import br.ufrn.imd.dominio.Unidade;
 import br.ufrn.imd.main.ImdAuth;
 import br.ufrn.imd.services.MaquinaService;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -23,6 +24,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Callback;
 
 public class MaquinaListarController implements Initializable {
 	@FXML
@@ -36,7 +38,7 @@ public class MaquinaListarController implements Initializable {
 	@FXML
 	private TableColumn<Maquina, String> maquinaIP;
 	@FXML
-	private TableColumn<Unidade, String> maquinaUnidade;
+	private TableColumn<Maquina, String> maquinaUnidade;
 
 	private ImdAuth imdAuth;
 
@@ -61,7 +63,12 @@ public class MaquinaListarController implements Initializable {
 		tblMaquinas.setItems(FXCollections.observableArrayList(yourClassList));
 		maquinaNome.setCellValueFactory(new PropertyValueFactory<Maquina, String>("denominacao"));
 		maquinaIP.setCellValueFactory(new PropertyValueFactory<Maquina, String>("ip"));
-		maquinaUnidade.setCellValueFactory(new PropertyValueFactory<Unidade, String>("unidade"));
+		maquinaUnidade.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Maquina, String>, ObservableValue<String>>() {
+		    @Override
+		    public ObservableValue<String> call(TableColumn.CellDataFeatures<Maquina, String> p) {
+		        return new SimpleStringProperty(p.getValue().getUnidade().getNome());
+		    }
+		});
 	}
 
 	@FXML

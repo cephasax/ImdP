@@ -14,6 +14,8 @@ import br.ufrn.imd.dominio.Unidade;
 import br.ufrn.imd.dominio.Vinculo;
 import br.ufrn.imd.main.ImdAuth;
 import br.ufrn.imd.services.VinculoService;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -23,7 +25,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Callback;
 
 public class VinculoBuscarController {
 	@FXML
@@ -109,11 +111,55 @@ public class VinculoBuscarController {
 		}
 
 		tblVinculos.setItems(FXCollections.observableArrayList(yourClassList));
-		vinculoNome.setCellValueFactory(new PropertyValueFactory<Vinculo, String>("nome"));
-		vinculoCPF.setCellValueFactory(new PropertyValueFactory<Vinculo, String>("cpf"));
-		vinculoUnidade.setCellValueFactory(new PropertyValueFactory<Vinculo, String>("unidade"));
-		vinculoSetor.setCellValueFactory(new PropertyValueFactory<Vinculo, String>("setor"));
-		vinculoCHSemanal.setCellValueFactory(new PropertyValueFactory<Vinculo, String>("cargaHorariaSemanal"));
-		vinculoStatus.setCellValueFactory(new PropertyValueFactory<Vinculo, String>("status"));
+		vinculoNome.setCellValueFactory(
+				new Callback<TableColumn.CellDataFeatures<Vinculo, String>, ObservableValue<String>>() {
+					@Override
+					public ObservableValue<String> call(TableColumn.CellDataFeatures<Vinculo, String> p) {
+						return new SimpleStringProperty(p.getValue().getUsuario().getNome());
+					}
+				});
+		vinculoCPF.setCellValueFactory(
+				new Callback<TableColumn.CellDataFeatures<Vinculo, String>, ObservableValue<String>>() {
+					@Override
+					public ObservableValue<String> call(TableColumn.CellDataFeatures<Vinculo, String> p) {
+						return new SimpleStringProperty(p.getValue().getUsuario().getCpf());
+					}
+				});
+		vinculoUnidade.setCellValueFactory(
+				new Callback<TableColumn.CellDataFeatures<Vinculo, String>, ObservableValue<String>>() {
+					@Override
+					public ObservableValue<String> call(TableColumn.CellDataFeatures<Vinculo, String> p) {
+						return new SimpleStringProperty(p.getValue().getSetor().getUnidade().getNome());
+					}
+				});
+		vinculoSetor.setCellValueFactory(
+				new Callback<TableColumn.CellDataFeatures<Vinculo, String>, ObservableValue<String>>() {
+					@Override
+					public ObservableValue<String> call(TableColumn.CellDataFeatures<Vinculo, String> p) {
+						return new SimpleStringProperty(p.getValue().getSetor().getNome());
+					}
+				});
+		vinculoCHSemanal.setCellValueFactory(
+				new Callback<TableColumn.CellDataFeatures<Vinculo, String>, ObservableValue<String>>() {
+					@Override
+					public ObservableValue<String> call(TableColumn.CellDataFeatures<Vinculo, String> p) {
+						return new SimpleStringProperty(String.valueOf(p.getValue().getCargaHorariaSemanal()));
+					}
+				});
+		vinculoStatus.setCellValueFactory(
+				new Callback<TableColumn.CellDataFeatures<Vinculo, String>, ObservableValue<String>>() {
+					@Override
+					public ObservableValue<String> call(TableColumn.CellDataFeatures<Vinculo, String> p) {
+						return new SimpleStringProperty(status(p.getValue().getSituacao()));
+					}
+				});
+	}
+	
+	public String status(char status) {
+		if (status == 'A') {
+			return "Ativo";
+		} else {
+			return "Inativo";
+		}
 	}
 }

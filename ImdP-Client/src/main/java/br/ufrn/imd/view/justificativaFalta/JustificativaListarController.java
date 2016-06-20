@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -13,11 +12,10 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import br.ufrn.imd.dominio.JustificativaFalta;
-import br.ufrn.imd.dominio.Setor;
-import br.ufrn.imd.dominio.Unidade;
-import br.ufrn.imd.dominio.Usuario;
 import br.ufrn.imd.main.ImdAuth;
 import br.ufrn.imd.services.JustificativaFaltaService;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -27,6 +25,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Callback;
 
 public class JustificativaListarController implements Initializable {
 	@FXML
@@ -36,24 +35,24 @@ public class JustificativaListarController implements Initializable {
 	@FXML
 	private Button btnExcluir;
 	@FXML
-	private TableColumn<Usuario, String> justificativaUsuario;
+	private TableColumn<JustificativaFalta, String> justificativaUsuario;
 	@FXML
-	private TableColumn<JustificativaFalta, Date> justificativaData;
+	private TableColumn<JustificativaFalta, String> justificativaData;
 	@FXML
 	private TableColumn<JustificativaFalta, String> justificativaTipo;
 	@FXML
 	private TableColumn<JustificativaFalta, String> justificativaDescricao;
 	@FXML
-	private TableColumn<Unidade, String> justificativaUnidade;
+	private TableColumn<JustificativaFalta, String> justificativaUnidade;
 	@FXML
-	private TableColumn<Setor, String> justificativaSetor;
+	private TableColumn<JustificativaFalta, String> justificativaSetor;
+
 	private ImdAuth imdAuth;
 
 	private JustificativaFaltaService service = new JustificativaFaltaService();
 
 	public void setMainApp(ImdAuth imdAuth) {
 		this.imdAuth = imdAuth;
-
 	}
 
 	@FXML
@@ -74,14 +73,38 @@ public class JustificativaListarController implements Initializable {
 		}
 
 		tblJustificativasFalta.setItems(FXCollections.observableArrayList(yourClassList));
-		justificativaUsuario.setCellValueFactory(new PropertyValueFactory<Usuario, String>("nome"));
-		justificativaData.setCellValueFactory(new PropertyValueFactory<JustificativaFalta, Date>("dataInicio"));
-		justificativaTipo.setCellValueFactory(new PropertyValueFactory<JustificativaFalta, String>("tipoJustificativa"));
+		justificativaUsuario.setCellValueFactory(
+				new Callback<TableColumn.CellDataFeatures<JustificativaFalta, String>, ObservableValue<String>>() {
+					@Override
+					public ObservableValue<String> call(TableColumn.CellDataFeatures<JustificativaFalta, String> p) {
+						return new SimpleStringProperty(p.getValue().getVinculo().getUsuario().getNome());
+					}
+				});
+		justificativaData.setCellValueFactory(new PropertyValueFactory<JustificativaFalta, String>("dataInicio"));
+		justificativaTipo.setCellValueFactory(
+				new Callback<TableColumn.CellDataFeatures<JustificativaFalta, String>, ObservableValue<String>>() {
+					@Override
+					public ObservableValue<String> call(TableColumn.CellDataFeatures<JustificativaFalta, String> p) {
+						return new SimpleStringProperty(p.getValue().getTipoJustificativa().getNome());
+					}
+				});
 		justificativaDescricao.setCellValueFactory(new PropertyValueFactory<JustificativaFalta, String>("descricao"));
-		justificativaUnidade.setCellValueFactory(new PropertyValueFactory<Unidade, String>("nome"));
-		justificativaSetor.setCellValueFactory(new PropertyValueFactory<Setor, String>("setor"));
+		justificativaUnidade.setCellValueFactory(
+				new Callback<TableColumn.CellDataFeatures<JustificativaFalta, String>, ObservableValue<String>>() {
+					@Override
+					public ObservableValue<String> call(TableColumn.CellDataFeatures<JustificativaFalta, String> p) {
+						return new SimpleStringProperty(p.getValue().getVinculo().getSetor().getUnidade().getNome());
+					}
+				});
+		justificativaSetor.setCellValueFactory(
+				new Callback<TableColumn.CellDataFeatures<JustificativaFalta, String>, ObservableValue<String>>() {
+					@Override
+					public ObservableValue<String> call(TableColumn.CellDataFeatures<JustificativaFalta, String> p) {
+						return new SimpleStringProperty(p.getValue().getVinculo().getSetor().getNome());
+					}
+				});
 	}
-	
+
 	@FXML
 	public void handleExcluir() throws IOException {
 		JustificativaFalta justificativaFalta = tblJustificativasFalta.getSelectionModel().getSelectedItem();

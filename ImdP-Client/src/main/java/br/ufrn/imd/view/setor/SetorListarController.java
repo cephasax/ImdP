@@ -13,6 +13,8 @@ import com.google.gson.reflect.TypeToken;
 import br.ufrn.imd.dominio.Setor;
 import br.ufrn.imd.main.ImdAuth;
 import br.ufrn.imd.services.SetorService;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -22,6 +24,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Callback;
 
 public class SetorListarController implements Initializable {
 	@FXML
@@ -60,7 +63,12 @@ public class SetorListarController implements Initializable {
 
 		tblSetores.setItems(FXCollections.observableArrayList(yourClassList));
 		setorNome.setCellValueFactory(new PropertyValueFactory<Setor, String>("nome"));
-		setorUnidade.setCellValueFactory(new PropertyValueFactory<Setor, String>("unidade"));
+		setorUnidade.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Setor, String>, ObservableValue<String>>() {
+		    @Override
+		    public ObservableValue<String> call(TableColumn.CellDataFeatures<Setor, String> p) {
+		        return new SimpleStringProperty(p.getValue().getUnidade().getNome());
+		    }
+		});
 	}
 
 	@FXML

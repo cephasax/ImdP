@@ -16,6 +16,8 @@ import br.ufrn.imd.dominio.Unidade;
 import br.ufrn.imd.main.ImdAuth;
 import br.ufrn.imd.services.SetorService;
 import br.ufrn.imd.services.UnidadeService;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -27,15 +29,13 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.text.Font;
+import javafx.util.Callback;
 
 public class SetorBuscarController implements Initializable {
 	@FXML
 	private TableView<Setor> tblSetores;
 	@FXML
 	private Button btnCancelar;
-	@FXML
-	private Font x1;
 	@FXML
 	private TextField tfNomeSetor;
 	@FXML
@@ -47,7 +47,7 @@ public class SetorBuscarController implements Initializable {
 	@FXML
 	private TableColumn<Setor, String> setorNome;
 	@FXML
-	private TableColumn<Setor, Unidade> setorUnidade;
+	private TableColumn<Setor, String> setorUnidade;
 
 	private ImdAuth imdAuth;
 
@@ -78,8 +78,12 @@ public class SetorBuscarController implements Initializable {
 
 		tblSetores.setItems(FXCollections.observableArrayList(yourClassList));
 		setorNome.setCellValueFactory(new PropertyValueFactory<Setor, String>("nome"));
-		setorUnidade.setCellValueFactory(new PropertyValueFactory<Setor, Unidade>("unidade"));
-		
+		setorUnidade.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Setor, String>, ObservableValue<String>>() {
+		    @Override
+		    public ObservableValue<String> call(TableColumn.CellDataFeatures<Setor, String> p) {
+		        return new SimpleStringProperty(p.getValue().getUnidade().getNome());
+		    }
+		});		
 	}
 
 	@FXML

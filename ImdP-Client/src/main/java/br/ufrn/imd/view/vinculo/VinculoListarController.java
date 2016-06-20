@@ -11,11 +11,11 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
-import br.ufrn.imd.dominio.Setor;
-import br.ufrn.imd.dominio.Unidade;
 import br.ufrn.imd.dominio.Vinculo;
 import br.ufrn.imd.main.ImdAuth;
 import br.ufrn.imd.services.VinculoService;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -24,7 +24,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Callback;
 
 public class VinculoListarController implements Initializable {
 	@FXML
@@ -38,14 +38,14 @@ public class VinculoListarController implements Initializable {
 	@FXML
 	private TableColumn<Vinculo, String> vinculoCPF;
 	@FXML
-	private TableColumn<Unidade, String> vinculoUnidade;
+	private TableColumn<Vinculo, String> vinculoUnidade;
 	@FXML
-	private TableColumn<Setor, String> vinculoSetor;
+	private TableColumn<Vinculo, String> vinculoSetor;
 	@FXML
-	private TableColumn<Vinculo, String> vinculoCH;
+	private TableColumn<Vinculo, String> vinculoCHSemanal;
 	@FXML
 	private TableColumn<Vinculo, String> vinculoStatus;
-	
+
 	private ImdAuth imdAuth;
 
 	private VinculoService service = new VinculoService();
@@ -71,14 +71,50 @@ public class VinculoListarController implements Initializable {
 		}
 
 		tblVinculos.setItems(FXCollections.observableArrayList(yourClassList));
-		vinculoNome.setCellValueFactory(new PropertyValueFactory<Vinculo, String>("nome"));
-		vinculoCPF.setCellValueFactory(new PropertyValueFactory<Vinculo, String>("CPF"));
-		vinculoUnidade.setCellValueFactory(new PropertyValueFactory<Unidade, String>("unidade"));
-		vinculoSetor.setCellValueFactory(new PropertyValueFactory<Setor, String>("setor"));
-		vinculoCH.setCellValueFactory(new PropertyValueFactory<Vinculo, String>("ch"));
-		vinculoStatus.setCellValueFactory(new PropertyValueFactory<Vinculo, String>("status"));
+		vinculoNome.setCellValueFactory(
+				new Callback<TableColumn.CellDataFeatures<Vinculo, String>, ObservableValue<String>>() {
+					@Override
+					public ObservableValue<String> call(TableColumn.CellDataFeatures<Vinculo, String> p) {
+						return new SimpleStringProperty(p.getValue().getUsuario().getNome());
+					}
+				});
+		vinculoCPF.setCellValueFactory(
+				new Callback<TableColumn.CellDataFeatures<Vinculo, String>, ObservableValue<String>>() {
+					@Override
+					public ObservableValue<String> call(TableColumn.CellDataFeatures<Vinculo, String> p) {
+						return new SimpleStringProperty(p.getValue().getUsuario().getCpf());
+					}
+				});
+		vinculoUnidade.setCellValueFactory(
+				new Callback<TableColumn.CellDataFeatures<Vinculo, String>, ObservableValue<String>>() {
+					@Override
+					public ObservableValue<String> call(TableColumn.CellDataFeatures<Vinculo, String> p) {
+						return new SimpleStringProperty(p.getValue().getSetor().getUnidade().getNome());
+					}
+				});
+		vinculoSetor.setCellValueFactory(
+				new Callback<TableColumn.CellDataFeatures<Vinculo, String>, ObservableValue<String>>() {
+					@Override
+					public ObservableValue<String> call(TableColumn.CellDataFeatures<Vinculo, String> p) {
+						return new SimpleStringProperty(p.getValue().getSetor().getNome());
+					}
+				});
+		vinculoCHSemanal.setCellValueFactory(
+				new Callback<TableColumn.CellDataFeatures<Vinculo, String>, ObservableValue<String>>() {
+					@Override
+					public ObservableValue<String> call(TableColumn.CellDataFeatures<Vinculo, String> p) {
+						return new SimpleStringProperty(String.valueOf(p.getValue().getCargaHorariaSemanal()));
+					}
+				});
+		vinculoStatus.setCellValueFactory(
+				new Callback<TableColumn.CellDataFeatures<Vinculo, String>, ObservableValue<String>>() {
+					@Override
+					public ObservableValue<String> call(TableColumn.CellDataFeatures<Vinculo, String> p) {
+						return new SimpleStringProperty(status(p.getValue().getSituacao()));
+					}
+				});
 	}
-	
+
 	@FXML
 	public void handleExcluir() throws IOException {
 		Vinculo vinculo = tblVinculos.getSelectionModel().getSelectedItem();
@@ -101,10 +137,18 @@ public class VinculoListarController implements Initializable {
 			alert.showAndWait();
 		}
 	}
-	
+
 	@FXML
 	public void handleEditar() throws IOException {
 		Vinculo vinculo = tblVinculos.getSelectionModel().getSelectedItem();
 		imdAuth.iniciarVinculoEditar(vinculo);
+	}
+
+	public String status(char status) {
+		if (status == 'A') {
+			return "Ativo";
+		} else {
+			return "Inativo";
+		}
 	}
 }

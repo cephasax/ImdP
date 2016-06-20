@@ -31,7 +31,7 @@
             <TableColumn fx:id="vinculoCPF" prefWidth="118.0" text="CPF" />
             <TableColumn fx:id="vinculoUnidade" prefWidth="123.0" text="Unidade" />
             <TableColumn fx:id="vinculoSetor" prefWidth="104.0" text="Setor" />
-            <TableColumn fx:id="vinculoCH" prefWidth="82.0" text="CH semanal" />
+            <TableColumn fx:id="vinculoCHSemanal" prefWidth="82.0" text="CH semanal" />
             <TableColumn fx:id="vinculoStatus" prefWidth="74.0" text="Status" />
          </columns>
       </TableView>

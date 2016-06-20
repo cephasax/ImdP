@@ -43,13 +43,6 @@
     </Text>
     <TextField fx:id="tfNomeMaquina" layoutX="230.0" layoutY="117.0" prefWidth="529.0" promptText="" />
     <ComboBox fx:id="cbUnidade" layoutX="230.0" layoutY="82.0" prefHeight="21.0" prefWidth="528.9999000000025" visible="true" visibleRowCount="7">
-      <items>
-        <FXCollections fx:factory="observableArrayList">
-          <String fx:value="Item 1" />
-          <String fx:value="Item 2" />
-          <String fx:value="Item 3" />
-        </FXCollections>
-      </items>
     </ComboBox>
     <Text font="$x1" fontSmoothingType="LCD" layoutX="163.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Unidade:" />
       <Button fx:id="btnCancelar" layoutX="636.0" layoutY="430.0" mnemonicParsing="false" onAction="#handleCancelar" text="Cancelar" />

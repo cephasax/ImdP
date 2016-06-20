@@ -10,6 +10,7 @@ import java.util.ResourceBundle;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import br.ufrn.imd.converter.UnidadeConverter;
 import br.ufrn.imd.dominio.Setor;
 import br.ufrn.imd.dominio.Unidade;
 import br.ufrn.imd.main.ImdAuth;
@@ -49,6 +50,8 @@ public class SetorEditarController implements Initializable {
 		this.setor = setor;
 		tfNomeSetor.setText(setor.getNome());
 		cbUnidade.setValue(setor.getUnidade());
+		cbUnidade.setConverter(new UnidadeConverter());
+
 	}
 
 	@FXML
@@ -88,6 +91,6 @@ public class SetorEditarController implements Initializable {
 		Collection<Unidade> unidades = new Gson().fromJson(serviceUnidade.UnidadeListar(), listType);
 
 		cbUnidade.getItems().addAll(unidades);
-
+		cbUnidade.setConverter(new UnidadeConverter());
 	}
 }

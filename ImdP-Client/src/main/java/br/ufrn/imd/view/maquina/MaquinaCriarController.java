@@ -10,6 +10,7 @@ import java.util.ResourceBundle;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import br.ufrn.imd.converter.UnidadeConverter;
 import br.ufrn.imd.dominio.Maquina;
 import br.ufrn.imd.dominio.Unidade;
 import br.ufrn.imd.main.ImdAuth;
@@ -58,6 +59,7 @@ public class MaquinaCriarController implements Initializable {
 		Collection<Unidade> unidades = new Gson().fromJson(serviceUnidade.UnidadeListar(), listType);
 
 		cbUnidade.getItems().addAll(unidades);
+		cbUnidade.setConverter(new UnidadeConverter());
 	}
 
 	@FXML

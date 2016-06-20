@@ -2,22 +2,30 @@ package br.ufrn.imd.view.justificativaFalta;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
+import br.ufrn.imd.converter.SetorConverter;
+import br.ufrn.imd.converter.UnidadeConverter;
 import br.ufrn.imd.dominio.JustificativaFalta;
 import br.ufrn.imd.dominio.Setor;
 import br.ufrn.imd.dominio.Unidade;
 import br.ufrn.imd.main.ImdAuth;
 import br.ufrn.imd.services.JustificativaFaltaService;
+import br.ufrn.imd.services.SetorService;
+import br.ufrn.imd.services.UnidadeService;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -28,7 +36,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 
-public class JustificativaBuscarController {
+public class JustificativaBuscarController implements Initializable {
 	@FXML
 	private TableView<JustificativaFalta> tblJustificativasFalta;
 	@FXML
@@ -59,6 +67,10 @@ public class JustificativaBuscarController {
 	private ImdAuth imdAuth;
 
 	private JustificativaFaltaService service = new JustificativaFaltaService();
+
+	private SetorService serviceSetor = new SetorService();
+
+	private UnidadeService serviceUnidade = new UnidadeService();
 
 	public void setMainApp(ImdAuth imdAuth) {
 		this.imdAuth = imdAuth;
@@ -141,5 +153,23 @@ public class JustificativaBuscarController {
 						return new SimpleStringProperty(p.getValue().getVinculo().getSetor().getNome());
 					}
 				});
+
+	}
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		Type listType = new TypeToken<ArrayList<Unidade>>() {
+		}.getType();
+		Collection<Unidade> unidades = new Gson().fromJson(serviceUnidade.UnidadeListar(), listType);
+
+		cbUnidade.getItems().addAll(unidades);
+		cbUnidade.setConverter(new UnidadeConverter());
+
+		Type listTypeS = new TypeToken<ArrayList<Setor>>() {
+		}.getType();
+		Collection<Setor> setores = new Gson().fromJson(serviceSetor.SetorListar(), listTypeS);
+
+		cbSetor.getItems().addAll(setores);
+		cbSetor.setConverter(new SetorConverter());
 	}
 }

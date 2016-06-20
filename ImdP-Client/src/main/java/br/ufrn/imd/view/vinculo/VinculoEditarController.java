@@ -12,6 +12,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
+import br.ufrn.imd.converter.CargoConverter;
+import br.ufrn.imd.converter.SetorConverter;
+import br.ufrn.imd.converter.UnidadeConverter;
+import br.ufrn.imd.converter.UsuarioConverter;
 import br.ufrn.imd.dominio.Cargo;
 import br.ufrn.imd.dominio.Setor;
 import br.ufrn.imd.dominio.Unidade;
@@ -78,8 +82,11 @@ public class VinculoEditarController implements Initializable {
 		this.vinculo = vinculo;
 		tfDescricao.setText(vinculo.getDescricao());
 		cbSetor.setValue(vinculo.getSetor());
+		cbSetor.setConverter(new SetorConverter());
 		cbCargo.setValue(vinculo.getCargo());
+		cbCargo.setConverter(new CargoConverter());
 		cbUsuario.setValue(vinculo.getUsuario());
+		cbUsuario.setConverter(new UsuarioConverter());
 		tfCargaHorariaDiaria.setText(String.valueOf(vinculo.getCargaHorariaDiaria()));
 		tfCargaHorariaSemanal.setText(String.valueOf(vinculo.getCargaHorariaSemanal()));
 		tfCargaHorariaMensal.setText(String.valueOf(vinculo.getCargaHorariaMensal()));
@@ -125,25 +132,29 @@ public class VinculoEditarController implements Initializable {
 		Collection<Unidade> unidades = new Gson().fromJson(serviceUnidade.UnidadeListar(), listType);
 
 		cbUnidade.getItems().addAll(unidades);
-
+		cbUnidade.setConverter(new UnidadeConverter());
+		
 		Type listTypeS = new TypeToken<ArrayList<Setor>>() {
 		}.getType();
 		Collection<Setor> setores = new Gson().fromJson(serviceSetor.SetorListar(), listTypeS);
 
 		cbSetor.getItems().addAll(setores);
+		cbSetor.setConverter(new SetorConverter());
 
 		Type listTypeC = new TypeToken<ArrayList<Cargo>>() {
 		}.getType();
 		Collection<Cargo> cargos = new Gson().fromJson(serviceCargo.CargoListar(), listTypeC);
 
 		cbCargo.getItems().addAll(cargos);
-		
+		cbCargo.setConverter(new CargoConverter());
+
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		Type listTypeUs = new TypeToken<ArrayList<Usuario>>() {
 		}.getType();
 		List<Usuario> usuarios = gson.fromJson(serviceUsuario.usuarioListar(), listTypeUs);
 		
 		cbUsuario.getItems().addAll(usuarios);
-		
+		cbUsuario.setConverter(new UsuarioConverter());
+
 	}
 }

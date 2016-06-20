@@ -10,6 +10,7 @@ import java.util.ResourceBundle;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import br.ufrn.imd.converter.UnidadeConverter;
 import br.ufrn.imd.dominio.Setor;
 import br.ufrn.imd.dominio.Unidade;
 import br.ufrn.imd.main.ImdAuth;
@@ -22,11 +23,8 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-import javafx.scene.text.Font;
 
 public class SetorCriarController implements Initializable{
-	@FXML
-	private Font x1;
 	@FXML
 	private TextField tfNomeSetor;
 	@FXML
@@ -83,5 +81,6 @@ public class SetorCriarController implements Initializable{
 		Collection<Unidade> unidades = new Gson().fromJson(serviceUnidade.UnidadeListar(), listType);
 
 		cbUnidade.getItems().addAll(unidades);
+		cbUnidade.setConverter(new UnidadeConverter());
 	}
 }

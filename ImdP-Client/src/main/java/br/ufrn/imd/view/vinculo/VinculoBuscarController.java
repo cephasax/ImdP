@@ -2,22 +2,30 @@ package br.ufrn.imd.view.vinculo;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
+import br.ufrn.imd.converter.SetorConverter;
+import br.ufrn.imd.converter.UnidadeConverter;
 import br.ufrn.imd.dominio.Setor;
 import br.ufrn.imd.dominio.Unidade;
 import br.ufrn.imd.dominio.Vinculo;
 import br.ufrn.imd.main.ImdAuth;
+import br.ufrn.imd.services.SetorService;
+import br.ufrn.imd.services.UnidadeService;
 import br.ufrn.imd.services.VinculoService;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -27,7 +35,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.util.Callback;
 
-public class VinculoBuscarController {
+public class VinculoBuscarController implements Initializable {
 	@FXML
 	private TableView<Vinculo> tblVinculos;
 	@FXML
@@ -56,6 +64,10 @@ public class VinculoBuscarController {
 	private Button btnExcluir;
 
 	private VinculoService service = new VinculoService();
+	
+	private SetorService serviceSetor = new SetorService();
+	
+	private UnidadeService serviceUnidade = new UnidadeService();
 
 	private ImdAuth imdAuth;
 
@@ -154,12 +166,29 @@ public class VinculoBuscarController {
 					}
 				});
 	}
-	
+
 	public String status(char status) {
 		if (status == 'A') {
 			return "Ativo";
 		} else {
 			return "Inativo";
 		}
+	}
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		Type listType = new TypeToken<ArrayList<Unidade>>() {
+		}.getType();
+		Collection<Unidade> unidades = new Gson().fromJson(serviceUnidade.UnidadeListar(), listType);
+
+		cbUnidade.getItems().addAll(unidades);
+		cbUnidade.setConverter(new UnidadeConverter());
+		
+		Type listTypeS = new TypeToken<ArrayList<Setor>>() {
+		}.getType();
+		Collection<Setor> setores = new Gson().fromJson(serviceSetor.SetorListar(), listTypeS);
+
+		cbSetor.getItems().addAll(setores);
+		cbSetor.setConverter(new SetorConverter());
 	}
 }

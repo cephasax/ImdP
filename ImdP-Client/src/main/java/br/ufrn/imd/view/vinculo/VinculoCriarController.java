@@ -12,6 +12,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
+import br.ufrn.imd.converter.CargoConverter;
+import br.ufrn.imd.converter.SetorConverter;
+import br.ufrn.imd.converter.UnidadeConverter;
+import br.ufrn.imd.converter.UsuarioConverter;
 import br.ufrn.imd.dominio.Cargo;
 import br.ufrn.imd.dominio.Permissao;
 import br.ufrn.imd.dominio.Setor;
@@ -86,26 +90,29 @@ public class VinculoCriarController implements Initializable {
 		Collection<Unidade> unidades = new Gson().fromJson(serviceUnidade.UnidadeListar(), listType);
 
 		cbUnidade.getItems().addAll(unidades);
+		cbUnidade.setConverter(new UnidadeConverter());
 
 		Type listTypeS = new TypeToken<ArrayList<Setor>>() {
 		}.getType();
 		Collection<Setor> setores = new Gson().fromJson(serviceSetor.SetorListar(), listTypeS);
 
 		cbSetor.getItems().addAll(setores);
+		cbSetor.setConverter(new SetorConverter());
 
 		Type listTypeC = new TypeToken<ArrayList<Cargo>>() {
 		}.getType();
 		Collection<Cargo> cargos = new Gson().fromJson(serviceCargo.CargoListar(), listTypeC);
 
 		cbCargo.getItems().addAll(cargos);
-		
+		cbCargo.setConverter(new CargoConverter());
+
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		Type listTypeUs = new TypeToken<ArrayList<Usuario>>() {
 		}.getType();
 		List<Usuario> usuarios = gson.fromJson(serviceUsuario.usuarioListar(), listTypeUs);
 		
 		cbUsuario.getItems().addAll(usuarios);
-
+		cbUsuario.setConverter(new UsuarioConverter());
 	}
 
 	@FXML

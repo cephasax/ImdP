@@ -15,6 +15,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
+import br.ufrn.imd.converter.TipoJustificativaConverter;
+import br.ufrn.imd.converter.VinculoConverter;
 import br.ufrn.imd.dominio.JustificativaFalta;
 import br.ufrn.imd.dominio.TipoJustificativa;
 import br.ufrn.imd.dominio.Vinculo;
@@ -128,6 +130,7 @@ public class JustificativaUsuarioEditarController implements Initializable {
 		Collection<Vinculo> vinculos = gson1.fromJson(serviceVinculo.VinculoListar(), listType);
 
 		cbVinculo.getItems().addAll(vinculos);
+		cbVinculo.setConverter(new VinculoConverter());
 
 		Gson gson2 = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 
@@ -136,7 +139,8 @@ public class JustificativaUsuarioEditarController implements Initializable {
 		Collection<TipoJustificativa> tipoJustificativaes = gson2.fromJson(serviceTipoJustificativa.tipoJustificativaListar(), listTypeS);
 
 		cbTipoJustificativa.getItems().addAll(tipoJustificativaes);
-		
+		cbTipoJustificativa.setConverter(new TipoJustificativaConverter());
+
 	}
 
 }

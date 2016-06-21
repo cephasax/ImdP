@@ -15,7 +15,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.TextField;
 
 public class UsuarioEditarController implements Initializable {
@@ -58,14 +57,18 @@ public class UsuarioEditarController implements Initializable {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+
+		LocalDate dataNascimento = usuario.getDataNascimento().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		LocalDate dataRg = usuario.getDataExpedicaoRg().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
 		tfNome.setText(usuario.getNome());
 		cbSexo.setValue(sexoReverso(usuario.getSexo()));
-		//DataNascimento
+		dpDataNascimento.setValue(dataNascimento);
 		tfNomePai.setText(usuario.getNomePai());
 		tfNomeMae.setText(usuario.getNomeMae());
 		tfCPF.setText(usuario.getCpf());
 		tfRG.setText(usuario.getRg());
-		//DataRG
+		dpDataRG.setValue(dataRg);
 		tfOrgaoRG.setText(usuario.getOrgaoExpedicaoRg());
 		cbEstado.setValue(usuario.getEstadoRg());
 		tfCNH.setText(usuario.getCnh());
@@ -103,6 +106,7 @@ public class UsuarioEditarController implements Initializable {
 		usuario.setRg(tfRG.getText());
 		usuario.setDataExpedicaoRg(dateRG);
 		usuario.setOrgaoExpedicaoRg(tfOrgaoRG.getText());
+		usuario.setEstadoRg(cbEstado.getSelectionModel().getSelectedItem());
 		usuario.setCnh(tfCNH.getText());
 		usuario.setEmail(tfEmail.getText());
 		usuario.setTelefone1(tfTelefone1.getText());

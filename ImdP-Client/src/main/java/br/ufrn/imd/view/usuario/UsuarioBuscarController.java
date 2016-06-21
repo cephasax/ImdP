@@ -21,6 +21,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 
 public class UsuarioBuscarController {
 	@FXML
@@ -35,17 +36,17 @@ public class UsuarioBuscarController {
 	private TextField tfCPF;
 	@FXML
 	private Button btnExcluir;
-    @FXML
-    private TableColumn<Usuario, String> usuarioNome;
-    @FXML
-    private TableColumn<Usuario, String> usuarioCPF;
-    @FXML
-    private TableColumn<Usuario, String> usuarioTelefone;
-    @FXML
-    private TableColumn<Usuario, String> usuarioEmail;
-    
+	@FXML
+	private TableColumn<Usuario, String> usuarioNome;
+	@FXML
+	private TableColumn<Usuario, String> usuarioCPF;
+	@FXML
+	private TableColumn<Usuario, String> usuarioTelefone;
+	@FXML
+	private TableColumn<Usuario, String> usuarioEmail;
+
 	private ImdAuth imdAuth;
-	
+
 	private UsuarioService service = new UsuarioService();
 
 	public void setMainApp(ImdAuth imdAuth) {
@@ -56,7 +57,7 @@ public class UsuarioBuscarController {
 	public void handleCancelar() throws IOException {
 		imdAuth.iniciarTelaPrincipal();
 	}
-	
+
 	@FXML
 	public void handleBuscar() throws IOException {
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
@@ -99,10 +100,12 @@ public class UsuarioBuscarController {
 			alert.showAndWait();
 		}
 	}
-	
+
 	@FXML
-	public void handleEditar() throws IOException {
-		Usuario usuario = tblUsuarios.getSelectionModel().getSelectedItem();
-		imdAuth.iniciarUsuarioEditar(usuario);
+	public void handleEditar(MouseEvent event) throws IOException {
+		if (event.getClickCount() > 1) {
+			Usuario usuario = tblUsuarios.getSelectionModel().getSelectedItem();
+			imdAuth.iniciarUsuarioEditar(usuario);
+		}
 	}
 }

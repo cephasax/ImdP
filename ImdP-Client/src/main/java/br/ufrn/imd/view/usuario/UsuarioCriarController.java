@@ -71,9 +71,14 @@ public class UsuarioCriarController implements Initializable {
 
 		LocalDate dataRG = dpDataRG.getValue();
 		Instant instantDRG = Instant.from(dataRG.atStartOfDay(ZoneId.systemDefault()));
-		Date dateRG = Date.from(instantDRG);		
+		Date dateRG = Date.from(instantDRG);
 		
-		Usuario usuario = new Usuario(tfNome.getText(), sexo(cbSexo.getSelectionModel().getSelectedItem()), dateNasc, tfCPF.getText(), tfRG.getText(), tfOrgaoRG.getText(), dateRG, cbEstado.getSelectionModel().getSelectedItem(), tfCNH.getText(), tfNomePai.getText(), tfNomeMae.getText(), tfEmail.getText(), tfTelefone1.getText(), tfTelefone2.getText());
+		Date dataAtual = new Date();
+
+		Usuario usuario = new Usuario(tfNome.getText(), sexo(cbSexo.getSelectionModel().getSelectedItem()), dateNasc,
+				tfCPF.getText(), tfRG.getText(), tfOrgaoRG.getText(), dateRG,
+				cbEstado.getSelectionModel().getSelectedItem(), tfCNH.getText(), tfNomePai.getText(),
+				tfNomeMae.getText(), tfEmail.getText(), tfTelefone1.getText(), tfTelefone2.getText(), dataAtual);
 		imdAuth.iniciarUsuarioCriarAcesso(usuario);
 	}
 

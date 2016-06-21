@@ -28,6 +28,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
@@ -64,9 +65,9 @@ public class VinculoBuscarController implements Initializable {
 	private Button btnExcluir;
 
 	private VinculoService service = new VinculoService();
-	
+
 	private SetorService serviceSetor = new SetorService();
-	
+
 	private UnidadeService serviceUnidade = new UnidadeService();
 
 	private ImdAuth imdAuth;
@@ -100,13 +101,16 @@ public class VinculoBuscarController implements Initializable {
 			alert.setContentText("Ocorreu um erro!");
 
 			alert.showAndWait();
+
 		}
 	}
 
 	@FXML
-	public void handleEditar() throws IOException {
-		Vinculo vinculo = tblVinculos.getSelectionModel().getSelectedItem();
-		imdAuth.iniciarVinculoEditar(vinculo);
+	public void handleEditar(MouseEvent event) throws IOException {
+		if (event.getClickCount() > 1) {
+			Vinculo vinculo = tblVinculos.getSelectionModel().getSelectedItem();
+			imdAuth.iniciarVinculoEditar(vinculo);
+		}
 	}
 
 	@FXML
@@ -183,7 +187,7 @@ public class VinculoBuscarController implements Initializable {
 
 		cbUnidade.getItems().addAll(unidades);
 		cbUnidade.setConverter(new UnidadeConverter());
-		
+
 		Type listTypeS = new TypeToken<ArrayList<Setor>>() {
 		}.getType();
 		Collection<Setor> setores = new Gson().fromJson(serviceSetor.SetorListar(), listTypeS);

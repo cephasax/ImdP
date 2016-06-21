@@ -68,19 +68,17 @@ public class PontoListarController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-//		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'hh:mm:ssZ").create();
-//		GsonBuilder builder = new GsonBuilder().registerTypeAdapter(Date.class, new JsonDeserializer<Date>() {
-//			@Override
-//			public Date deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
-//					throws JsonParseException {
-//				return new Date(json.getAsJsonPrimitive().getAsLong());
-//
-//			}
-//		});
-		
-		Gson gson=  new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").create();
-	
-//		Gson gson = builder.create();
+		// Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'hh:mm:ssZ").create();
+		GsonBuilder builder = new GsonBuilder().registerTypeAdapter(Date.class, new JsonDeserializer<Date>() {
+			@Override
+			public Date deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+					throws JsonParseException {
+				return new Date(json.getAsJsonPrimitive().getAsLong());
+
+			}
+		});
+
+		Gson gson = builder.create();
 		Type listType = new TypeToken<ArrayList<Ponto>>() {
 		}.getType();
 		List<Ponto> yourClassList = gson.fromJson(service.pontoListar(), listType);

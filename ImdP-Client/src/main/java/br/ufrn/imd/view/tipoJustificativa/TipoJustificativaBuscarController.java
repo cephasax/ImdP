@@ -20,6 +20,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 
 public class TipoJustificativaBuscarController {
 	@FXML
@@ -88,8 +89,10 @@ public class TipoJustificativaBuscarController {
 	}
 
 	@FXML
-	public void handleEditar() throws IOException {
-		TipoJustificativa tipoJustificativa = tblTipoJustificativa.getSelectionModel().getSelectedItem();
-		imdAuth.iniciarTipoJustificativaEditar(tipoJustificativa);
+	public void handleEditar(MouseEvent event) throws IOException {
+		if (event.getClickCount() > 1) {
+			TipoJustificativa tipoJustificativa = tblTipoJustificativa.getSelectionModel().getSelectedItem();
+			imdAuth.iniciarTipoJustificativaEditar(tipoJustificativa);
+		}
 	}
 }

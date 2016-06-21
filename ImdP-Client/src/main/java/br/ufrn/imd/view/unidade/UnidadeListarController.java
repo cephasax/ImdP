@@ -22,6 +22,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 
 public class UnidadeListarController implements Initializable {
 	@FXML
@@ -85,8 +86,10 @@ public class UnidadeListarController implements Initializable {
 	}
 
 	@FXML
-	public void handleEditar() throws IOException {
-		Unidade unidade = tblUnidades.getSelectionModel().getSelectedItem();
-		imdAuth.iniciarUnidadeEditar(unidade);
+	public void handleEditar(MouseEvent event) throws IOException {
+		if (event.getClickCount() > 1) {
+			Unidade unidade = tblUnidades.getSelectionModel().getSelectedItem();
+			imdAuth.iniciarUnidadeEditar(unidade);
+		}
 	}
 }

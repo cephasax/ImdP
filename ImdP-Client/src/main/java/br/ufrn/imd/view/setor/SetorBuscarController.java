@@ -30,6 +30,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
 
 public class SetorBuscarController implements Initializable {
@@ -53,7 +54,7 @@ public class SetorBuscarController implements Initializable {
 	private ImdAuth imdAuth;
 
 	private SetorService service = new SetorService();
-	
+
 	private UnidadeService serviceUnidade = new UnidadeService();
 
 	public void setMainApp(ImdAuth imdAuth) {
@@ -79,12 +80,13 @@ public class SetorBuscarController implements Initializable {
 
 		tblSetores.setItems(FXCollections.observableArrayList(yourClassList));
 		setorNome.setCellValueFactory(new PropertyValueFactory<Setor, String>("nome"));
-		setorUnidade.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Setor, String>, ObservableValue<String>>() {
-		    @Override
-		    public ObservableValue<String> call(TableColumn.CellDataFeatures<Setor, String> p) {
-		        return new SimpleStringProperty(p.getValue().getUnidade().getNome());
-		    }
-		});		
+		setorUnidade.setCellValueFactory(
+				new Callback<TableColumn.CellDataFeatures<Setor, String>, ObservableValue<String>>() {
+					@Override
+					public ObservableValue<String> call(TableColumn.CellDataFeatures<Setor, String> p) {
+						return new SimpleStringProperty(p.getValue().getUnidade().getNome());
+					}
+				});
 	}
 
 	@FXML
@@ -111,9 +113,11 @@ public class SetorBuscarController implements Initializable {
 	}
 
 	@FXML
-	public void handleEditar() throws IOException {
-		Setor setor = tblSetores.getSelectionModel().getSelectedItem();
-		imdAuth.iniciarSetorEditar(setor);
+	public void handleEditar(MouseEvent event) throws IOException {
+		if (event.getClickCount() > 1) {
+			Setor setor = tblSetores.getSelectionModel().getSelectedItem();
+			imdAuth.iniciarSetorEditar(setor);
+		}
 	}
 
 	@Override

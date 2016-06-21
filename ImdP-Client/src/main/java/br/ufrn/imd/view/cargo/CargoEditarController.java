@@ -48,8 +48,8 @@ public class CargoEditarController implements Initializable {
 	}
 
 	@FXML
-	public void handleEditar(MouseEvent event) throws IOException {
-		if (event.getClickCount()>1) {cargo.setNome(tfNomeCargo.getText());
+	public void handleEditar() throws IOException {
+		cargo.setNome(tfNomeCargo.getText());
 		int resultado = service.CargoEditar(cargo);
 
 		if (resultado == 200) {
@@ -67,6 +67,7 @@ public class CargoEditarController implements Initializable {
 			alert.setContentText("Ocorreu um erro!");
 
 			alert.showAndWait();
-		}}
+
+		}
 	}
 }

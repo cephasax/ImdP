@@ -20,6 +20,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 
 public class UnidadeBuscarController {
 	@FXML
@@ -32,11 +33,11 @@ public class UnidadeBuscarController {
 	private Button btnBuscar;
 	@FXML
 	private Button btnCancelar;
-    @FXML
-    private TableColumn<Unidade, String> nomeUnidade;
-    
+	@FXML
+	private TableColumn<Unidade, String> nomeUnidade;
+
 	private ImdAuth imdAuth;
-	
+
 	private UnidadeService service = new UnidadeService();
 
 	public void setMainApp(ImdAuth imdAuth) {
@@ -88,8 +89,10 @@ public class UnidadeBuscarController {
 	}
 
 	@FXML
-	public void handleEditar() throws IOException {
-		Unidade unidade = tblUnidades.getSelectionModel().getSelectedItem();
-		imdAuth.iniciarUnidadeEditar(unidade);
+	public void handleEditar(MouseEvent event) throws IOException {
+		if (event.getClickCount() > 1) {
+			Unidade unidade = tblUnidades.getSelectionModel().getSelectedItem();
+			imdAuth.iniciarUnidadeEditar(unidade);
+		}
 	}
 }

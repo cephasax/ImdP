@@ -21,6 +21,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -139,9 +140,11 @@ public class VinculoListarController implements Initializable {
 	}
 
 	@FXML
-	public void handleEditar() throws IOException {
-		Vinculo vinculo = tblVinculos.getSelectionModel().getSelectedItem();
-		imdAuth.iniciarVinculoEditar(vinculo);
+	public void handleEditar(MouseEvent event) throws IOException {
+		if (event.getClickCount() > 1) {
+			Vinculo vinculo = tblVinculos.getSelectionModel().getSelectedItem();
+			imdAuth.iniciarVinculoEditar(vinculo);
+		}
 	}
 
 	public String status(char status) {

@@ -20,6 +20,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
 public class CargoBuscarController {
@@ -89,10 +90,12 @@ public class CargoBuscarController {
 			alert.showAndWait();
 		}
 	}
-	
+
 	@FXML
-	public void handleEditar() throws IOException {
-		Cargo cargo = tblCargos.getSelectionModel().getSelectedItem();
-		imdAuth.iniciarCargoEditar(cargo);
+	public void handleEditar(MouseEvent event) throws IOException {
+		if (event.getClickCount() > 1) {
+			Cargo cargo = tblCargos.getSelectionModel().getSelectedItem();
+			imdAuth.iniciarCargoEditar(cargo);
+		}
 	}
 }

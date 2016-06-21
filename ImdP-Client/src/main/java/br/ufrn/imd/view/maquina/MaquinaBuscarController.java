@@ -30,6 +30,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
 
 public class MaquinaBuscarController implements Initializable {
@@ -112,9 +113,11 @@ public class MaquinaBuscarController implements Initializable {
 	}
 
 	@FXML
-	public void handleEditar() throws IOException {
-		Maquina maquina = tblMaquinas.getSelectionModel().getSelectedItem();
-		imdAuth.iniciarMaquinaEditar(maquina);
+	public void handleEditar(MouseEvent event) throws IOException {
+		if (event.getClickCount() > 1) {
+			Maquina maquina = tblMaquinas.getSelectionModel().getSelectedItem();
+			imdAuth.iniciarMaquinaEditar(maquina);
+		}
 	}
 
 	@Override

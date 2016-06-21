@@ -23,6 +23,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 
 public class UsuarioListarController implements Initializable {
 	@FXML
@@ -53,7 +54,7 @@ public class UsuarioListarController implements Initializable {
 	public void handleCancelar() throws IOException {
 		imdAuth.iniciarTelaPrincipal();
 	}
-	
+
 	@FXML
 	public void handleExcluir() throws IOException {
 		Usuario usuario = tblUsuarios.getSelectionModel().getSelectedItem();
@@ -91,11 +92,12 @@ public class UsuarioListarController implements Initializable {
 		usuarioEmail.setCellValueFactory(new PropertyValueFactory<Usuario, String>("email"));
 
 	}
-	
-	@FXML
-	public void handleEditar() throws IOException {
-		Usuario usuario = tblUsuarios.getSelectionModel().getSelectedItem();
-		imdAuth.iniciarUsuarioEditar(usuario);
-	}
 
+	@FXML
+	public void handleEditar(MouseEvent event) throws IOException {
+		if (event.getClickCount() > 1) {
+			Usuario usuario = tblUsuarios.getSelectionModel().getSelectedItem();
+			imdAuth.iniciarUsuarioEditar(usuario);
+		}
+	}
 }

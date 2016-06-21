@@ -24,6 +24,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
 
 public class MaquinaListarController implements Initializable {
@@ -63,12 +64,13 @@ public class MaquinaListarController implements Initializable {
 		tblMaquinas.setItems(FXCollections.observableArrayList(yourClassList));
 		maquinaNome.setCellValueFactory(new PropertyValueFactory<Maquina, String>("denominacao"));
 		maquinaIP.setCellValueFactory(new PropertyValueFactory<Maquina, String>("ip"));
-		maquinaUnidade.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Maquina, String>, ObservableValue<String>>() {
-		    @Override
-		    public ObservableValue<String> call(TableColumn.CellDataFeatures<Maquina, String> p) {
-		        return new SimpleStringProperty(p.getValue().getUnidade().getNome());
-		    }
-		});
+		maquinaUnidade.setCellValueFactory(
+				new Callback<TableColumn.CellDataFeatures<Maquina, String>, ObservableValue<String>>() {
+					@Override
+					public ObservableValue<String> call(TableColumn.CellDataFeatures<Maquina, String> p) {
+						return new SimpleStringProperty(p.getValue().getUnidade().getNome());
+					}
+				});
 	}
 
 	@FXML
@@ -95,8 +97,10 @@ public class MaquinaListarController implements Initializable {
 	}
 
 	@FXML
-	public void handleEditar() throws IOException {
-		Maquina maquina = tblMaquinas.getSelectionModel().getSelectedItem();
-		imdAuth.iniciarMaquinaEditar(maquina);
+	public void handleEditar(MouseEvent event) throws IOException {
+		if (event.getClickCount() > 1) {
+			Maquina maquina = tblMaquinas.getSelectionModel().getSelectedItem();
+			imdAuth.iniciarMaquinaEditar(maquina);
+		}
 	}
 }

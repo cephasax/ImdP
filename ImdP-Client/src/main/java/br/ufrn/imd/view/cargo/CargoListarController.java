@@ -17,11 +17,12 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 
 public class CargoListarController implements Initializable {
 	@FXML
@@ -34,7 +35,7 @@ public class CargoListarController implements Initializable {
 	private TableColumn<Cargo, String> cargoNome;
 
 	private ImdAuth imdAuth;
-	
+
 	private CargoService service = new CargoService();
 
 	public CargoListarController() throws Exception {
@@ -86,8 +87,10 @@ public class CargoListarController implements Initializable {
 	}
 
 	@FXML
-	public void handleEditar() throws IOException {
-		Cargo cargo = tblCargos.getSelectionModel().getSelectedItem();
-		imdAuth.iniciarCargoEditar(cargo);
+	public void handleEditar(MouseEvent event) throws IOException {
+		if (event.getClickCount() > 1) {
+			Cargo cargo = tblCargos.getSelectionModel().getSelectedItem();
+			imdAuth.iniciarCargoEditar(cargo);
+		}
 	}
 }

@@ -25,6 +25,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
 
 public class JustificativaListarController implements Initializable {
@@ -129,8 +130,10 @@ public class JustificativaListarController implements Initializable {
 	}
 
 	@FXML
-	public void handleEditar() throws IOException {
-		JustificativaFalta justificativaFalta = tblJustificativasFalta.getSelectionModel().getSelectedItem();
-		imdAuth.iniciarJustificativaUsuarioEditar(justificativaFalta);
+	public void handleEditar(MouseEvent event) throws IOException {
+		if (event.getClickCount() > 1) {
+			JustificativaFalta justificativaFalta = tblJustificativasFalta.getSelectionModel().getSelectedItem();
+			imdAuth.iniciarJustificativaUsuarioEditar(justificativaFalta);
+		}
 	}
 }

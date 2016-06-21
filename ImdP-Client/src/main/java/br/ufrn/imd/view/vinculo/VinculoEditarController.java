@@ -87,6 +87,8 @@ public class VinculoEditarController implements Initializable {
 		cbCargo.setConverter(new CargoConverter());
 		cbUsuario.setValue(vinculo.getUsuario());
 		cbUsuario.setConverter(new UsuarioConverter());
+		cbUnidade.setValue(vinculo.getSetor().getUnidade());
+		cbUnidade.setConverter(new UnidadeConverter());
 		tfCargaHorariaDiaria.setText(String.valueOf(vinculo.getCargaHorariaDiaria()));
 		tfCargaHorariaSemanal.setText(String.valueOf(vinculo.getCargaHorariaSemanal()));
 		tfCargaHorariaMensal.setText(String.valueOf(vinculo.getCargaHorariaMensal()));

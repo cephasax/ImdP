@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.persistence.NoResultException;
 
 import br.ufrn.imd.dao.MesTrabalhoDao;
 import br.ufrn.imd.dominio.MesTrabalho;
@@ -19,6 +18,7 @@ public class MesTrabalhoService{
 	@Inject
 	private MesTrabalhoDao mesTrabalhoDao;
 	
+	@SuppressWarnings("unchecked")
 	public void save(MesTrabalho mesTrabalho) throws DadoJaExisteException, DadoIncompletoException {
 		verificarMesTrabalho(mesTrabalho);
 		ArrayList<MesTrabalho> months = mesTrabalhoDao.buscarMesTrabalhoCheck(mesTrabalho);
@@ -31,6 +31,7 @@ public class MesTrabalhoService{
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	public MesTrabalho update(MesTrabalho mesTrabalho) throws DadoIncompletoException {
 		verificarMesTrabalho(mesTrabalho);
 		return (MesTrabalho) mesTrabalhoDao.update(mesTrabalho);

@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.persistence.NoResultException;
 
 import br.ufrn.imd.dao.VinculoDao;
 import br.ufrn.imd.dominio.Vinculo;
@@ -19,6 +18,7 @@ public class VinculoService{
 	@Inject
 	private VinculoDao vinculoDao;
 	
+	@SuppressWarnings("unchecked")
 	public void save(Vinculo vinculo) throws DadoJaExisteException, DadoIncompletoException {
 		verificarVinculo(vinculo);
 		ArrayList<Vinculo> vincs = vinculoDao.buscarVinculoCheck(vinculo);
@@ -30,6 +30,7 @@ public class VinculoService{
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	public Vinculo update(Vinculo vinculo) throws DadoIncompletoException {
 		verificarVinculo(vinculo);
 		return (Vinculo) vinculoDao.update(vinculo);
@@ -72,6 +73,18 @@ public class VinculoService{
 			return null;
 		}
 	}
+	
+	public ArrayList<Vinculo> buscarVinculosUsuario(int idUsuario){
+		ArrayList<Vinculo> vincs = new ArrayList<Vinculo>();
+		vincs = vinculoDao.listarVinculosUsuario(idUsuario);
+		if(vincs.size() > 0){
+			return vincs;
+		}
+		else{
+			return null;
+		}
+	}
+	
 
 	private void verificarVinculo(Vinculo vinculo) throws DadoIncompletoException{
 		boolean hasError = false;

@@ -5,12 +5,9 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.persistence.NoResultException;
 
 import br.ufrn.imd.dao.JustificativaFaltaDao;
-import br.ufrn.imd.dao.VinculoDao;
 import br.ufrn.imd.dominio.JustificativaFalta;
-import br.ufrn.imd.dominio.Vinculo;
 import br.ufrn.imd.excecoes.DadoIncompletoException;
 import br.ufrn.imd.excecoes.DadoJaExisteException;
 import br.ufrn.imd.excecoes.DadoNaoEncontradoException;
@@ -34,6 +31,7 @@ public class JustificativaFaltaService{
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	public JustificativaFalta update(JustificativaFalta justificativaFalta) throws DadoIncompletoException {
 		verificarJustificativaFalta(justificativaFalta);
 		return (JustificativaFalta) justificativaFaltaDao.update(justificativaFalta);

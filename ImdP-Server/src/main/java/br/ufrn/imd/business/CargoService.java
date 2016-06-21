@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.persistence.NoResultException;
 
 import br.ufrn.imd.dao.CargoDao;
 import br.ufrn.imd.dominio.Cargo;
@@ -19,6 +18,7 @@ public class CargoService{
 	@Inject
 	private CargoDao cargoDao;
 	
+	@SuppressWarnings("unchecked")
 	public void save(Cargo cargo) throws DadoJaExisteException, DadoIncompletoException {
 		verificarCargo(cargo);
 		ArrayList<Cargo> cargs = cargoDao.buscarCargoCheck(cargo.getNome());
@@ -29,7 +29,8 @@ public class CargoService{
 			throw new DadoJaExisteException("Erro - save: Cargo ja existe na base de dados");
 		}
 	}
-
+	
+	@SuppressWarnings("unchecked")
 	public Cargo update(Cargo cargo) throws DadoIncompletoException {
 		verificarCargo(cargo);
 		return (Cargo) cargoDao.update(cargo);

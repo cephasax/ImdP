@@ -6,6 +6,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.Query;
 
+import br.ufrn.imd.dominio.Ponto;
 import br.ufrn.imd.dominio.Vinculo;
 
 @Stateless
@@ -81,6 +82,26 @@ public class VinculoDao extends GenericDao {
 		return (Vinculo)query.getSingleResult();
 	}
 
+	@SuppressWarnings("unchecked")
+	public ArrayList<Vinculo> listarVinculosUsuario(int idUsuario) {
+		
+		//CONSTRUCAO DA CONSULTA SQL
+		String sql = " Select v FROM Vinculo v";
+		StringBuilder where = new StringBuilder();
+		where.append(" WHERE v.usuario.idUsuario = :idUsuario");
+		
+		StringBuilder sqlFinal = new StringBuilder();
+		sqlFinal.append(sql);
+		sqlFinal.append(where.toString());	
+		Query query = em.createQuery(sqlFinal.toString());
+		
+		//DEFINICAO DOS PARAMETROS DA CONSULTA
+		query.setParameter("idUsuario", idUsuario);
+
+		//EXECUCAO E RETORNO
+		return (ArrayList<Vinculo>)query.getResultList();
+	}
+	
 	public ArrayList<Vinculo> buscarVinculoCheck(Vinculo vinculo) {
 		
 		//CONSTRUCAO DA CONSULTA SQL
@@ -110,4 +131,5 @@ public class VinculoDao extends GenericDao {
 	public void delete(Vinculo vinculo) {
 		super.delete(vinculo.getIdVinculo(), Vinculo.class);
 	}
+
 }

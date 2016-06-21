@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.persistence.NoResultException;
 
 import br.ufrn.imd.dao.TipoJustificativaDao;
 import br.ufrn.imd.dominio.TipoJustificativa;
@@ -19,6 +18,7 @@ public class TipoJustificativaService{
 	@Inject
 	private TipoJustificativaDao tipoJustificativaDao;
 	
+	@SuppressWarnings("unchecked")
 	public void save(TipoJustificativa tipoJustificativa) throws DadoJaExisteException, DadoIncompletoException {
 		verificarTipoJustificativa(tipoJustificativa);
 		ArrayList<TipoJustificativa> tjs = tipoJustificativaDao.buscarTipoJustificativaCheck(tipoJustificativa);
@@ -31,6 +31,7 @@ public class TipoJustificativaService{
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	public TipoJustificativa update(TipoJustificativa tipoJustificativa) throws DadoIncompletoException {
 		verificarTipoJustificativa(tipoJustificativa);
 		return (TipoJustificativa) tipoJustificativaDao.update(tipoJustificativa);

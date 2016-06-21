@@ -8,7 +8,6 @@ import javax.inject.Inject;
 import javax.persistence.NoResultException;
 
 import br.ufrn.imd.dao.UsuarioDao;
-import br.ufrn.imd.dao.VinculoDao;
 import br.ufrn.imd.dominio.Usuario;
 import br.ufrn.imd.excecoes.DadoIncompletoException;
 import br.ufrn.imd.excecoes.DadoJaExisteException;
@@ -20,6 +19,7 @@ public class UsuarioService{
 	@Inject
 	private UsuarioDao usuarioDao;
 	
+	@SuppressWarnings("unchecked")
 	public void save(Usuario usuario) throws DadoJaExisteException, DadoIncompletoException {
 		verificarUsuario(usuario);
 		ArrayList<Usuario> users = usuarioDao.buscarUsuarioCheck(usuario);
@@ -32,6 +32,7 @@ public class UsuarioService{
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	public Usuario update(Usuario usuario) throws DadoIncompletoException {
 		verificarUsuario(usuario);
 		return (Usuario) usuarioDao.update(usuario);

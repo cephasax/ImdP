@@ -117,4 +117,14 @@ public class VinculoResource {
 		users = service.buscarFiltro(nomeUsuario, idUnidade, idSetor);
 		return users;
 	}
+	
+	//FIND BY ID_USUARIO
+	@GET
+	@Path("/vinculos/usuarios/{idUsuario}")
+	@Produces("application/json; charset=UTF-8")
+	public ArrayList<Vinculo> buscaVinculosUsuario(@PathParam("idUsuario") int id){
+		ArrayList<Vinculo> vincs = new ArrayList<Vinculo>();
+		vincs = service.buscarVinculosUsuario(id);
+		return vincs;
+	}
 }

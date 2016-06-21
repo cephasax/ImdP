@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.persistence.NoResultException;
 
 import br.ufrn.imd.dao.PontoDao;
 import br.ufrn.imd.dominio.Ponto;
@@ -19,6 +18,7 @@ public class PontoService{
 	@Inject
 	private PontoDao pontoDao;
 	
+	@SuppressWarnings("unchecked")
 	public void save(Ponto ponto) throws DadoJaExisteException, DadoIncompletoException {
 		verificarPonto(ponto);
 		ArrayList<Ponto> pontos = pontoDao.buscarPontoCheck(ponto);
@@ -31,6 +31,7 @@ public class PontoService{
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	public Ponto update(Ponto ponto) throws DadoIncompletoException {
 		verificarPonto(ponto);
 		return (Ponto) pontoDao.update(ponto);
@@ -111,7 +112,7 @@ public class PontoService{
 			hasError = true;
 		}
 		
-		//MAQUINA
+		//Id MAQUINA
 		if (ponto.getMaquina().getIdMaquina() <= 0){
 			hasError = true;
 		}

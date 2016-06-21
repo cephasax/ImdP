@@ -7,6 +7,7 @@ import org.jboss.resteasy.client.jaxrs.ResteasyClient;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
 
+import br.ufrn.imd.dominio.Usuario;
 import br.ufrn.imd.dominio.Vinculo;
 
 public class VinculoService extends GenericService {
@@ -82,4 +83,17 @@ public class VinculoService extends GenericService {
 		
 	}
 	
+	public String vinculoBuscarUsuario(Usuario usuario) {
+		ResteasyWebTarget target = client.target(
+				getUrl() + getDomain() + getComplement() + getVersion() + "consulta/vinculos/usuarios/" + usuario.getIdUsuario());
+		Response response = target.request().get();
+
+		System.out.println("HTTP Response Code:" + response.getStatus());
+
+		String value = response.readEntity(String.class);
+		System.out.println(value);
+
+		response.close();
+		return value;
+	}
 }

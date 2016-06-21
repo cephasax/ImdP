@@ -1,11 +1,18 @@
 package br.ufrn.imd.view.outras;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
+import br.ufrn.imd.converter.VinculoConverter;
 import br.ufrn.imd.dominio.Cargo;
 import br.ufrn.imd.dominio.JustificativaFalta;
 import br.ufrn.imd.dominio.Maquina;
@@ -17,6 +24,7 @@ import br.ufrn.imd.dominio.Usuario;
 import br.ufrn.imd.dominio.Vinculo;
 import br.ufrn.imd.main.ImdAuth;
 import br.ufrn.imd.services.UsuarioService;
+import br.ufrn.imd.services.VinculoService;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -37,64 +45,44 @@ public class InicioController implements Initializable {
 
 	@FXML
 	private ImageView imgPonto;
-
 	@FXML
 	private ImageView imdLogo;
-
 	@FXML
 	private Text lblAindaNaoECadastrado;
-
 	@FXML
 	private Label lblCPF;
-
 	@FXML
 	private Label lblSenha;
-
 	@FXML
 	private Label lblVinculo;
-
 	@FXML
 	private Button btnLogar;
-
 	@FXML
 	private Button btnCancelar;
-
 	@FXML
 	private ComboBox<Vinculo> cbVinculo;
-
 	@FXML
 	private TextField tfSenha;
-
 	@FXML
 	private TextField tfCPF;
-
 	@FXML
 	private Button btnCadastrar;
-
 	@FXML
 	private Text lblCliqueAqui;
-
 	@FXML
 	private Menu menuMenu;
-
 	@FXML
 	private Menu menuSistema;
-
 	@FXML
 	private Menu menuUnidade;
-
 	@FXML
 	private Menu menuSetor;
-
 	@FXML
 	private Menu menuUsuario;
-
 	@FXML
 	private Menu menuAjuda;
-
 	@FXML
 	private MenuItem menuItemLogin;
-
 	@FXML
 	private MenuItem menuItemLogout;
 
@@ -362,16 +350,44 @@ public class InicioController implements Initializable {
 
 	@FXML
 	public void actionLogar() throws IOException {
-		menuAjuda.setDisable(false);
-		menuMenu.setDisable(false);
-		menuSetor.setDisable(false);
-		menuSistema.setDisable(false);
-		menuUnidade.setDisable(false);
-		menuUsuario.setDisable(false);
-		menuItemLogin.setDisable(true);
-		menuItemLogout.setDisable(false);
+		try {
+			UsuarioService service = new UsuarioService();
 
-		imdAuth.iniciarTelaPrincipal();
+			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+			Type listTypeUs = new TypeToken<ArrayList<Usuario>>() {
+			}.getType();
+			List<Usuario> usuarios = gson.fromJson(service.usuarioBuscarCPF(tfCPF.getText()), listTypeUs);
+
+			imdAuth.setUsuario(usuarios.get(0));
+			if (imdAuth.getUsuario().getSenha().equals(tfSenha.getText())) {
+
+				menuAjuda.setDisable(false);
+				menuMenu.setDisable(false);
+				menuSetor.setDisable(false);
+				menuSistema.setDisable(false);
+				menuUnidade.setDisable(false);
+				menuUsuario.setDisable(false);
+				menuItemLogin.setDisable(true);
+				menuItemLogout.setDisable(false);
+
+				imdAuth.iniciarTelaPrincipal();
+			} else {
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Erro");
+				alert.setHeaderText(null);
+				alert.setContentText("Senha incorreta tente de novo.");
+
+				alert.showAndWait();
+			}
+
+		} catch (Exception e) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Erro");
+			alert.setHeaderText(null);
+			alert.setContentText("Usuário não existe.");
+
+			alert.showAndWait();
+		}
 	}
 
 	@FXML
@@ -382,6 +398,41 @@ public class InicioController implements Initializable {
 		System.out.println(usuario.getNome());
 
 		imdAuth.testDigital();
+	}
+
+	@FXML
+	public void actionVerificarUser() {
+		try {
+			UsuarioService service = new UsuarioService();
+
+			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+			Type listTypeUs = new TypeToken<ArrayList<Usuario>>() {
+			}.getType();
+			List<Usuario> usuarios = gson.fromJson(service.usuarioBuscarCPF(tfCPF.getText()), listTypeUs);
+
+			imdAuth.setUsuario(usuarios.get(0));
+			actionPreencherVinculo();
+		} catch (Exception e) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Erro");
+			alert.setHeaderText(null);
+			alert.setContentText("Usuário não existe.");
+
+			alert.showAndWait();
+		}
+	}
+
+	@FXML
+	public void actionPreencherVinculo() {
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+
+		Type listType = new TypeToken<ArrayList<Vinculo>>() {
+		}.getType();
+		Collection<Vinculo> vinculos = gson.fromJson(new VinculoService().vinculoBuscarUsuario(imdAuth.getUsuario()),
+				listType);
+
+		cbVinculo.getItems().addAll(vinculos);
+		cbVinculo.setConverter(new VinculoConverter());
 	}
 
 	public void initialize(URL location, ResourceBundle resources) {

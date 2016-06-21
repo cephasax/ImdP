@@ -44,6 +44,33 @@ public class Usuario implements Serializable {
 		super();
 	}
 
+	public Usuario(int idUsuario, String nome, String sexo, Date dataNascimento, String cpf, String rg,
+			String orgaoExpedicaoRg, Date dataExpedicaoRg, String estadoRg, String cnh, String nomePai, String nomeMae,
+			String email, String telefone1, String telefone2, byte[] digital, String login, String senha, String foto,
+			Date dataCriacao) {
+		super();
+		this.idUsuario = idUsuario;
+		this.nome = nome;
+		this.sexo = sexo;
+		this.dataNascimento = dataNascimento;
+		this.cpf = cpf;
+		this.rg = rg;
+		this.orgaoExpedicaoRg = orgaoExpedicaoRg;
+		this.dataExpedicaoRg = dataExpedicaoRg;
+		EstadoRg = estadoRg;
+		this.cnh = cnh;
+		this.nomePai = nomePai;
+		this.nomeMae = nomeMae;
+		this.email = email;
+		this.telefone1 = telefone1;
+		this.telefone2 = telefone2;
+		this.digital = digital;
+		this.login = login;
+		this.senha = senha;
+		this.foto = foto;
+		this.dataCriacao = dataCriacao;
+	}
+
 	public Usuario(String nome, String sexo, Date dataNascimento, String cpf, String rg, String orgaoExpedicaoRg,
 			Date dataExpedicaoRg, String estadoRg, String cnh, String nomePai, String nomeMae, String email,
 			String telefone1, String telefone2, byte[] digital, String login, String senha, String foto,

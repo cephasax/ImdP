@@ -20,7 +20,7 @@
 
 <BorderPane xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.ufrn.imd.view.outras.InicioController">
    <center>
-      <AnchorPane prefHeight="600.0" prefWidth="800.0">
+      <AnchorPane onMouseReleased="#actionVerificarUser" prefHeight="600.0" prefWidth="800.0">
         <!-- TODO Add Nodes -->
         <children>
           <Button fx:id="btnLogar" layoutX="413.0" layoutY="332.0" mnemonicParsing="false" onAction="#actionLogar" prefHeight="25.0" prefWidth="65.0" text="Logar" visible="false" />
@@ -49,7 +49,7 @@
                      </font>
                   </Label>
                   <TextField fx:id="tfCPF" prefHeight="25.0" prefWidth="233.0" GridPane.columnIndex="2" />
-                  <ComboBox fx:id="cbVinculo" prefHeight="25.0" prefWidth="239.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <ComboBox fx:id="cbVinculo" onMouseClicked="#actionVerificarUser" prefHeight="25.0" prefWidth="239.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                   <Label fx:id="lblVinculo" prefHeight="21.0" prefWidth="60.0" text="Vínculo:" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                      <font>
                         <Font size="15.0" />

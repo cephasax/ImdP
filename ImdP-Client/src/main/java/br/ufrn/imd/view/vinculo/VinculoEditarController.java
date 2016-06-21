@@ -105,7 +105,7 @@ public class VinculoEditarController implements Initializable {
 		vinculo.setSetor(cbSetor.getSelectionModel().getSelectedItem());
 		vinculo.setCargo(cbCargo.getSelectionModel().getSelectedItem());
 		
-		int resultado = service.VinculoEditar(vinculo);
+		int resultado = service.vinculoEditar(vinculo);
 
 		if (resultado == 200) {
 			Alert alert = new Alert(AlertType.CONFIRMATION);

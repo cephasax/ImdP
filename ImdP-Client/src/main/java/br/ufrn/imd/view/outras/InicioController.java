@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.google.gson.Gson;
+
 import br.ufrn.imd.dominio.Cargo;
 import br.ufrn.imd.dominio.JustificativaFalta;
 import br.ufrn.imd.dominio.Maquina;
@@ -14,6 +16,7 @@ import br.ufrn.imd.dominio.Unidade;
 import br.ufrn.imd.dominio.Usuario;
 import br.ufrn.imd.dominio.Vinculo;
 import br.ufrn.imd.main.ImdAuth;
+import br.ufrn.imd.services.UsuarioService;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -57,7 +60,7 @@ public class InicioController implements Initializable {
 	private Button btnCancelar;
 
 	@FXML
-	private ComboBox<?> cbVinculo;
+	private ComboBox<Vinculo> cbVinculo;
 
 	@FXML
 	private TextField tfSenha;
@@ -373,6 +376,11 @@ public class InicioController implements Initializable {
 
 	@FXML
 	public void actionCadastrarDigital() {
+		Usuario usuario = new Usuario();
+		imdAuth.setUsuario(
+				usuario = new Gson().fromJson(new UsuarioService().usuarioBuscarCPF(tfCPF.getText()), Usuario.class));
+		System.out.println(usuario.getNome());
+
 		imdAuth.testDigital();
 	}
 
@@ -382,5 +390,6 @@ public class InicioController implements Initializable {
 		imdLogo.setImage(new Image(
 				ImdAuth.class.getResourceAsStream("../../../../main/resources/images/pontoAntigo/logosmall-old.png")));
 		menuItemLogout.setDisable(true);
+
 	}
 }

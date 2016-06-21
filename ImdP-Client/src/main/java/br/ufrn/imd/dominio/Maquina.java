@@ -20,6 +20,14 @@ public class Maquina implements Serializable {
 
 	}
 
+	public Maquina(int idMaquina, String denominacao, String ip, Unidade unidade) {
+		super();
+		this.idMaquina = idMaquina;
+		this.denominacao = denominacao;
+		this.ip = ip;
+		this.unidade = unidade;
+	}
+
 	public Maquina(String denominacao, String ip, Unidade unidade) {
 		super();
 		this.denominacao = denominacao;

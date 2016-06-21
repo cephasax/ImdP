@@ -54,6 +54,20 @@ public class UsuarioService extends GenericService {
 		response.close();
 		return value;
 	}
+	
+	public String usuarioBuscarCPF(String cpf) {
+		ResteasyWebTarget target = client.target(getUrl() + getDomain() + getComplement() + getVersion()
+				+ "consulta/usuariosFilter?cpf=" + cpf);
+		Response response = target.request().get();
+
+		System.out.println("HTTP Response Code:" + response.getStatus());
+
+		String value = response.readEntity(String.class);
+		System.out.println(value);
+
+		response.close();
+		return value;
+	}
 
 	public int usuarioDeletar(Usuario usuario) {
 		ResteasyWebTarget delete = client.target(getUrl() + getDomain() + getComplement() + getVersion()

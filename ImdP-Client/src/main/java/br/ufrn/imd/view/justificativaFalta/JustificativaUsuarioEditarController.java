@@ -127,7 +127,7 @@ public class JustificativaUsuarioEditarController implements Initializable {
 
 		Type listType = new TypeToken<ArrayList<Vinculo>>() {
 		}.getType();
-		Collection<Vinculo> vinculos = gson1.fromJson(serviceVinculo.VinculoListar(), listType);
+		Collection<Vinculo> vinculos = gson1.fromJson(serviceVinculo.vinculoListar(), listType);
 
 		cbVinculo.getItems().addAll(vinculos);
 		cbVinculo.setConverter(new VinculoConverter());

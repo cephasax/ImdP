@@ -16,15 +16,23 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
+import br.ufrn.imd.converter.SetorConverter;
+import br.ufrn.imd.converter.UnidadeConverter;
+import br.ufrn.imd.converter.UsuarioConverter;
+import br.ufrn.imd.converter.VinculoConverter;
+import br.ufrn.imd.dominio.Maquina;
 import br.ufrn.imd.dominio.Ponto;
 import br.ufrn.imd.dominio.Setor;
 import br.ufrn.imd.dominio.Unidade;
 import br.ufrn.imd.dominio.Usuario;
+import br.ufrn.imd.dominio.Vinculo;
 import br.ufrn.imd.main.ImdAuth;
+import br.ufrn.imd.services.MaquinaService;
 import br.ufrn.imd.services.PontoService;
 import br.ufrn.imd.services.SetorService;
 import br.ufrn.imd.services.UnidadeService;
 import br.ufrn.imd.services.UsuarioService;
+import br.ufrn.imd.services.VinculoService;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -46,11 +54,11 @@ public class PontoAvulsoCriarController implements Initializable {
 	@FXML
 	private DatePicker dpData;
 	@FXML
-	private ComboBox<?> tfTipo;
-	@FXML
 	private TextField taObservacao;
 	@FXML
 	private ComboBox<Usuario> cbUsuario;
+	@FXML
+	private ComboBox<Vinculo> cbVinculo;
 
 	private UnidadeService serviceUnidade = new UnidadeService();
 
@@ -60,6 +68,8 @@ public class PontoAvulsoCriarController implements Initializable {
 
 	private PontoService service = new PontoService();
 
+	private VinculoService serviceVinculo = new VinculoService();
+	
 	private ImdAuth imdAuth;
 
 	public void setMainApp(ImdAuth imdAuth) {
@@ -79,9 +89,11 @@ public class PontoAvulsoCriarController implements Initializable {
 
 		Date dataAtual = new Date();
 		
-		Ponto ponto = new Ponto(date, 'm', 'm', taObservacao.getText(), dataAtual, 1, null, null);
-		
-		int resultado = service.PontoCriar(ponto);
+		Maquina maquina = new Maquina(11, "Maquina Recepcao", "192.168.0.10", new Unidade("IMD"));
+
+		Ponto ponto = new Ponto(date, 'm', 'm', taObservacao.getText(), dataAtual, 27, cbVinculo.getSelectionModel().getSelectedItem(), maquina);
+
+		int resultado = service.pontoCriar(ponto);
 		if (resultado == 200) {
 			Alert alert = new Alert(AlertType.CONFIRMATION);
 			alert.setTitle("Feedback");
@@ -107,12 +119,14 @@ public class PontoAvulsoCriarController implements Initializable {
 		Collection<Unidade> unidades = new Gson().fromJson(serviceUnidade.UnidadeListar(), listType);
 
 		cbUnidade.getItems().addAll(unidades);
+		cbUnidade.setConverter(new UnidadeConverter());
 
 		Type listTypeS = new TypeToken<ArrayList<Setor>>() {
 		}.getType();
 		Collection<Setor> setores = new Gson().fromJson(serviceSetor.SetorListar(), listTypeS);
 
 		cbSetor.getItems().addAll(setores);
+		cbSetor.setConverter(new SetorConverter());
 
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		Type listTypeUs = new TypeToken<ArrayList<Usuario>>() {
@@ -120,6 +134,14 @@ public class PontoAvulsoCriarController implements Initializable {
 		List<Usuario> usuarios = gson.fromJson(serviceUsuario.usuarioListar(), listTypeUs);
 
 		cbUsuario.getItems().addAll(usuarios);
+		cbUsuario.setConverter(new UsuarioConverter());
 
+		Gson gson2 = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		Type listTypeV = new TypeToken<ArrayList<Vinculo>>() {
+		}.getType();
+		List<Vinculo> vinculos = gson2.fromJson(serviceVinculo.vinculoListar(), listTypeV);
+
+		cbVinculo.getItems().addAll(vinculos);
+		cbVinculo.setConverter(new VinculoConverter());
 	}
 }

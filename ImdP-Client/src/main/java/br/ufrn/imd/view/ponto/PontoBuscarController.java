@@ -82,7 +82,7 @@ public class PontoBuscarController implements Initializable {
 		
 		Type listTypeV = new TypeToken<ArrayList<Vinculo>>() {
 		}.getType();
-		Collection<Vinculo> vinculos = new Gson().fromJson(serviceVinculo.VinculoListar(), listTypeV);
+		Collection<Vinculo> vinculos = new Gson().fromJson(serviceVinculo.vinculoListar(), listTypeV);
 
 		cbVinculo.getItems().addAll(vinculos);
 		cbVinculo.setConverter(new VinculoConverter());

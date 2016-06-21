@@ -62,8 +62,6 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -72,16 +70,33 @@ public class ImdAuth extends Application {
 
 	private Stage primaryStage;
 	public BorderPane rootLayout;
-	final TextField username = new TextField();
-	final PasswordField password = new PasswordField();
+	private Usuario usuario;
+	private Maquina maquina;
 
 	@Override
 	public void start(Stage primaryStage) throws IOException {
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("Biometric Auth IMD");
-//		this.primaryStage.getIcons().add(new Image("../../../../../resources/images/pontoAntigo/logoicon.png"));
+		// this.primaryStage.getIcons().add(new
+		// Image("../../../../../resources/images/pontoAntigo/logoicon.png"));
 		showMainView();
 
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public Maquina getMaquina() {
+		return maquina;
+	}
+
+	public void setMaquina(Maquina maquina) {
+		this.maquina = maquina;
 	}
 
 	public void showMainView() throws IOException {

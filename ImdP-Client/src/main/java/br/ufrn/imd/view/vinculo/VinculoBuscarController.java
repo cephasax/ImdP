@@ -83,7 +83,7 @@ public class VinculoBuscarController implements Initializable {
 	@FXML
 	public void handleExcluir() throws IOException {
 		Vinculo vinculo = tblVinculos.getSelectionModel().getSelectedItem();
-		int resultado = service.VinculoDeletar(vinculo);
+		int resultado = service.vinculoDeletar(vinculo);
 
 		if (resultado == 200) {
 			Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -113,7 +113,7 @@ public class VinculoBuscarController implements Initializable {
 	public void handleBuscar() throws IOException {
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 
-		String resultado = service.VinculoBuscar(tfNome.getText());
+		String resultado = service.vinculoBuscar(tfNome.getText());
 
 		Type listType = new TypeToken<ArrayList<Vinculo>>() {
 		}.getType();

@@ -68,7 +68,7 @@ public class MaquinaEditarController implements Initializable {
 		maquina.setIp(tfIP.getText());
 		maquina.setUnidade(cbUnidade.getSelectionModel().getSelectedItem());
 
-		int resultado = service.MaquinaEditar(maquina);
+		int resultado = service.maquinaEditar(maquina);
 
 		if (resultado == 200) {
 			Alert alert = new Alert(AlertType.CONFIRMATION);

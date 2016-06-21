@@ -58,7 +58,7 @@ public class MaquinaListarController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		Type listType = new TypeToken<ArrayList<Maquina>>() {
 		}.getType();
-		List<Maquina> yourClassList = new Gson().fromJson(service.MaquinaListar(), listType);
+		List<Maquina> yourClassList = new Gson().fromJson(service.maquinaListar(), listType);
 
 		tblMaquinas.setItems(FXCollections.observableArrayList(yourClassList));
 		maquinaNome.setCellValueFactory(new PropertyValueFactory<Maquina, String>("denominacao"));
@@ -74,7 +74,7 @@ public class MaquinaListarController implements Initializable {
 	@FXML
 	public void handleExcluir() throws IOException {
 		Maquina maquina = tblMaquinas.getSelectionModel().getSelectedItem();
-		int resultado = service.MaquinaDeletar(maquina);
+		int resultado = service.maquinaDeletar(maquina);
 
 		if (resultado == 200) {
 			Alert alert = new Alert(AlertType.CONFIRMATION);

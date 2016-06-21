@@ -65,7 +65,7 @@ public class VinculoListarController implements Initializable {
 
 		Type listType = new TypeToken<ArrayList<Vinculo>>() {
 		}.getType();
-		List<Vinculo> yourClassList = gson.fromJson(service.VinculoListar(), listType);
+		List<Vinculo> yourClassList = gson.fromJson(service.vinculoListar(), listType);
 		for (int i = 0; i < yourClassList.size(); i++) {
 			System.out.println(yourClassList.get(i).getIdVinculo() + " " + yourClassList.get(i).getDescricao());
 		}
@@ -118,7 +118,7 @@ public class VinculoListarController implements Initializable {
 	@FXML
 	public void handleExcluir() throws IOException {
 		Vinculo vinculo = tblVinculos.getSelectionModel().getSelectedItem();
-		int resultado = service.VinculoDeletar(vinculo);
+		int resultado = service.vinculoDeletar(vinculo);
 
 		if (resultado == 200) {
 			Alert alert = new Alert(AlertType.CONFIRMATION);

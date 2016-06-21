@@ -70,7 +70,7 @@ public class MaquinaBuscarController implements Initializable {
 
 	@FXML
 	public void handleBuscar() throws IOException {
-		String resultado = service.MaquinaBuscar(tfNomeMaquina.getText());
+		String resultado = service.maquinaBuscar(tfNomeMaquina.getText());
 
 		Type listType = new TypeToken<ArrayList<Maquina>>() {
 		}.getType();
@@ -91,7 +91,7 @@ public class MaquinaBuscarController implements Initializable {
 	@FXML
 	public void handleExcluir() throws IOException {
 		Maquina maquina = tblMaquinas.getSelectionModel().getSelectedItem();
-		int resultado = service.MaquinaDeletar(maquina);
+		int resultado = service.maquinaDeletar(maquina);
 
 		if (resultado == 200) {
 			Alert alert = new Alert(AlertType.CONFIRMATION);

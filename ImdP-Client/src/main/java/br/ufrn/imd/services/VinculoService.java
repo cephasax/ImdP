@@ -16,7 +16,7 @@ public class VinculoService extends GenericService {
 		
 	}
 
-	public String VinculoListar() {
+	public String vinculoListar() {
 		ResteasyWebTarget target = client
 				.target(getUrl() + getDomain() + getComplement() + getVersion() + "consulta/vinculos");
 		Response response = target.request().get();
@@ -28,7 +28,7 @@ public class VinculoService extends GenericService {
 		return value;
 	}
 
-	public int VinculoCriar(Vinculo vinculo) {
+	public int vinculoCriar(Vinculo vinculo) {
 		ResteasyWebTarget add = client
 				.target(getUrl() + getDomain() + getComplement() + getVersion() + "consulta/vinculos");
 
@@ -41,7 +41,7 @@ public class VinculoService extends GenericService {
 		return addResponse.getStatus();
 	}
 
-	public String VinculoBuscar(String nome) {
+	public String vinculoBuscar(String nome) {
 		ResteasyWebTarget target = client.target(
 				getUrl() + getDomain() + getComplement() + getVersion() + "consulta/vinculosFilter?nomeVinculo=" + nome);
 		Response response = target.request().get();
@@ -55,7 +55,7 @@ public class VinculoService extends GenericService {
 		return value;
 	}
 
-	public int VinculoDeletar(Vinculo vinculo) {
+	public int vinculoDeletar(Vinculo vinculo) {
 		ResteasyWebTarget delete = client.target(
 				getUrl() + getDomain() + getComplement() + getVersion() + "consulta/vinculos/" + vinculo.getIdVinculo());
 
@@ -68,7 +68,7 @@ public class VinculoService extends GenericService {
 		return deleteResponse.getStatus();
 	}
 	
-	public int VinculoEditar(Vinculo vinculo){
+	public int vinculoEditar(Vinculo vinculo){
 		ResteasyWebTarget update = client.target(
 				getUrl() + getDomain() + getComplement() + getVersion() + "consulta/vinculos/");
 
@@ -81,6 +81,5 @@ public class VinculoService extends GenericService {
 		return updateResponse.getStatus();
 		
 	}
-	
 	
 }

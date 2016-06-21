@@ -67,7 +67,7 @@ public class MaquinaCriarController implements Initializable {
 		Maquina maquina = new Maquina(tfNomeMaquina.getText(), tfIP.getText(),
 				cbUnidade.getSelectionModel().getSelectedItem());
 		int resultado;
-		resultado = service.MaquinaCriar(maquina);
+		resultado = service.maquinaCriar(maquina);
 		if (resultado == 200) {
 			Alert alert = new Alert(AlertType.CONFIRMATION);
 			alert.setTitle("Feedback");

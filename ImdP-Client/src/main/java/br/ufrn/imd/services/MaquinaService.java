@@ -16,7 +16,7 @@ public class MaquinaService extends GenericService {
 		
 	}
 
-	public String MaquinaListar() {
+	public String maquinaListar() {
 		ResteasyWebTarget target = client
 				.target(getUrl() + getDomain() + getComplement() + getVersion() + "consulta/maquinas");
 		Response response = target.request().get();
@@ -28,7 +28,7 @@ public class MaquinaService extends GenericService {
 		return value;
 	}
 
-	public int MaquinaCriar(Maquina maquina) {
+	public int maquinaCriar(Maquina maquina) {
 		ResteasyWebTarget add = client
 				.target(getUrl() + getDomain() + getComplement() + getVersion() + "consulta/maquinas");
 
@@ -41,7 +41,7 @@ public class MaquinaService extends GenericService {
 		return addResponse.getStatus();
 	}
 
-	public String MaquinaBuscar(String nome) {
+	public String maquinaBuscar(String nome) {
 		ResteasyWebTarget target = client.target(
 				getUrl() + getDomain() + getComplement() + getVersion() + "consulta/maquinasFilter?nomeMaquina=" + nome);
 		Response response = target.request().get();
@@ -55,7 +55,7 @@ public class MaquinaService extends GenericService {
 		return value;
 	}
 
-	public int MaquinaDeletar(Maquina maquina) {
+	public int maquinaDeletar(Maquina maquina) {
 		ResteasyWebTarget delete = client.target(
 				getUrl() + getDomain() + getComplement() + getVersion() + "consulta/maquinas/" + maquina.getIdMaquina());
 
@@ -68,7 +68,7 @@ public class MaquinaService extends GenericService {
 		return deleteResponse.getStatus();
 	}
 	
-	public int MaquinaEditar(Maquina maquina){
+	public int maquinaEditar(Maquina maquina){
 		ResteasyWebTarget update = client.target(
 				getUrl() + getDomain() + getComplement() + getVersion() + "consulta/maquinas/");
 

@@ -16,7 +16,7 @@ public class PontoService extends GenericService {
 
 	}
 
-	public String PontoListar() {
+	public String pontoListar() {
 		ResteasyWebTarget target = client
 				.target(getUrl() + getDomain() + getComplement() + getVersion() + "consulta/pontos");
 		Response response = target.request().get();
@@ -28,7 +28,7 @@ public class PontoService extends GenericService {
 		return value;
 	}
 
-	public int PontoCriar(Ponto ponto) {
+	public int pontoCriar(Ponto ponto) {
 		ResteasyWebTarget add = client
 				.target(getUrl() + getDomain() + getComplement() + getVersion() + "consulta/pontos");
 
@@ -41,7 +41,7 @@ public class PontoService extends GenericService {
 		return addResponse.getStatus();
 	}
 
-	public String PontoBuscar(String nome) {
+	public String pontoBuscar(String nome) {
 		ResteasyWebTarget target = client.target(
 				getUrl() + getDomain() + getComplement() + getVersion() + "consulta/pontosFilter?nomePonto=" + nome);
 		Response response = target.request().get();
@@ -55,9 +55,9 @@ public class PontoService extends GenericService {
 		return value;
 	}
 
-	public int PontoDeletar(Ponto ponto) {
+	public int pontoDeletar(Ponto ponto) {
 		ResteasyWebTarget delete = client.target(
-				getUrl() + getDomain() + getComplement() + getVersion() + "consulta/pontos/" + ponto.getIdPonto());
+				getUrl() + getDomain() + getComplement() + getVersion() + "consulta/pontos" + ponto.getIdPonto());
 
 		Response deleteResponse = delete.request().delete();
 		System.out.println("HTTP Response Code:" + deleteResponse.getStatus());
@@ -68,9 +68,9 @@ public class PontoService extends GenericService {
 		return deleteResponse.getStatus();
 	}
 
-	public int PontoEditar(Ponto ponto) {
+	public int pontoEditar(Ponto ponto) {
 		ResteasyWebTarget update = client
-				.target(getUrl() + getDomain() + getComplement() + getVersion() + "consulta/pontos/");
+				.target(getUrl() + getDomain() + getComplement() + getVersion() + "consulta/pontos");
 
 		Response updateResponse = update.request().put(Entity.entity(ponto, "application/json"));
 		System.out.println("HTTP Response Code:" + updateResponse.getStatus());
@@ -81,4 +81,5 @@ public class PontoService extends GenericService {
 		return updateResponse.getStatus();
 
 	}
+
 }

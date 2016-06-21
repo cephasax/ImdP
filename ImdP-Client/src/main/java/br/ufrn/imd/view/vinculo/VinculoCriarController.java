@@ -123,7 +123,7 @@ public class VinculoCriarController implements Initializable {
 				cbSetor.getSelectionModel().getSelectedItem(), cbUsuario.getSelectionModel().getSelectedItem(), permissao,
 				Integer.parseInt(tfCargaHorariaDiaria.getText()), Integer.parseInt(tfCargaHorariaSemanal.getText()),
 				Integer.parseInt(tfCargaHorariaMensal.getText()), marked(checkboxAtivo));
-		int resultado = service.VinculoCriar(vinculo);
+		int resultado = service.vinculoCriar(vinculo);
 		if (resultado == 200) {
 			Alert alert = new Alert(AlertType.CONFIRMATION);
 			alert.setTitle("Feedback");

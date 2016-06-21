@@ -18,6 +18,7 @@ public class SetorService{
 	@Inject
 	private SetorDao setorDao;
 	
+	@SuppressWarnings("unchecked")
 	public void save(Setor setor) throws DadoJaExisteException, DadoIncompletoException {
 		verificarSetor(setor);
 		ArrayList<Setor> places = setorDao.buscarSetorCheck(setor);
@@ -30,6 +31,7 @@ public class SetorService{
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	public Setor update(Setor setor) throws DadoIncompletoException {
 		verificarSetor(setor);
 		return (Setor) setorDao.update(setor);

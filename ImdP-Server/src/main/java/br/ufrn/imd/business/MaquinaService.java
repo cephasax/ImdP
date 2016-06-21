@@ -19,6 +19,7 @@ public class MaquinaService{
 	@Inject
 	private MaquinaDao maquinaDao;
 	
+	@SuppressWarnings("unchecked")
 	public void save(Maquina maquina) throws DadoIncompletoException, DadoJaExisteException {
 		verificarMaquina(maquina);
 		ArrayList<Maquina> maqs = maquinaDao.buscarMaquinaCheck(maquina);
@@ -31,6 +32,7 @@ public class MaquinaService{
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	public Maquina update(Maquina maquina) throws DadoIncompletoException {
 		verificarMaquina(maquina);
 		return (Maquina) maquinaDao.update(maquina);

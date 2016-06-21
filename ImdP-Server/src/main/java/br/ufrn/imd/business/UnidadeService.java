@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.persistence.NoResultException;
 
 import br.ufrn.imd.dao.UnidadeDao;
 import br.ufrn.imd.dominio.Unidade;
@@ -19,6 +18,7 @@ public class UnidadeService{
 	@Inject
 	private UnidadeDao unidadeDao;
 	
+	@SuppressWarnings("unchecked")
 	public void save(Unidade unidade) throws DadoJaExisteException, DadoIncompletoException {
 		verificarUnidade(unidade);
 		ArrayList<Unidade> units = unidadeDao.buscarUnidadeCheck(unidade);
@@ -31,6 +31,7 @@ public class UnidadeService{
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	public Unidade update(Unidade unidade) throws DadoIncompletoException {
 		verificarUnidade(unidade);
 		return (Unidade) unidadeDao.update(unidade);

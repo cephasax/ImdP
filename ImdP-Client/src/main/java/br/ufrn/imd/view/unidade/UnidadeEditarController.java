@@ -45,7 +45,7 @@ public class UnidadeEditarController {
 	@FXML
 	public void handleEditar() throws IOException {
 		unidade.setNome(tfNomeUnidade.getText());
-		int resultado = service.UnidadeEditar(unidade);
+		int resultado = service.unidadeEditar(unidade);
 
 		if (resultado == 200) {
 			Alert alert = new Alert(AlertType.CONFIRMATION);

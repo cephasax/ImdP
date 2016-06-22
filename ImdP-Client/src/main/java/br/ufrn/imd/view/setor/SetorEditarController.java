@@ -64,7 +64,7 @@ public class SetorEditarController implements Initializable {
 		setor.setNome(tfNomeSetor.getText());
 		setor.setUnidade(cbUnidade.getSelectionModel().getSelectedItem());
 		
-		int resultado = service.SetorEditar(setor);
+		int resultado = service.setorEditar(setor);
 
 		if (resultado == 200) {
 			Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -88,7 +88,7 @@ public class SetorEditarController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		Type listType = new TypeToken<ArrayList<Unidade>>() {
 		}.getType();
-		Collection<Unidade> unidades = new Gson().fromJson(serviceUnidade.UnidadeListar(), listType);
+		Collection<Unidade> unidades = new Gson().fromJson(serviceUnidade.unidadeListar(), listType);
 
 		cbUnidade.getItems().addAll(unidades);
 		cbUnidade.setConverter(new UnidadeConverter());

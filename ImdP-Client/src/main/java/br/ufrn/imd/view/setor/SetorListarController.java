@@ -56,7 +56,7 @@ public class SetorListarController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		Type listType = new TypeToken<ArrayList<Setor>>() {
 		}.getType();
-		List<Setor> yourClassList = new Gson().fromJson(service.SetorListar(), listType);
+		List<Setor> yourClassList = new Gson().fromJson(service.setorListar(), listType);
 		for (int i = 0; i < yourClassList.size(); i++) {
 			System.out.println(yourClassList.get(i).getIdSetor() + " " + yourClassList.get(i).getNome());
 		}
@@ -75,7 +75,7 @@ public class SetorListarController implements Initializable {
 	@FXML
 	public void handleExcluir() throws IOException {
 		Setor setor = tblSetores.getSelectionModel().getSelectedItem();
-		int resultado = service.SetorDeletar(setor);
+		int resultado = service.setorDeletar(setor);
 
 		if (resultado == 200) {
 			Alert alert = new Alert(AlertType.CONFIRMATION);

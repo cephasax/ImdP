@@ -56,7 +56,7 @@ public class MaquinaCriarController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		Type listType = new TypeToken<ArrayList<Unidade>>() {
 		}.getType();
-		Collection<Unidade> unidades = new Gson().fromJson(serviceUnidade.UnidadeListar(), listType);
+		Collection<Unidade> unidades = new Gson().fromJson(serviceUnidade.unidadeListar(), listType);
 
 		cbUnidade.getItems().addAll(unidades);
 		cbUnidade.setConverter(new UnidadeConverter());

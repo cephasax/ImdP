@@ -16,7 +16,7 @@ public class UnidadeService extends GenericService {
 
 	}
 
-	public String UnidadeListar() {
+	public String unidadeListar() {
 		ResteasyWebTarget target = client
 				.target(getUrl() + getDomain() + getComplement() + getVersion() + "consulta/unidades");
 		Response response = target.request().get();
@@ -28,7 +28,7 @@ public class UnidadeService extends GenericService {
 		return value;
 	}
 	
-	public int UnidadeCriar(Unidade unidade) {
+	public int unidadeCriar(Unidade unidade) {
 		ResteasyWebTarget add = client
 				.target(getUrl() + getDomain() + getComplement() + getVersion() + "consulta/unidades");
 
@@ -41,7 +41,7 @@ public class UnidadeService extends GenericService {
 		return addResponse.getStatus();
 	}
 
-	public String UnidadeBuscar(String nome) {
+	public String unidadeBuscar(String nome) {
 		ResteasyWebTarget target = client.target(
 				getUrl() + getDomain() + getComplement() + getVersion() + "consulta/unidadesFilter?nomeUnidade=" + nome);
 		Response response = target.request().get();
@@ -55,7 +55,7 @@ public class UnidadeService extends GenericService {
 		return value;
 	}
 
-	public int UnidadeDeletar(Unidade unidade) {
+	public int unidadeDeletar(Unidade unidade) {
 		ResteasyWebTarget delete = client.target(
 				getUrl() + getDomain() + getComplement() + getVersion() + "consulta/unidades/" + unidade.getIdUnidade());
 
@@ -68,7 +68,7 @@ public class UnidadeService extends GenericService {
 		return deleteResponse.getStatus();
 	}
 	
-	public int UnidadeEditar(Unidade unidade){
+	public int unidadeEditar(Unidade unidade){
 		ResteasyWebTarget update = client.target(
 				getUrl() + getDomain() + getComplement() + getVersion() + "consulta/unidades/");
 

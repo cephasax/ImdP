@@ -13,6 +13,7 @@ public class Ponto implements Serializable {
 	private int idPonto;
 
 	private Date timeStamp;
+
 	private char tipo;
 	private char validado;
 	private String observacao;

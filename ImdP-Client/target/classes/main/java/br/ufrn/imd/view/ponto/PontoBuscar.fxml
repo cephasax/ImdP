@@ -30,20 +30,20 @@
         <Font size="14.0" />
       </font>
     </Text>
-    <TableView fx:id="tblPontos" layoutX="42.0" layoutY="223.0" prefHeight="235.0" prefWidth="717.0">
+    <TableView fx:id="tblPontos" layoutX="42.0" layoutY="223.0" onMouseClicked="#handleEditar" prefHeight="235.0" prefWidth="717.0">
       <columns>
-            <TableColumn prefWidth="103.0" text="Unidade" />
-            <TableColumn prefWidth="94.0" text="Setor" />
-        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="182.0" text="Usuário" />
-            <TableColumn prefWidth="133.0" text="Data do ponto" />
-        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="95.0" text="Tipo" />
-        <TableColumn maxWidth="5000.0" minWidth="0.0" prefWidth="109.0" text="Situação" />
+            <TableColumn fx:id="pontoUnidade" prefWidth="103.0" text="Unidade" />
+            <TableColumn fx:id="pontoSetor" prefWidth="94.0" text="Setor" />
+        <TableColumn fx:id="pontoUsuario" maxWidth="5000.0" minWidth="10.0" prefWidth="182.0" text="Usuário" />
+            <TableColumn fx:id="pontoData" prefWidth="133.0" text="Data do ponto" />
+        <TableColumn fx:id="pontoTipo" maxWidth="5000.0" minWidth="10.0" prefWidth="95.0" text="Tipo" />
+        <TableColumn fx:id="pontoSituacao" maxWidth="5000.0" minWidth="0.0" prefWidth="109.0" text="Situação" />
       </columns>
     </TableView>
     <Text layoutX="46.0" layoutY="476.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Clique duas vezes na linha para ver detalhes do ponto" />
-    <Button fx:id="btnCancelar" layoutX="638.0" layoutY="468.0" mnemonicParsing="false" onAction="#handleCancelar" text="Cancelar" />
-    <Button fx:id="btnBuscar" layoutX="708.0" layoutY="183.0" mnemonicParsing="false" text="Buscar" />
-      <Button fx:id="btnExcluir" layoutX="709.0" layoutY="468.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="51.0" text="Excluir" />
+    <Button fx:id="btnCancelar" layoutX="638.0" layoutY="468.0" mnemonicParsing="false" onAction="#handleCancelar" onMouseClicked="#handleCancelar" text="Cancelar" />
+    <Button fx:id="btnBuscar" layoutX="708.0" layoutY="183.0" mnemonicParsing="false" onMouseClicked="#handleBuscar" text="Buscar" />
+      <Button fx:id="btnExcluir" layoutX="709.0" layoutY="468.0" mnemonicParsing="false" onMouseClicked="#handleExcluir" prefHeight="25.0" prefWidth="51.0" text="Excluir" />
       <GridPane layoutX="101.0" layoutY="63.0" prefHeight="114.0" prefWidth="658.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="250.66668701171875" minWidth="10.0" prefWidth="128.0" />
@@ -57,13 +57,6 @@
         </rowConstraints>
          <children>
           <ComboBox fx:id="cbUnidade" prefHeight="16.0" prefWidth="529.0" visible="true" visibleRowCount="7" GridPane.columnIndex="1">
-            <items>
-              <FXCollections fx:factory="observableArrayList">
-                <String fx:value="Item 1" />
-                <String fx:value="Item 2" />
-                <String fx:value="Item 3" />
-              </FXCollections>
-            </items>
           </ComboBox>
           <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Unidade:">
                <font>
@@ -76,13 +69,6 @@
                </font>
             </Text>
             <ComboBox fx:id="cbSetor" prefHeight="21.0" prefWidth="528.9999000000025" visible="true" visibleRowCount="7" GridPane.columnIndex="1" GridPane.rowIndex="1">
-               <items>
-                  <FXCollections fx:factory="observableArrayList">
-                     <String fx:value="Item 1" />
-                     <String fx:value="Item 2" />
-                     <String fx:value="Item 3" />
-                  </FXCollections>
-               </items>
             </ComboBox>
           <TextField fx:id="tfNomeUsuario" prefWidth="529.0" promptText="" GridPane.columnIndex="1" GridPane.rowIndex="2" />
           <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome do Usuário:" GridPane.rowIndex="2">

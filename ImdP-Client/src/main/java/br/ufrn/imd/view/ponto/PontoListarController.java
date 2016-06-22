@@ -3,9 +3,12 @@ package br.ufrn.imd.view.ponto;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.net.URL;
-import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 import com.google.gson.Gson;
@@ -24,10 +27,13 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
 
 public class PontoListarController implements Initializable {
@@ -58,7 +64,6 @@ public class PontoListarController implements Initializable {
 
 	public void setMainApp(ImdAuth imdAuth) {
 		this.imdAuth = imdAuth;
-
 	}
 
 	@FXML
@@ -66,19 +71,43 @@ public class PontoListarController implements Initializable {
 		imdAuth.iniciarTelaPrincipal();
 	}
 
+	private static final String[] DATE_FORMATS = new String[] { "MMM dd, yyyy HH:mm:ss", "MMM dd, yyyy",
+			"yyyy.MM.dd G 'at' HH:mm:ss z", "yyyy-MM-dd'T'HH:mm:ss.SSSXXX", "yyyy-MM-dd'T'HH:mm:ss.SSSZ",
+			"yyyy-MM-dd'T'HH:mm:ssZ", "yyyyy.MMMMM.dd GGG hh:mm aaa", "yyyy-MM-dd",
+
+	};
+
+	public class JsonDateDeserializer implements JsonDeserializer<Date> {
+		public Date deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+				throws JsonParseException {
+			String s = json.getAsJsonPrimitive().getAsString();
+			long l = Long.parseLong(s.substring(6, s.length() - 2));
+			Date d = new Date(l);
+			return d;
+		}
+	}
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'hh:mm:ssZ").create();
-		GsonBuilder builder = new GsonBuilder().registerTypeAdapter(Date.class, new JsonDeserializer<Date>() {
-			@Override
+		// Creates the json object which will manage the information received
+		GsonBuilder builder = new GsonBuilder();
+
+		// Register an adapter to manage the date types as long values
+		builder.registerTypeAdapter(Date.class, new JsonDeserializer<Date>() {
 			public Date deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
 					throws JsonParseException {
+				for (String format : DATE_FORMATS) {
+					try {
+						return new SimpleDateFormat(format, Locale.US).parse(json.getAsString());
+					} catch (ParseException e) {
+					}
+				}
 				return new Date(json.getAsJsonPrimitive().getAsLong());
-
 			}
 		});
 
 		Gson gson = builder.create();
+
 		Type listType = new TypeToken<ArrayList<Ponto>>() {
 		}.getType();
 		List<Ponto> yourClassList = gson.fromJson(service.pontoListar(), listType);
@@ -115,6 +144,36 @@ public class PontoListarController implements Initializable {
 		pontoData.setCellValueFactory(new PropertyValueFactory<Ponto, String>("timeStamp"));
 		pontoTipo.setCellValueFactory(new PropertyValueFactory<Ponto, String>("tipo"));
 		pontoSituacao.setCellValueFactory(new PropertyValueFactory<Ponto, String>("situacao"));
+	}
+	
+	@FXML
+	public void handleExcluir() throws IOException {
+		Ponto ponto = tblPontos.getSelectionModel().getSelectedItem();
+		int resultado = service.pontoDeletar(ponto);
 
+		if (resultado == 200) {
+			Alert alert = new Alert(AlertType.CONFIRMATION);
+			alert.setTitle("Feedback");
+			alert.setHeaderText(null);
+			alert.setContentText("Dado deletado!");
+
+			alert.showAndWait();
+			imdAuth.iniciarPontoListar();
+		} else {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Feedback");
+			alert.setHeaderText(null);
+			alert.setContentText("Ocorreu um erro!");
+
+			alert.showAndWait();
+		}
+	}
+
+	@FXML
+	public void handleEditar(MouseEvent event) throws IOException {
+		if (event.getClickCount() > 1) {
+			Ponto ponto = tblPontos.getSelectionModel().getSelectedItem();
+			imdAuth.iniciarPontoGestorEditar(ponto);
+		}
 	}
 }

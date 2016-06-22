@@ -27,7 +27,7 @@
         <Font size="14.0" />
       </font>
     </Text>
-    <Button fx:id="btnConfirmar" layoutX="675.0" layoutY="390.0" mnemonicParsing="false" text="Confirmar Edição" />
+    <Button fx:id="btnConfirmar" layoutX="675.0" layoutY="390.0" mnemonicParsing="false" onAction="#handleEditar" text="Confirmar Edição" />
     <Button fx:id="btnCancelar" layoutX="604.0" layoutY="390.0" mnemonicParsing="false" onAction="#handleCancelar" text="Cancelar" />
       <GridPane layoutX="41.0" layoutY="125.0" prefHeight="265.0" prefWidth="741.0">
         <columnConstraints>
@@ -72,7 +72,6 @@
                   <Font size="15.0" />
                </font>
             </Label>
-            <TextField fx:id="tfUsuario" prefHeight="25.0" prefWidth="225.0" GridPane.columnIndex="1" GridPane.columnSpan="3" />
             <Label text="Data de análise:" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                <font>
                   <Font size="15.0" />
@@ -90,16 +89,15 @@
             </Label>
             <TextField fx:id="cbDataEnvio" editable="false" prefHeight="25.0" prefWidth="281.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
             <TextField fx:id="cbDataAnalise" editable="false" prefHeight="25.0" prefWidth="281.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-            <TextField fx:id="tfSituacaoAtual" editable="false" prefHeight="25.0" prefWidth="281.0" GridPane.columnIndex="3" GridPane.rowIndex="4" />
             <Label prefHeight="21.0" prefWidth="84.0" text="Observação:" GridPane.halignment="CENTER" GridPane.rowIndex="5">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <TextField fx:id="taObservacao" editable="false" prefHeight="82.0" prefWidth="670.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="5" GridPane.rowSpan="3" />
-            <ComboBox fx:id="cbVinculo" editable="true" prefHeight="25.0" prefWidth="303.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-            <ComboBox fx:id="cbUnidade" editable="true" prefHeight="25.0" prefWidth="303.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-            <ComboBox fx:id="cbSetor" editable="true" prefHeight="25.0" prefWidth="303.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+            <TextField fx:id="taObservacao" alignment="TOP_LEFT" editable="false" prefHeight="82.0" prefWidth="670.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="5" GridPane.rowSpan="3" />
+            <ComboBox fx:id="cbVinculo" prefHeight="25.0" prefWidth="303.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+            <ComboBox fx:id="cbUnidade" prefHeight="25.0" prefWidth="303.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+            <ComboBox fx:id="cbSetor" prefHeight="25.0" prefWidth="303.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
             <Label text="Usuário - análise:" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                <font>
                   <Font size="15.0" />
@@ -107,6 +105,8 @@
             </Label>
             <ChoiceBox fx:id="cbTipoPonto" prefHeight="25.0" prefWidth="303.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
             <TextField fx:id="tfUsuarioAnalise" editable="false" prefHeight="25.0" prefWidth="281.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+            <ChoiceBox fx:id="cbSituacaoAtual" prefHeight="25.0" prefWidth="303.0" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+            <ComboBox fx:id="cbUsuario" prefHeight="25.0" prefWidth="651.0" GridPane.columnIndex="1" GridPane.columnSpan="3" />
          </children>
       </GridPane>
   </children>

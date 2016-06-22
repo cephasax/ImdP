@@ -87,14 +87,14 @@ public class VinculoCriarController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		Type listType = new TypeToken<ArrayList<Unidade>>() {
 		}.getType();
-		Collection<Unidade> unidades = new Gson().fromJson(serviceUnidade.UnidadeListar(), listType);
+		Collection<Unidade> unidades = new Gson().fromJson(serviceUnidade.unidadeListar(), listType);
 
 		cbUnidade.getItems().addAll(unidades);
 		cbUnidade.setConverter(new UnidadeConverter());
 
 		Type listTypeS = new TypeToken<ArrayList<Setor>>() {
 		}.getType();
-		Collection<Setor> setores = new Gson().fromJson(serviceSetor.SetorListar(), listTypeS);
+		Collection<Setor> setores = new Gson().fromJson(serviceSetor.setorListar(), listTypeS);
 
 		cbSetor.getItems().addAll(setores);
 		cbSetor.setConverter(new SetorConverter());

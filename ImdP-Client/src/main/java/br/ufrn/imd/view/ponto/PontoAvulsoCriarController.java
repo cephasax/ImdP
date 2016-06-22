@@ -27,7 +27,6 @@ import br.ufrn.imd.dominio.Unidade;
 import br.ufrn.imd.dominio.Usuario;
 import br.ufrn.imd.dominio.Vinculo;
 import br.ufrn.imd.main.ImdAuth;
-import br.ufrn.imd.services.MaquinaService;
 import br.ufrn.imd.services.PontoService;
 import br.ufrn.imd.services.SetorService;
 import br.ufrn.imd.services.UnidadeService;
@@ -116,14 +115,14 @@ public class PontoAvulsoCriarController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		Type listType = new TypeToken<ArrayList<Unidade>>() {
 		}.getType();
-		Collection<Unidade> unidades = new Gson().fromJson(serviceUnidade.UnidadeListar(), listType);
+		Collection<Unidade> unidades = new Gson().fromJson(serviceUnidade.unidadeListar(), listType);
 
 		cbUnidade.getItems().addAll(unidades);
 		cbUnidade.setConverter(new UnidadeConverter());
 
 		Type listTypeS = new TypeToken<ArrayList<Setor>>() {
 		}.getType();
-		Collection<Setor> setores = new Gson().fromJson(serviceSetor.SetorListar(), listTypeS);
+		Collection<Setor> setores = new Gson().fromJson(serviceSetor.setorListar(), listTypeS);
 
 		cbSetor.getItems().addAll(setores);
 		cbSetor.setConverter(new SetorConverter());

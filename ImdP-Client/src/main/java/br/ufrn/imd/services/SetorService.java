@@ -16,7 +16,7 @@ public class SetorService extends GenericService {
 
 	}
 
-	public String SetorListar() {
+	public String setorListar() {
 		ResteasyWebTarget target = client
 				.target(getUrl() + getDomain() + getComplement() + getVersion() + "consulta/setores");
 		Response response = target.request().get();
@@ -28,7 +28,7 @@ public class SetorService extends GenericService {
 		return value;
 	}
 
-	public int SetorCriar(Setor setor) {
+	public int setorCriar(Setor setor) {
 		ResteasyWebTarget add = client
 				.target(getUrl() + getDomain() + getComplement() + getVersion() + "consulta/setores");
 
@@ -41,7 +41,7 @@ public class SetorService extends GenericService {
 		return addResponse.getStatus();
 	}
 
-	public String SetorBuscar(String nome) {
+	public String setorBuscar(String nome) {
 		ResteasyWebTarget target = client.target(
 				getUrl() + getDomain() + getComplement() + getVersion() + "consulta/setoresFilter?nomeSetor=" + nome);
 		Response response = target.request().get();
@@ -55,7 +55,7 @@ public class SetorService extends GenericService {
 		return value;
 	}
 
-	public int SetorDeletar(Setor setor) {
+	public int setorDeletar(Setor setor) {
 		ResteasyWebTarget delete = client.target(
 				getUrl() + getDomain() + getComplement() + getVersion() + "consulta/setores/" + setor.getIdSetor());
 
@@ -68,7 +68,7 @@ public class SetorService extends GenericService {
 		return deleteResponse.getStatus();
 	}
 	
-	public int SetorEditar(Setor setor){
+	public int setorEditar(Setor setor){
 		ResteasyWebTarget update = client.target(
 				getUrl() + getDomain() + getComplement() + getVersion() + "consulta/setores/");
 

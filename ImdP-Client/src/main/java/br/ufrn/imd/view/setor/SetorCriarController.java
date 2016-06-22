@@ -54,7 +54,7 @@ public class SetorCriarController implements Initializable{
 	public void handleCadastrar() throws IOException {
 		Setor setor = new Setor(tfNomeSetor.getText(), cbUnidade.getSelectionModel().getSelectedItem());
 		int resultado;
-		resultado = service.SetorCriar(setor);
+		resultado = service.setorCriar(setor);
 		if(resultado == 200){
 			Alert alert = new Alert(AlertType.CONFIRMATION);
 			alert.setTitle("Feedback");
@@ -78,7 +78,7 @@ public class SetorCriarController implements Initializable{
 	public void initialize(URL location, ResourceBundle resources) {
 		Type listType = new TypeToken<ArrayList<Unidade>>() {
 		}.getType();
-		Collection<Unidade> unidades = new Gson().fromJson(serviceUnidade.UnidadeListar(), listType);
+		Collection<Unidade> unidades = new Gson().fromJson(serviceUnidade.unidadeListar(), listType);
 
 		cbUnidade.getItems().addAll(unidades);
 		cbUnidade.setConverter(new UnidadeConverter());

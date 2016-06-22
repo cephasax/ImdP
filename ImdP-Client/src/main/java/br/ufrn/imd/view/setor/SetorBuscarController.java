@@ -69,7 +69,7 @@ public class SetorBuscarController implements Initializable {
 
 	@FXML
 	public void handleBuscar() throws IOException {
-		String resultado = service.SetorBuscar(tfNomeSetor.getText());
+		String resultado = service.setorBuscar(tfNomeSetor.getText());
 
 		Type listType = new TypeToken<ArrayList<Setor>>() {
 		}.getType();
@@ -92,7 +92,7 @@ public class SetorBuscarController implements Initializable {
 	@FXML
 	public void handleExcluir() throws IOException {
 		Setor setor = tblSetores.getSelectionModel().getSelectedItem();
-		int resultado = service.SetorDeletar(setor);
+		int resultado = service.setorDeletar(setor);
 
 		if (resultado == 200) {
 			Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -124,7 +124,7 @@ public class SetorBuscarController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		Type listType = new TypeToken<ArrayList<Unidade>>() {
 		}.getType();
-		Collection<Unidade> unidades = new Gson().fromJson(serviceUnidade.UnidadeListar(), listType);
+		Collection<Unidade> unidades = new Gson().fromJson(serviceUnidade.unidadeListar(), listType);
 
 		cbUnidade.getItems().addAll(unidades);
 		cbUnidade.setConverter(new UnidadeConverter());

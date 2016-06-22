@@ -52,7 +52,7 @@ public class UnidadeBuscarController {
 
 	@FXML
 	public void handleBuscar() throws IOException {
-		String resultado = service.UnidadeBuscar(tfNomeUnidade.getText());
+		String resultado = service.unidadeBuscar(tfNomeUnidade.getText());
 
 		Type listType = new TypeToken<ArrayList<Unidade>>() {
 		}.getType();
@@ -68,7 +68,7 @@ public class UnidadeBuscarController {
 	@FXML
 	public void handleExcluir() throws IOException {
 		Unidade unidade = tblUnidades.getSelectionModel().getSelectedItem();
-		int resultado = service.UnidadeDeletar(unidade);
+		int resultado = service.unidadeDeletar(unidade);
 
 		if (resultado == 200) {
 			Alert alert = new Alert(AlertType.CONFIRMATION);

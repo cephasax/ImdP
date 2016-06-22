@@ -41,7 +41,7 @@ public class PontoService extends GenericService {
 		return addResponse.getStatus();
 	}
 
-	public String pontoBuscar(String nome) {
+	public String pontoBuscarNome(String nome) {
 		ResteasyWebTarget target = client.target(
 				getUrl() + getDomain() + getComplement() + getVersion() + "consulta/pontosFilter?nomePonto=" + nome);
 		Response response = target.request().get();

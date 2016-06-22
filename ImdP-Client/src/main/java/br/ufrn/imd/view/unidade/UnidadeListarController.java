@@ -52,7 +52,7 @@ public class UnidadeListarController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		Type listType = new TypeToken<ArrayList<Unidade>>() {
 		}.getType();
-		List<Unidade> yourClassList = new Gson().fromJson(service.UnidadeListar(), listType);
+		List<Unidade> yourClassList = new Gson().fromJson(service.unidadeListar(), listType);
 		for (int i = 0; i < yourClassList.size(); i++) {
 			System.out.println(yourClassList.get(i).getIdUnidade() + " " + yourClassList.get(i).getNome());
 		}
@@ -65,7 +65,7 @@ public class UnidadeListarController implements Initializable {
 	@FXML
 	public void handleExcluir() throws IOException {
 		Unidade unidade = tblUnidades.getSelectionModel().getSelectedItem();
-		int resultado = service.UnidadeDeletar(unidade);
+		int resultado = service.unidadeDeletar(unidade);
 
 		if (resultado == 200) {
 			Alert alert = new Alert(AlertType.CONFIRMATION);

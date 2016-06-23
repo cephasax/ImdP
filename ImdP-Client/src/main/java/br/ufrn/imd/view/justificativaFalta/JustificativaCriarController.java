@@ -3,16 +3,28 @@ package br.ufrn.imd.view.justificativaFalta;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Locale;
 import java.util.ResourceBundle;
+
+import org.apache.commons.codec.binary.Base64;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
 import com.google.gson.reflect.TypeToken;
 
 import br.ufrn.imd.converter.TipoJustificativaConverter;
@@ -57,9 +69,9 @@ public class JustificativaCriarController implements Initializable {
 	private ImdAuth imdAuth;
 
 	private JustificativaFaltaService service = new JustificativaFaltaService();
-	
+
 	private VinculoService serviceVinculo = new VinculoService();
-	
+
 	private TipoJustificativaService serviceTipoJustificativa = new TipoJustificativaService();
 
 	public void setMainApp(ImdAuth imdAuth) {
@@ -105,25 +117,59 @@ public class JustificativaCriarController implements Initializable {
 		}
 	}
 
+	private static final String[] DATE_FORMATS = new String[] { "MMM dd, yyyy HH:mm:ss", "MMM dd, yyyy",
+			"yyyy.MM.dd G 'at' HH:mm:ss z", "yyyy-MM-dd'T'HH:mm:ss.SSSXXX", "yyyy-MM-dd'T'HH:mm:ss.SSSZ",
+			"yyyy-MM-dd'T'HH:mm:ssZ", "yyyyy.MMMMM.dd GGG hh:mm aaa", "yyyy-MM-dd",
+
+	};
+
+	public class ByteArrayToBase64TypeAdapter implements JsonSerializer<byte[]>, JsonDeserializer<byte[]> {
+
+		@Override
+		public JsonElement serialize(byte[] src, Type type, JsonSerializationContext jsc) {
+			Base64 base = new Base64();
+			return new JsonPrimitive(base.encodeToString(src));
+		}
+
+		@Override
+		public byte[] deserialize(JsonElement json, Type type, JsonDeserializationContext jdc)
+				throws JsonParseException {
+			Base64 base = new Base64();
+			return base.decode(json.getAsString());
+		}
+
+	}
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		Gson gson1 = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		Gson gson = new GsonBuilder().registerTypeAdapter(Date.class, new JsonDeserializer<Date>() {
+			@Override
+			public Date deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+					throws JsonParseException {
+				for (String format : DATE_FORMATS) {
+					try {
+						return new SimpleDateFormat(format, Locale.US).parse(json.getAsString());
+					} catch (ParseException e) {
+					}
+				}
+				return new Date(json.getAsLong());
+			}
+		}).registerTypeHierarchyAdapter(byte[].class, new ByteArrayToBase64TypeAdapter()).create();
 
 		Type listType = new TypeToken<ArrayList<Vinculo>>() {
 		}.getType();
-		Collection<Vinculo> vinculos = gson1.fromJson(serviceVinculo.vinculoListar(), listType);
+		Collection<Vinculo> vinculos = gson.fromJson(serviceVinculo.vinculoListar(), listType);
 
 		cbVinculo.getItems().addAll(vinculos);
 		cbVinculo.setConverter(new VinculoConverter());
 
-		Gson gson2 = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-
 		Type listTypeS = new TypeToken<ArrayList<TipoJustificativa>>() {
 		}.getType();
-		Collection<TipoJustificativa> tipoJustificativaes = gson2.fromJson(serviceTipoJustificativa.tipoJustificativaListar(), listTypeS);
+		Collection<TipoJustificativa> tipoJustificativaes = gson
+				.fromJson(serviceTipoJustificativa.tipoJustificativaListar(), listTypeS);
 
 		cbTipoJustificativa.getItems().addAll(tipoJustificativaes);
 		cbTipoJustificativa.setConverter(new TipoJustificativaConverter());
-		
+
 	}
 }

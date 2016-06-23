@@ -3,13 +3,26 @@ package br.ufrn.imd.view.ponto;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
+
+import org.apache.commons.codec.binary.Base64;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
 import com.google.gson.reflect.TypeToken;
 
 import br.ufrn.imd.converter.SetorConverter;
@@ -63,15 +76,15 @@ public class PontoGestorEditarController implements Initializable {
 	private TextField tfUsuarioAnalise;
 
 	private ImdAuth imdAuth;
-	
+
 	private UnidadeService serviceUnidade = new UnidadeService();
 
 	private SetorService serviceSetor = new SetorService();
-	
+
 	private PontoService service = new PontoService();
 
 	private UsuarioService serviceUsuario = new UsuarioService();
-	
+
 	private VinculoService serviceVinculo = new VinculoService();
 
 	private Ponto ponto = new Ponto();
@@ -165,8 +178,44 @@ public class PontoGestorEditarController implements Initializable {
 		}
 	}
 
+	private static final String[] DATE_FORMATS = new String[] { "MMM dd, yyyy HH:mm:ss", "MMM dd, yyyy",
+			"yyyy.MM.dd G 'at' HH:mm:ss z", "yyyy-MM-dd'T'HH:mm:ss.SSSXXX", "yyyy-MM-dd'T'HH:mm:ss.SSSZ",
+			"yyyy-MM-dd'T'HH:mm:ssZ", "yyyyy.MMMMM.dd GGG hh:mm aaa", "yyyy-MM-dd",
+
+	};
+
+	public class ByteArrayToBase64TypeAdapter implements JsonSerializer<byte[]>, JsonDeserializer<byte[]> {
+
+		@Override
+		public JsonElement serialize(byte[] src, Type type, JsonSerializationContext jsc) {
+			Base64 base = new Base64();
+			return new JsonPrimitive(base.encodeToString(src));
+		}
+
+		@Override
+		public byte[] deserialize(JsonElement json, Type type, JsonDeserializationContext jdc)
+				throws JsonParseException {
+			Base64 base = new Base64();
+			return base.decode(json.getAsString());
+		}
+
+	}
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		Gson gson = new GsonBuilder().registerTypeAdapter(Date.class, new JsonDeserializer<Date>() {
+			@Override
+			public Date deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+					throws JsonParseException {
+				for (String format : DATE_FORMATS) {
+					try {
+						return new SimpleDateFormat(format, Locale.US).parse(json.getAsString());
+					} catch (ParseException e) {
+					}
+				}
+				return new Date(json.getAsLong());
+			}
+		}).registerTypeHierarchyAdapter(byte[].class, new ByteArrayToBase64TypeAdapter()).create();
 		Type listType = new TypeToken<ArrayList<Unidade>>() {
 		}.getType();
 		Collection<Unidade> unidades = new Gson().fromJson(serviceUnidade.unidadeListar(), listType);
@@ -181,28 +230,26 @@ public class PontoGestorEditarController implements Initializable {
 		cbSetor.getItems().addAll(setores);
 		cbSetor.setConverter(new SetorConverter());
 
-		Gson gson2 = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		Type listTypeV = new TypeToken<ArrayList<Vinculo>>() {
 		}.getType();
-		List<Vinculo> vinculos = gson2.fromJson(serviceVinculo.vinculoListar(), listTypeV);
+		List<Vinculo> vinculos = gson.fromJson(serviceVinculo.vinculoListar(), listTypeV);
 
 		cbVinculo.getItems().addAll(vinculos);
 		cbVinculo.setConverter(new VinculoConverter());
-		
-		Gson gson3 = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+
 		Type listTypeUs = new TypeToken<ArrayList<Usuario>>() {
 		}.getType();
-		List<Usuario> usuarios = gson3.fromJson(serviceUsuario.usuarioListar(), listTypeUs);
+		List<Usuario> usuarios = gson.fromJson(serviceUsuario.usuarioListar(), listTypeUs);
 
 		cbUsuario.getItems().addAll(usuarios);
 		cbUsuario.setConverter(new UsuarioConverter());
-		
+
 		cbTipoPonto.getItems().addAll("Avulso", "Normal");
-		
+
 		cbSituacaoAtual.getItems().addAll("Validado", "Não validado");
-			
+
 		tfUsuarioAnalise.setText(imdAuth.getUsuario().getNome());
-		
+
 	}
 
 }

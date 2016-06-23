@@ -3,13 +3,26 @@ package br.ufrn.imd.view.vinculo;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
+
+import org.apache.commons.codec.binary.Base64;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
 import com.google.gson.reflect.TypeToken;
 
 import br.ufrn.imd.converter.CargoConverter;
@@ -70,7 +83,7 @@ public class VinculoCriarController implements Initializable {
 	private SetorService serviceSetor = new SetorService();
 
 	private CargoService serviceCargo = new CargoService();
-	
+
 	private UsuarioService serviceUsuario = new UsuarioService();
 
 	public void setMainApp(ImdAuth imdAuth) {
@@ -83,8 +96,44 @@ public class VinculoCriarController implements Initializable {
 		imdAuth.iniciarTelaPrincipal();
 	}
 
+	private static final String[] DATE_FORMATS = new String[] { "MMM dd, yyyy HH:mm:ss", "MMM dd, yyyy",
+			"yyyy.MM.dd G 'at' HH:mm:ss z", "yyyy-MM-dd'T'HH:mm:ss.SSSXXX", "yyyy-MM-dd'T'HH:mm:ss.SSSZ",
+			"yyyy-MM-dd'T'HH:mm:ssZ", "yyyyy.MMMMM.dd GGG hh:mm aaa", "yyyy-MM-dd",
+
+	};
+
+	public class ByteArrayToBase64TypeAdapter implements JsonSerializer<byte[]>, JsonDeserializer<byte[]> {
+
+		@Override
+		public JsonElement serialize(byte[] src, Type type, JsonSerializationContext jsc) {
+			Base64 base = new Base64();
+			return new JsonPrimitive(base.encodeToString(src));
+		}
+
+		@Override
+		public byte[] deserialize(JsonElement json, Type type, JsonDeserializationContext jdc)
+				throws JsonParseException {
+			Base64 base = new Base64();
+			return base.decode(json.getAsString());
+		}
+
+	}
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		Gson gson = new GsonBuilder().registerTypeAdapter(Date.class, new JsonDeserializer<Date>() {
+			@Override
+			public Date deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+					throws JsonParseException {
+				for (String format : DATE_FORMATS) {
+					try {
+						return new SimpleDateFormat(format, Locale.US).parse(json.getAsString());
+					} catch (ParseException e) {
+					}
+				}
+				return new Date(json.getAsLong());
+			}
+		}).registerTypeHierarchyAdapter(byte[].class, new ByteArrayToBase64TypeAdapter()).create();
 		Type listType = new TypeToken<ArrayList<Unidade>>() {
 		}.getType();
 		Collection<Unidade> unidades = new Gson().fromJson(serviceUnidade.unidadeListar(), listType);
@@ -106,11 +155,10 @@ public class VinculoCriarController implements Initializable {
 		cbCargo.getItems().addAll(cargos);
 		cbCargo.setConverter(new CargoConverter());
 
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		Type listTypeUs = new TypeToken<ArrayList<Usuario>>() {
 		}.getType();
 		List<Usuario> usuarios = gson.fromJson(serviceUsuario.usuarioListar(), listTypeUs);
-		
+
 		cbUsuario.getItems().addAll(usuarios);
 		cbUsuario.setConverter(new UsuarioConverter());
 	}
@@ -118,11 +166,12 @@ public class VinculoCriarController implements Initializable {
 	@FXML
 	public void handleCadastrar() throws IOException {
 		Permissao permissao = new Permissao(1, "Diretor");
-		
+
 		Vinculo vinculo = new Vinculo(tfDescricao.getText(), cbCargo.getSelectionModel().getSelectedItem(),
-				cbSetor.getSelectionModel().getSelectedItem(), cbUsuario.getSelectionModel().getSelectedItem(), permissao,
-				Integer.parseInt(tfCargaHorariaDiaria.getText()), Integer.parseInt(tfCargaHorariaSemanal.getText()),
-				Integer.parseInt(tfCargaHorariaMensal.getText()), marked(checkboxAtivo));
+				cbSetor.getSelectionModel().getSelectedItem(), cbUsuario.getSelectionModel().getSelectedItem(),
+				permissao, Integer.parseInt(tfCargaHorariaDiaria.getText()),
+				Integer.parseInt(tfCargaHorariaSemanal.getText()), Integer.parseInt(tfCargaHorariaMensal.getText()),
+				marked(checkboxAtivo));
 		int resultado = service.vinculoCriar(vinculo);
 		if (resultado == 200) {
 			Alert alert = new Alert(AlertType.CONFIRMATION);

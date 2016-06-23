@@ -27,7 +27,7 @@
         <Font size="14.0" />
       </font>
     </Text>
-    <Button fx:id="btnConfirmar" layoutX="603.0" layoutY="481.0" mnemonicParsing="false" onAction="#handleEditar" text="Confirmar Edição" />
+    <Button fx:id="btnConfirmar" layoutX="603.0" layoutY="481.0" mnemonicParsing="false" onAction="#handleEditar" text="Próximo" />
     <Button fx:id="btnCancelar" layoutX="533.0" layoutY="481.0" mnemonicParsing="false" onAction="#handleCancelar" text="Cancelar" />
       <GridPane layoutX="91.0" layoutY="54.0" prefHeight="419.0" prefWidth="619.0">
          <columnConstraints>

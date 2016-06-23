@@ -5,6 +5,7 @@ import java.io.IOException;
 import br.ufrn.imd.dominio.Usuario;
 import br.ufrn.imd.main.ImdAuth;
 import br.ufrn.imd.services.UsuarioService;
+import br.ufrn.imd.view.fingerprint.DigitalPersona;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -55,12 +56,19 @@ public class UsuarioEditarAcessoController {
 	}
 
 	@FXML
+	public void handleBtnDigital() throws IOException {
+		System.out.println("to aqui.");
+		DigitalPersona dp = new DigitalPersona();
+		dp.principal();
+		usuario.setDigital(dp.get());
+	}
+	
+	@FXML
 	public void handleEditar() throws IOException {
 		if (confereSenha()) {
 			usuario.setLogin(tfLogin.getText());
 			usuario.setSenha(tfSenha.getText());
 			usuario.setFoto("foto");
-			usuario.setDigital(null);
 			int resultado;
 			resultado = service.usuarioEditar(usuario);
 			if (resultado == 200) {

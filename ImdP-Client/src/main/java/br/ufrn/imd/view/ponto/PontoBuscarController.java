@@ -12,12 +12,17 @@ import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+import org.apache.commons.codec.binary.Base64;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
+import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
 import com.google.gson.reflect.TypeToken;
 
 import br.ufrn.imd.converter.SetorConverter;
@@ -66,24 +71,24 @@ public class PontoBuscarController implements Initializable {
 	@FXML
 	private Button btnExcluir;
 	@FXML
-    private TableColumn<Ponto, String> pontoUnidade;
-    @FXML
-    private TableColumn<Ponto, String> pontoSetor;
-    @FXML
-    private TableColumn<Ponto, String> pontoUsuario;
-    @FXML
-    private TableColumn<Ponto, String> pontoData;
-    @FXML
-    private TableColumn<Ponto, String> pontoTipo;
-    @FXML
-    private TableColumn<Ponto, String> pontoSituacao;
+	private TableColumn<Ponto, String> pontoUnidade;
+	@FXML
+	private TableColumn<Ponto, String> pontoSetor;
+	@FXML
+	private TableColumn<Ponto, String> pontoUsuario;
+	@FXML
+	private TableColumn<Ponto, String> pontoData;
+	@FXML
+	private TableColumn<Ponto, String> pontoTipo;
+	@FXML
+	private TableColumn<Ponto, String> pontoSituacao;
 
 	private SetorService serviceSetor = new SetorService();
-	
+
 	private UnidadeService serviceUnidade = new UnidadeService();
-	
+
 	private VinculoService serviceVinculo = new VinculoService();
-	
+
 	private PontoService service = new PontoService();
 
 	private ImdAuth imdAuth;
@@ -92,17 +97,11 @@ public class PontoBuscarController implements Initializable {
 		this.imdAuth = imdAuth;
 
 	}
-	
+
 	@FXML
 	public void handleCancelar() throws IOException {
 		imdAuth.iniciarTelaPrincipal();
 	}
-
-	private static final String[] DATE_FORMATS = new String[] { "MMM dd, yyyy HH:mm:ss", "MMM dd, yyyy",
-			"yyyy.MM.dd G 'at' HH:mm:ss z", "yyyy-MM-dd'T'HH:mm:ss.SSSXXX", "yyyy-MM-dd'T'HH:mm:ss.SSSZ",
-			"yyyy-MM-dd'T'HH:mm:ssZ", "yyyyy.MMMMM.dd GGG hh:mm aaa", "yyyy-MM-dd",
-
-	};
 
 	public class JsonDateDeserializer implements JsonDeserializer<Date> {
 		public Date deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
@@ -121,26 +120,26 @@ public class PontoBuscarController implements Initializable {
 		Type listTypeV = new TypeToken<ArrayList<Vinculo>>() {
 		}.getType();
 		Collection<Vinculo> vinculos = gson.fromJson(serviceVinculo.vinculoListar(), listTypeV);
-		
+
 		cbVinculo.getItems().addAll(vinculos);
 		cbVinculo.setConverter(new VinculoConverter());
-		
+
 		Type listType = new TypeToken<ArrayList<Unidade>>() {
 		}.getType();
 		Collection<Unidade> unidades = new Gson().fromJson(serviceUnidade.unidadeListar(), listType);
 
 		cbUnidade.getItems().addAll(unidades);
 		cbUnidade.setConverter(new UnidadeConverter());
-		
+
 		Type listTypeS = new TypeToken<ArrayList<Setor>>() {
 		}.getType();
 		Collection<Setor> setores = new Gson().fromJson(serviceSetor.setorListar(), listTypeS);
 
 		cbSetor.getItems().addAll(setores);
 		cbSetor.setConverter(new SetorConverter());
-		
+
 	}
-	
+
 	@FXML
 	public void handleExcluir() throws IOException {
 		Ponto ponto = tblPontos.getSelectionModel().getSelectedItem();
@@ -171,16 +170,36 @@ public class PontoBuscarController implements Initializable {
 			imdAuth.iniciarPontoGestorEditar(ponto);
 		}
 	}
-	
+
+	private static final String[] DATE_FORMATS = new String[] { "MMM dd, yyyy HH:mm:ss", "MMM dd, yyyy",
+			"yyyy.MM.dd G 'at' HH:mm:ss z", "yyyy-MM-dd'T'HH:mm:ss.SSSXXX", "yyyy-MM-dd'T'HH:mm:ss.SSSZ",
+			"yyyy-MM-dd'T'HH:mm:ssZ", "yyyyy.MMMMM.dd GGG hh:mm aaa", "yyyy-MM-dd",
+
+	};
+
+	public class ByteArrayToBase64TypeAdapter implements JsonSerializer<byte[]>, JsonDeserializer<byte[]> {
+
+		@Override
+		public JsonElement serialize(byte[] src, Type type, JsonSerializationContext jsc) {
+			Base64 base = new Base64();
+			return new JsonPrimitive(base.encodeToString(src));
+		}
+
+		@Override
+		public byte[] deserialize(JsonElement json, Type type, JsonDeserializationContext jdc)
+				throws JsonParseException {
+			Base64 base = new Base64();
+			return base.decode(json.getAsString());
+		}
+
+	}
+
 	@FXML
 	public void handleBuscar() throws IOException {
 		String resultado = service.pontoBuscarNome(tfNomeUsuario.getText());
-		
-		// Creates the json object which will manage the information received
-		GsonBuilder builder = new GsonBuilder();
 
-		// Register an adapter to manage the date types as long values
-		builder.registerTypeAdapter(Date.class, new JsonDeserializer<Date>() {
+		Gson gson = new GsonBuilder().registerTypeAdapter(Date.class, new JsonDeserializer<Date>() {
+			@Override
 			public Date deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
 					throws JsonParseException {
 				for (String format : DATE_FORMATS) {
@@ -189,14 +208,12 @@ public class PontoBuscarController implements Initializable {
 					} catch (ParseException e) {
 					}
 				}
-				return new Date(json.getAsJsonPrimitive().getAsLong());
+				return new Date(json.getAsLong());
 			}
-		});
-		
+		}).registerTypeHierarchyAdapter(byte[].class, new ByteArrayToBase64TypeAdapter()).create();
+
 		Type listType = new TypeToken<ArrayList<Ponto>>() {
 		}.getType();
-		
-		Gson gson = builder.create();
 
 		List<Ponto> yourClassList = gson.fromJson(resultado, listType);
 
@@ -238,7 +255,7 @@ public class PontoBuscarController implements Initializable {
 					}
 				});
 	}
-	
+
 	public String tipo(char status) {
 		if (status == 'A') {
 			return "Avulso";

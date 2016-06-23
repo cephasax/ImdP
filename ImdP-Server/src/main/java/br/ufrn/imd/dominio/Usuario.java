@@ -23,10 +23,6 @@ public class Usuario implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_USUARIO")
 	private int idUsuario;
-
-	@OneToMany(mappedBy="usuario")
-	private Collection<Vinculo> vinculos;
-	
 	
 	private String nome;
 	private String sexo;
@@ -46,7 +42,6 @@ public class Usuario implements Serializable {
 	private String email;
 	private String telefone1;
 	private String telefone2;
-	private byte[] digital;
 
 	private String login;
 	private String senha;
@@ -207,11 +202,4 @@ public class Usuario implements Serializable {
 		this.telefone2 = telefone2;
 	}
 
-	public byte[] getDigital() {
-		return digital;
-	}
-
-	public void setDigital(byte[] digital) {
-		this.digital = digital;
-	}
 }

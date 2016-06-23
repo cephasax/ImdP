@@ -3,13 +3,27 @@ package br.ufrn.imd.view.outras;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.net.URL;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
+
+import org.apache.commons.codec.binary.Base64;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
 import com.google.gson.reflect.TypeToken;
 
 import br.ufrn.imd.converter.VinculoConverter;
@@ -23,6 +37,7 @@ import br.ufrn.imd.dominio.Unidade;
 import br.ufrn.imd.dominio.Usuario;
 import br.ufrn.imd.dominio.Vinculo;
 import br.ufrn.imd.main.ImdAuth;
+import br.ufrn.imd.services.PontoService;
 import br.ufrn.imd.services.UsuarioService;
 import br.ufrn.imd.services.VinculoService;
 import javafx.fxml.FXML;
@@ -85,6 +100,8 @@ public class InicioController implements Initializable {
 	private MenuItem menuItemLogin;
 	@FXML
 	private MenuItem menuItemLogout;
+	
+	private PontoService servicePonto = new PontoService();
 
 	@FXML
 	public void handleBtnLogin() throws IOException {
@@ -353,10 +370,22 @@ public class InicioController implements Initializable {
 		try {
 			UsuarioService service = new UsuarioService();
 
-			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+			Gson customGson = new GsonBuilder().registerTypeAdapter(Date.class, new JsonDeserializer<Date>() {
+				@Override
+				public Date deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+						throws JsonParseException {
+					for (String format : DATE_FORMATS) {
+						try {
+							return new SimpleDateFormat(format, Locale.US).parse(json.getAsString());
+						} catch (ParseException e) {
+						}
+					}
+					return new Date(json.getAsLong());
+				}
+			}).registerTypeHierarchyAdapter(byte[].class, new ByteArrayToBase64TypeAdapter()).create();
 			Type listTypeUs = new TypeToken<ArrayList<Usuario>>() {
 			}.getType();
-			List<Usuario> usuarios = gson.fromJson(service.usuarioBuscarCPF(tfCPF.getText()), listTypeUs);
+			List<Usuario> usuarios = customGson.fromJson(service.usuarioBuscarCPF(tfCPF.getText()), listTypeUs);
 
 			imdAuth.setUsuario(usuarios.get(0));
 			if (imdAuth.getUsuario().getSenha().equals(tfSenha.getText())) {
@@ -391,13 +420,45 @@ public class InicioController implements Initializable {
 	}
 
 	@FXML
-	public void actionCadastrarDigital() {
-		Usuario usuario = new Usuario();
-		imdAuth.setUsuario(
-				usuario = new Gson().fromJson(new UsuarioService().usuarioBuscarCPF(tfCPF.getText()), Usuario.class));
-		System.out.println(usuario.getNome());
+	public void actionVerificarDigital() throws IOException {
+		imdAuth.setVinculo(cbVinculo.getSelectionModel().getSelectedItem());
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Feedback");
+		alert.setHeaderText(null);
+		alert.setContentText("Ponha sua digital.");
+		alert.show();
 
-		imdAuth.testDigital();
+		if (imdAuth.testeVerificarDigital()) {
+			Timestamp stamp = new Timestamp(System.currentTimeMillis());
+			Date dataAtual = new Date(stamp.getTime());
+
+			Ponto ponto = new Ponto(dataAtual, 'N', ' ', "", dataAtual, imdAuth.getUsuario().getIdUsuario(), imdAuth.getVinculo() ,imdAuth.getMaquina());
+
+			int resultado = servicePonto.pontoCriar(ponto);
+			if (resultado == 200) {
+				alert = new Alert(AlertType.CONFIRMATION);
+				alert.setTitle("Feedback");
+				alert.setHeaderText(null);
+				alert.setContentText("Digital aprovada e Ponto lançado!");
+
+				alert.showAndWait();
+				imdAuth.iniciarLogout();
+			} else {
+				alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Feedback");
+				alert.setHeaderText(null);
+				alert.setContentText("Ocorreu um erro!");
+
+				alert.showAndWait();
+			}
+		} else {
+			Alert alert3 = new Alert(AlertType.ERROR);
+			alert.setTitle("Feedback");
+			alert.setHeaderText(null);
+			alert.setContentText("Digital não aprovada!");
+
+			alert.showAndWait();
+		}
 	}
 
 	@FXML
@@ -405,10 +466,22 @@ public class InicioController implements Initializable {
 		try {
 			UsuarioService service = new UsuarioService();
 
-			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+			Gson customGson = new GsonBuilder().registerTypeAdapter(Date.class, new JsonDeserializer<Date>() {
+				@Override
+				public Date deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+						throws JsonParseException {
+					for (String format : DATE_FORMATS) {
+						try {
+							return new SimpleDateFormat(format, Locale.US).parse(json.getAsString());
+						} catch (ParseException e) {
+						}
+					}
+					return new Date(json.getAsLong());
+				}
+			}).registerTypeHierarchyAdapter(byte[].class, new ByteArrayToBase64TypeAdapter()).create();
 			Type listTypeUs = new TypeToken<ArrayList<Usuario>>() {
 			}.getType();
-			List<Usuario> usuarios = gson.fromJson(service.usuarioBuscarCPF(tfCPF.getText()), listTypeUs);
+			List<Usuario> usuarios = customGson.fromJson(service.usuarioBuscarCPF(tfCPF.getText()), listTypeUs);
 
 			imdAuth.setUsuario(usuarios.get(0));
 			actionPreencherVinculo();
@@ -422,10 +495,44 @@ public class InicioController implements Initializable {
 		}
 	}
 
+	private static final String[] DATE_FORMATS = new String[] { "MMM dd, yyyy HH:mm:ss", "MMM dd, yyyy",
+			"yyyy.MM.dd G 'at' HH:mm:ss z", "yyyy-MM-dd'T'HH:mm:ss.SSSXXX", "yyyy-MM-dd'T'HH:mm:ss.SSSZ",
+			"yyyy-MM-dd'T'HH:mm:ssZ", "yyyyy.MMMMM.dd GGG hh:mm aaa", "yyyy-MM-dd",
+
+	};
+	
+	public class ByteArrayToBase64TypeAdapter implements JsonSerializer<byte[]>, JsonDeserializer<byte[]> {
+
+		@Override
+		public JsonElement serialize(byte[] src, Type type, JsonSerializationContext jsc) {
+			Base64 base = new Base64();
+			return new JsonPrimitive(base.encodeToString(src));
+		}
+
+		@Override
+		public byte[] deserialize(JsonElement json, Type type, JsonDeserializationContext jdc)
+				throws JsonParseException {
+			Base64 base = new Base64();
+			return base.decode(json.getAsString());
+		}
+
+	}
+
 	@FXML
 	public void actionPreencherVinculo() {
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-
+		Gson gson = new GsonBuilder().registerTypeAdapter(Date.class, new JsonDeserializer<Date>() {
+			@Override
+			public Date deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+					throws JsonParseException {
+				for (String format : DATE_FORMATS) {
+					try {
+						return new SimpleDateFormat(format, Locale.US).parse(json.getAsString());
+					} catch (ParseException e) {
+					}
+				}
+				return new Date(json.getAsLong());
+			}
+		}).registerTypeHierarchyAdapter(byte[].class, new ByteArrayToBase64TypeAdapter()).create();
 		Type listType = new TypeToken<ArrayList<Vinculo>>() {
 		}.getType();
 		Collection<Vinculo> vinculos = gson.fromJson(new VinculoService().vinculoBuscarUsuario(imdAuth.getUsuario()),

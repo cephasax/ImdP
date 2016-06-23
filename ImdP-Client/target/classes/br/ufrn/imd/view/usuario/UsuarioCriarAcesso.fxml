@@ -66,5 +66,6 @@
             <Separator orientation="VERTICAL" prefHeight="200.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowSpan="5" />
          </children>
       </GridPane>
+      <Button fx:id="btnDigital" layoutX="102.0" layoutY="387.0" mnemonicParsing="false" onAction="#handleBtnDigital" prefHeight="25.0" prefWidth="459.0" text="Digital" />
   </children>
 </AnchorPane>

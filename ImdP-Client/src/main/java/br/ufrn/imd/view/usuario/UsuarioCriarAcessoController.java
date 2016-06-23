@@ -5,6 +5,7 @@ import java.io.IOException;
 import br.ufrn.imd.dominio.Usuario;
 import br.ufrn.imd.main.ImdAuth;
 import br.ufrn.imd.services.UsuarioService;
+import br.ufrn.imd.view.fingerprint.DigitalPersona;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -22,6 +23,8 @@ public class UsuarioCriarAcessoController {
 	private TextField tfLogin;
 	@FXML
 	private Button btnFoto;
+	@FXML
+	private Button btnDigital;
 	@FXML
 	private ImageView imgFoto;
 	@FXML
@@ -41,7 +44,6 @@ public class UsuarioCriarAcessoController {
 			usuario.setLogin(tfLogin.getText());
 			usuario.setSenha(tfSenha.getText());
 			usuario.setFoto("foto");
-			usuario.setDigital(null);
 			int resultado;
 			resultado = service.usuarioCriar(usuario);
 			if (resultado == 200) {
@@ -82,6 +84,13 @@ public class UsuarioCriarAcessoController {
 	@FXML
 	public void handleCancelar() throws IOException {
 		imdAuth.iniciarTelaPrincipal();
+	}
+	
+	@FXML
+	public void handleBtnDigital() throws IOException {
+		DigitalPersona dp = new DigitalPersona();
+		dp.principal();
+		usuario.setDigital(dp.get());
 	}
 
 	public void setUsuario(Usuario usuario) {

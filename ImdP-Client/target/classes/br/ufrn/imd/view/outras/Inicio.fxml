@@ -31,7 +31,7 @@
                </image>
             </ImageView>
             <Text fx:id="lblCliqueAqui" layoutX="447.0" layoutY="373.0" onMouseClicked="#handleCliqueAqui" strokeType="OUTSIDE" strokeWidth="0.0" text="Clique aqui!" visible="false" />
-            <Button fx:id="btnCadastrar" layoutX="362.0" layoutY="332.0" mnemonicParsing="false" onAction="#actionCadastrarDigital" text="Cadastrar Ponto" />
+            <Button fx:id="btnCadastrar" layoutX="362.0" layoutY="332.0" mnemonicParsing="false" onAction="#actionVerificarDigital" text="Cadastrar Ponto" />
             <GridPane layoutX="239.0" layoutY="273.0" prefHeight="54.0" prefWidth="307.0">
                <columnConstraints>
                   <ColumnConstraints />

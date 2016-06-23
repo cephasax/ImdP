@@ -15,6 +15,7 @@ import br.ufrn.imd.view.cargo.CargoBuscarController;
 import br.ufrn.imd.view.cargo.CargoCriarController;
 import br.ufrn.imd.view.cargo.CargoEditarController;
 import br.ufrn.imd.view.cargo.CargoListarController;
+import br.ufrn.imd.view.fingerprint.DigitalPersona;
 import br.ufrn.imd.view.fingerprint.MainForm;
 import br.ufrn.imd.view.justificativaFalta.JustificativaBuscarController;
 import br.ufrn.imd.view.justificativaFalta.JustificativaCriarController;
@@ -70,16 +71,28 @@ public class ImdAuth extends Application {
 
 	private Stage primaryStage;
 	public BorderPane rootLayout;
-	private Usuario usuario;
-	private Maquina maquina;
+	private Usuario usuario = new Usuario();
+	private Vinculo vinculo = new Vinculo();
+	//Provisorio ate conseguir identificar a maquina
+	private Maquina maquina = new Maquina(11, "Maquina Recepcao", "192.168.0.10", new Unidade("IMD")); 
+	private DigitalPersona dp = new DigitalPersona();
 
 	@Override
 	public void start(Stage primaryStage) throws IOException {
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("Biometric Auth IMD");
-		// this.primaryStage.getIcons().add(new Image("../../../../../resources/images/pontoAntigo/logoicon.png"));
+		// this.primaryStage.getIcons().add(new
+		// Image("../../../../../resources/images/pontoAntigo/logoicon.png"));
 		showMainView();
 
+	}
+
+	public DigitalPersona getDp() {
+		return dp;
+	}
+
+	public void setDp(DigitalPersona dp) {
+		this.dp = dp;
 	}
 
 	public Usuario getUsuario() {
@@ -88,6 +101,14 @@ public class ImdAuth extends Application {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+
+	public Vinculo getVinculo() {
+		return vinculo;
+	}
+
+	public void setVinculo(Vinculo vinculo) {
+		this.vinculo = vinculo;
 	}
 
 	public Maquina getMaquina() {
@@ -581,7 +602,8 @@ public class ImdAuth extends Application {
 	}
 
 	public void iniciarLogout() throws IOException {
-
+		setUsuario(null);
+		setVinculo(null);
 		// Carrega a tela principal
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(ImdAuth.class.getResource("../view/outras/Inicio.fxml"));
@@ -607,6 +629,20 @@ public class ImdAuth extends Application {
 	public void testDigital() {
 		MainForm main = new MainForm();
 		main.clickVerificar();
+	}
+
+	public void testCriarDigital() {
+		MainForm main = new MainForm();
+		main.clickCadastrarDigital();
+	}
+
+	public boolean testeVerificarDigital() {
+		if (dp.verificar(usuario.getDigital())) {
+			return true;
+		} else {
+			return false;
+		}
+
 	}
 
 	public static void main(String[] args) {

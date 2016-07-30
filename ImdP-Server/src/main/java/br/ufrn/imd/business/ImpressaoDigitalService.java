@@ -1,13 +1,11 @@
 package br.ufrn.imd.business;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import br.ufrn.imd.dao.ImpressaoDigitalDao;
-import br.ufrn.imd.dominio.Cargo;
 import br.ufrn.imd.dominio.ImpressaoDigital;
 import br.ufrn.imd.excecoes.DadoIncompletoException;
 import br.ufrn.imd.excecoes.DadoJaExisteException;

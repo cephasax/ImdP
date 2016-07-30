@@ -16,7 +16,7 @@ public class PermissaoService extends GenericService {
 
 	}
 
-	public String PermissaoListar() {
+	public String permissaoListar() {
 		ResteasyWebTarget target = client
 				.target(getUrl() + getDomain() + getComplement() + getVersion() + "consulta/permissaos");
 		Response response = target.request().get();
@@ -28,7 +28,7 @@ public class PermissaoService extends GenericService {
 		return value;
 	}
 
-	public int PermissaoCriar(Permissao permissao) {
+	public int permissaoCriar(Permissao permissao) {
 		ResteasyWebTarget add = client
 				.target(getUrl() + getDomain() + getComplement() + getVersion() + "consulta/permissaos");
 
@@ -41,7 +41,7 @@ public class PermissaoService extends GenericService {
 		return addResponse.getStatus();
 	}
 
-	public String PermissaoBuscar(String nome) {
+	public String permissaoBuscar(String nome) {
 		ResteasyWebTarget target = client.target(
 				getUrl() + getDomain() + getComplement() + getVersion() + "consulta/permissaosFilter?nomePermissao=" + nome);
 		Response response = target.request().get();
@@ -55,7 +55,7 @@ public class PermissaoService extends GenericService {
 		return value;
 	}
 
-	public int PermissaoDeletar(Permissao permissao) {
+	public int permissaoDeletar(Permissao permissao) {
 		ResteasyWebTarget delete = client.target(
 				getUrl() + getDomain() + getComplement() + getVersion() + "consulta/permissaos/" + permissao.getIdPermissao());
 
@@ -68,7 +68,7 @@ public class PermissaoService extends GenericService {
 		return deleteResponse.getStatus();
 	}
 
-	public int PermissaoEditar(Permissao permissao) {
+	public int permissaoEditar(Permissao permissao) {
 		ResteasyWebTarget update = client
 				.target(getUrl() + getDomain() + getComplement() + getVersion() + "consulta/permissaos/");
 

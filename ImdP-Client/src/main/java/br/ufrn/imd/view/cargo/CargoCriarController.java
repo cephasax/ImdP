@@ -37,7 +37,7 @@ public class CargoCriarController {
 	public void handleCadastrar() throws IOException {
 		Cargo cargo = new Cargo(tfNomeCargo.getText());
 		int resultado;
-		resultado = service.CargoCriar(cargo);
+		resultado = service.cargoCriar(cargo);
 		if(resultado == 200){
 			Alert alert = new Alert(AlertType.CONFIRMATION);
 			alert.setTitle("Feedback");

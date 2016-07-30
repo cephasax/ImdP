@@ -28,6 +28,7 @@ import com.google.gson.reflect.TypeToken;
 
 import br.ufrn.imd.converter.VinculoConverter;
 import br.ufrn.imd.dominio.Cargo;
+import br.ufrn.imd.dominio.ImpressaoDigital;
 import br.ufrn.imd.dominio.JustificativaFalta;
 import br.ufrn.imd.dominio.Maquina;
 import br.ufrn.imd.dominio.Ponto;
@@ -37,6 +38,7 @@ import br.ufrn.imd.dominio.Unidade;
 import br.ufrn.imd.dominio.Usuario;
 import br.ufrn.imd.dominio.Vinculo;
 import br.ufrn.imd.main.ImdAuth;
+import br.ufrn.imd.services.ImpressaoDigitalService;
 import br.ufrn.imd.services.PontoService;
 import br.ufrn.imd.services.UsuarioService;
 import br.ufrn.imd.services.VinculoService;
@@ -465,6 +467,7 @@ public class InicioController implements Initializable {
 	public void actionVerificarUser() {
 		try {
 			UsuarioService service = new UsuarioService();
+			ImpressaoDigitalService digitalService = new ImpressaoDigitalService();
 
 			Gson customGson = new GsonBuilder().registerTypeAdapter(Date.class, new JsonDeserializer<Date>() {
 				@Override
@@ -484,6 +487,25 @@ public class InicioController implements Initializable {
 			List<Usuario> usuarios = customGson.fromJson(service.usuarioBuscarCPF(tfCPF.getText()), listTypeUs);
 
 			imdAuth.setUsuario(usuarios.get(0));
+			
+			Gson digitalGson = new GsonBuilder().registerTypeAdapter(Date.class, new JsonDeserializer<Date>() {
+				@Override
+				public Date deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+						throws JsonParseException {
+					for (String format : DATE_FORMATS) {
+						try {
+							return new SimpleDateFormat(format, Locale.US).parse(json.getAsString());
+						} catch (ParseException e) {
+						}
+					}
+					return new Date(json.getAsLong());
+				}
+			}).registerTypeHierarchyAdapter(byte[].class, new ByteArrayToBase64TypeAdapter()).create();
+			Type listTypeDig = new TypeToken<ArrayList<ImpressaoDigital>>() {
+			}.getType();
+			List<ImpressaoDigital> digitais = customGson.fromJson(digitalService.impressaoDigitalListar(imdAuth.getUsuario()), listTypeDig);
+			imdAuth.setDigital(digitais.get(0));
+			
 			actionPreencherVinculo();
 		} catch (Exception e) {
 			Alert alert = new Alert(AlertType.ERROR);

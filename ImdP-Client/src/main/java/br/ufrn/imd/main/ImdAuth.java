@@ -3,6 +3,7 @@ package br.ufrn.imd.main;
 import java.io.IOException;
 
 import br.ufrn.imd.dominio.Cargo;
+import br.ufrn.imd.dominio.ImpressaoDigital;
 import br.ufrn.imd.dominio.JustificativaFalta;
 import br.ufrn.imd.dominio.Maquina;
 import br.ufrn.imd.dominio.Ponto;
@@ -72,6 +73,7 @@ public class ImdAuth extends Application {
 	private Stage primaryStage;
 	public BorderPane rootLayout;
 	private Usuario usuario = new Usuario();
+	private ImpressaoDigital digital = new ImpressaoDigital();
 	private Vinculo vinculo = new Vinculo();
 	//Provisorio ate conseguir identificar a maquina
 	private Maquina maquina = new Maquina(11, "Maquina Recepcao", "192.168.0.10", new Unidade("IMD")); 
@@ -85,6 +87,14 @@ public class ImdAuth extends Application {
 		// Image("../../../../../resources/images/pontoAntigo/logoicon.png"));
 		showMainView();
 
+	}
+	
+	public ImpressaoDigital getDigital() {
+		return digital;
+	}
+
+	public void setDigital(ImpressaoDigital digital) {
+		this.digital = digital;
 	}
 
 	public DigitalPersona getDp() {
@@ -637,7 +647,7 @@ public class ImdAuth extends Application {
 	}
 
 	public boolean testeVerificarDigital() {
-		if (dp.verificar(usuario.getDigital())) {
+		if (dp.verificar(digital.getDigital())) {
 			return true;
 		} else {
 			return false;

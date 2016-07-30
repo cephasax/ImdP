@@ -9,10 +9,9 @@ public class Dialog {
 
 	public Dialog(int numero) {
 		this.resultado = numero;
-		Alerta();
 	}
 
-	public boolean Alerta() {
+	public boolean alerta() {
 		if (resultado == 200) {
 			alert = new Alert(AlertType.CONFIRMATION);
 			alert.setTitle("Feedback");

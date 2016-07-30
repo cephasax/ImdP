@@ -57,8 +57,8 @@ public class CargoListarController implements Initializable {
 
 		Type listType = new TypeToken<ArrayList<Cargo>>() {
 		}.getType();
-		List<Cargo> yourClassList = new Gson().fromJson(service.CargoListar(), listType);
-
+		List<Cargo> yourClassList = new Gson().fromJson(service.cargoListar(), listType);
+		
 		tblCargos.setItems(FXCollections.observableArrayList(yourClassList));
 		cargoNome.setCellValueFactory(new PropertyValueFactory<Cargo, String>("nome"));
 	}
@@ -66,7 +66,7 @@ public class CargoListarController implements Initializable {
 	@FXML
 	public void handleExcluir() throws IOException {
 		Cargo cargo = tblCargos.getSelectionModel().getSelectedItem();
-		int resultado = service.CargoDeletar(cargo);
+		int resultado = service.cargoDeletar(cargo);
 
 		if (resultado == 200) {
 			Alert alert = new Alert(AlertType.CONFIRMATION);

@@ -2,8 +2,10 @@ package br.ufrn.imd.view.usuario;
 
 import java.io.IOException;
 
+import br.ufrn.imd.dominio.ImpressaoDigital;
 import br.ufrn.imd.dominio.Usuario;
 import br.ufrn.imd.main.ImdAuth;
+import br.ufrn.imd.services.ImpressaoDigitalService;
 import br.ufrn.imd.services.UsuarioService;
 import br.ufrn.imd.view.fingerprint.DigitalPersona;
 import javafx.fxml.FXML;
@@ -36,6 +38,8 @@ public class UsuarioEditarAcessoController {
 
 	private UsuarioService service = new UsuarioService();
 
+	private ImpressaoDigitalService digitalService = new ImpressaoDigitalService();
+
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 
@@ -60,7 +64,10 @@ public class UsuarioEditarAcessoController {
 		System.out.println("to aqui.");
 		DigitalPersona dp = new DigitalPersona();
 		dp.principal();
-		usuario.setDigital(dp.get());
+
+		ImpressaoDigital impDigital = new ImpressaoDigital(usuario, dp.get());
+		digitalService.impressaoDigitalCriar(impDigital);
+//		usuario.setDigital(dp.get());
 	}
 	
 	@FXML

@@ -55,7 +55,7 @@ public class CargoBuscarController {
 
 	@FXML
 	public void handleBuscar() throws IOException {
-		String resultado = service.CargoBuscar(tfBuscaCargo.getText());
+		String resultado = service.cargoBuscar(tfBuscaCargo.getText());
 
 		Type listType = new TypeToken<ArrayList<Cargo>>() {
 		}.getType();
@@ -71,7 +71,7 @@ public class CargoBuscarController {
 	@FXML
 	public void handleExcluir() throws IOException {
 		Cargo cargo = tblCargos.getSelectionModel().getSelectedItem();
-		int resultado = service.CargoDeletar(cargo);
+		int resultado = service.cargoDeletar(cargo);
 
 		if (resultado == 200) {
 			Alert alert = new Alert(AlertType.CONFIRMATION);

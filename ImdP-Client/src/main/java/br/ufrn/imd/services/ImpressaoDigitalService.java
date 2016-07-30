@@ -7,18 +7,19 @@ import org.jboss.resteasy.client.jaxrs.ResteasyClient;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
 
-import br.ufrn.imd.dominio.Cargo;
+import br.ufrn.imd.dominio.ImpressaoDigital;
+import br.ufrn.imd.dominio.Usuario;
 
-public class CargoService extends GenericService {
+public class ImpressaoDigitalService extends GenericService {
 	ResteasyClient client = new ResteasyClientBuilder().build();
 
-	public CargoService() {
+	public ImpressaoDigitalService() {
 
 	}
 
-	public String cargoListar() {
+	public String impressaoDigitalListar(Usuario usuario) {
 		ResteasyWebTarget target = client
-				.target(getUrl() + getDomain() + getComplement() + getVersion() + "consulta/cargos");
+				.target(getUrl() + getDomain() + getComplement() + getVersion() + "consulta/digitais/usuarios/" + usuario.getIdUsuario());
 		Response response = target.request().get();
 
 		String value = response.readEntity(String.class);
@@ -28,11 +29,11 @@ public class CargoService extends GenericService {
 		return value;
 	}
 
-	public int cargoCriar(Cargo cargo) {
+	public int impressaoDigitalCriar(ImpressaoDigital impressaoDigital) {
 		ResteasyWebTarget add = client
-				.target(getUrl() + getDomain() + getComplement() + getVersion() + "consulta/cargos");
+				.target(getUrl() + getDomain() + getComplement() + getVersion() + "consulta/digitais");
 
-		Response addResponse = add.request().post(Entity.entity(cargo, "application/json"));
+		Response addResponse = add.request().post(Entity.entity(impressaoDigital, "application/json"));
 		System.out.println("HTTP Response Code:" + addResponse.getStatus());
 
 		System.out.println("Server response : \n");
@@ -41,23 +42,9 @@ public class CargoService extends GenericService {
 		return addResponse.getStatus();
 	}
 
-	public String cargoBuscar(String nome) {
-		ResteasyWebTarget target = client.target(
-				getUrl() + getDomain() + getComplement() + getVersion() + "consulta/cargosFilter?nomeCargo=" + nome);
-		Response response = target.request().get();
-
-		System.out.println("HTTP Response Code:" + response.getStatus());
-
-		String value = response.readEntity(String.class);
-		System.out.println(value);
-
-		response.close();
-		return value;
-	}
-
-	public int cargoDeletar(Cargo cargo) {
+	public int impressaoDigitalDeletar(ImpressaoDigital impressaoDigital) {
 		ResteasyWebTarget delete = client.target(
-				getUrl() + getDomain() + getComplement() + getVersion() + "consulta/cargos/" + cargo.getIdCargo());
+				getUrl() + getDomain() + getComplement() + getVersion() + "consulta/digitals/" + impressaoDigital.getIdImpressaoDigital());
 
 		Response deleteResponse = delete.request().delete();
 		System.out.println("HTTP Response Code:" + deleteResponse.getStatus());
@@ -68,11 +55,11 @@ public class CargoService extends GenericService {
 		return deleteResponse.getStatus();
 	}
 	
-	public int cargoEditar(Cargo cargo){
+	public int impressaoDigitalEditar(ImpressaoDigital impressaoDigital){
 		ResteasyWebTarget update = client.target(
-				getUrl() + getDomain() + getComplement() + getVersion() + "consulta/cargos/");
+				getUrl() + getDomain() + getComplement() + getVersion() + "consulta/digitais");
 
-		Response updateResponse = update.request().put(Entity.entity(cargo, "application/json"));
+		Response updateResponse = update.request().put(Entity.entity(impressaoDigital, "application/json"));
 		System.out.println("HTTP Response Code:" + updateResponse.getStatus());
 
 		System.out.println("Server response : \n");

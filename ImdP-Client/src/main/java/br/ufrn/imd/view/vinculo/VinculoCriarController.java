@@ -150,7 +150,7 @@ public class VinculoCriarController implements Initializable {
 
 		Type listTypeC = new TypeToken<ArrayList<Cargo>>() {
 		}.getType();
-		Collection<Cargo> cargos = new Gson().fromJson(serviceCargo.CargoListar(), listTypeC);
+		Collection<Cargo> cargos = new Gson().fromJson(serviceCargo.cargoListar(), listTypeC);
 
 		cbCargo.getItems().addAll(cargos);
 		cbCargo.setConverter(new CargoConverter());

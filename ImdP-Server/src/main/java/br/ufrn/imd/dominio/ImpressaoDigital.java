@@ -26,6 +26,25 @@ public class ImpressaoDigital implements Serializable{
 	
 	private byte[] digital;
 	private String nomeDedo;
+	
+	public ImpressaoDigital() {
+		super();
+	}
+
+	public ImpressaoDigital(int idImpressaoDigital, Usuario usuario, byte[] digital, String nomeDedo) {
+		super();
+		this.idImpressaoDigital = idImpressaoDigital;
+		this.usuario = usuario;
+		this.digital = digital;
+		this.nomeDedo = nomeDedo;
+	}
+
+
+	public ImpressaoDigital(Usuario usuario, byte[] digital) {
+		super();
+		this.usuario = usuario;
+		this.digital = digital;
+	}
 
 	public int getIdImpressaoDigital() {
 		return idImpressaoDigital;

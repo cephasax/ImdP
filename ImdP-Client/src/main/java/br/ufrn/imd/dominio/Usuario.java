@@ -28,7 +28,6 @@ public class Usuario implements Serializable {
 	private String email;
 	private String telefone1;
 	private String telefone2;
-	private byte[] digital;
 
 	private String login;
 	private String senha;
@@ -42,7 +41,7 @@ public class Usuario implements Serializable {
 
 	public Usuario(int idUsuario, String nome, String sexo, Date dataNascimento, String cpf, String rg,
 			String orgaoExpedicaoRg, Date dataExpedicaoRg, String estadoRg, String cnh, String nomePai, String nomeMae,
-			String email, String telefone1, String telefone2, byte[] digital, String login, String senha, String foto,
+			String email, String telefone1, String telefone2, String login, String senha, String foto,
 			Date dataCriacao) {
 		super();
 		this.idUsuario = idUsuario;
@@ -60,7 +59,6 @@ public class Usuario implements Serializable {
 		this.email = email;
 		this.telefone1 = telefone1;
 		this.telefone2 = telefone2;
-		this.digital = digital;
 		this.login = login;
 		this.senha = senha;
 		this.foto = foto;
@@ -69,7 +67,7 @@ public class Usuario implements Serializable {
 
 	public Usuario(String nome, String sexo, Date dataNascimento, String cpf, String rg, String orgaoExpedicaoRg,
 			Date dataExpedicaoRg, String estadoRg, String cnh, String nomePai, String nomeMae, String email,
-			String telefone1, String telefone2, byte[] digital, String login, String senha, String foto,
+			String telefone1, String telefone2, String login, String senha, String foto,
 			Date dataCriacao) {
 		super();
 		this.nome = nome;
@@ -86,7 +84,6 @@ public class Usuario implements Serializable {
 		this.email = email;
 		this.telefone1 = telefone1;
 		this.telefone2 = telefone2;
-		this.digital = digital;
 		this.login = login;
 		this.senha = senha;
 		this.foto = foto;
@@ -268,11 +265,4 @@ public class Usuario implements Serializable {
 		this.telefone2 = telefone2;
 	}
 
-	public byte[] getDigital() {
-		return digital;
-	}
-
-	public void setDigital(byte[] digital) {
-		this.digital = digital;
-	}
 }
